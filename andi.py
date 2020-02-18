@@ -733,6 +733,7 @@ class ANDI():
                     if seg_dataset.shape[0] < N:
                         aux_seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, 
                                                                         dimension = dim, random_shuffle = True) 
+                        aux_seg_dataset = np.c_[np.ones(aux_seg_dataset.shape[0])*dim, aux_seg_dataset] 
                         seg_dataset = np.concatenate((seg_dataset, aux_seg_dataset), axis = 0)
                     else:
                         break
