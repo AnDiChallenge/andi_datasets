@@ -371,14 +371,13 @@ class ANDI():
                                                      save_trajectories, load_trajectories, 
                                                      path,
                                                      N_save, t_save)
-        if not noise_func:
-            noise_matrix = sigma*np.random.randn(dataset.shape[0], dataset.shape[1]-2)+mu
-        elif hasattr(noise_func, '__call__'):
-            noise_matrix = noise_func(dataset.shape[0], dataset.shape[1]-2)
-        else:
-            raise ValueError('noise_func has to be either False for Gaussian noise or a Python function')
+            
+        # Add the noise to the trajectories  
+        trajs = dataset[:,2:].reshape(dataset.shape[0]*dimension, T)
+        trajs = self.add_noisy_localization(trajs, noise_func, sigma, mu)
         
-        dataset[:,2:] = dataset[:,2:] + noise_matrix  
+        dataset[:,2:] = trajs.reshape(dataset.shape[0], T*dimension)
+        
         return dataset    
     
     def create_noisy_diffusion_dataset(self, 
@@ -399,6 +398,7 @@ class ANDI():
                   variance sigma and mean value mu.
                 - if function, uses the given function to generate noise to be added to the trajectory. The 
                   function must have as input two ints, N and M and the output must be a matrix of size NxM.
+                 - if numpy array, sums it to the trajectories
         Return:
             :data_models (numpy.array):
                 - Dataset of trajectories of lenght Nx(T+2), with the following structure:
@@ -411,18 +411,40 @@ class ANDI():
                                                      save_trajectories, load_trajectories, 
                                                      path,
                                                      N_save, t_save)
+        # Add the noise to the trajectories 
+        trajs = dataset[:,2:].reshape(dataset.shape[0]*dimension, T)
+        trajs = self.add_noisy_diffusion(trajs, diffusion_coefficients)
         
-        # First normalize the trajectories
-        dataset[:,2:] = normalize(dataset[:,2:])
-        # If no new diffusion coefficients given, create new ones randonmly
-        if not diffusion_coefficients:
-            diffusion_coefficients = np.random.randn(dataset.shape[0])
-        # Apply new diffusion coefficients
-        dataset[:,2:] = (dataset[:,2:].transpose()*diffusion_coefficients).transpose()
+        dataset[:,2:] = trajs.reshape(dataset.shape[0], T*dimension)
         
         return dataset
     
-
+    def add_noisy_localization(self, trajs, noise_func = False, sigma = 1, mu = 0):
+        
+        if isinstance(noise_func, np.ndarray):
+            noise_matrix = noise_func 
+        elif not noise_func:
+            noise_matrix = sigma*np.random.randn(trajs.shape[0], trajs.shape[1])+mu
+        elif hasattr(noise_func, '__call__'):
+            noise_matrix = noise_func(trajs.shape[0], trajs.shape[1])             
+        else:
+            raise ValueError('noise_func has to be either False for Gaussian noise, a Python function or numpy array.')
+        
+        trajs += noise_matrix 
+        
+        return trajs
+    
+    def add_noisy_diffusion(self, trajs, diffusion_coefficients = False):
+        
+        # First normalize the trajectories
+        trajs[:,2:] = normalize(trajs[:,2:])
+        # If no new diffusion coefficients given, create new ones randonmly
+        if not diffusion_coefficients:
+            diffusion_coefficients = np.random.randn(trajs.shape[0])
+        # Apply new diffusion coefficients
+        trajs[:,2:] = (trajs[:,2:].transpose()*diffusion_coefficients).transpose()
+        
+        return trajs
 
     
     def create_segmented_dataset(self, dataset1, dataset2, dimension = 1, 
@@ -640,13 +662,19 @@ class ANDI():
             if dim not in dimensions:
                 continue
             
-            # Generate, normalize and shuffle the dataset of the given dimension
+            # Generate the dataset of the given dimension
             print('Generating dataset for dimension '+str(dim)+'.')
             dataset = self.create_dataset(T = max_T, N= num_per_class, exponents = exponents_dataset, 
                                            dimension = dim, models = np.arange(len(self.avail_models_name)),
                                            load_trajectories = load_trajectories, save_trajectories = save_trajectories,
                                            N_save = N_save, t_save = t_save)
-            dataset[:, 2:] = normalize(np.reshape(dataset[:, 2:], (dataset.shape[0]*dim, T))).reshape(dataset.shape[0], T*dim)
+            # Add random diffusion coefficients
+            dataset = self.create_noisy_diffusion_dataset(dataset, dimension = dim, T = max_T)
+            # Add localization error, Gaussian noise with sigma = [0.1, 0.3, 0.5]
+            loc_error_amplitude = np.random.choice(np.array([0.1, 0.3, 0.5]), size = dataset.shape[0]*dim)
+            loc_error = (np.random.randn(dataset.shape[0]*dim, int((dataset.shape[1]-2)/dim)).transpose()*loc_error_amplitude).transpose()
+            dataset = self.create_noisy_localization_dataset(dataset, dimension = dim, T = max_T, noise_func = loc_error)
+            # Shuffle the dataset
             np.random.shuffle(dataset) 
             
             # Task 1 and 2 - Anomalous exponent and model
@@ -669,7 +697,8 @@ class ANDI():
                             writer_ref1.writerow(np.append(dim, np.around([traj[1]],2)))
                         
                     # Saving task 2 dataset
-                    if 2 in tasks:
+                    if 2 in tasks:                        
+                        np.random.shuffle(dataset) 
                         X2[dim-1].append(traj_cut)
                         Y2[dim-1].append(np.around(traj[0], 2))    
                         if save_dataset:
@@ -699,87 +728,3 @@ class ANDI():
                         
                         
         return X1, Y1, X2, Y2, X3, Y3
-    
-    
-#%%
-T = 100; N = 1; dim = 3
-mstd = np.zeros(4)
-
-andi = ANDI()
-dataset = andi.create_dataset(T = T, N = N, exponents = [0.7], models = [0,1,2,4], dimension=3)
-
-dataset = andi.create_noisy_diffusion_dataset(dataset.copy())
-datasetn = andi.create_noisy_localization_dataset(dataset.copy())
-
-fig, ax = plt.subplots(1,2)
-
-ax[0].plot(dataset.transpose())
-ax[1].plot(datasetn.transpose())
-
-
-#ddd = dataset.copy()
-#dataset[:,2:] = normalize(dataset[:,2:])
-#dataset[:,2:] = (dataset[:,2:].transpose()*np.random.randn(dataset.shape[0])).transpose()
-
-    
-#%%    
-#    trajs = data1[:,2:].copy()  
-##    trajs = trajs - trajs.mean(axis=1, keepdims=True)
-##    displacements = (trajs[:,1:] - trajs[:,:-1]).copy()    
-##    variance = np.std(displacements, axis=1)
-##    variance[variance == 0] = 1    
-#    norm_traj = new_norm(trajs)# np.cumsum((displacements.transpose()/variance).transpose(), axis = 1)
-#    
-#    
-#    mstd +=  np.std(norm_traj[:,1:]-norm_traj[:,:-1], axis = 1)
-#
-#
-#plt.plot((mstd)/2000,'-o')
-#plt.xticks(np.arange(4), andi.avail_models_name)
-#plt.ylabel('Mean variance of normalized trajectories')
-##%%np.reshape(data1[:,2:].copy(), (data1.shape[0],T*dim))
-#
-#norm_traj = trajs - trajs.mean(axis=1, keepdims=True)
-#norm_traj = (norm_traj.transpose()/np.std(norm_traj, axis=1)).transpose()
-##%%
-# 
-#variance = np.sqrt((traj**2).mean(axis=1, keepdims=True))
-#variance[variance == 0] = 1 # If the variance is equal to zero, we put
-#            				# variance to one to do nothing in the next
-#				                # step.    
-#norm_traj = (traj - traj.mean(axis=1, keepdims=True))/variance   
-#norm_traj = norm_traj.reshape(dimensions*num_traj, int(len_traj/dimensions))
-#return (norm_traj.transpose() - norm_traj[:,0]).transpose().reshape(num_traj, len_traj)
-#
-#
-##%%
-#
-##def new_norm(trajs):
-#
-#trajs = data1[:,2:].copy()
-#    
-#displacements = (trajs[:,1:] - trajs[:,:-1]).copy()
-#
-#
-#variance = np.var(displacements, axis=1)
-#variance[variance == 0] = 1
-#
-#norm_traj = ((trajs - trajs.mean(axis = 1, keepdims=True)).transpose()/variance).transpose()
-#    
-#    
-#    #diff_coeff = np.random.rand(displacements.shape[0])
-#    #displacements = (displacements.transpose()*diff_coeff).transpose()
-#    #
-#    #
-#    #np.std(displacements, axis=1)
-#    #
-##    return np.cumsum(displacements, axis = 1)
-#
-#
-##%%
-#
-#a = np.ones((2,10))
-#a[0,:] = np.arange(10)
-#a[1,:] = np.arange(10)*20+4
-#
-#b = normalize(a,1)
