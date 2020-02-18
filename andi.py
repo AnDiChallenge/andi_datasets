@@ -146,6 +146,7 @@ class ANDI():
                                    models_name = self.models_name,
                                    models_func = self.models_func,
                                    path = path, 
+                                   num_per_class = num_per_class,
                                    N_save = N_save,
                                    t_save = t_save)
             
@@ -214,6 +215,9 @@ class ANDI():
                                 str(int(N_save[idx_m, idx_e]))+'_dim_'+str(self.dimension)  
                 
                 n = int(num_per_class[idx_m, idx_e])
+                if n == 0:
+                    continue
+                
                 data = (hf.get(name_dataset)[()][:n,:T]) 
                 
                 data = self.label_trajectories(trajs = data, model_name = name, exponent = exp)                
@@ -224,7 +228,8 @@ class ANDI():
                     dataset = np.concatenate((dataset, data), axis = 0) 
         return dataset
      
-    def save_trajectories(self, exponents, models_name, models_func, path, N_save = 10000, t_save = 1000, dimension = 1):
+    def save_trajectories(self, exponents, models_name, models_func, path, num_per_class,
+                          N_save = 10000, t_save = 1000, dimension = 1):
         ''' Saves a dataset for the exponents and models considered. 
         Arguments:   
             :exponents (array):
@@ -256,6 +261,9 @@ class ANDI():
             with h5py.File(path+name+'.h5', action) as hf:
                 
                 for idx_e, exp in enumerate(exponents): 
+                    if num_per_class[idx_m, idx_e] == 0:
+                        continue
+                    
                     n = int(N_save[idx_m, idx_e])
                     name_dataset = '{0:.2f}'.format(exp)+'_T_'+str(t_save)+'_N_'+str(n)+'_dim_'+str(self.dimension) 
                     
@@ -437,12 +445,12 @@ class ANDI():
     def add_noisy_diffusion(self, trajs, diffusion_coefficients = False):
         
         # First normalize the trajectories
-        trajs[:,2:] = normalize(trajs[:,2:])
+        trajs = normalize(trajs)
         # If no new diffusion coefficients given, create new ones randonmly
         if not diffusion_coefficients:
             diffusion_coefficients = np.random.randn(trajs.shape[0])
         # Apply new diffusion coefficients
-        trajs[:,2:] = (trajs[:,2:].transpose()*diffusion_coefficients).transpose()
+        trajs = (trajs.transpose()*diffusion_coefficients).transpose()
         
         return trajs
 
@@ -642,9 +650,6 @@ class ANDI():
         # FBM does not work for alpha = 2
         num_per_class[2, exponents_dataset == 2] = 0
         
-        # Define return datasets
-        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]];
-        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]];  
         
         # Initialize the files
         if save_dataset:
@@ -674,7 +679,7 @@ class ANDI():
             loc_error_amplitude = np.random.choice(np.array([0.1, 0.3, 0.5]), size = dataset.shape[0]*dim)
             loc_error = (np.random.randn(dataset.shape[0]*dim, int((dataset.shape[1]-2)/dim)).transpose()*loc_error_amplitude).transpose()
             dataset = self.create_noisy_localization_dataset(dataset, dimension = dim, T = max_T, noise_func = loc_error)
-            # Shuffle the dataset
+
             np.random.shuffle(dataset) 
             
             # Task 1 and 2 - Anomalous exponent and model
@@ -706,16 +711,33 @@ class ANDI():
                             writer_ref2 = csv.writer(open(ref2,'a'), delimiter=';',lineterminator='\n',)
                             writer_task2.writerow(np.append(dim, traj_cut))
                             writer_ref2.writerow(np.append(dim, traj[0]))
-            
+                            
             # Task 3 - Segmentated trajectories
             if 3 in tasks:  
                 # Create a copy of the dataset and use it to create the 
                 # segmented dataset
-                dataset_copy = np.copy(dataset)
-                np.random.shuffle(dataset_copy)
-                seg_dataset = self.create_segmented_dataset(dataset, dataset_copy, dimension = dim)        
-                seg_dataset = np.c_[np.ones(seg_dataset.shape[0])*dim, seg_dataset]            
+                dataset_copy1 = dataset.copy()
+                dataset_copy2 = dataset.copy()
+                seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, 
+                                                            dimension = dim, random_shuffle = True)        
+                seg_dataset = np.c_[np.ones(seg_dataset.shape[0])*dim, seg_dataset]     
                 
+                # Checking that there are no segmented trajectories with same exponent and model 
+                # in each segment. First we compute the difference between labels
+                diff = np.abs(seg_dataset[:,2]-seg_dataset[:,4])+np.abs(seg_dataset[:,3]-seg_dataset[:,5])
+                # Then, if there are repeated labels, we eliminate those trajectories
+                while len(np.argwhere(diff == 0)) > 0: 
+                    seg_dataset = np.delete(seg_dataset, np.argwhere(diff == 0), 0)
+                    # If the size of the dataset is too small, we generate new segmented trajectories
+                    # and add them to the dataset
+                    if seg_dataset.shape[0] < N:
+                        aux_seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, 
+                                                                        dimension = dim, random_shuffle = True) 
+                        seg_dataset = np.concatenate((seg_dataset, aux_seg_dataset), axis = 0)
+                    else:
+                        break
+                    
+                    
                 X3[dim-1] = seg_dataset[:N, 6:]
                 Y3[dim-1] = seg_dataset[:N, :6]
                 
