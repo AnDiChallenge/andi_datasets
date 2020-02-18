@@ -42,22 +42,17 @@ def sample_sphere(N, R):
     vecs /= np.linalg.norm(vecs, axis=0)
     return R*vecs
 
-def normalize(traj, dimensions):
+def normalize(trajs):    
     ''' Normalizes trajectories by substracting average and dividing by sqrt of msd
     Arguments:
 	- traj: trajectory or ensemble of trajectories to normalize. 
     - dimensions: dimension of the trajectory.
 	return: normalized trajectory'''
-    # If there is a single trajectory to normalize, reshape to not have 
-    # problems afterwards
-    if len(traj.shape) == 1:
-        traj = np.reshape(traj, (1, traj.shape[0])) 
-    num_traj = traj.shape[0]
-    len_traj = traj.shape[1]  
-    variance = np.sqrt((traj**2).mean(axis=1, keepdims=True))
-    variance[variance == 0] = 1 # If the variance is equal to zero, we put
-                				# variance to one to do nothing in the next
-				                # step.    
-    norm_traj = (traj - traj.mean(axis=1, keepdims=True))/variance   
-    norm_traj = norm_traj.reshape(dimensions*num_traj, int(len_traj/dimensions))
-    return (norm_traj.transpose() - norm_traj[:,0]).transpose().reshape(num_traj, len_traj)
+    if len(trajs.shape) == 1:
+        trajs = np.reshape(trajs, (1, trajs.shape[0]))
+    trajs = trajs - trajs.mean(axis=1, keepdims=True)
+    displacements = (trajs[:,1:] - trajs[:,:-1]).copy()    
+    variance = np.std(displacements, axis=1)
+    variance[variance == 0] = 1    
+    new_trajs = np.cumsum((displacements.transpose()/variance).transpose(), axis = 1)
+    return np.concatenate((np.zeros((new_trajs.shape[0], 1)), new_trajs), axis = 1)
