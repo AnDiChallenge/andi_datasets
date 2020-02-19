@@ -640,7 +640,7 @@ class ANDI():
         # shuffling, we will cut the latest trajectories.
         # Valid classes contains the combinations of models and alphas allowed:
         # alpha_sup * (fbm,sbm,lw) + alpha_sub * (fbm,sbm,ctrw,attm) + all_normal - fbm can't be ballistic
-        valid_classes = 20*3 + 19*4 + 6 - 1                       
+        valid_classes = 20*3 + 19*4 + 5 - 1                       
         num_per_class = np.ones((len(self.avail_models_name), len(exponents_dataset)))*np.ceil(N/valid_classes) 
         
         # Restrict ctrw and attm to subdiffusive
