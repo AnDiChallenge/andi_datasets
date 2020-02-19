@@ -211,6 +211,7 @@ class ANDI():
             hf = h5py.File(path+name+'.h5', 'r+')
             
             for idx_e, exp  in enumerate(exponents):
+                
                 name_dataset = '{0:.2f}'.format(exp)+'_T_'+str(t_save)+'_N_'+ \
                                 str(int(N_save[idx_m, idx_e]))+'_dim_'+str(self.dimension)  
                 
@@ -218,7 +219,11 @@ class ANDI():
                 if n == 0:
                     continue
                 
-                data = (hf.get(name_dataset)[()][:n,:T]) 
+                try:
+                    data = (hf.get(name_dataset)[()][:n,:self.dimension*T]) 
+                except:
+                    raise TypeError('The dataset you want to load does not exist.')
+                    
                 
                 data = self.label_trajectories(trajs = data, model_name = name, exponent = exp)                
                             
@@ -264,22 +269,22 @@ class ANDI():
                     if num_per_class[idx_m, idx_e] == 0:
                         continue
                     
-                    n = int(N_save[idx_m, idx_e])
+                    n = int(N_save[idx_m, idx_e])                    
                     name_dataset = '{0:.2f}'.format(exp)+'_T_'+str(t_save)+'_N_'+str(n)+'_dim_'+str(self.dimension) 
                     
                     if name_dataset not in hf:  
                         
-                        data = np.zeros((n, self.dimension*t_save))                 
+                        data = np.zeros((n, self.dimension*t_save))                           
                         # TQDM variables
                         tq = trange(n)
                         tq.set_postfix(saving = True, model = name, exponent = exp)
                         for i in tq:
-                            data[i, :] = func(t_save, exp) 
+                            data[i, :] = func(t_save, exp)                           
                             
                         hf.create_dataset(name_dataset, data=data)
                         
                     else:
-                        print('The dataset for '+name+' with exponent '+str(exp)
+                        print('The dataset for '+name+' with exponent '+str(round(exp,3))
                                 +' already exists, no need of saving it again.')
             
         
@@ -307,6 +312,7 @@ class ANDI():
             
         for idx_m, (name, func) in enumerate(zip(models_name, models_func)):
             for idx_e, exp in enumerate(exponents):
+                
                 
                 n = int(num_per_class[idx_m, idx_e])
                 data = np.zeros((n, self.dimension*T))  
@@ -641,7 +647,7 @@ class ANDI():
         # Valid classes contains the combinations of models and alphas allowed:
         # alpha_sup * (fbm,sbm,lw) + alpha_sub * (fbm,sbm,ctrw,attm) + all_normal - fbm can't be ballistic
         valid_classes = 20*3 + 19*4 + 5 - 1                       
-        num_per_class = np.ones((len(self.avail_models_name), len(exponents_dataset)))*np.ceil(N/valid_classes) 
+        num_per_class = np.ones((len(self.avail_models_name), len(exponents_dataset)))*np.ceil(1.1*N/valid_classes) 
         
         # Restrict ctrw and attm to subdiffusive
         num_per_class[:2, exponents_dataset > 1] = 0
