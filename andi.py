@@ -641,21 +641,24 @@ class ANDI():
 
             
         exponents_dataset = np.arange(0.05, 2.01, 0.05)
-        # Trajectories per model and exponent. To consider a slightly imbalanced
-        # dataset, we will create more trajectories than needed. Then, after
-        # shuffling, we will cut the latest trajectories.
-        # Valid classes contains the combinations of models and alphas allowed:
-        # alpha_sup * (fbm,sbm,lw) + alpha_sub * (fbm,sbm,ctrw,attm) + all_normal - fbm can't be ballistic
-        valid_classes = 20*3 + 19*4 + 5 - 1                       
-        num_per_class = np.ones((len(self.avail_models_name), len(exponents_dataset)))*np.ceil(1.1*N/valid_classes) 
+        # Trajectories per model and exponent. Arbitrarely chose to fulfill balanced classes
+        N_models = np.ceil(1.6*N/5)
+        subdif = 20
+        superdif = 21
+        num_per_class =  np.zeros((len(self.avail_models_name), len(exponents_dataset)))
+        # ctrw, attm
+        num_per_class[:2,:20] = np.ceil(N_models/subdif)
+        # fbm
+        num_per_class[2, :] = np.ceil(N_models/(len(exponents_dataset)-1))
+        num_per_class[2, exponents_dataset == 2] = 0 # FBM can't be ballistic
+        # lw
+        num_per_class[3, 20:] = np.ceil((N_models/superdif)*0.8)
+        # sbm
+        num_per_class[4, :] = np.ceil(N_models/len(exponents_dataset))
         
-        # Restrict ctrw and attm to subdiffusive
-        num_per_class[:2, exponents_dataset > 1] = 0
-        # Restrict LW to superdiffusive
-        num_per_class[3, exponents_dataset < 1] = 0
-        # FBM does not work for alpha = 2
-        num_per_class[2, exponents_dataset == 2] = 0
-        
+        # Define return datasets
+        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]];
+        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]];  
         
         # Initialize the files
         if save_dataset:
@@ -672,60 +675,112 @@ class ANDI():
         for dim in [1,2,3]:             
             if dim not in dimensions:
                 continue
-            
-            # Generate the dataset of the given dimension
+        
+        #%%  Generate the dataset of the given dimension
             print('Generating dataset for dimension '+str(dim)+'.')
             dataset = self.create_dataset(T = max_T, N= num_per_class, exponents = exponents_dataset, 
                                            dimension = dim, models = np.arange(len(self.avail_models_name)),
-                                           load_trajectories = load_trajectories, save_trajectories = save_trajectories,
-                                           N_save = N_save, t_save = t_save)
-            # Add random diffusion coefficients
-            dataset = self.create_noisy_diffusion_dataset(dataset, dimension = dim, T = max_T)
-            # Add localization error, Gaussian noise with sigma = [0.1, 0.3, 0.5]
-            loc_error_amplitude = np.random.choice(np.array([0.1, 0.3, 0.5]), size = dataset.shape[0]*dim)
-            loc_error = (np.random.randn(dataset.shape[0]*dim, int((dataset.shape[1]-2)/dim)).transpose()*loc_error_amplitude).transpose()
-            dataset = self.create_noisy_localization_dataset(dataset, dimension = dim, T = max_T, noise_func = loc_error)
-
-            np.random.shuffle(dataset) 
+                                           load_trajectories = False, save_trajectories = False, N_save = 100,
+                                           path = 'datasets/')
             
-            # Task 1 and 2 - Anomalous exponent and model
-            if 1 or 2 in tasks:   
-                for traj in dataset[:N, :]: 
-                    
-                    # Cutting trajectories
-                    cut = np.random.randint(min_T, max_T)
-                    traj_cut = traj[2:].reshape(dim, max_T)
-                    traj_cut = traj_cut[:, :cut].reshape(dim*cut).tolist()   
-                    
-                    # Saving task 1 dataset
-                    if 1 in tasks:
-                        X1[dim-1].append(traj_cut)
-                        Y1[dim-1].append(np.around(traj[1],2))
-                        if save_dataset:
-                            writer_task1 = csv.writer(open(task1,'a'), delimiter=';', lineterminator='\n',)
-                            writer_ref1 = csv.writer(open(ref1,'a'), delimiter=';', lineterminator='\n',)
-                            writer_task1.writerow(np.append(dim, traj_cut))
-                            writer_ref1.writerow(np.append(dim, np.around([traj[1]],2)))
-                        
-                    # Saving task 2 dataset
-                    if 2 in tasks:                        
-                        np.random.shuffle(dataset) 
-                        X2[dim-1].append(traj_cut)
-                        Y2[dim-1].append(np.around(traj[0], 2))    
-                        if save_dataset:
-                            writer_task2 = csv.writer(open(task2,'a'), delimiter=';', lineterminator='\n',)
-                            writer_ref2 = csv.writer(open(ref2,'a'), delimiter=';',lineterminator='\n',)
-                            writer_task2.writerow(np.append(dim, traj_cut))
-                            writer_ref2.writerow(np.append(dim, traj[0]))
+        #%% Add random diffusion coefficients
+            trajs = dataset[:,2:].reshape(dataset.shape[0]*dim, max_T).copy()    
+            # First normalize the trajectories
+            trajs = normalize(trajs)
+            # If no new diffusion coefficients given, create new ones randonmly
+            diffusion_coefficients = np.random.randn(trajs.shape[0])
+            # Apply new diffusion coefficients
+            trajs = (trajs.transpose()*diffusion_coefficients).transpose()            
+            
+            
+        #%% Add localization error, Gaussian noise with sigma = [0.1, 0.3, 0.5]
+            loc_error_amplitude = np.random.choice(np.array([0.1, 0.3, 0.5]), size = dataset.shape[0]*dim)
+            loc_error = (np.random.randn(dataset.shape[0]*dim, 
+                                         int((dataset.shape[1]-2)/dim)
+                                         ).transpose()*loc_error_amplitude).transpose()
                             
-            # Task 3 - Segmentated trajectories
+            dataset = self.create_noisy_localization_dataset(dataset, 
+                                                             dimension = dim, 
+                                                             T = max_T, 
+                                                             noise_func = loc_error)
+        
+        #%% Task 1 - Anomalous exponent
+            if 1 in tasks:         
+                # Creating semi-balanced datasets
+                N_exp = int(np.ceil(1.1*N/len(exponents_dataset)))
+                for exponent in exponents_dataset:
+                    dataset_exp = dataset[dataset[:,1] == exponent].copy()
+                    np.random.shuffle(dataset_exp)
+                    dataset_exp = dataset_exp[:N_exp, :]
+                    try:
+                        dataset_1 = np.concatenate((dataset_1, dataset_exp), axis = 0) 
+                    except:
+                        dataset_1 = dataset_exp
+                np.random.shuffle(dataset_1)
+                dataset_1 = dataset_1[:N,:]               
+                
+                info_cut = []
+                for traj in dataset_1[:N, :]:             
+                    # Cutting trajectories
+                    cut = np.random.randint(min_T, max_T)            
+                    info_cut.append(cut)            
+                    traj_cut = traj[2:].reshape(dim, max_T)
+                    traj_cut = traj_cut[:, :cut].reshape(dim*cut).tolist()               
+                    # Saving dataset
+                    X1[dim-1].append(traj_cut)
+                    Y1[dim-1].append(np.around(traj[1],2))
+                    if save_dataset:
+                        writer_task1 = csv.writer(open(task1,'a'), delimiter=';', lineterminator='\n',)
+                        writer_ref1 = csv.writer(open(ref1,'a'), delimiter=';', lineterminator='\n',)
+                        writer_task1.writerow(np.append(dim, traj_cut))
+                        writer_ref1.writerow(np.append(dim, np.around([traj[1]],2)))
+            
+        #%% Task 2 - Diffusion model
+            if 2 in tasks:   
+                # Creating semi-balanced datasets
+                N_models = int(1.1*N/5)
+                for model in range(5):
+                    dataset_mod = dataset[dataset[:,0] == model].copy()
+                    np.random.shuffle(dataset_mod)
+                    dataset_mod = dataset_mod[:N_models, :]
+                    try:
+                        dataset_2 = np.concatenate((dataset_2, dataset_mod), axis = 0) 
+                    except:
+                        dataset_2 = dataset_mod
+                np.random.shuffle(dataset_2)
+                dataset_2 = dataset_2[:N,:] 
+                
+                info_cut = []
+                for traj in dataset_2[:N, :]:             
+                    # Cutting trajectories
+                    cut = np.random.randint(min_T, max_T)            
+                    info_cut.append(cut)
+                    traj_cut = traj[2:].reshape(dim, max_T)
+                    traj_cut = traj_cut[:, :cut].reshape(dim*cut).tolist()  
+                    # Saving dataset   
+                    X2[dim-1].append(traj_cut)
+                    Y2[dim-1].append(np.around(traj[0], 2))    
+                    if save_dataset:
+                        writer_task2 = csv.writer(open(task2,'a'), delimiter=';', lineterminator='\n',)
+                        writer_ref2 = csv.writer(open(ref2,'a'), delimiter=';',lineterminator='\n',)
+                        writer_task2.writerow(np.append(dim, traj_cut))
+                        writer_ref2.writerow(np.append(dim, traj[0]))         
+           
+                     
+            #%% Task 3 - Segmentated trajectories
             if 3 in tasks:  
                 # Create a copy of the dataset and use it to create the 
                 # segmented dataset
                 dataset_copy1 = dataset.copy()
                 dataset_copy2 = dataset.copy()
-                seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, 
-                                                            dimension = dim, random_shuffle = True)        
+                
+                # Shuffling the hard way
+                order_dataset1 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                order_dataset2 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                dataset_copy1 = dataset_copy1[order_dataset1] 
+                dataset_copy2 = dataset_copy1[order_dataset2] 
+                
+                seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, dimension = dim)        
                 seg_dataset = np.c_[np.ones(seg_dataset.shape[0])*dim, seg_dataset]     
                 
                 # Checking that there are no segmented trajectories with same exponent and model 
@@ -737,12 +792,21 @@ class ANDI():
                     # If the size of the dataset is too small, we generate new segmented trajectories
                     # and add them to the dataset
                     if seg_dataset.shape[0] < N:
-                        aux_seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, 
-                                                                        dimension = dim, random_shuffle = True) 
+                        
+                        # Shuffling the hard way
+                        new_order_dataset1 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                        new_order_dataset2 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                        dataset_copy1 = dataset_copy1[new_order_dataset1] 
+                        dataset_copy2 = dataset_copy1[new_order_dataset2] 
+                        
+                        order_dataset1 = np.concatenate((order_dataset1, new_order_dataset1))
+                        order_dataset2 = np.concatenate((order_dataset2, new_order_dataset2))
+                        
+                        aux_seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, dimension = dim) 
                         aux_seg_dataset = np.c_[np.ones(aux_seg_dataset.shape[0])*dim, aux_seg_dataset] 
                         seg_dataset = np.concatenate((seg_dataset, aux_seg_dataset), axis = 0)
                     else:
-                        break
+                        break        
                     
                     
                 X3[dim-1] = seg_dataset[:N, 6:]
@@ -753,7 +817,7 @@ class ANDI():
                     writer_ref3 = csv.writer(open(ref3,'a'), delimiter=';',lineterminator='\n',)
                     for label, traj in zip(seg_dataset[:N,:6], seg_dataset[:N, 6:]):
                         writer_task3.writerow(np.append(dim, traj))
-                        writer_ref3.writerow(np.around(label, 2))  
+                        writer_ref3.writerow(np.around(label, 2))   
                         
                         
         return X1, Y1, X2, Y2, X3, Y3
