@@ -40,7 +40,7 @@ class ANDI():
                        dimension = 1,
                        save_trajectories = False, load_trajectories = False, 
                        path = 'datasets/',
-                       N_save = 10000, t_save = 1000):        
+                       N_save = 1000, t_save = 1000):        
         ''' Create a dataset of trajectories
         Arguments:
             :T (int):
@@ -171,7 +171,7 @@ class ANDI():
     
     def load_trajectories(self, T, exponents, dimension, 
                                 models_name, num_per_class, 
-                                path, N_save = 10000, t_save = 1000):
+                                path, N_save = 1000, t_save = 1000):
         ''' Load trajectories from a h5py file of the given path. The name of the datasets in the
         file have the following structure: 
             '(exponent with 2 digit_precision)_T_(lenght of trajectories in the dataset)_N_(number of trajectories in the dataset)'
@@ -234,7 +234,7 @@ class ANDI():
         return dataset
      
     def save_trajectories(self, exponents, models_name, models_func, path, num_per_class,
-                          N_save = 10000, t_save = 1000, dimension = 1):
+                          N_save = 1000, t_save = 1000, dimension = 1):
         ''' Saves a dataset for the exponents and models considered. 
         Arguments:   
             :exponents (array):
@@ -361,7 +361,7 @@ class ANDI():
                                           noise_func = False, sigma = 1, mu = 0,
                                           save_trajectories = False, load_trajectories = False, 
                                           path = 'datasets/',
-                                          N_save = 10000, t_save = 1000): 
+                                          N_save = 1000, t_save = 1000): 
         ''' Create a dataset of noisy trajectories. This function creates trajectories with create_trajectories
         and then adds given noise to them.        
         Arguments: All arguments are the same as create_trajectories but noise_func
@@ -400,7 +400,7 @@ class ANDI():
                                        diffusion_coefficients = False,
                                        save_trajectories = False, load_trajectories = False, 
                                        path = 'datasets/',
-                                       N_save = 10000, t_save = 1000): 
+                                       N_save = 1000, t_save = 1000): 
         ''' Create a dataset of noisy trajectories. This function creates trajectories with create_trajectories
         and then adds given noise to them.        
         Arguments: All arguments are the same as create_trajectories but dataset and diffusion_coefficients
@@ -527,13 +527,24 @@ class ANDI():
             
         return seg_dataset
     
+    def save_row(data, file):
+        '''Auxiliary function to save append data in existing files using csv
+        Arguments:
+            :data (numpy.array):
+                - row to be appended to the filed
+            :file (str):
+                - file where to append data.'''
+        with open(file, 'a') as f:
+            writer = csv.writer(f, delimiter=';', lineterminator='\n',)
+            writer.writerow(data)
+    
     
     def andi_dataset(self, N = 1000, max_T = 1000, min_T = 10,
                            tasks = [1, 2, 3],
                            dimensions = [1,2,3],
                            load_dataset = False, save_dataset = False,
                            load_trajectories = False, save_trajectories = False,
-                           N_save = 10000, t_save = 1000):  
+                           N_save = 1000, t_save = 1000):  
         ''' Creates a dataset similar to the one given by in the ANDI challenge. 
         Check the webpage of the challenge for more details. The default values
         are similar to the ones used to generate the available dataset.
@@ -729,11 +740,9 @@ class ANDI():
                     # Saving dataset
                     X1[dim-1].append(traj_cut)
                     Y1[dim-1].append(np.around(traj[1],2))
-                    if save_dataset:
-                        writer_task1 = csv.writer(open(task1,'a'), delimiter=';', lineterminator='\n',)
-                        writer_ref1 = csv.writer(open(ref1,'a'), delimiter=';', lineterminator='\n',)
-                        writer_task1.writerow(np.append(dim, traj_cut))
-                        writer_ref1.writerow(np.append(dim, np.around([traj[1]],2)))
+                    if save_dataset:                        
+                        self.save_row(np.append(dim, traj_cut), task1)
+                        self.save_row(np.append(dim, np.around([traj[1]],2)), ref1)
             
         #%% Task 2 - Diffusion model
             if 2 in tasks:   
@@ -761,10 +770,8 @@ class ANDI():
                     X2[dim-1].append(traj_cut)
                     Y2[dim-1].append(np.around(traj[0], 2))    
                     if save_dataset:
-                        writer_task2 = csv.writer(open(task2,'a'), delimiter=';', lineterminator='\n',)
-                        writer_ref2 = csv.writer(open(ref2,'a'), delimiter=';',lineterminator='\n',)
-                        writer_task2.writerow(np.append(dim, traj_cut))
-                        writer_ref2.writerow(np.append(dim, traj[0]))         
+                        self.save_row(np.append(dim, traj_cut), task2)
+                        self.save_row(np.append(dim, traj[0]), ref2)       
            
                      
             #%% Task 3 - Segmentated trajectories
@@ -813,11 +820,9 @@ class ANDI():
                 Y3[dim-1] = seg_dataset[:N, :6]
                 
                 if save_dataset:
-                    writer_task3 = csv.writer(open(task3,'a'), delimiter=';', lineterminator='\n',)
-                    writer_ref3 = csv.writer(open(ref3,'a'), delimiter=';',lineterminator='\n',)
                     for label, traj in zip(seg_dataset[:N,:6], seg_dataset[:N, 6:]):
-                        writer_task3.writerow(np.append(dim, traj))
-                        writer_ref3.writerow(np.around(label, 2))   
+                        self.save_row(np.append(dim, traj), task3)
+                        self.save_row(np.around(label, 2), ref3) 
                         
                         
         return X1, Y1, X2, Y2, X3, Y3
