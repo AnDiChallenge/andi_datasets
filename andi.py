@@ -5,13 +5,16 @@
 # (github.com/gorkamunoz/ANDI)
 
 import numpy as np
-from diffusion_models import diffusion_models
+from .diffusion_models import diffusion_models
 import os
 import inspect
 import h5py
 from tqdm import trange
-from utils import normalize
+from .utils import normalize
 import csv
+
+
+__all__ = ['ANDI']
 
 
 class ANDI():

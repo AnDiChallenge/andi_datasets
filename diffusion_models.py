@@ -34,9 +34,12 @@ Outputs:
 
 import numpy as np
 import fbm
-from utils import regularize, bm1D, sample_sphere
+from .utils import regularize, bm1D, sample_sphere
 from math import pi as pi
 from scipy.special import erfcinv
+
+
+__all__ = ['diffusion_models']
 
 class diffusion_models(object):
         
