@@ -1,6 +1,6 @@
 # The Anomalous Diffusion (AnDi) Challenge
 
-This repository contains the necessary functions to generate datasets of trajectories for the **Anomalous Diffusion (AnDi) Challenge**. The class AnDi allows to generate a dataset of trajectories generated according to various diffusion models, either in one, two or three dimensions. 
+This repository contains the necessary functions to generate datasets of trajectories for the [**Anomalous Diffusion (AnDi) Challenge**](https://competitions.codalab.org/competitions/23601). The class AnDi allows to generate a dataset of trajectories generated according to various diffusion models, either in one, two or three dimensions. 
 
 **Libraries needed**
 
