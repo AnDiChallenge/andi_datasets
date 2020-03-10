@@ -34,7 +34,7 @@ Outputs:
 
 import numpy as np
 import fbm
-from .utils import regularize, bm1D, sample_sphere
+from .utils_andi import regularize, bm1D, sample_sphere
 from math import pi as pi
 from scipy.special import erfcinv
 

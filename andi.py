@@ -5,14 +5,14 @@
 # (github.com/gorkamunoz/ANDI)
 
 import numpy as np
-from .diffusion_models import diffusion_models
 import os
 import inspect
 import h5py
 from tqdm import trange
-from .utils import normalize
 import csv
 
+from .utils_andi import normalize
+from .diffusion_models import diffusion_models
 
 __all__ = ['ANDI']
 
@@ -545,8 +545,8 @@ class ANDI():
     def andi_dataset(self, N = 1000, max_T = 1000, min_T = 10,
                            tasks = [1, 2, 3],
                            dimensions = [1,2,3],
-                           load_dataset = False, save_dataset = False,
-                           load_trajectories = False, save_trajectories = False,
+                           load_dataset = False, save_dataset = False, path_datasets = '',
+                           load_trajectories = False, save_trajectories = False, path_trajectories = 'datasets/',
                            N_save = 1000, t_save = 1000):  
         ''' Creates a dataset similar to the one given by in the ANDI challenge. 
         Check the webpage of the challenge for more details. The default values
@@ -615,9 +615,9 @@ class ANDI():
         
         if load_dataset or save_dataset:
             # Define name of result files, if needed
-            task1 = 'task1.txt'; ref1 = 'ref1.txt'
-            task2 = 'task2.txt'; ref2 = 'ref2.txt'
-            task3 = 'task3.txt'; ref3 = 'ref3.txt'
+            task1 = path_datasets+'task1.txt'; ref1 = path_datasets+'ref1.txt'
+            task2 = path_datasets+'task2.txt'; ref2 = path_datasets+'ref2.txt'
+            task3 = path_datasets+'task3.txt'; ref3 = path_datasets+'ref3.txt'
         
         # Loading the datasets if chosen.
         if load_dataset:            
@@ -695,7 +695,7 @@ class ANDI():
             dataset = self.create_dataset(T = max_T, N= num_per_class, exponents = exponents_dataset, 
                                            dimension = dim, models = np.arange(len(self.avail_models_name)),
                                            load_trajectories = False, save_trajectories = False, N_save = 100,
-                                           path = 'datasets/')
+                                           path = path_trajectories)
             
         #%% Add random diffusion coefficients
             trajs = dataset[:,2:].reshape(dataset.shape[0]*dim, max_T).copy()    
