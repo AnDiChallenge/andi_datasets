@@ -530,7 +530,7 @@ class ANDI():
             
         return seg_dataset
     
-    def save_row(data, file):
+    def save_row(self, data, file):
         '''Auxiliary function to save append data in existing files using csv
         Arguments:
             :data (numpy.array):
