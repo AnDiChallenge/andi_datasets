@@ -11,8 +11,8 @@ import h5py
 from tqdm import trange
 import csv
 
-from .utils_andi import normalize
-from .diffusion_models import diffusion_models
+from utils_andi import normalize
+from diffusion_models import diffusion_models
 
 __all__ = ['ANDI']
 
