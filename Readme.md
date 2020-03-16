@@ -1,14 +1,17 @@
 # The Anomalous Diffusion (AnDi) Challenge
 
-This repository contains the necessary functions to generate datasets of trajectories for the [**Anomalous Diffusion (AnDi) Challenge**](https://competitions.codalab.org/competitions/23601). The class AnDi allows to generate a dataset of trajectories generated according to various diffusion models, either in one, two or three dimensions. 
+This repository contains the necessary functions to generate datasets of trajectories for the [**Anomalous Diffusion (AnDi) Challenge**](https://competitions.codalab.org/competitions/23601). The `andi-datasets` package allows to generate a dataset of trajectories generated according to various diffusion models, either in one, two or three dimensions. You can Install the package using:
 
-**Libraries needed**
+```
+pip install andi-datasets
+```
+ 
+You can then Import the package in a Python3 environment using:
 
-- [math](https://docs.python.org/3/library/math.html) and [numpy](https://numpy.org/) for mathematical and array operations.
-- [fbm](https://pypi.org/project/fbm/) to simulate the Fractional Brownian motion model.
-- [scipy](https://www.scipy.org/) for the [erfcinv](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.erfcinv.html) function.
-- [h5py](https://www.h5py.org/) for file management.
-- [tqdm](https://github.com/tqdm/tqdm) for progress bars.
+```python
+import andi
+```
+
 
 ## Functions organization
 
@@ -19,7 +22,7 @@ Examples of use of the class and more detailed descriptions of all the functions
 
 ## Available models:
 
-The diffusion models considered in ANDI are all stored in the file `diffusion_models.py`. They are organized in the class with same name and separated in three subclasses, depending of the dimensions of the mode: `oneD`, `twoD`, `threeD`.
+The diffusion models considered in ANDI are all contained in the class `diffusion_models` and can also be found in `functions/diffusion_models.py`. They are organized in three subclasses, depending of the dimensions of the mode: `oneD`, `twoD`, `threeD`.
 - One dimension
     - Continuous time random walk
     - Fractional Brownian motion
@@ -41,7 +44,7 @@ The diffusion models considered in ANDI are all stored in the file `diffusion_mo
 
 ### Properties of diffusion models
 
-Each of the models available in the AnDi class are created by a function which has the properties introduced below (please follow this same structure, also if you want to contribute additional diffusion models).
+Each of the models available in the `andi` package are created by a function which has the properties introduced below (please follow this same structure, also if you want to contribute additional diffusion models).
 
 - **Keyboard inputs** (i.e. compulsory inputs, the functions may have as many optional inputs as you want):
     - `T`: the length of the trajectory.

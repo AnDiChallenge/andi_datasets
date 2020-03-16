@@ -6,6 +6,7 @@
 
 import numpy as np    
 
+__all__ = ['bm1D', 'regularize', 'sample_sphere', 'normalize']
 
 def bm1D(T, D, deltaT = False):
     '''Creates a 1D Brownian motion trajectory'''

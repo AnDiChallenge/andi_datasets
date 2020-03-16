@@ -11,13 +11,13 @@ import h5py
 from tqdm import trange
 import csv
 
-from utils_andi import normalize
-from diffusion_models import diffusion_models
+from .utils_andi import normalize
+from .diffusion_models import diffusion_models
 
 __all__ = ['ANDI']
 
 
-class ANDI():
+class andi_datasets():
      
     def __init__(self):        
         '''Constructor of the class'''
