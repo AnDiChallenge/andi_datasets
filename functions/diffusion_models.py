@@ -121,11 +121,19 @@ class diffusion_models(object):
             # Generate the trajectory  
             positions = np.array([0])
             while len(positions) < T:
-                Ds =(1-np.random.uniform(low=0.1, high=0.99))**(1/sigma)  
-                ts = Ds**(-gamma)
+                Ds =(1-np.random.uniform(low=0, high=1))**(1/sigma)  
+                # Solving overflow problems
+                if Ds == 0: 
+                    Ds = 0; ts = T
+                else:
+                    ts = Ds**(-gamma)
+                # Avoiding too long bm1D
                 if ts > T:
                     ts = T
-                positions = np.append(positions, positions[-1]+bm1D(ts, Ds))
+                # Calculate displacements
+                dists = np.sqrt(2*Ds)*np.random.randn(int(ts))
+                positions = np.append(positions, dists)
+            positions = np.cumsum(positions)
             return positions[:T]-positions[0]
         
         
@@ -226,13 +234,23 @@ class diffusion_models(object):
             posX = np.array([0])
             posY = np.array([0])            
             while len(posX) < T:
-                Ds =(1-np.random.uniform(low=0.1, high=0.99))**(1/sigma)  
-                ts = Ds**(-gamma)
+                Ds =(1-np.random.uniform(low=0, high=1))**(1/sigma)  
+                # Solving overflow problems
+                if Ds == 0: 
+                    Ds = 0; ts = T
+                else:
+                    ts = Ds**(-gamma)
+                # Avoiding too long bm1D
                 if ts > T:
-                    ts = T                
-                posX = np.append(posX, posX[-1]+bm1D(ts, Ds))
-                posY = np.append(posY, posY[-1]+bm1D(ts, Ds))
-            return np.concatenate((posX[:T]-posX[0], posY[:T]-posY[0]))
+                    ts = T    
+                # Generate displacements:
+                distX = np.sqrt(2*Ds)*np.random.randn(int(ts))
+                distY = np.sqrt(2*Ds)*np.random.randn(int(ts))                
+                posX = np.append(posX, distX)
+                posY = np.append(posY, distY)
+                
+            posX, posY = np.cumsum(posX), np.cumsum(posY)            
+            return np.concatenate((posX[:T], posY[:T]))
         
         
         def sbm(self, T, alpha, sigma = 1):            
@@ -336,16 +354,25 @@ class diffusion_models(object):
             posY = np.array([0])   
             posZ = np.array([0])
             while len(posX) < T:
-                Ds =(1-np.random.uniform(low=0.1, high=0.99))**(1/sigma)  
-                ts = Ds**(-gamma)
+                Ds =(1-np.random.uniform(low=0, high=1))**(1/sigma)  
+                # Solving overflow problems
+                if Ds == 0: 
+                    Ds = 0; ts = T
+                else:
+                    ts = Ds**(-gamma)
+                # Avoiding too long bm1D
                 if ts > T:
                     ts = T 
                 steps = np.sqrt(2*Ds)*np.random.randn(int(ts))
                 distX, distY, distZ = sample_sphere(len(steps), steps)
-                posX = np.append(posX, posX[-1]+distX)
-                posY = np.append(posY, posY[-1]+distY)
-                posZ = np.append(posZ, posZ[-1]+distZ)           
-            return np.concatenate((posX[:T]-posX[0], posY[:T]-posY[0], posZ[:T]-posZ[0]))
+                # Append the displacement
+                posX = np.append(posX, distX)
+                posY = np.append(posY, distY)
+                posZ = np.append(posZ, distZ)
+            # Do final cumsum    
+            posX, posY, posZ = np.cumsum(posX), np.cumsum(posY), np.cumsum(posZ)
+                
+            return np.concatenate((posX[:T], posY[:T], posZ[:T]))
         
         
         def sbm(self, T, alpha, sigma = 1):            
