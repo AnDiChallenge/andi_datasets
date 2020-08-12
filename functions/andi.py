@@ -593,13 +593,13 @@ class andi_datasets():
             :Y1 (list of three lists):
                 - Labels corresponding to Task 1
             :X2 (list of three lists):
-                - Trajectories corresponding to Task 1. 
+                - Trajectories corresponding to Task 2. 
             :Y2 (list of three lists):
-                - Labels corresponding to Task 1
+                - Labels corresponding to Task 2
             :X3 (list of three lists):
-                - Trajectories corresponding to Task 1. 
+                - Trajectories corresponding to Task 3. 
             :Y3 (list of three lists):
-                - Labels corresponding to Task 1      '''
+                - Labels corresponding to Task 3      '''
                     
         print('Creating a dataset for task(s) '+str(tasks)+' and dimension(s) '+str(dimensions)+'.')
         
@@ -695,28 +695,32 @@ class andi_datasets():
             dataset = self.create_dataset(T = max_T, N= num_per_class, exponents = exponents_dataset, 
                                            dimension = dim, models = np.arange(len(self.avail_models_name)),
                                            load_trajectories = False, save_trajectories = False, N_save = 100,
-                                           path = path_trajectories)
+                                           path = path_trajectories)            
+            
+        #%% Normalize trajectories
+    
+            trajs = normalize(dataset[:,2:].reshape(dataset.shape[0]*dim, max_T))
+            dataset[:,2:] = trajs.reshape(dataset[:,2:].shape)
+    
+        #%% Add localization error, Gaussian noise with sigma = [0.1, 0.5, 1]
+                
+            loc_error_amplitude = np.random.choice(np.array([0.1, 0.5, 1]), size = dataset.shape[0]*dim)
+            loc_error = (np.random.randn(dataset.shape[0]*dim, int((dataset.shape[1]-2)/dim)).transpose()*loc_error_amplitude).transpose()
+                        
+            dataset = self.create_noisy_localization_dataset(dataset, dimension = dim, T = max_T, noise_func = loc_error)
             
         #%% Add random diffusion coefficients
-            trajs = dataset[:,2:].reshape(dataset.shape[0]*dim, max_T).copy()    
-            # First normalize the trajectories
-            trajs = normalize(trajs)
-            # If no new diffusion coefficients given, create new ones randonmly
+            
+            trajs = dataset[:,2:].reshape(dataset.shape[0]*dim, max_T)
+            displacements = trajs[:,1:] - trajs[:,:-1]
+            # Get new diffusion coefficients and displacements
             diffusion_coefficients = np.random.randn(trajs.shape[0])
-            # Apply new diffusion coefficients
-            trajs = (trajs.transpose()*diffusion_coefficients).transpose()            
+            new_displacements = (displacements.transpose()*diffusion_coefficients).transpose()  
+            # Generate new trajectories and add to dataset
+            new_trajs = np.cumsum(new_displacements, axis = 1)
+            new_trajs = np.concatenate((np.zeros((new_trajs.shape[0], 1)), new_trajs), axis = 1)
+            dataset[:,2:] = new_trajs.reshape(dataset[:,2:].shape)
             
-            
-        #%% Add localization error, Gaussian noise with sigma = [0.1, 0.3, 0.5]
-            loc_error_amplitude = np.random.choice(np.array([0.1, 0.3, 0.5]), size = dataset.shape[0]*dim)
-            loc_error = (np.random.randn(dataset.shape[0]*dim, 
-                                         int((dataset.shape[1]-2)/dim)
-                                         ).transpose()*loc_error_amplitude).transpose()
-                            
-            dataset = self.create_noisy_localization_dataset(dataset, 
-                                                             dimension = dim, 
-                                                             T = max_T, 
-                                                             noise_func = loc_error)
         
         #%% Task 1 - Anomalous exponent
             if 1 in tasks:         
@@ -751,6 +755,11 @@ class andi_datasets():
             if 2 in tasks:   
                 # Creating semi-balanced datasets
                 N_models = int(1.1*N/5)
+                # If number of traejectories N is too small, consider at least
+                # one trajectory per model
+                if N_models < 1:
+                    N_models = 1
+                    
                 for model in range(5):
                     dataset_mod = dataset[dataset[:,0] == model].copy()
                     np.random.shuffle(dataset_mod)
