@@ -490,8 +490,6 @@ class andi_datasets():
                     o Column 5:(t+5): trajectories of lenght t.'''
                     
         '''Establish dimensions and corresponding models'''                    
-        self.dimension = dimension
-        self.get_models() 
         
         if dataset1.shape[0] != dataset2.shape[0]:
             raise ValueError('Input datasets must have the same number of trajectories. Current ones have size '+str(dataset1.shape[0])
@@ -499,34 +497,36 @@ class andi_datasets():
         if dataset1.shape[1]-2 < final_length or dataset2.shape[1]-2 < final_length:
             raise ValueError('The trajectories in the input datasets are too short. They must be at least 200 steps long')
         
-        dataset1 = np.copy(dataset1[:, :self.dimension*(final_length)+2])
-        dataset2 = np.copy(dataset2[:, :self.dimension*(final_length)+2])
         if random_shuffle:
             np.random.shuffle(dataset1)
             np.random.shuffle(dataset2)
-        
+
+        trajs_1 = np.copy(dataset1[:,2:].reshape(dataset1.shape[0], dimension, int((dataset1.shape[1]-2)/dimension)))
+        trajs_2 = np.copy(dataset2[:,2:].reshape(dataset2.shape[0], dimension, int((dataset2.shape[1]-2)/dimension)))
+
+        trajs_1 = trajs_1[:,:,:final_length]
+        trajs_2 = trajs_2[:,:,:final_length]
+
         t_change = np.random.randint(1, final_length, dataset1.shape[0])
-        seg_dataset = np.zeros((dataset1.shape[0], dataset1.shape[1]+3))
+
+        seg_dataset = np.zeros((dataset1.shape[0], dimension*final_length+5))
         for idx, (tC, traj1, traj2, label1, label2) in enumerate(zip(t_change, 
-                              dataset1[:,2:], dataset2[:,2:],
-                              dataset1[:,:2], dataset2[:,:2])):
+                                                                      trajs_1, trajs_2,
+                                                                      dataset1[:,:2], dataset2[:,:2])):
             seg_dataset[idx, 0] = tC
             seg_dataset[idx, 1:5] = np.append(label1, label2)
-            
-            if self.dimension == 1:
+
+            if dimension == 1:
                 seg_dataset[idx, 5:tC+5] = traj1[:tC]
-                seg_dataset[idx, tC+5:] = traj2[tC:]-traj2[tC]+traj1[tC]
-                
-            elif self.dimension == 2 or self.dimension == 3:
-                traj1 = traj1.reshape(self.dimension, int(len(traj1)/self.dimension))
-                traj2 = traj2.reshape(self.dimension, int(len(traj2)/self.dimension))
+                seg_dataset[idx, tC+5:] = traj2[tC:final_length]-traj2[tC]+traj1[tC]
+
+            elif dimension == 2 or dimension == 3:
                 traj2 = (traj2.transpose()-traj2[:, tC]+traj1[:, tC]).transpose()
-                
+
                 traj1[:,tC:]  = 0
                 traj2[:, :tC] = 0
-                                
-                                
-                seg_dataset[idx, 5:] = (traj1 + traj2).reshape(self.dimension*final_length)             
+
+                seg_dataset[idx, 5:] = (traj1 + traj2).reshape(dimension*final_length)            
             
         return seg_dataset
     
