@@ -517,8 +517,8 @@ class andi_datasets():
             seg_dataset[idx, 1:5] = np.append(label1, label2)
 
             if dimension == 1:
-                seg_dataset[idx, 5:tC+5] = traj1[:tC]
-                seg_dataset[idx, tC+5:] = traj2[tC:final_length]-traj2[tC]+traj1[tC]
+                seg_dataset[idx, 5:tC+5] = traj1[:, :tC]
+                seg_dataset[idx, tC+5:] = traj2[:, tC:final_length]-traj2[:, tC]+traj1[:, tC]
 
             elif dimension == 2 or dimension == 3:
                 traj2 = (traj2.transpose()-traj2[:, tC]+traj1[:, tC]).transpose()
