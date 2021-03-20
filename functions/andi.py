@@ -14,7 +14,7 @@ import csv
 from .utils_andi import normalize
 from .diffusion_models import diffusion_models
 
-__all__ = ['ANDI']
+__all__ = ['andi_datasets']
 
 
 class andi_datasets():
@@ -38,6 +38,9 @@ class andi_datasets():
         self.available_models = inspect.getmembers(self.models, inspect.ismethod)      
         self.avail_models_name = [x[0] for x in self.available_models]
         self.avail_models_func = [x[1] for x in self.available_models]
+
+    @property
+    def n_models(self): return len(self.avail_models_name)
     
     def create_dataset(self, T, N, exponents, models,
                        dimension = 1,
@@ -115,22 +118,22 @@ class andi_datasets():
         '''Managing number of trajectory per class:
             - Defines array num_class as a function of N'''                            
         if isinstance(N, int): 
-            num_per_class = N*np.ones((len(self.models_name), len(exponents)))
+            n_per_class = N*np.ones((len(self.models_name), len(exponents)))
             
         elif type(N).__module__ == np.__name__: 
             if len(self.models_name) != N.shape[0] or len(exponents) != N.shape[1]:
                 raise ValueError('Mismatch between the dimensions of N and the number of different classes.'+
-                                 'N must be either an int (balanced classes) or an array of length '+str(len(models))+'x'
-                                 +str(len(exponents))+' (inbalaced classes).') 
-            num_per_class = N
+                                 f'N must be either an int (balanced classes) or an array of length {len(models)}x'
+                                 f'{len(exponents)} (inbalaced classes).') 
+            n_per_class = N
         else:
             raise TypeError('Type of variable N not recognized.')
                     
         '''Defining default values for saved datasets''' 
-        N_save = np.ones_like(num_per_class)*N_save
+        N_save = np.ones_like(n_per_class)*N_save
         # If the number of class of a given class is bigger than N_save, we
         # change the value of N_save for that particular class.
-        N_save = np.max([N_save, num_per_class], axis = 0)      
+        N_save = np.max([N_save, n_per_class], axis = 0)      
                 
         
         ''' Loading/Saving/Creating datasets'''
@@ -139,7 +142,7 @@ class andi_datasets():
                                                  exponents = exponents,
                                                  models_name = self.models_name,
                                                  dimension = self.dimension,
-                                                 num_per_class = num_per_class,
+                                                 n_per_class = n_per_class,
                                                  path = path,
                                                  N_save = N_save,
                                                  t_save = t_save)
@@ -149,7 +152,7 @@ class andi_datasets():
                                    models_name = self.models_name,
                                    models_func = self.models_func,
                                    path = path, 
-                                   num_per_class = num_per_class,
+                                   n_per_class = n_per_class,
                                    N_save = N_save,
                                    t_save = t_save)
             
@@ -157,7 +160,7 @@ class andi_datasets():
                                                  exponents = exponents,
                                                  dimension = self.dimension,
                                                  models_name = self.models_name,                                                 
-                                                 num_per_class = num_per_class,
+                                                 n_per_class = n_per_class,
                                                  path = path,
                                                  N_save = N_save,
                                                  t_save = t_save)
@@ -168,12 +171,12 @@ class andi_datasets():
                                                    dimension = self.dimension,
                                                    models_name = self.models_name,
                                                    models_func = self.models_func,
-                                                   num_per_class = num_per_class)       
+                                                   n_per_class = n_per_class)       
             
         return data_models
     
     def load_trajectories(self, T, exponents, dimension, 
-                                models_name, num_per_class, 
+                                models_name, n_per_class, 
                                 path, N_save = 1000, t_save = 1000):
         ''' Load trajectories from a h5py file of the given path. The name of the datasets in the
         file have the following structure: 
@@ -187,7 +190,7 @@ class andi_datasets():
                 - Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.
             :models_name (list of str):
                 - names of the models to include in the output dataset. 
-            :num_per_class:
+            :n_per_class:
                 - number of trajectories to consider per exponent/model.
             :path (str):
                 - path to the folder from where to load the trajectories dataset.
@@ -215,10 +218,10 @@ class andi_datasets():
             
             for idx_e, exp  in enumerate(exponents):
                 
-                name_dataset = '{0:.2f}'.format(exp)+'_T_'+str(t_save)+'_N_'+ \
-                                str(int(N_save[idx_m, idx_e]))+'_dim_'+str(self.dimension)  
+                name_dataset = f'{exp:.2f}_T_{t_save}_N_'+ \
+                                str(int(N_save[idx_m, idx_e]))+f'_dim_{self.dimension}'  
                 
-                n = int(num_per_class[idx_m, idx_e])
+                n = int(n_per_class[idx_m, idx_e])
                 if n == 0:
                     continue
                 
@@ -236,7 +239,7 @@ class andi_datasets():
                     dataset = np.concatenate((dataset, data), axis = 0) 
         return dataset
      
-    def save_trajectories(self, exponents, models_name, models_func, path, num_per_class,
+    def save_trajectories(self, exponents, models_name, models_func, path, n_per_class,
                           N_save = 1000, t_save = 1000, dimension = 1):
         ''' Saves a dataset for the exponents and models considered. 
         Arguments:   
@@ -269,11 +272,11 @@ class andi_datasets():
             with h5py.File(path+name+'.h5', action) as hf:
                 
                 for idx_e, exp in enumerate(exponents): 
-                    if num_per_class[idx_m, idx_e] == 0:
+                    if n_per_class[idx_m, idx_e] == 0:
                         continue
                     
                     n = int(N_save[idx_m, idx_e])                    
-                    name_dataset = '{0:.2f}'.format(exp)+'_T_'+str(t_save)+'_N_'+str(n)+'_dim_'+str(self.dimension) 
+                    name_dataset = f'{exp:.2f}_T_{t_save}_N_{n}_dim_{self.dimension}' 
                     
                     if name_dataset not in hf:  
                         
@@ -287,11 +290,11 @@ class andi_datasets():
                         hf.create_dataset(name_dataset, data=data)
                         
                     else:
-                        print('The dataset for '+name+' with exponent '+str(round(exp,3))
+                        print(f'The dataset for {name} with exponent {round(exp,3)}'
                                 +' already exists, no need of saving it again.')
             
         
-    def create_trajectories(self, T, exponents, dimension, models_name, models_func, num_per_class):  
+    def create_trajectories(self, T, exponents, dimension, models_name, models_func, n_per_class):  
         ''' Saves a dataset for the exponents and models considered. 
         Arguments:  
             :T (int):
@@ -304,7 +307,7 @@ class andi_datasets():
                 - names of the models to include in the output dataset. 
             :models_func (list of funcs):
                 - function generating the models to include in the output dataset. 
-            :num_per_class:
+            :n_per_class:
                 - number of trajectories to consider per exponent/model. 
         Return:
             :dataset (numpy.array):
@@ -317,7 +320,7 @@ class andi_datasets():
             for idx_e, exp in enumerate(exponents):
                 
                 
-                n = int(num_per_class[idx_m, idx_e])
+                n = int(n_per_class[idx_m, idx_e])
                 data = np.zeros((n, self.dimension*T))  
                 for i in range(n):
                     data[i, :] = func(T, exp)
@@ -390,10 +393,10 @@ class andi_datasets():
                                                      N_save, t_save)
             
         # Add the noise to the trajectories  
-        trajs = dataset[:,2:].reshape(dataset.shape[0]*dimension, T)
+        trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
         trajs = self.add_noisy_localization(trajs, noise_func, sigma, mu)
         
-        dataset[:,2:] = trajs.reshape(dataset.shape[0], T*dimension)
+        dataset[:, 2:] = trajs.reshape(dataset.shape[0], T*dimension)
         
         return dataset    
     
@@ -404,9 +407,9 @@ class andi_datasets():
                                        save_trajectories = False, load_trajectories = False, 
                                        path = 'datasets/',
                                        N_save = 1000, t_save = 1000): 
-        ''' Create a dataset of noisy trajectories. This function creates trajectories with create_trajectories
+        ''' Create a dataset of noisy trajectories. This function creates trajectories with `create_trajectories`
         and then adds given noise to them.        
-        Arguments: All arguments are the same as create_trajectories but dataset and diffusion_coefficients
+        Arguments: All arguments are the same as `create_trajectories` but dataset and diffusion_coefficients
             :dataset (bool, numpy array):
                 - If False, creates a dataset with the given parameters. If numpy array, dataset to which the
                   function applies the noise.
@@ -429,14 +432,15 @@ class andi_datasets():
                                                      path,
                                                      N_save, t_save)
         # Add the noise to the trajectories 
-        trajs = dataset[:,2:].reshape(dataset.shape[0]*dimension, T)
+        trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
         trajs = self.add_noisy_diffusion(trajs, diffusion_coefficients)
         
-        dataset[:,2:] = trajs.reshape(dataset.shape[0], T*dimension)
+        dataset[:, 2:] = trajs.reshape(dataset.shape[0], T*dimension)
         
         return dataset
     
-    def add_noisy_localization(self, trajs, noise_func = False, sigma = 1, mu = 0):
+    @staticmethod
+    def add_noisy_localization(trajs, noise_func = False, sigma = 1, mu = 0):
         
         if isinstance(noise_func, np.ndarray):
             noise_matrix = noise_func 
@@ -451,7 +455,8 @@ class andi_datasets():
         
         return trajs
     
-    def add_noisy_diffusion(self, trajs, diffusion_coefficients = False):
+    @staticmethod
+    def add_noisy_diffusion(trajs, diffusion_coefficients = False):
         
         # First normalize the trajectories
         trajs = normalize(trajs)
@@ -463,8 +468,8 @@ class andi_datasets():
         
         return trajs
 
-    
-    def create_segmented_dataset(self, dataset1, dataset2, dimension = 1, 
+    @staticmethod
+    def create_segmented_dataset(dataset1, dataset2, dimension = 1, 
                                  final_length = 200, random_shuffle = False):
         ''' Creates a dataset with trajectories which change feature after a time
         't_change'. 
@@ -492,27 +497,27 @@ class andi_datasets():
         '''Establish dimensions and corresponding models'''                    
         
         if dataset1.shape[0] != dataset2.shape[0]:
-            raise ValueError('Input datasets must have the same number of trajectories. Current ones have size '+str(dataset1.shape[0])
-            +' and '+str(dataset2.shape[0]))
+            raise ValueError(f'Input datasets must have the same number of trajectories. Current ones have size {dataset1.shape[0]} and {dataset2.shape[0]}.')
         if dataset1.shape[1]-2 < final_length or dataset2.shape[1]-2 < final_length:
-            raise ValueError('The trajectories in the input datasets are too short. They must be at least 200 steps long')
+            raise ValueError(f'The trajectories in the input datasets are too short. They must be at least {final_length} steps long.')
         
         if random_shuffle:
             np.random.shuffle(dataset1)
             np.random.shuffle(dataset2)
+        
+        n_trajs = dataset1.shape[0]
+        trajs_1 = np.copy(dataset1[:, 2:].reshape(n_trajs, dimension, int((dataset1.shape[1]-2)/dimension)))
+        trajs_2 = np.copy(dataset2[:, 2:].reshape(n_trajs, dimension, int((dataset2.shape[1]-2)/dimension)))
 
-        trajs_1 = np.copy(dataset1[:,2:].reshape(dataset1.shape[0], dimension, int((dataset1.shape[1]-2)/dimension)))
-        trajs_2 = np.copy(dataset2[:,2:].reshape(dataset2.shape[0], dimension, int((dataset2.shape[1]-2)/dimension)))
+        trajs_1 = trajs_1[:, :, :final_length]
+        trajs_2 = trajs_2[:, :, :final_length]
 
-        trajs_1 = trajs_1[:,:,:final_length]
-        trajs_2 = trajs_2[:,:,:final_length]
+        t_change = np.random.randint(1, final_length, n_trajs)
 
-        t_change = np.random.randint(1, final_length, dataset1.shape[0])
-
-        seg_dataset = np.zeros((dataset1.shape[0], dimension*final_length+5))
+        seg_dataset = np.zeros((n_trajs, dimension*final_length+5))
         for idx, (tC, traj1, traj2, label1, label2) in enumerate(zip(t_change, 
                                                                       trajs_1, trajs_2,
-                                                                      dataset1[:,:2], dataset2[:,:2])):
+                                                                      dataset1[:, :2], dataset2[:, :2])):
             seg_dataset[idx, 0] = tC
             seg_dataset[idx, 1:5] = np.append(label1, label2)
 
@@ -530,7 +535,8 @@ class andi_datasets():
             
         return seg_dataset
     
-    def save_row(self, data, file):
+    @staticmethod
+    def save_row(data, file):
         '''Auxiliary function to save append data in existing files using csv
         Arguments:
             :data (numpy.array):
@@ -540,11 +546,16 @@ class andi_datasets():
         with open(file, 'a') as f:
             writer = csv.writer(f, delimiter=';', lineterminator='\n',)
             writer.writerow(data)
-    
+
+    @staticmethod
+    def cut_trajectory(traj, t_cut, dim=1):
+        "Takes a trajectory and cuts it to `t_cut` length."
+        cut_traj = traj.reshape(dim, -1)[:, :t_cut]
+        return cut_traj.reshape(-1)    
     
     def andi_dataset(self, N = 1000, max_T = 1000, min_T = 10,
                            tasks = [1, 2, 3],
-                           dimensions = [1,2,3],
+                           dimensions = [1, 2, 3],
                            load_dataset = False, save_dataset = False, path_datasets = '',
                            load_trajectories = False, save_trajectories = False, path_trajectories = 'datasets/',
                            N_save = 1000, t_save = 1000):  
@@ -601,7 +612,7 @@ class andi_datasets():
             :Y3 (list of three lists):
                 - Labels corresponding to Task 3      '''
                     
-        print('Creating a dataset for task(s) '+str(tasks)+' and dimension(s) '+str(dimensions)+'.')
+        print(f'Creating a dataset for task(s) {tasks} and dimension(s) {dimensions}.')
         
         # Checking inputs for errors
         if isinstance(dimensions, int) or isinstance(dimensions, float):
@@ -610,8 +621,8 @@ class andi_datasets():
             tasks = [tasks]
         
         # Define return datasets
-        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]];
-        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]];
+        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]]
+        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]]
         
         if load_dataset or save_dataset:
             # Define name of result files, if needed
@@ -630,9 +641,9 @@ class andi_datasets():
                         l = csv.reader(open(lab,'r'), delimiter=';', 
                                         lineterminator='\n',quoting=csv.QUOTE_NONNUMERIC)
                     except:
-                        raise FileNotFoundError('File for task '+str(idx+1)+' not found.')
+                        raise FileNotFoundError(f'File for task {idx+1} not found.')
                     
-                    for idx2, (trajs, labels) in enumerate(zip(t, l)):   
+                    for trajs, labels in zip(t, l):   
                         if task == task1:                            
                             X1[int(trajs[0])-1].append(trajs[1:])
                             Y1[int(trajs[0])-1].append(labels[1])
@@ -654,25 +665,25 @@ class andi_datasets():
             return X1, Y1, X2, Y2, X3, Y3        
 
             
-        exponents_dataset = np.arange(0.05, 2.01, 0.05)
-        # Trajectories per model and exponent. Arbitrarely chose to fulfill balanced classes
-        N_models = np.ceil(1.6*N/5)
-        subdif = 20
-        superdif = 21
-        num_per_class =  np.zeros((len(self.avail_models_name), len(exponents_dataset)))
+        exponents = np.arange(0.05, 2.01, 0.05)
+        n_exp = len(exponents)
+        # Trajectories per model and exponent. Arbitrarely chosen to obtain balanced classes
+        n_per_model = np.ceil(1.6*N/5)
+        subdif, superdif = n_exp//2, n_exp//2+1
+        n_per_class =  np.zeros((self.n_models, n_exp))
         # ctrw, attm
-        num_per_class[:2,:20] = np.ceil(N_models/subdif)
+        n_per_class[:2, :subdif] = np.ceil(n_per_model/subdif)
         # fbm
-        num_per_class[2, :] = np.ceil(N_models/(len(exponents_dataset)-1))
-        num_per_class[2, exponents_dataset == 2] = 0 # FBM can't be ballistic
+        n_per_class[2, :] = np.ceil(n_per_model/(n_exp-1))
+        n_per_class[2, exponents == 2] = 0 # FBM can't be ballistic
         # lw
-        num_per_class[3, 20:] = np.ceil((N_models/superdif)*0.8)
+        n_per_class[3, subdif:] = np.ceil((n_per_model/superdif)*0.8)
         # sbm
-        num_per_class[4, :] = np.ceil(N_models/len(exponents_dataset))
+        n_per_class[4, :] = np.ceil(n_per_model/n_exp)
         
         # Define return datasets
-        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]];
-        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]];  
+        X1 = [[],[],[]]; X2 = [[],[],[]]; X3 = [[],[],[]]
+        Y1 = [[],[],[]]; Y2 = [[],[],[]]; Y3 = [[],[],[]]  
         
         # Initialize the files
         if save_dataset:
@@ -686,107 +697,96 @@ class andi_datasets():
                 csv.writer(open(task3,'w'), delimiter=';', lineterminator='\n',)
                 csv.writer(open(ref3,'w'), delimiter=';',lineterminator='\n',)
         
-        for dim in [1,2,3]:             
-            if dim not in dimensions:
-                continue
-        
-        #%%  Generate the dataset of the given dimension
-            print('Generating dataset for dimension '+str(dim)+'.')
-            dataset = self.create_dataset(T = max_T, N= num_per_class, exponents = exponents_dataset, 
-                                           dimension = dim, models = np.arange(len(self.avail_models_name)),
+        for dim in dimensions:             
+            # Generate the dataset of the given dimension
+            print(f'Generating dataset for dimension {dim}.')
+            dataset = self.create_dataset(T = max_T, N = n_per_class, exponents = exponents, 
+                                           dimension = dim, models = np.arange(self.n_models),
                                            load_trajectories = False, save_trajectories = False, N_save = 100,
                                            path = path_trajectories)            
             
-        #%% Normalize trajectories
+            # Normalize trajectories
+            n_traj = dataset.shape[0]
+            norm_trajs = normalize(dataset[:, 2:].reshape(n_traj*dim, max_T))
+            dataset[:, 2:] = norm_trajs.reshape(dataset[:, 2:].shape)
     
-            trajs = normalize(dataset[:,2:].reshape(dataset.shape[0]*dim, max_T))
-            dataset[:,2:] = trajs.reshape(dataset[:,2:].shape)
-    
-        #%% Add localization error, Gaussian noise with sigma = [0.1, 0.5, 1]
+            # Add localization error, Gaussian noise with sigma = [0.1, 0.5, 1]
                 
-            loc_error_amplitude = np.random.choice(np.array([0.1, 0.5, 1]), size = dataset.shape[0]*dim)
-            loc_error = (np.random.randn(dataset.shape[0]*dim, int((dataset.shape[1]-2)/dim)).transpose()*loc_error_amplitude).transpose()
+            loc_error_amplitude = np.random.choice(np.array([0.1, 0.5, 1]), size = n_traj*dim)
+            loc_error = (np.random.randn(n_traj*dim, int(max_T)).transpose()*loc_error_amplitude).transpose()
                         
             dataset = self.create_noisy_localization_dataset(dataset, dimension = dim, T = max_T, noise_func = loc_error)
             
-        #%% Add random diffusion coefficients
+            # Add random diffusion coefficients
             
-            trajs = dataset[:,2:].reshape(dataset.shape[0]*dim, max_T)
-            displacements = trajs[:,1:] - trajs[:,:-1]
+            trajs = dataset[:, 2:].reshape(n_traj*dim, max_T)
+            displacements = trajs[:, 1:] - trajs[:, :-1]
             # Get new diffusion coefficients and displacements
             diffusion_coefficients = np.random.randn(trajs.shape[0])
             new_displacements = (displacements.transpose()*diffusion_coefficients).transpose()  
             # Generate new trajectories and add to dataset
             new_trajs = np.cumsum(new_displacements, axis = 1)
             new_trajs = np.concatenate((np.zeros((new_trajs.shape[0], 1)), new_trajs), axis = 1)
-            dataset[:,2:] = new_trajs.reshape(dataset[:,2:].shape)
+            dataset[:, 2:] = new_trajs.reshape(dataset[:, 2:].shape)
             
         
-        #%% Task 1 - Anomalous exponent
+            # Task 1 - Anomalous exponent
             if 1 in tasks:         
                 # Creating semi-balanced datasets
-                N_exp = int(np.ceil(1.1*N/len(exponents_dataset)))
-                for exponent in exponents_dataset:
-                    dataset_exp = dataset[dataset[:,1] == exponent].copy()
+                n_exp_max = int(np.ceil(1.1*N/n_exp))
+                for exponent in exponents:
+                    dataset_exp = dataset[dataset[:, 1] == exponent].copy()
                     np.random.shuffle(dataset_exp)
-                    dataset_exp = dataset_exp[:N_exp, :]
+                    dataset_exp = dataset_exp[:n_exp_max, :]
                     try:
                         dataset_1 = np.concatenate((dataset_1, dataset_exp), axis = 0) 
                     except:
                         dataset_1 = dataset_exp
                 np.random.shuffle(dataset_1)
-                dataset_1 = dataset_1[:N,:]               
+                dataset_1 = dataset_1[:N, :]               
                 
-                info_cut = []
                 for traj in dataset_1[:N, :]:             
                     # Cutting trajectories
-                    cut = np.random.randint(min_T, max_T)            
-                    info_cut.append(cut)            
-                    traj_cut = traj[2:].reshape(dim, max_T)
-                    traj_cut = traj_cut[:, :cut].reshape(dim*cut).tolist()               
+                    cut_T = np.random.randint(min_T, max_T) 
+                    traj_cut = self.cut_trajectory(traj[2:], cut_T, dim=dim).tolist()                         
                     # Saving dataset
                     X1[dim-1].append(traj_cut)
-                    Y1[dim-1].append(np.around(traj[1],2))
+                    Y1[dim-1].append(np.around(traj[1], 2))
                     if save_dataset:                        
                         self.save_row(np.append(dim, traj_cut), task1)
-                        self.save_row(np.append(dim, np.around([traj[1]],2)), ref1)
+                        self.save_row(np.append(dim, np.around([traj[1]], 2)), ref1)
             
-        #%% Task 2 - Diffusion model
+            # Task 2 - Diffusion model
             if 2 in tasks:   
                 # Creating semi-balanced datasets
-                N_models = int(1.1*N/5)
                 # If number of traejectories N is too small, consider at least
                 # one trajectory per model
-                if N_models < 1:
-                    N_models = 1
+                n_per_model = max(1, int(1.1*N/5))
                     
                 for model in range(5):
-                    dataset_mod = dataset[dataset[:,0] == model].copy()
+                    dataset_mod = dataset[dataset[:, 0] == model].copy()
                     np.random.shuffle(dataset_mod)
-                    dataset_mod = dataset_mod[:N_models, :]
+                    dataset_mod = dataset_mod[:n_per_model, :]
                     try:
                         dataset_2 = np.concatenate((dataset_2, dataset_mod), axis = 0) 
                     except:
                         dataset_2 = dataset_mod
                 np.random.shuffle(dataset_2)
-                dataset_2 = dataset_2[:N,:] 
+                dataset_2 = dataset_2[:N, :] 
                 
-                info_cut = []
                 for traj in dataset_2[:N, :]:             
                     # Cutting trajectories
-                    cut = np.random.randint(min_T, max_T)            
-                    info_cut.append(cut)
-                    traj_cut = traj[2:].reshape(dim, max_T)
-                    traj_cut = traj_cut[:, :cut].reshape(dim*cut).tolist()  
+                    cut_T = np.random.randint(min_T, max_T) 
+                    traj_cut = self.cut_trajectory(traj[2:], cut_T, dim=dim).tolist() 
                     # Saving dataset   
                     X2[dim-1].append(traj_cut)
                     Y2[dim-1].append(np.around(traj[0], 2))    
                     if save_dataset:
                         self.save_row(np.append(dim, traj_cut), task2)
-                        self.save_row(np.append(dim, traj[0]), ref2)       
+                        self.save_row(np.append(dim, traj[0]), ref2)   
            
                      
-            #%% Task 3 - Segmentated trajectories
+            # Task 3 - Segmentated trajectories
             if 3 in tasks:  
                 # Create a copy of the dataset and use it to create the 
                 # segmented dataset
@@ -794,27 +794,27 @@ class andi_datasets():
                 dataset_copy2 = dataset.copy()
                 
                 # Shuffling the hard way
-                order_dataset1 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
-                order_dataset2 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                order_dataset1 = np.random.choice(np.arange(n_traj), n_traj, replace = False)        
+                order_dataset2 = np.random.choice(np.arange(n_traj), n_traj, replace = False)        
                 dataset_copy1 = dataset_copy1[order_dataset1] 
                 dataset_copy2 = dataset_copy1[order_dataset2] 
                 
                 seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, dimension = dim)        
-                seg_dataset = np.c_[np.ones(seg_dataset.shape[0])*dim, seg_dataset]     
+                seg_dataset = np.c_[np.ones(n_traj)*dim, seg_dataset]     
                 
                 # Checking that there are no segmented trajectories with same exponent and model 
                 # in each segment. First we compute the difference between labels
-                diff = np.abs(seg_dataset[:,2]-seg_dataset[:,4])+np.abs(seg_dataset[:,3]-seg_dataset[:,5])
+                diff = np.abs(seg_dataset[:, 2]-seg_dataset[:, 4]) + np.abs(seg_dataset[:, 3]-seg_dataset[:, 5])
                 # Then, if there are repeated labels, we eliminate those trajectories
                 while len(np.argwhere(diff == 0)) > 0: 
-                    seg_dataset = np.delete(seg_dataset, np.argwhere(diff == 0), 0)
+                    seg_dataset = np.delete(seg_dataset, np.argwhere(diff == 0), axis = 0)
                     # If the size of the dataset is too small, we generate new segmented trajectories
                     # and add them to the dataset
                     if seg_dataset.shape[0] < N:
                         
                         # Shuffling the hard way
-                        new_order_dataset1 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
-                        new_order_dataset2 = np.random.choice(np.arange(dataset.shape[0]), dataset.shape[0], replace=False)        
+                        new_order_dataset1 = np.random.choice(np.arange(n_traj), n_traj, replace = False)        
+                        new_order_dataset2 = np.random.choice(np.arange(n_traj), n_traj, replace = False)        
                         dataset_copy1 = dataset_copy1[new_order_dataset1] 
                         dataset_copy2 = dataset_copy1[new_order_dataset2] 
                         
@@ -824,6 +824,8 @@ class andi_datasets():
                         aux_seg_dataset = self.create_segmented_dataset(dataset_copy1, dataset_copy2, dimension = dim) 
                         aux_seg_dataset = np.c_[np.ones(aux_seg_dataset.shape[0])*dim, aux_seg_dataset] 
                         seg_dataset = np.concatenate((seg_dataset, aux_seg_dataset), axis = 0)
+
+                        diff = np.abs(seg_dataset[:, 2]-seg_dataset[:, 4]) + np.abs(seg_dataset[:, 3]-seg_dataset[:, 5])
                     else:
                         break        
                     
@@ -832,7 +834,7 @@ class andi_datasets():
                 Y3[dim-1] = seg_dataset[:N, :6]
                 
                 if save_dataset:
-                    for label, traj in zip(seg_dataset[:N,:6], seg_dataset[:N, 6:]):
+                    for label, traj in zip(seg_dataset[:N, :6], seg_dataset[:N, 6:]):
                         self.save_row(np.append(dim, traj), task3)
                         self.save_row(np.around(label, 2), ref3) 
                         
