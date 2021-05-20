@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4775311.svg)](https://doi.org/10.5281/zenodo.4775311)
+
+
 # The Anomalous Diffusion (AnDi) Challenge datasets
 
 This repository contains the necessary functions to generate datasets of trajectories for the [**Anomalous Diffusion (AnDi) Challenge**](https://competitions.codalab.org/competitions/23601). The `andi-datasets` package allows to generate a dataset of trajectories generated according to various diffusion models, either in one, two or three dimensions. You can Install the package using:
