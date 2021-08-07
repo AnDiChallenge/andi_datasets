@@ -20,7 +20,7 @@ import andi
 
 The `ANDI` class allows to generate, save and load trajectories generated with various diffusion models. Its main purpose is to generate datasets similar to the ones proposed in the ANDI challenge. Moreover, it also allows to generate datasets of trajectories of various kinds, depending on the needs of the user. 
 
-Examples of use of the class and more detailed descriptions of all the functions can be found in the notebook [`examples_andi.ipynb`](https://github.com/AnDiChallenge/ANDI_datasets/blob/master/examples_andi.ipynb).
+Examples of use of the class and more detailed descriptions of all the functions can be found in the notebook [`tutorial_andi_datasets.ipynb`](https://github.com/AnDiChallenge/ANDI_datasets/blob/master/tutorial_andi_datasets.ipynb.ipynb).
 
 
 ## Available models:
