@@ -70,11 +70,11 @@ Other outputs via optional inputs can be added at your discretion.
 
 ## Requirements
 
-Python >= 3.6 and the following packages:
+Python >= 3.6 and the following pip packages:
 - numpy
 - scipy
 - h5py
-- tqmd
+- tqdm
 - csv
 - fbm
 
