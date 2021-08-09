@@ -67,4 +67,15 @@ Other outputs via optional inputs can be added at your discretion.
     - All the trajectories must start at 0.
     - Add your model to the subclass corresponding to the dimensions of your model. Add it *after* the last model of the subclass.
     - If you contribute with a model, insert its name in the list of models presented above and in the initial comment of the file `diffusion_models.py`.
- 
+
+## Requirements
+
+Python >= 3.6 and the following packages:
+- numpy
+- scipy
+- h5py
+- tqmd
+- csv
+- fbm
+
+Typical installation time: <1 minute. Further details can be found at the [PYPI package webpage](https://pypi.org/project/andi-datasets/).
