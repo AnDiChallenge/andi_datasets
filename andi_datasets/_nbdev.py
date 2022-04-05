@@ -2,7 +2,10 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"get_changepoints_convexhull": "analysis_methods.ipynb",
+index = {"get_angle": "analysis.ipynb",
+         "dataset_angles": "analysis.ipynb",
+         "msd_analysis": "analysis.ipynb",
+         "ch_analysis": "analysis.ipynb",
          "datasets_phenom": "datasets_phenom.ipynb",
          "datasets_theory": "datasets_theory.ipynb",
          "models_phenom": "models_phenom.ipynb",
@@ -37,15 +40,12 @@ index = {"get_changepoints_convexhull": "analysis_methods.ipynb",
          "normalize": "utils_trajectories.ipynb",
          "add_noisy_localization": "utils_trajectories.ipynb",
          "add_noisy_diffusion": "utils_trajectories.ipynb",
-         "TAMSD": "utils_trajectories.ipynb",
-         "get_D": "utils_trajectories.ipynb",
-         "get_exponent": "utils_trajectories.ipynb",
          "trigo": "utils_trajectories.ipynb",
          "find_nan_segments": "utils_trajectories.ipynb",
          "segs_inside_fov": "utils_trajectories.ipynb",
          "plot_trajs": "utils_trajectories.ipynb"}
 
-modules = ["analysis_methods.py",
+modules = ["analysis.py",
            "datasets_phenom.py",
            "datasets_theory.py",
            "models_phenom.py",
