@@ -144,7 +144,6 @@ checklink/cookies.txt
 build/
 conda/
 dist/
-tutorials/export/
-tutorials/creating_testing_datasets.ipynb
-testing/trues/
-testing/preds/
+
+# hiding useless
+testing/
