@@ -44,7 +44,7 @@ class datasets_theory():
                        path = 'datasets/',
                        N_save = 1000, t_save = 1000):
         ''' Create a dataset of trajectories
-        Arguments:
+        Args:
             :T (int):
                 - length of the trajectories.
             :N_models (int, numpy.array):

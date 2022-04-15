@@ -11,20 +11,17 @@ import warnings
 
 from .utils_trajectories import gaussian
 
-try:
-    __IPYTHON__
-    from tqdm.notebook import tqdm
-except NameError:
-    from tqdm import tqdm
-
-
 # Cell
 class models_phenom():
     def __init__(self):
         '''Constructor of the class'''
         # We define here the bounds of the anomalous exponent and diffusion coefficient
         self.bound_D = [0, 1e12]
-        self.bound_alpha = [0, 2]
+        self.bound_alpha = [0, 1.999]
+
+        # Diffusion state labels: the position of each type defines its numerical label
+        # i: immobile/trapped; c: confined; f: free-diffusive (normal and anomalous); d: directed
+        self.lab_state = ['i', 'c', 'f', 'd']
 
 # Cell
 class models_phenom(models_phenom):
@@ -40,7 +37,10 @@ class models_phenom(models_phenom):
         dispx, dispy = FGN(hurst = alpha/2).sample(n = T), FGN(hurst = alpha/2).sample(n = T)
         dispx, dispy = np.sqrt(2*D*deltaT)*(dispx/np.std(dispx)), np.sqrt(2*D*deltaT)*(dispy/np.std(dispy))
         # labels
-        labels = np.vstack((np.ones(T)*alpha, np.ones(T)*D)).transpose()
+        labels = np.vstack((np.ones(T)*alpha,
+                            np.ones(T)*D,
+                            np.ones(T)*models_phenom().lab_state.index('f')
+                           )).transpose()
 
         # If there are no boundaries
         if not L:
@@ -72,16 +72,16 @@ class models_phenom(models_phenom):
     def single_state(self,
                      N = 10,
                      T = 200,
-                     D = [1, 0],
-                     alpha = [1, 0],
+                     Ds = [1, 0],
+                     alphas = [1, 0],
                      L = None):
 
         data = np.zeros((T, N, 2))
-        labels = np.zeros((T, N, 2))
+        labels = np.zeros((T, N, 3))
 
         for n in range(N):
-            alpha_traj = gaussian(alpha, bound = self.bound_alpha)
-            D_traj = gaussian(D, bound = self.bound_D)
+            alpha_traj = gaussian(alphas, bound = self.bound_alpha)
+            D_traj = gaussian(Ds, bound = self.bound_D)
             # Get trajectory from single traj function
             pos, lab = self._single_state_traj(T = T,
                                    D = D_traj,
@@ -98,8 +98,8 @@ class models_phenom(models_phenom):
     @staticmethod
     def _multiple_state_traj(T = 200,
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
-                    Ds = np.array([1, 0.5]), # Diffusion coefficients of two states
-                    alphas = np.array([1.5, 1]), # Anomalous exponents for two states
+                    Ds = np.array([1, 0.1]), # Diffusion coefficients of two states
+                    alphas = np.array([1, 1]), # Anomalous exponents for two states
                     L = None,
                     deltaT = 1):
 
@@ -119,7 +119,9 @@ class models_phenom(models_phenom):
         state = np.zeros(T).astype(int)
         state[0] = np.random.randint(M.shape[0])
         # Output labels
-        labels = np.zeros((T, 2))
+        labels = np.zeros((T, 3))
+        # set all state labels as free diffusion
+        labels[:, -1] = models_phenom().lab_state.index('f')
 
         # Init alphas, Ds
         alphas_t = np.array(alphas[state[0]]).repeat(T)
@@ -177,7 +179,7 @@ class models_phenom(models_phenom):
                     N = 10,
                     T = 200,
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
-                    Ds = np.array([[1, 0], [0.5, 0]]),
+                    Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
                     L = None):
 
@@ -288,8 +290,8 @@ class models_phenom(models_phenom):
 class models_phenom(models_phenom):
     def dimerization(self,
                      N = 10,
-                     T = 100,
-                     L = 5,
+                     T = 200,
+                     L = 100,
                      r = 1,
                      Pu = 0.1, # Unbinding probability
                      Pb = 0.01, # Binding probability
@@ -334,7 +336,7 @@ class models_phenom(models_phenom):
             disps[:, n, 1] = np.sqrt(2*Ds_t[0, n]*deltaT)*(dispy/np.std(dispy))
 
 
-        for t in tqdm(range(1, T)):
+        for t in (range(1, T)):
 
             # Find max label to account later for escaped
             max_label = np.max(label[t-1, :])
@@ -396,7 +398,7 @@ class models_phenom(models_phenom):
                     pos[t, pos[t,:, :] < 0] = - pos[t, pos[t,:, :] < 0]
 
 
-        return pos, np.array((alphas_t, Ds_t)).transpose(1,2,0)
+        return pos, np.array((alphas_t, Ds_t, np.ones_like(alphas_t)*self.lab_state.index('f'))).transpose(1,2,0)
 
 
 # Cell
@@ -436,21 +438,21 @@ class models_phenom(models_phenom):
 
     def immobile_traps(self,
                        N = 10,
-                        T = 100,
-                        L = 5,
-                        r = 1,
-                        Pu = 0.1, # Unbinding probability
-                        Pb = 0.01, # Binding probability
-                        D = [1, 0], # Diffusion coefficients of moving states
-                        alpha = [1, 0], # Anomalous exponents for two states
-                        Nt = 10,
-                        traps_pos = None,
-                        deltaT = 1
-                        ):
+                       T = 200,
+                       L = 100,
+                       r = 1,
+                       Pu = 0.1, # Unbinding probability
+                       Pb = 0.01, # Binding probability
+                       Ds = [1, 0], # Diffusion coefficients of moving state
+                       alphas = [1, 0], # Anomalous exponents of moving state
+                       Nt = 10,
+                       traps_pos = None,
+                       deltaT = 1
+                      ):
 
         # Info to output
         pos = np.zeros((T, N, 2)) # position over time
-        output_label = np.zeros((T, N, 2))
+        output_label = np.zeros((T, N, 3))
 
         disps = np.zeros((T, N, 2))
         diff_state = np.zeros((T, N)).astype(int)
@@ -461,8 +463,8 @@ class models_phenom(models_phenom):
 
         # Init alphas, Ds
         # Calculate alpha/D for each particle in state free state
-        alpha_N = gaussian(alpha, size = N, bound = self.bound_alpha)
-        D_N = gaussian(D, size = N, bound = self.bound_D)
+        alphas_N = gaussian(alphas, size = N, bound = self.bound_alpha)
+        Ds_N = gaussian(Ds, size = N, bound = self.bound_D)
 
         # Traps positions
         if traps_pos is None:
@@ -470,18 +472,18 @@ class models_phenom(models_phenom):
 
 
         for n in range(N):
-            dispx, dispy = [FGN(hurst = alpha_N[n]/2).sample(n = T),
-                            FGN(hurst = alpha_N[n]/2).sample(n = T)]
+            dispx, dispy = [FGN(hurst = alphas_N[n]/2).sample(n = T),
+                            FGN(hurst = alphas_N[n]/2).sample(n = T)]
 
-            disps[:, n, 0] = np.sqrt(2*D_N[n]*deltaT)*(dispx/np.std(dispx))
-            disps[:, n, 1] = np.sqrt(2*D_N[n]*deltaT)*(dispy/np.std(dispy))
+            disps[:, n, 0] = np.sqrt(2*Ds_N[n]*deltaT)*(dispx/np.std(dispx))
+            disps[:, n, 1] = np.sqrt(2*Ds_N[n]*deltaT)*(dispy/np.std(dispy))
 
         # Set initial values of labels
-        output_label[0, :, 0] = alpha_N
-        output_label[0, :, 1] = D_N
+        output_label[0, :, 0] = alphas_N
+        output_label[0, :, 1] = Ds_N
 
 
-        for t in tqdm(range(1, T)):
+        for t in (range(1, T)):
 
             mask_bound = self._update_bound(mask = mask_bound, # current bind vector
                                          N = N, # number of particles
@@ -500,28 +502,33 @@ class models_phenom(models_phenom):
             for un_part in untrapped:
                     if T-t > 1:
                         # Recalculate new displacements for next steps
-                        dispx, dispy = [FGN(hurst = alpha_N[un_part]/2).sample(n = T-t),
-                                        FGN(hurst = alpha_N[un_part]/2).sample(n = T-t)]
+                        dispx, dispy = [FGN(hurst = alphas_N[un_part]/2).sample(n = T-t),
+                                        FGN(hurst = alphas_N[un_part]/2).sample(n = T-t)]
 
-                        disps[t:, un_part, 0] = np.sqrt(2*D_N[un_part]*deltaT)*(dispx/np.std(dispx))
-                        disps[t:, un_part, 1] = np.sqrt(2*D_N[un_part]*deltaT)*(dispy/np.std(dispy))
+                        disps[t:, un_part, 0] = np.sqrt(2*Ds_N[un_part]*deltaT)*(dispx/np.std(dispx))
+                        disps[t:, un_part, 1] = np.sqrt(2*Ds_N[un_part]*deltaT)*(dispy/np.std(dispy))
 
                     else:
-                        disps[t:, un_part, 0] = np.sqrt(2*D_N[un_part]*deltaT)*np.random.randn()
-                        disps[t:, un_part, 1] = np.sqrt(2*D_N[un_part]*deltaT)*np.random.randn()
+                        disps[t:, un_part, 0] = np.sqrt(2*Ds_N[un_part]*deltaT)*np.random.randn()
+                        disps[t:, un_part, 1] = np.sqrt(2*Ds_N[un_part]*deltaT)*np.random.randn()
 
             # Update the position
             pos[t, :, :] = pos[t-1, :, :] + (1-mask_bound).reshape(N,1)*disps[t, :, :]
 
             # Update labels
-            output_label[t, :, 0] = alpha_N*(1-mask_bound)
-            output_label[t, :, 1] = D_N*(1-mask_bound)
+            output_label[t, :, 0] = alphas_N*(1-mask_bound)
+            output_label[t, :, 1] = Ds_N*(1-mask_bound)
 
             # Consider boundary conditions
             if L is not None:
                 while np.max(pos[t,:, :])>L or np.min(pos[t,:, :])< 0:
                     pos[t, pos[t,:, :] > L] = pos[t, pos[t,:, :] > L] - 2*(pos[t, pos[t,:, :] > L] - L)
                     pos[t, pos[t,:, :] < 0] = - pos[t, pos[t,:, :] < 0]
+
+        # Define state of particles based on values of Ds and alphas. Here, we use the fact
+        # that alpha = 0 for immobilization
+        output_label[output_label[:,:,0] == 0, -1] = self.lab_state.index('i')
+        output_label[output_label[:,:,0] != 0, -1] = self.lab_state.index('f')
 
         return pos, output_label
 
@@ -610,8 +617,8 @@ class models_phenom(models_phenom):
 
     @staticmethod
     def _confinement_traj(T = 200,
-                          Ds = np.array([10.,1]),
-                          alphas = np.array([1., 1]),
+                          Ds = np.array([1, 0.1]),
+                          alphas = np.array([1, 1]),
                           L = 100,
                           deltaT = 1,
                           r = 1,
@@ -644,7 +651,7 @@ class models_phenom(models_phenom):
             state[0] = 1
 
         # Output labels
-        labels = np.zeros((T, 2))
+        labels = np.zeros((T, 3))
         labels[0, 0] = alphas[state[0]]
         labels[0, 1] = Ds[state[0]]
 
@@ -733,6 +740,9 @@ class models_phenom(models_phenom):
             labels[t, 0] = alphas[state[t]]
             labels[t, 1] = Ds[state[t]]
 
+        # Define state of particles based on the state array
+        labels[state == 0, -1] = models_phenom().lab_state.index('f')
+        labels[state == 1, -1] = models_phenom().lab_state.index('c')
 
         return pos, labels
 
@@ -743,7 +753,7 @@ class models_phenom(models_phenom):
     def confinement(self,
                     N = 10,
                     T = 200,
-                    Ds = np.array([[1, 0], [0.5, 0]]),
+                    Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
                     L = 100,
                     deltaT = 1,
@@ -758,7 +768,7 @@ class models_phenom(models_phenom):
             alphas = np.array(alphas)
 
         data = np.zeros((T, N, 2))
-        labels = np.zeros((T, N, 2))
+        labels = np.zeros((T, N, 3))
 
         for n in range(N):
 

@@ -44,6 +44,7 @@ index = {"get_angle": "analysis.ipynb",
          "trigo": "utils_trajectories.ipynb",
          "find_nan_segments": "utils_trajectories.ipynb",
          "segs_inside_fov": "utils_trajectories.ipynb",
+         "inside_fov_dataset": "utils_trajectories.ipynb",
          "plot_trajs": "utils_trajectories.ipynb"}
 
 modules = ["analysis.py",
