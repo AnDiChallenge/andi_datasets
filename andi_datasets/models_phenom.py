@@ -168,7 +168,7 @@ class models_phenom(models_phenom):
                     pos[t, pos[t, :] < 0] = - pos[t, pos[t, :] < 0]
 
         if return_state_num:
-            return pos, np.array((alphas_t, Ds_t, np.ones(T)*models_phenom().lab_state.index('f'))).transpose(), state
+            return pos, np.array((alphas_t, Ds_t, state)).transpose()
         else:
             return pos, np.array((alphas_t, Ds_t, np.ones(T)*models_phenom().lab_state.index('f'))).transpose()
 
@@ -188,8 +188,6 @@ class models_phenom(models_phenom):
 
         trajs = np.zeros((T, N, 2))
         labels = np.zeros((T, N, 3))
-        if return_state_num:
-            state_num = np.zeros((T, N))
 
         for n in range(N):
 
@@ -201,7 +199,7 @@ class models_phenom(models_phenom):
 
 
             # Get trajectory from single traj function
-            Data = self._multiple_state_traj(T = T,
+            traj, lab = self._multiple_state_traj(T = T,
                                              L = L,
                                              M = M,
                                              alphas = alphas_traj,
@@ -209,15 +207,10 @@ class models_phenom(models_phenom):
                                              return_state_num = return_state_num
                                             )
 
-            trajs[:, n, :] = Data[0]
-            labels[:, n, :] = Data[1]
-            if return_state_num:
-                state_num[:, n] = Data[2]
+            trajs[:, n, :] = traj
+            labels[:, n, :] = lab
 
-        if return_state_num:
-            return trajs, labels, state_num
-        else:
-            return trajs, labels
+        return trajs, labels
 
 # Cell
 class models_phenom(models_phenom):
