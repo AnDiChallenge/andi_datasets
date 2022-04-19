@@ -101,7 +101,9 @@ class models_phenom(models_phenom):
                     Ds = np.array([1, 0.1]), # Diffusion coefficients of two states
                     alphas = np.array([1, 1]), # Anomalous exponents for two states
                     L = None,
-                    deltaT = 1):
+                    deltaT = 1,
+                    return_state_num = False # if True, returns the number assigned to the curren state
+                            ):
 
         # transform lists to numpy if needed
         if isinstance(M, list):
@@ -118,10 +120,6 @@ class models_phenom(models_phenom):
         # Diffusing state of the particle
         state = np.zeros(T).astype(int)
         state[0] = np.random.randint(M.shape[0])
-        # Output labels
-        labels = np.zeros((T, 3))
-        # set all state labels as free diffusion
-        labels[:, -1] = models_phenom().lab_state.index('f')
 
         # Init alphas, Ds
         alphas_t = np.array(alphas[state[0]]).repeat(T)
@@ -169,7 +167,10 @@ class models_phenom(models_phenom):
                     pos[t, pos[t, :] > L] = pos[t, pos[t, :] > L] - 2*(pos[t, pos[t, :] > L] - L)
                     pos[t, pos[t, :] < 0] = - pos[t, pos[t, :] < 0]
 
-        return pos, np.array((alphas_t, Ds_t)).transpose()
+        if return_state_num:
+            return pos, np.array((alphas_t, Ds_t, np.ones(T)*models_phenom().lab_state.index('f'))).transpose(), state
+        else:
+            return pos, np.array((alphas_t, Ds_t, np.ones(T)*models_phenom().lab_state.index('f'))).transpose()
 
 
 
@@ -181,11 +182,14 @@ class models_phenom(models_phenom):
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
-                    L = None):
+                    L = None,
+                    return_state_num = False):
 
 
-        data = np.zeros((T, N, 2))
-        labels = np.zeros((T, N, 2))
+        trajs = np.zeros((T, N, 2))
+        labels = np.zeros((T, N, 3))
+        if return_state_num:
+            state_num = np.zeros((T, N))
 
         for n in range(N):
 
@@ -197,15 +201,23 @@ class models_phenom(models_phenom):
 
 
             # Get trajectory from single traj function
-            pos, lab = self._multiple_state_traj(T = T,
-                                                   L = L,
-                                                   M = M,
-                                                   alphas = alphas_traj,
-                                                   Ds = Ds_traj)
-            data[:, n, :] = pos
-            labels[:, n, :] = lab
+            Data = self._multiple_state_traj(T = T,
+                                             L = L,
+                                             M = M,
+                                             alphas = alphas_traj,
+                                             Ds = Ds_traj,
+                                             return_state_num = return_state_num
+                                            )
 
-        return data, labels
+            trajs[:, n, :] = Data[0]
+            labels[:, n, :] = Data[1]
+            if return_state_num:
+                state_num[:, n] = Data[2]
+
+        if return_state_num:
+            return trajs, labels, state_num
+        else:
+            return trajs, labels
 
 # Cell
 class models_phenom(models_phenom):
