@@ -39,11 +39,16 @@ def gaussian(params, size = 1, bound = None):
             val = np.random.normal(mean, np.sqrt(var), size)
         if bound is not None:
             lower, upper = bound
-            val = scipy.stats.truncnorm.rvs((lower-mean)/np.sqrt(var),
-                                            (upper-mean)/np.sqrt(var),
-                                            loc = mean,
-                                            scale = np.sqrt(var),
-                                            size = size)
+            if var == 0:
+                if mean > upper or mean < lower:
+                    raise ValueError('Demanded value outside of range.')
+                val = np.ones(size)*mean
+            else:
+                val = scipy.stats.truncnorm.rvs((lower-mean)/np.sqrt(var),
+                                                (upper-mean)/np.sqrt(var),
+                                                loc = mean,
+                                                scale = np.sqrt(var),
+                                                size = size)
         if size == 1:
             return val[0]
         else:

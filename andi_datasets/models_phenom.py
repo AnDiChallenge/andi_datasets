@@ -2,7 +2,7 @@
 
 __all__ = ['models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom',
            'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom',
-           'models_phenom', 'models_phenom', 'models_phenom']
+           'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom']
 
 # Cell
 import numpy as np
@@ -27,16 +27,37 @@ class models_phenom():
 class models_phenom(models_phenom):
 
     @staticmethod
+    def disp_fbm(alpha, D, T, deltaT = 1):
+        ''' Generates normalized Fractional Gaussian noise. This means that, in
+        general:
+                            <x^2(t)> = 2·D·t^alpha
+        and in particular:
+                            <x^2(t = 1)> = 2·D
+
+        '''
+
+        # Generate displacements
+        disp = FGN(hurst = alpha/2).sample(n = T)
+        # Normalization factor
+        disp *= np.sqrt(T)**(alpha)
+        # Add D
+        disp *= np.sqrt(2*D*deltaT)
+
+        return disp
+
+# Cell
+class models_phenom(models_phenom):
+
+    @staticmethod
     def _single_state_traj(T = 200,
                           D = 1,
                           alpha = 1,
                           L = None,
                           deltaT = 1):
 
-        # Trajectory
-        dispx, dispy = FGN(hurst = alpha/2).sample(n = T), FGN(hurst = alpha/2).sample(n = T)
-        dispx, dispy = np.sqrt(2*D*deltaT)*(dispx/np.std(dispx)), np.sqrt(2*D*deltaT)*(dispy/np.std(dispy))
-        # labels
+        # Trajectory displacements
+        dispx, dispy = models_phenom().disp_fbm(alpha, D, T), models_phenom().disp_fbm(alpha, D, T)
+        # Labels
         labels = np.vstack((np.ones(T)*alpha,
                             np.ones(T)*D,
                             np.ones(T)*models_phenom().lab_state.index('f')
@@ -126,13 +147,9 @@ class models_phenom(models_phenom):
         Ds_t = np.array(Ds[state[0]]).repeat(T)
 
 
-
-        # Trajectory
-        dispx, dispy = [FGN(hurst = alphas_t[0]/2).sample(n = T),
-                        FGN(hurst = alphas_t[0]/2).sample(n = T)]
-
-        dispx, dispy = [np.sqrt(2*Ds_t[0]*deltaT)*(dispx/np.std(dispx)),
-                        np.sqrt(2*Ds_t[0]*deltaT)*(dispy/np.std(dispy)) ]
+        # Trajectory displacements
+        dispx, dispy = [models_phenom().disp_fbm(alphas_t[0], Ds_t[0], T),
+                        models_phenom().disp_fbm(alphas_t[0], Ds_t[0], T)]
 
 
         for t in range(1, T):
@@ -150,12 +167,11 @@ class models_phenom(models_phenom):
 
 
                 # Recalculate new displacements for next steps
-                dispx[t:], dispy[t:] = [FGN(hurst = alphas_t[t]/2).sample(n = T-t),
-                                        FGN(hurst = alphas_t[t]/2).sample(n = T-t)]
-
                 if len(dispx[t:]) > 1:
-                    dispx[t:], dispy[t:] = [np.sqrt(2*Ds_t[t]*deltaT)*(dispx[t:]/np.std(dispx[t:])),
-                                            np.sqrt(2*Ds_t[t]*deltaT)*(dispy[t:]/np.std(dispy[t:]))]
+                    dispx[t:], dispy[t:] = [models_phenom().disp_fbm(alphas_t[t], Ds_t[t], T-t),
+                                            models_phenom().disp_fbm(alphas_t[t], Ds_t[t], T-t)]
+
+
                 else:
                     dispx[t:], dispy[t:] = [np.sqrt(2*Ds[state[t]]*deltaT)*np.random.randn(),
                                             np.sqrt(2*Ds[state[t]]*deltaT)*np.random.randn()]
@@ -340,15 +356,12 @@ class models_phenom(models_phenom):
         alphas_t = alphas_N[0,:].repeat(T).reshape(N,T).transpose()
         Ds_t = Ds_N[0,:].repeat(T).reshape(N,T).transpose()
 
+
         # initial displacements (all free particles)
         disps = np.zeros((T, N, 2))
         for n in range(N):
-            dispx, dispy = [FGN(hurst = alphas_t[0, n]/2).sample(n = T),
-                            FGN(hurst = alphas_t[0, n]/2).sample(n = T)]
-
-            disps[:, n, 0] = np.sqrt(2*Ds_t[0, n]*deltaT)*(dispx/np.std(dispx))
-            disps[:, n, 1] = np.sqrt(2*Ds_t[0, n]*deltaT)*(dispy/np.std(dispy))
-
+            disps[:, n, 0] = models_phenom().disp_fbm(alphas_t[0, n], Ds_t[0, n], T, deltaT = deltaT)
+            disps[:, n, 1] = models_phenom().disp_fbm(alphas_t[0, n], Ds_t[0, n], T, deltaT = deltaT)
 
         for t in (range(1, T)):
 
@@ -393,12 +406,10 @@ class models_phenom(models_phenom):
 
 
                 for i in np.argwhere(label[t,:] == l):
-                    dispx, dispy = [FGN(hurst = float(alphas_t[t, i])/2).sample(n = T-t),
-                                    FGN(hurst = float(alphas_t[t, i])/2).sample(n = T-t)]
 
-                    if len(dispx) > 1:
-                        disps[t:, i, 0] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*(dispx/np.std(dispx)).reshape(T-t, 1)
-                        disps[t:, i, 1] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*(dispy/np.std(dispy)).reshape(T-t, 1)
+                    if T-t > 1:
+                        disps[t:, i, 0] = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
+                        disps[t:, i, 1] = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
                     else:
                         disps[t:, i, 0] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
                         disps[t:, i, 1] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
@@ -492,18 +503,14 @@ class models_phenom(models_phenom):
         if traps_pos is None:
             traps_pos = np.random.rand(Nt, 2)*L
 
-
+        # Get displacement for every particle
         for n in range(N):
-            dispx, dispy = [FGN(hurst = alphas_N[n]/2).sample(n = T),
-                            FGN(hurst = alphas_N[n]/2).sample(n = T)]
-
-            disps[:, n, 0] = np.sqrt(2*Ds_N[n]*deltaT)*(dispx/np.std(dispx))
-            disps[:, n, 1] = np.sqrt(2*Ds_N[n]*deltaT)*(dispy/np.std(dispy))
+            disps[:, n, 0] = models_phenom().disp_fbm(alphas_N[n], Ds_N[n], T, deltaT = deltaT)
+            disps[:, n, 1] = models_phenom().disp_fbm(alphas_N[n], Ds_N[n], T, deltaT = deltaT)
 
         # Set initial values of labels
         output_label[0, :, 0] = alphas_N
         output_label[0, :, 1] = Ds_N
-
 
         for t in (range(1, T)):
 
@@ -524,11 +531,8 @@ class models_phenom(models_phenom):
             for un_part in untrapped:
                     if T-t > 1:
                         # Recalculate new displacements for next steps
-                        dispx, dispy = [FGN(hurst = alphas_N[un_part]/2).sample(n = T-t),
-                                        FGN(hurst = alphas_N[un_part]/2).sample(n = T-t)]
-
-                        disps[t:, un_part, 0] = np.sqrt(2*Ds_N[un_part]*deltaT)*(dispx/np.std(dispx))
-                        disps[t:, un_part, 1] = np.sqrt(2*Ds_N[un_part]*deltaT)*(dispy/np.std(dispy))
+                        disps[t:, un_part, 0] = models_phenom().disp_fbm(alphas_N[un_part], Ds_N[un_part], T-t, deltaT = deltaT)
+                        disps[t:, un_part, 1] = models_phenom().disp_fbm(alphas_N[un_part], Ds_N[un_part], T-t, deltaT = deltaT)
 
                     else:
                         disps[t:, un_part, 0] = np.sqrt(2*Ds_N[un_part]*deltaT)*np.random.randn()
@@ -678,10 +682,9 @@ class models_phenom(models_phenom):
         labels[0, 1] = Ds[state[0]]
 
 
-
         # Trajectory
-        dispx, dispy = FGN(hurst = alphas[state[0]]/2).sample(n = T), FGN(hurst = alphas[state[0]]/2).sample(n = T)
-        dispx, dispy = np.sqrt(2*Ds[state[0]]*deltaT)*(dispx/np.std(dispx)), np.sqrt(Ds[state[0]])*(dispy/np.std(dispy))
+        dispx = models_phenom().disp_fbm(alphas[state[0]], Ds[state[0]], T, deltaT = deltaT)
+        dispy = models_phenom().disp_fbm(alphas[state[0]], Ds[state[0]], T, deltaT = deltaT)
         disp_t = 0
 
 
@@ -735,15 +738,11 @@ class models_phenom(models_phenom):
 
             # If the state changed
             if state[t] != state[t-1]:
-                # Recalculate new displacements for next steps
-                dispx, dispy = [FGN(hurst = alphas[state[t]]/2).sample(n = T-t),
-                                FGN(hurst = alphas[state[t]]/2).sample(n = T-t)]
 
+                if T-t > 1:
+                    dispx = models_phenom().disp_fbm(alphas[state[t]], Ds[state[t]], T-t, deltaT = deltaT)
+                    dispy = models_phenom().disp_fbm(alphas[state[t]], Ds[state[t]], T-t, deltaT = deltaT)
 
-
-                if len(dispx) > 1:
-                    dispx, dispy = [np.sqrt(2*Ds[state[t]]*deltaT)*(dispx/np.std(dispx)),
-                                    np.sqrt(2*Ds[state[t]]*deltaT)*(dispy/np.std(dispy))]
                 else:
                     dispx, dispy = [np.sqrt(2*Ds[state[t]]*deltaT)*np.random.randn(),
                                     np.sqrt(2*Ds[state[t]]*deltaT)*np.random.randn()]
