@@ -4,8 +4,8 @@ __all__ = ['majority_filter', 'label_filter', 'stepwise_to_list', 'continuous_la
            'changepoint_assignment', 'changepoint_alpha_beta', 'jaccard_index', 'ensemble_changepoint_error',
            'changepoint_error', 'segment_distance', 'create_binary_segment', 'jaccard_between_segments',
            'segment_assignment', 'metric_anomalous_exponent', 'metric_diffusion_coefficient', 'metric_diffusive_state',
-           'check_no_changepoints', 'segment_property_errors', 'check_prediction_length', 'separate_prediction_values',
-           'load_file_to_df', 'error_ensemble_prediction']
+           'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'check_prediction_length',
+           'separate_prediction_values', 'load_file_to_df', 'error_ensemble_prediction']
 
 # Cell
 import numpy as np
@@ -13,7 +13,6 @@ from scipy.optimize import linear_sum_assignment
 import pandas
 from tqdm.auto import tqdm
 import warnings
-
 
 # Cell
 def majority_filter(seq, width):
@@ -150,7 +149,7 @@ def continuous_label_to_list(labs):
 
 # Cell
 from .utils_trajectories import segs_inside_fov
-from .datasets_phenom import datasets_phenom
+
 
 def data_to_df(trajs,
                labels,
@@ -165,7 +164,7 @@ def data_to_df(trajs,
     :labels (dimension: T x N x 2):
     :label_values (array) (size: # of states): values of any property for every existing state.
     :diff_states (array) (size: # of states): labels correspoding to each state as defined in the
-    ANDI 2022 state labels: 0: immobile; 1: confined; 2: brownian; 3: anomalous.
+    ANDI 2022 state labels: 0: immobile; 1: confined; 2: free diffusion; 3: directed.
 
     Outputs:
     :df_in (dataframe): dataframe with trajectories
@@ -179,7 +178,7 @@ def data_to_df(trajs,
     df_out = pandas.DataFrame(columns = ['traj_idx', 'T', 'Ds', 'alphas', 'states', 'changepoints'])
 
     idx_t = 0
-    for traj, l_alpha, l_D in zip(tqdm(trajs), labels[:, :, 0], labels[:, :, 1]):
+    for traj, l_alpha, l_D, l_s in zip(tqdm(trajs), labels[:, :, 0], labels[:, :, 1], labels[:, :, 2]):
 
         # Check FOV and
         idx_inside_segments = segs_inside_fov(traj, fov_max, fov_min, min_length)
@@ -191,14 +190,13 @@ def data_to_df(trajs,
                 seg_y = traj[idx_in[0]:idx_in[1], 1]
                 seg_alpha = l_alpha[idx_in[0]:idx_in[1]]
                 seg_D = l_D[idx_in[0]:idx_in[1]]
+                seg_state = l_s[idx_in[0]:idx_in[1]]
 
                 # Filtering
                 seg_alpha = label_filter(seg_alpha)
                 seg_D = label_filter(seg_D)
+                seg_state = label_filter(seg_state)
 
-                seg_state = datasets_phenom()._extract_state(label_values = label_values,
-                                                             states = diff_states,
-                                                             labels = seg_alpha)
 
                 # Stacking data of input dataframe
                 xs += seg_x.tolist()
@@ -505,6 +503,87 @@ def segment_property_errors(T,
         error_D = metric_diffusion_coefficient(paired_D[:,0], paired_D[:,1])
         error_s = metric_diffusive_state(paired_s[:,0], paired_s[:,1])
         return error_alpha, error_D, error_s
+
+# Cell
+from .models_phenom import models_phenom
+def extract_ensemble(state_label, dic):
+        ''' Given an array of the diffusive state and a dictionary with the diffusion information,
+        returns a summary of the ensemble properties for the current dataset.
+
+        Args:
+            :state_label (array): Array containing the diffusive state of the particles in the dataset.
+                                  For multi-state and dimerization, this must be the number associated to the
+                                  state (for dimerization, 0 is free, 1 is dimerized). For the rest, we follow
+                                  the numeration of models_phenom().lab_state.
+            :dic (dictionary):    Dictionary containing the information of the input dataset.
+        Returns:
+            :ensemble (array):    Matrix containing the ensemble information of the input dataset. It has the
+                                  following shape:
+                                  |mu_alpha1      mu_alpha2     ... |
+                                  |sigma_alpha1   sigma_alpha2  ... |
+                                  |mu_D1          mu_D1         ... |
+                                  |sigma_D1       sigma_D2      ... |
+                                  |counts_state1  counts_state2 ... |
+        '''
+
+        # Single state
+        if dic['model'] == 'single_state':
+            ensemble = np.vstack((dic['alphas'][0],
+                                   dic['alphas'][1],
+                                   dic['Ds'][0],
+                                   dic['Ds'][1],
+                                   len(state_label)
+                                   ))
+        # Multi-state
+        if dic['model'] == 'multi_state':
+            states, counts = np.unique(state_label, return_counts=True)
+            # If the number of visited stated is not equal to the expected number of states
+            if len(states) != dic['alphas'].shape[0]:
+                states_corrected = np.ones(dic['alphas'].shape[0])
+                counts_corrected = np.ones(dic['alphas'].shape[0])
+                for s, c in zip(states, counts):
+                    counts_corrected[int(s)] = c
+            else:
+                counts_corrected = counts
+
+            ensemble = np.vstack((dic['alphas'][:, 0],
+                                   dic['alphas'][:, 1],
+                                   dic['Ds'][:, 0],
+                                   dic['Ds'][:, 1],
+                                   counts_corrected
+                                   ))
+
+        # Immobile
+        if dic['model'] == 'immobile_traps':
+            counts = [len(state_label[state_label == models_phenom().lab_state.index('i')]),
+                      len(state_label[state_label == models_phenom().lab_state.index('f')])]
+            ensemble = np.vstack(([0, dic['alphas'][0]],
+                                   [0, dic['alphas'][1]],
+                                   [0, dic['Ds'][0]],
+                                   [0, dic['Ds'][1]],
+                                   counts
+                                   ))
+        # dimerization
+        if dic['model'] == 'dimerization':
+            counts = [len(state_label[state_label == 0]),
+                      len(state_label[state_label == 1])]
+            ensemble = np.vstack((dic['alphas'][:, 0],
+                                   dic['alphas'][:, 1],
+                                   dic['Ds'][:, 0],
+                                   dic['Ds'][:, 1],
+                                   counts
+                                   ))
+
+        if dic['model'] == 'confinement':
+            counts = [len(state_label[state_label == models_phenom().lab_state.index('f')]),
+                      len(state_label[state_label == models_phenom().lab_state.index('c')])]
+            ensemble = np.vstack((dic['alphas'][:, 0],
+                                   dic['alphas'][:, 1],
+                                   dic['Ds'][:, 0],
+                                   dic['Ds'][:, 1],
+                                   counts
+                                   ))
+        return ensemble
 
 # Cell
 def check_prediction_length(pred):

@@ -168,9 +168,14 @@ class models_phenom(models_phenom):
                     pos[t, pos[t, :] < 0] = - pos[t, pos[t, :] < 0]
 
         if return_state_num:
-            return pos, np.array((alphas_t, Ds_t, state)).transpose()
+            return pos, np.array((alphas_t,
+                                  Ds_t,
+                                  np.ones(T)*models_phenom().lab_state.index('f'),
+                                  state)).transpose()
         else:
-            return pos, np.array((alphas_t, Ds_t, np.ones(T)*models_phenom().lab_state.index('f'))).transpose()
+            return pos, np.array((alphas_t,
+                                  Ds_t,
+                                  np.ones(T)*models_phenom().lab_state.index('f'))).transpose()
 
 
 
@@ -187,7 +192,10 @@ class models_phenom(models_phenom):
 
 
         trajs = np.zeros((T, N, 2))
-        labels = np.zeros((T, N, 3))
+        if return_state_num:
+            labels = np.zeros((T, N, 4))
+        else:
+            labels = np.zeros((T, N, 3))
 
         for n in range(N):
 
@@ -303,7 +311,8 @@ class models_phenom(models_phenom):
                      Ds = np.array([[1, 0], [0.1, 0]]), # Diffusion coefficients of two states
                      alphas = np.array([[1, 0], [1, 0]]), # Anomalous exponents for two states
                      deltaT = 1,
-                     gamma = False
+                     gamma = False,
+                     return_state_num = True
                      ):
 
         # transform lists to numpy if needed
@@ -402,8 +411,16 @@ class models_phenom(models_phenom):
                     pos[t, pos[t,:, :] > L] = pos[t, pos[t,:, :] > L] - 2*(pos[t, pos[t,:, :] > L] - L)
                     pos[t, pos[t,:, :] < 0] = - pos[t, pos[t,:, :] < 0]
 
-
-        return pos, np.array((alphas_t, Ds_t, np.ones_like(alphas_t)*self.lab_state.index('f'))).transpose(1,2,0)
+        if return_state_num:
+            return pos, np.array((alphas_t,
+                                  Ds_t,
+                                  np.ones_like(alphas_t)*self.lab_state.index('f'),
+                                  diff_state)).transpose(1,2,0)
+        else:
+            return pos, np.array((alphas_t,
+                                  Ds_t,
+                                  np.ones_like(alphas_t)*self.lab_state.index('f')
+                                 )).transpose(1,2,0)
 
 
 # Cell
