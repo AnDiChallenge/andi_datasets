@@ -328,7 +328,7 @@ class models_phenom(models_phenom):
                      alphas = np.array([[1, 0], [1, 0]]), # Anomalous exponents for two states
                      deltaT = 1,
                      gamma = False,
-                     return_state_num = True
+                     return_state_num = False
                      ):
 
         # transform lists to numpy if needed

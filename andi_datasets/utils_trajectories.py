@@ -317,14 +317,15 @@ def inside_fov_dataset(trajs, labels, fov_origin, fov_length, cutoff_length = 10
                 trajs_fov.append(np.vstack((traj_x, traj_y)))
 
 
-                if func_labels is not None: # If feeded, apply func_label (mostly for smoothing)
-                    lab_1 = func_labels(label[idx_nan[0]:idx_nan[1], 0])
-                    lab_2 = func_labels(label[idx_nan[0]:idx_nan[1], 1])
-                else:
-                    lab_1 = label[idx_nan[0]:idx_nan[1], 0]
-                    lab_2 = label[idx_nan[0]:idx_nan[1], 1]
+                lab_list = []
+                for idx_lab in range(label.shape[-1]):
+                    if func_labels is not None: # If feeded, apply func_label (mostly for smoothing)
+                        lab = func_labels(label[idx_nan[0]:idx_nan[1], idx_lab])
+                    else:
+                        lab = label[idx_nan[0]:idx_nan[1], idx_lab]
+                    lab_list.append(lab)
 
-                labels_fov.append(np.vstack((lab_1, lab_2)))
+                labels_fov.append(np.vstack(lab_list))
 
     return trajs_fov, labels_fov
 

@@ -19,14 +19,16 @@ import warnings
 
 # Cell
 class datasets_phenom():
-    def __init__(self):
+    def __init__(self,
+                models_class = models_phenom()):
             ''' Constructor of the class '''
+            self.models_class = models_class
             self._get_models()
 
     def _get_models(self):
-        '''Loading subclass of models'''
+        '''Loads the available models from the subclass'''
 
-        available_models = inspect.getmembers(models_phenom(), inspect.ismethod)
+        available_models = inspect.getmembers(self.models_class, inspect.ismethod)
         available_models = available_models[1:][::-1] # we need this to get rid of the init
         self.avail_models_name = [x[0] for x in available_models]
         self.avail_models_func = [x[1] for x in available_models]
@@ -53,11 +55,30 @@ class datasets_phenom():
 class datasets_phenom(datasets_phenom):
 
     def create_dataset(self,
+                       dics = False,
                        T = None,
                        N_model = None,
-                       dics = False,
                        path = '',
                        save = False, load = False):
+        ''' Given a list of dictionaries, generates trajectories of the demanded properties.
+        This function checks and handles the input dataset and the manages both the creation,
+        loading and saving of trajectories.
+        Args:
+            :dics (list, dictionary, bool):
+                - if list or dictionary: the function generates trajectories with the
+                properties stated in each dictionary.
+                - if bool: the function generates trajectories with default parameters.
+                set for the ANDI2022 challenge for every available diffusion model.
+            :T (int or None):
+                - if int: overrides the values of trajectory length in the dictionaries.
+                - if None: uses the trajectory length values in the dictionaries.
+            :N_model (int or None):
+                - if int: overrides the values of number of trajectories in the dictionaries.
+                - if None: uses the number of trajectories in the dictionaries
+            :save (bool): if True, saves the generated dataset (see self._save_trajectories).
+            :load (bool): if True, loads a dataset from path (see self._load_trajectories).
+            :path (str): path from where to save or load the dataset.
+        '''
 
         self.T = T
         self.N_model = N_model
@@ -92,6 +113,13 @@ class datasets_phenom(datasets_phenom):
 class datasets_phenom(datasets_phenom):
 
     def _create_trajectories(self):
+        ''' Given a list of dictionaries, generates trajectories of the demanded properties.
+        First checks in the .csv of each demanded model if a dataset of similar properties
+        exists. If it does, it loads it from the corresponding file.
+        Return:
+            :data_t (array): array containing the generated trajectories
+            :data_l (array): array containing the corresponding labels.
+        '''
 
         for dic in self.dics:
 
@@ -130,6 +158,11 @@ class datasets_phenom(datasets_phenom):
         return data_t, data_l
 
     def _save_trajectories(self, trajs, labels, dic, df, dataset_idx, path):
+        ''' Given a set of trajectories and labels, saves two things:
+                - In the .csv corresponding to the demanded model, all the input parameters
+                of the generated dataset.
+                - In a .npy file, the trajectories and labels generated.
+        '''
 
         file_name = path+dic['model']+'_'+str(df.shape[0])+'.npy'
 
@@ -138,21 +171,24 @@ class datasets_phenom(datasets_phenom):
         df.to_csv(path+dic['model']+'.csv')
 
         # Save trajectories and labels
-        data = np.stack((trajs, labels))
+        data = np.dstack((trajs, labels))
         np.save(file_name, data)
 
     def _load_trajectories(self, model_name, dataset_idx, path):
+        ''' Given the path for a dataset, loads the trajectories and labels'''
 
         file_name = path+model_name+'_'+str(dataset_idx)+'.npy'
         data = np.load(file_name)
-        return data[0], data[1]
+        return data[:, :, :2], data[:, :  , 2:]
 
 
 # Cell
 class datasets_phenom(datasets_phenom):
 
     def _inspect_dic(self, dic):
-        '''Checks the information of the dictionaries and managesloading/saving information.'''
+        '''Checks the information of the input dictionaries, complete missing information with defeault
+        values and then decides about loading/saving depending on parameters.
+        '''
 
         # Add time and number of trajectories information
         if self.N_model is not None:
@@ -215,6 +251,15 @@ class datasets_phenom(datasets_phenom):
 # Cell
 class datasets_phenom(datasets_phenom):
     def _get_args(self, model, return_defaults = False):
+        ''' Given the name of a diffusion model, return its inputs arguments.
+        Args:
+            :model (str): name of the diffusion model (see self.available_models_name)
+            :return_defaults (optional, bool): if True, the function will also return
+            the default values of each input argument.
+        Return:
+            :args (list): list of input arguments
+            :defaults (optional, list): list of default value for the input arguments.
+        '''
         model_f = self.avail_models_func[self.avail_models_name.index(model)]
         # Check arguments and defaults from model's function
         args = inspect.getfullargspec(model_f).args[1:]
@@ -247,8 +292,20 @@ class datasets_phenom(datasets_phenom):
 # Cell
 class datasets_phenom(datasets_phenom):
     def _get_dic_andi2(self, model):
-        ''' Here we go by normal numeration, not Python!!!
-        1: single state; 2: N-state, 3: immobilization, 4: dimerization, 5: confinement'''
+        ''' Given the number label of diffusion model, returns a default
+        dictionary of the model's parameters to be fed to create_dataset
+        The numeration is as follow:
+                1: single state
+                2: N-state
+                3: immobilization
+                4: dimerization
+                5: confinement
+        Args:
+            :model (int in [1,6]): number of the diffusion model
+        Return:
+            :dic (dictionary): dictionary containing the default parameters
+            for ANDI2022 of the indicated model.
+        '''
 
         dic = {'N': self._df_andi2().N,
                'T': self._df_andi2().T,
@@ -326,7 +383,7 @@ class datasets_phenom(datasets_phenom):
         For each experiment, as many field of view as wanted can be generated. The default values are taken
         from datasets_phenom._df_andi2.
         If you want to change the parameters of each model, change them at datasets_phenom._df_andi2 and
-        models_phenom._get_dic_andi2. It may be easier to generate the datasets directly from
+        datasets_phenom._get_dic_andi2. It may be easier to generate the datasets directly from
         datasets_phenom.create_datasets.
 
         Args:

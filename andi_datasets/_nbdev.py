@@ -5,6 +5,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"get_angle": "analysis.ipynb",
          "dataset_angles": "analysis.ipynb",
          "msd_analysis": "analysis.ipynb",
+         "velocity": "analysis.ipynb",
+         "vacf": "analysis.ipynb",
          "ch_analysis": "analysis.ipynb",
          "datasets_phenom": "datasets_phenom.ipynb",
          "datasets_theory": "datasets_theory.ipynb",
