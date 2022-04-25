@@ -4,8 +4,8 @@ __all__ = ['majority_filter', 'label_filter', 'stepwise_to_list', 'continuous_la
            'changepoint_assignment', 'changepoint_alpha_beta', 'jaccard_index', 'ensemble_changepoint_error',
            'changepoint_error', 'segment_distance', 'create_binary_segment', 'jaccard_between_segments',
            'segment_assignment', 'metric_anomalous_exponent', 'metric_diffusion_coefficient', 'metric_diffusive_state',
-           'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'check_prediction_length',
-           'separate_prediction_values', 'load_file_to_df', 'error_ensemble_prediction']
+           'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'multimode_dist',
+           'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_ensemble_prediction']
 
 # Cell
 import numpy as np
@@ -584,6 +584,22 @@ def extract_ensemble(state_label, dic):
                                    counts
                                    ))
         return ensemble
+
+# Cell
+import scipy.stats
+def multimode_dist(params, weights, bound, x):
+    func = scipy.stats.truncnorm
+    dist = np.zeros_like(x)
+    lower, upper = bound
+    for param, w in zip(params, weights):
+        mean, var  = param
+        unimodal = func.pdf(x,
+                            (lower-mean)/np.sqrt(var),
+                            (upper-mean)/np.sqrt(var),
+                            loc = mean,
+                            scale = np.sqrt(var))
+        dist += w*unimodal
+    return dist
 
 # Cell
 def check_prediction_length(pred):
