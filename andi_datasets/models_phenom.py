@@ -19,6 +19,9 @@ class models_phenom():
         self.bound_D = [0, 1e12]
         self.bound_alpha = [0, 1.999]
 
+        # We also define the value in which we consider directed motion
+        self.alpha_directed = 1.9
+
         # Diffusion state labels: the position of each type defines its numerical label
         # i: immobile/trapped; c: confined; f: free-diffusive (normal and anomalous); d: directed
         self.lab_state = ['i', 'c', 'f', 'd']
@@ -58,9 +61,10 @@ class models_phenom(models_phenom):
         # Trajectory displacements
         dispx, dispy = models_phenom().disp_fbm(alpha, D, T), models_phenom().disp_fbm(alpha, D, T)
         # Labels
+        lab_diff_state = np.ones(T)*models_phenom().lab_state.index('f') if alpha < models_phenom().alpha_directed else np.ones(T)*models_phenom().lab_state.index('d')
         labels = np.vstack((np.ones(T)*alpha,
                             np.ones(T)*D,
-                            np.ones(T)*models_phenom().lab_state.index('f')
+                            lab_diff_state
                            )).transpose()
 
         # If there are no boundaries
@@ -183,15 +187,20 @@ class models_phenom(models_phenom):
                     pos[t, pos[t, :] > L] = pos[t, pos[t, :] > L] - 2*(pos[t, pos[t, :] > L] - L)
                     pos[t, pos[t, :] < 0] = - pos[t, pos[t, :] < 0]
 
+        # Define state of particles based on values of alphas: either free or directed
+        label_diff_state = np.zeros_like(alphas_t)
+        label_diff_state[alphas_t  < models_phenom().alpha_directed] = models_phenom().lab_state.index('f')
+        label_diff_state[alphas_t >= models_phenom().alpha_directed] = models_phenom().lab_state.index('d')
+
         if return_state_num:
             return pos, np.array((alphas_t,
                                   Ds_t,
-                                  np.ones(T)*models_phenom().lab_state.index('f'),
+                                  label_diff_state,
                                   state)).transpose()
         else:
             return pos, np.array((alphas_t,
                                   Ds_t,
-                                  np.ones(T)*models_phenom().lab_state.index('f'))).transpose()
+                                  label_diff_state)).transpose()
 
 
 
@@ -422,15 +431,20 @@ class models_phenom(models_phenom):
                     pos[t, pos[t,:, :] > L] = pos[t, pos[t,:, :] > L] - 2*(pos[t, pos[t,:, :] > L] - L)
                     pos[t, pos[t,:, :] < 0] = - pos[t, pos[t,:, :] < 0]
 
+        # Define state of particles based on values of alphas: either free or directed
+        label_diff_state = np.zeros_like(alphas_t)
+        label_diff_state[alphas_t  < self.alpha_directed] = self.lab_state.index('f')
+        label_diff_state[alphas_t >= self.alpha_directed] = self.lab_state.index('d')
+
         if return_state_num:
             return pos, np.array((alphas_t,
                                   Ds_t,
-                                  np.ones_like(alphas_t)*self.lab_state.index('f'),
+                                  label_diff_state,
                                   diff_state)).transpose(1,2,0)
         else:
             return pos, np.array((alphas_t,
                                   Ds_t,
-                                  np.ones_like(alphas_t)*self.lab_state.index('f')
+                                  label_diff_state
                                  )).transpose(1,2,0)
 
 
@@ -554,7 +568,9 @@ class models_phenom(models_phenom):
         # Define state of particles based on values of Ds and alphas. Here, we use the fact
         # that alpha = 0 for immobilization
         output_label[output_label[:,:,0] == 0, -1] = self.lab_state.index('i')
-        output_label[output_label[:,:,0] != 0, -1] = self.lab_state.index('f')
+        idx_f = np.argwhere
+        output_label[(output_label[:,:,0] > 0) & (output_label[:,:,0] < self.alpha_directed), -1] = self.lab_state.index('f')
+        output_label[output_label[:,:,0] > self.alpha_directed, -1] = self.lab_state.index('d')
 
         return pos, output_label
 
@@ -761,8 +777,12 @@ class models_phenom(models_phenom):
             labels[t, 0] = alphas[state[t]]
             labels[t, 1] = Ds[state[t]]
 
-        # Define state of particles based on the state array
-        labels[state == 0, -1] = models_phenom().lab_state.index('f')
+        # Define state of particles based on the state array. First free/directed
+        if alphas[0] < self.alpha_directed:
+            labels[state == 0, -1] = models_phenom().lab_state.index('f')
+        else:
+            labels[state == 0, -1] = models_phenom().lab_state.index('d')
+        # Then confined
         labels[state == 1, -1] = models_phenom().lab_state.index('c')
 
         return pos, labels
