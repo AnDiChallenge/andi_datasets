@@ -37,10 +37,10 @@ if cfg.get('pip_requirements'): requirements += cfg.get('pip_requirements','').s
 dev_requirements = (cfg.get('dev_requirements') or '').split()
 
 long_description = open('README.md').read()
-# ![png](docs/images/output_13_0.png)
-for ext in ['png', 'svg']:
-    long_description = re.sub(r'!\['+ext+'\]\((.*)\)', '!['+ext+']('+'https://raw.githubusercontent.com/{}/{}'.format(cfg['user'],cfg['lib_name'])+'/'+cfg['branch']+'/\\1)', long_description)
-    long_description = re.sub(r'src=\"(.*)\.'+ext+'\"', 'src=\"https://raw.githubusercontent.com/{}/{}'.format(cfg['user'],cfg['lib_name'])+'/'+cfg['branch']+'/\\1.'+ext+'\"', long_description)
+# # ![png](docs/images/output_13_0.png)
+# for ext in ['png', 'svg']:
+#     long_description = re.sub(r'!\['+ext+'\]\((.*)\)', '!['+ext+']('+'https://raw.githubusercontent.com/{}/{}'.format(cfg['user'],cfg['lib_name'])+'/'+cfg['branch']+'/\\1)', long_description)
+#     long_description = re.sub(r'src=\"(.*)\.'+ext+'\"', 'src=\"https://raw.githubusercontent.com/{}/{}'.format(cfg['user'],cfg['lib_name'])+'/'+cfg['branch']+'/\\1.'+ext+'\"', long_description)
 
 setuptools.setup(
     name = cfg['lib_name'],
@@ -56,8 +56,8 @@ setuptools.setup(
     install_requires = requirements,
     extras_require={ 'dev': dev_requirements },
     python_requires  = '>=' + cfg['min_python'],
-    long_description = long_description,
-    long_description_content_type = 'text/markdown',
+#     long_description = long_description,
+#     long_description_content_type = 'text/markdown',
     zip_safe = False,
     entry_points = { 'console_scripts': cfg.get('console_scripts','').split() },
     **setup_cfg)
