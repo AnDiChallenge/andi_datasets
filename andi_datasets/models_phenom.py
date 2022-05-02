@@ -778,7 +778,7 @@ class models_phenom(models_phenom):
             labels[t, 1] = Ds[state[t]]
 
         # Define state of particles based on the state array. First free/directed
-        if alphas[0] < self.alpha_directed:
+        if alphas[0] < models_phenom().alpha_directed:
             labels[state == 0, -1] = models_phenom().lab_state.index('f')
         else:
             labels[state == 0, -1] = models_phenom().lab_state.index('d')

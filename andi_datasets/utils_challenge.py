@@ -138,6 +138,7 @@ def continuous_label_to_list(labs):
     alphas = np.zeros(len(CP)+1)
     Ds = np.zeros(len(CP)+1)
     if are_states: states = np.zeros(len(CP)+1)
+
     for idx, cp in enumerate(np.append(CP, T)):
         alphas[idx] = labs[cp-1, 0]
         Ds[idx] = labs[cp-1, 1]
