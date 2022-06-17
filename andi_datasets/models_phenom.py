@@ -144,7 +144,9 @@ class models_phenom(models_phenom):
 
         # Diffusing state of the particle
         state = np.zeros(T).astype(int)
-        state[0] = np.random.randint(M.shape[0])
+        if init_state is None:
+            state[0] = np.random.randint(M.shape[0])
+        else: state[0] = init_state
 
         # Init alphas, Ds
         alphas_t = np.array(alphas[state[0]]).repeat(T)
@@ -213,7 +215,8 @@ class models_phenom(models_phenom):
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
                     L = None,
-                    return_state_num = False):
+                    return_state_num = False,
+                    init_state = None):
 
 
         trajs = np.zeros((T, N, 2))
@@ -233,12 +236,13 @@ class models_phenom(models_phenom):
 
             # Get trajectory from single traj function
             traj, lab = self._multiple_state_traj(T = T,
-                                             L = L,
-                                             M = M,
-                                             alphas = alphas_traj,
-                                             Ds = Ds_traj,
-                                             return_state_num = return_state_num
-                                            )
+                                                  L = L,
+                                                  M = M,
+                                                  alphas = alphas_traj,
+                                                  Ds = Ds_traj,
+                                                  return_state_num = return_state_num,
+                                                  init_state = init_state
+                                                 )
 
             trajs[:, n, :] = traj
             labels[:, n, :] = lab
