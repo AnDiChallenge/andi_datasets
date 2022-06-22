@@ -50,7 +50,8 @@ index = {"get_angle": "analysis.ipynb",
          "find_nan_segments": "utils_trajectories.ipynb",
          "segs_inside_fov": "utils_trajectories.ipynb",
          "inside_fov_dataset": "utils_trajectories.ipynb",
-         "plot_trajs": "utils_trajectories.ipynb"}
+         "plot_trajs": "utils_trajectories.ipynb",
+         "get_video_andi": "utils_videos.ipynb"}
 
 modules = ["analysis.py",
            "datasets_phenom.py",
@@ -58,7 +59,8 @@ modules = ["analysis.py",
            "models_phenom.py",
            "models_theory.py",
            "utils_challenge.py",
-           "utils_trajectories.py"]
+           "utils_trajectories.py",
+           "utils_videos.py"]
 
 doc_url = "https://gorkamunoz.github.io/andi_datasets/"
 
