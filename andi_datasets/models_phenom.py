@@ -127,7 +127,8 @@ class models_phenom(models_phenom):
                     alphas = np.array([1, 1]), # Anomalous exponents for two states
                     L = None,
                     deltaT = 1,
-                    return_state_num = False # if True, returns the number assigned to the curren state
+                    return_state_num = False, # if True, returns the number assigned to the curren state
+                    init_state = None
                             ):
 
         # transform lists to numpy if needed
@@ -418,14 +419,18 @@ class models_phenom(models_phenom):
                     Ds_t[t:, label[t, :] == l] = np.mean(Ds_t[t:, label[t, :] == l])/gamma
 
 
-                for i in np.argwhere(label[t,:] == l):
+                for idx, i in enumerate(np.argwhere(label[t,:] == l)):
+                    # We first calculate the displacements so dimers have same motion
+                    if idx == 0:
+                        if T-t > 1:
+                            disp_current_x = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
+                            disp_current_y = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
+                        else:
+                            disp_current_x = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
+                            disp_current_y = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
 
-                    if T-t > 1:
-                        disps[t:, i, 0] = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
-                        disps[t:, i, 1] = models_phenom().disp_fbm(float(alphas_t[t, i]), float(Ds_t[t, i]), T-t, deltaT = deltaT).reshape(T-t, 1)
-                    else:
-                        disps[t:, i, 0] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
-                        disps[t:, i, 1] = np.sqrt(2*float(Ds_t[t, i])*deltaT)*np.random.randn(1)
+                    disps[t:, i, 0] = disp_current_x
+                    disps[t:, i, 1] = disp_current_y
 
             # Update position
             pos[t, :, :] = pos[t-1,:,:]+disps[t, :, :]
