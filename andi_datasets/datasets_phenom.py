@@ -284,7 +284,7 @@ class datasets_phenom(datasets_phenom):
             'PARTICLES MOVE TOO SLOWLY WITH D = 0.1!!'
             self.D = 1                     # Baseline diffusion coefficient (px^2/frame)
             self.density = 2               # Particle density
-            self.N = self.density*self.L   # Number of particle in the whole experiment
+            self.N = 500   # Number of particle in the whole experiment
             self.sigma_noise = 0.12        # Variance of the localization noise
 
             self.label_filter = lambda x: label_filter(x, window_size = 5, min_seg = 3)
@@ -319,23 +319,23 @@ class datasets_phenom(datasets_phenom):
         # alphas and Ds for 2-state, confinement and dimerization
         if model == 2 or model == 4 or model == 5:
 
-            fast_D = self._df_andi2().D
-            slow_D = self._df_andi2().D*np.random.choice([1e-1, 1e-2, 1e-3])
+            fast_D = self._df_andi2().D + np.random.randn()*self._df_andi2().D*0.01
+            slow_D = fast_D*np.random.rand()*(0.5-0.1)+0.1
 
             alpha1 = np.random.rand()*(1.2-0.8)+0.8
             # The second state will be at least 0.2 afar. We make sure not being
             # outside [0,2]
-            alpha2 = alpha1 + np.random.choice([-1, 1])*(np.random.rand()*(0.6-0.2)+0.2)
+            alpha2 = alpha1 - (np.random.rand()*(0.6-0.2)+0.2)
 
-            dic.update({'Ds': np.array([[fast_D, fast_D*0.01],
-                                        [slow_D, slow_D*0.01]]),
+            dic.update({'Ds': np.array([[fast_D, 0],
+                                        [slow_D, 0]]),
                         'alphas': np.array([[alpha1, 0.01],
                                             [alpha2, 0.01]])})
 
         # Particle/trap radius and ninding and unbinding probs for dimerization and immobilization
         if model == 3 or model == 4:
-            dic.update({'r': 1,                               # Radius of particles (dimerization) or traps (trapping)
-                        'Pu': 0.01,                            # Unbinding probability
+            dic.update({'r': 0.1,                             # Radius of particles (dimerization) or traps (trapping)
+                        'Pu': 0.01,                           # Unbinding probability
                         'Pb': 1})                             # Binding probabilitiy
 
         if model == 1:
@@ -343,8 +343,8 @@ class datasets_phenom(datasets_phenom):
 
         if model == 2:
             dic.update({'model': self.avail_models_name[1],
-                        'M': np.array([[0.9, 0.1],            # Transition Matrix
-                                       [0.1, 0.9]]),
+                        'M': np.array([[0.99, 0.01],            # Transition Matrix
+                                       [0.01, 0.99]]),
                         'return_state_num': True              # To get the state numeration back, , hence labels.shape = TxNx4
                        })
         if model == 3:
@@ -357,7 +357,7 @@ class datasets_phenom(datasets_phenom):
 
         if model == 5:
             dic.update({'model': self.avail_models_name[4],
-                        'r': 10,
+                        'r': 5,
                         'Nc': 60,
                         'trans': 0.1})
 

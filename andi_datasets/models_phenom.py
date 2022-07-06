@@ -2,14 +2,12 @@
 
 __all__ = ['models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom',
            'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom',
-           'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom']
+           'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom', 'models_phenom']
 
 # Cell
 import numpy as np
 from stochastic.processes.noise import FractionalGaussianNoise as FGN
 import warnings
-
-from .utils_trajectories import gaussian
 
 # Cell
 class models_phenom():
@@ -47,6 +45,95 @@ class models_phenom(models_phenom):
         disp *= np.sqrt(2*D*deltaT)
 
         return disp
+
+# Cell
+from .utils_trajectories import gaussian
+
+class models_phenom(models_phenom):
+
+    @staticmethod
+    def _constraint_alpha(alpha_1, alpha_2, epsilon_a):
+        ''' Defines the metric for constraining the changes in anomalous
+        exponent'''
+        return alpha_1 - alpha_2 < epsilon_a
+
+    @staticmethod
+    def _constraint_d(d1, d2, gamma_d):
+        ''' Defines the metric for constraining the changes in anomalous
+        exponent'''
+        if gamma_d < 1:
+            return d2 > d1*gamma_d
+        if gamma_d > 1:
+            return d2 < d1*gamma_d
+
+    def _sample_diff_parameters(self, alphas, Ds, num_states,
+                                epsilon_a, gamma_d):
+        '''
+        Args:
+            :alphas (list): list containing the parameters to sample anomalous exponent
+            in state (adapt to sampling function).
+            :Ds (list): list containing the parameters to sample the diffusion coefficient
+            in state (adapt to sampling function).
+            :num_states (int): number of diffusive states.
+
+            :epsilon_a (float): minimum distance between anomalous exponents of various states.
+
+                epsilon workflow: we check val[i] - val[i-1] < epsilon
+                    if you want that val[i] > val[i-1]: epsilon has to be positive
+                    if you want that val[i] < val[i-1]: epsilon has to be negative
+                    if you don't care: epsilon = 0
+
+            :gamma_d (float): factor between diffusion coefficient of various states.
+
+                gamma workflow:
+                    for gamma < 1: val[i] < val[i-1]*gamma
+                    for gamma > 1: val[i] > val[i-1]*gamma
+                    for gamma = 1: no check
+
+        '''
+
+
+        alphas_traj = []
+        Ds_traj = []
+        for i in range(num_states):
+
+            # for the first state we just sample normally
+            if i == 0:
+                alphas_traj.append(float(gaussian(alphas[i], bound = self.bound_alpha)))
+                Ds_traj.append(float(gaussian(Ds[i], bound = self.bound_D)))
+
+            # for next states we take into account epsilon distance between diffusion
+            # parameter
+            else:
+                ## Checking alpha
+                alpha_state = float(gaussian(alphas[i], bound = self.bound_alpha))
+                D_state = float(gaussian(Ds[i], bound = self.bound_D))
+
+                if epsilon_a[i-1] != 0:
+                    idx_while = 0
+                    while models_phenom()._constraint_alpha(alphas_traj[-1], alpha_state, epsilon_a[i-1]):
+                    #alphas_traj[-1] - alpha_state < epsilon_a[i-1]:
+                        alpha_state = float(gaussian(alphas[i], bound = self.bound_alpha))
+                        idx_while += 1
+                        if idx_while > 100: # check that we are not stuck forever in the while loop
+                            raise FileNotFoundError(f'Could not find correct alpha for state {i} in 100 steps. State distributions probably too close.')
+
+                alphas_traj.append(alpha_state)
+
+                ## Checking D
+                if gamma_d[i-1] != 1:
+
+                    idx_while = 0
+                    while models_phenom()._constraint_d(Ds_traj[-1], D_state, gamma_d[i-1]):
+                        D_state = float(gaussian(Ds[i], bound = self.bound_D))
+                        idx_while += 1
+                        if idx_while > 100: # check that we are not stuck forever in the while loop
+                            raise FileNotFoundError(f'Could not find correct D for state {i} in 100 steps. State distributions probably too close.')
+
+
+                Ds_traj.append(D_state)
+
+        return alphas_traj, Ds_traj
 
 # Cell
 class models_phenom(models_phenom):
@@ -215,9 +302,12 @@ class models_phenom(models_phenom):
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
+                    gamma_d = [0], # minimum distance between state's D
+                    epsilon_a = [0], # mininum distance between state's alpha
                     L = None,
                     return_state_num = False,
                     init_state = None):
+
 
 
         trajs = np.zeros((T, N, 2))
@@ -228,14 +318,17 @@ class models_phenom(models_phenom):
 
         for n in range(N):
 
+            ### Sampling diffusion parameters for each state
             alphas_traj = []
             Ds_traj = []
-            for i in range(M.shape[0]):
-                alphas_traj.append(float(gaussian(alphas[i], bound = self.bound_alpha)))
-                Ds_traj.append(float(gaussian(Ds[i], bound = self.bound_D)))
 
+            alphas_traj, Ds_traj = self._sample_diff_parameters(alphas = alphas,
+                                                                Ds = Ds,
+                                                                num_states = M.shape[0],
+                                                                epsilon_a = epsilon_a,
+                                                                gamma_d = gamma_d)
 
-            # Get trajectory from single traj function
+            #### Get trajectory from single traj function
             traj, lab = self._multiple_state_traj(T = T,
                                                   L = L,
                                                   M = M,
@@ -342,7 +435,8 @@ class models_phenom(models_phenom):
                      alphas = np.array([[1, 0], [1, 0]]), # Anomalous exponents for two states
                      deltaT = 1,
                      gamma = False,
-                     return_state_num = False
+                     return_state_num = False,
+                     epsilon_a = 0, stokes = False
                      ):
 
         # transform lists to numpy if needed
@@ -408,16 +502,29 @@ class models_phenom(models_phenom):
                 index = int(np.argwhere(label[t,:] == l)[0])
                 state = diff_state[t, index]
 
-                # If Ds for both states are given or we go from dimer to single
-                if isinstance(gamma, bool) or state == 0:
-                    alphas_t[t:, label[t, :] == l] = alphas_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
-                    Ds_t[t:, label[t, :] == l] = Ds_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
-                # if there is gamma, we apply the correction to the diffusive state when creating dimers (see the else)
-                else:
-                    alphas_t[t:, label[t, :] == l] = alphas_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
-                    # The new D is the mean of the particles dimerizing divided by factor gamma
-                    Ds_t[t:, label[t, :] == l] = np.mean(Ds_t[t:, label[t, :] == l])/gamma
 
+                ### Calculating new diffusion parameters
+                # anomalous exponent
+                if epsilon_a != 0 and state == 1:
+                    new_alpha = gaussian(alphas[1], size = 1, bound = self.bound_alpha)
+                    idx_while = 0
+                    while models_phenom()._constraint_alpha(alphas_N[0, label[t, :] == l].min(), new_alpha, epsilon_a):
+                        new_alpha = gaussian(alphas[1], size = 1, bound = self.bound_alpha)
+                        idx_while += 1
+                        if idx_while > 100: # check that we are not stuck forever in the while loop
+                            raise FileNotFoundError(f'Could not find correct alpha in 100 steps. State distributions probably too close.')
+                    alphas_t[t:, label[t, :] == l] = new_alpha
+                else:
+                    # if no epsilon is given, use the alpha of the first particle
+                    # While here it seems we take both, in the for loop where we assign the displacements below we only
+                    # sample with the first value.
+                    alphas_t[t:, label[t, :] == l] = alphas_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
+
+                # diffusion coefficient
+                if stokes and state == 1:
+                    Ds_t[t:, label[t, :] == l] = models_phenom()._stokes(Ds_t[t-1, label[t, :] == l])
+                else: # if no stokes is given, use the alpha of the first particle (see alpha sampling for more details)
+                    Ds_t[t:, label[t, :] == l] = Ds_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
 
                 for idx, i in enumerate(np.argwhere(label[t,:] == l)):
                     # We first calculate the displacements so dimers have same motion
@@ -805,6 +912,8 @@ class models_phenom(models_phenom):
                     T = 200,
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
+                    gamma_d = [0], # minimum distance between state's D
+                    epsilon_a = [0], # mininum distance between state's alpha
                     L = 100,
                     deltaT = 1,
                     r = 1,
@@ -823,11 +932,11 @@ class models_phenom(models_phenom):
         for n in range(N):
 
             # Defined physical parameters for each trajectory
-            alphas_traj = []
-            Ds_traj = []
-            for i in range(Ds.shape[0]):
-                alphas_traj.append(gaussian(alphas[i], bound = self.bound_alpha))
-                Ds_traj.append(gaussian(Ds[i], bound = self.bound_D))
+            alphas_traj, Ds_traj = self._sample_diff_parameters(alphas = alphas,
+                                                                Ds = Ds,
+                                                                num_states = 2,
+                                                                epsilon_a = epsilon_a,
+                                                                gamma_d = gamma_d)
 
             # Get trajectory from single traj function
             pos, lab = self._confinement_traj(T = T,
