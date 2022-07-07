@@ -228,6 +228,9 @@ def find_nan_segments(a, cutoff_length):
             return np.array([idx[::2][idx_seg_long], idx[1::2][idx_seg_long]]).transpose()
 
 # Cell
+import warnings
+warnings.filterwarnings('ignore') # nanmin gives an undesired warning..
+
 def segs_inside_fov(traj, fov_max, fov_min, cutoff_length):
     ''' Given a trajectory, finds the segments inside the field of view (FOV).
     Outputs: index of of segments inside the FOV or None if no segments fulfill the conditions'''

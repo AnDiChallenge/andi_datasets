@@ -66,7 +66,8 @@ class models_phenom(models_phenom):
         if gamma_d > 1:
             return d2 < d1*gamma_d
 
-    def _sample_diff_parameters(self, alphas, Ds, num_states,
+    @staticmethod
+    def _sample_diff_parameters(alphas, Ds, num_states,
                                 epsilon_a, gamma_d):
         '''
         Args:
@@ -99,21 +100,21 @@ class models_phenom(models_phenom):
 
             # for the first state we just sample normally
             if i == 0:
-                alphas_traj.append(float(gaussian(alphas[i], bound = self.bound_alpha)))
-                Ds_traj.append(float(gaussian(Ds[i], bound = self.bound_D)))
+                alphas_traj.append(float(gaussian(alphas[i], bound = models_phenom().bound_alpha)))
+                Ds_traj.append(float(gaussian(Ds[i], bound = models_phenom().bound_D)))
 
             # for next states we take into account epsilon distance between diffusion
             # parameter
             else:
                 ## Checking alpha
-                alpha_state = float(gaussian(alphas[i], bound = self.bound_alpha))
-                D_state = float(gaussian(Ds[i], bound = self.bound_D))
+                alpha_state = float(gaussian(alphas[i], bound = models_phenom().bound_alpha))
+                D_state = float(gaussian(Ds[i], bound = models_phenom().bound_D))
 
                 if epsilon_a[i-1] != 0:
                     idx_while = 0
                     while models_phenom()._constraint_alpha(alphas_traj[-1], alpha_state, epsilon_a[i-1]):
                     #alphas_traj[-1] - alpha_state < epsilon_a[i-1]:
-                        alpha_state = float(gaussian(alphas[i], bound = self.bound_alpha))
+                        alpha_state = float(gaussian(alphas[i], bound = models_phenom().bound_alpha))
                         idx_while += 1
                         if idx_while > 100: # check that we are not stuck forever in the while loop
                             raise FileNotFoundError(f'Could not find correct alpha for state {i} in 100 steps. State distributions probably too close.')
@@ -125,7 +126,7 @@ class models_phenom(models_phenom):
 
                     idx_while = 0
                     while models_phenom()._constraint_d(Ds_traj[-1], D_state, gamma_d[i-1]):
-                        D_state = float(gaussian(Ds[i], bound = self.bound_D))
+                        D_state = float(gaussian(Ds[i], bound = models_phenom().bound_D))
                         idx_while += 1
                         if idx_while > 100: # check that we are not stuck forever in the while loop
                             raise FileNotFoundError(f'Could not find correct D for state {i} in 100 steps. State distributions probably too close.')
@@ -302,7 +303,7 @@ class models_phenom(models_phenom):
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
-                    gamma_d = [0], # minimum distance between state's D
+                    gamma_d = [1], # minimum distance between state's D
                     epsilon_a = [0], # mininum distance between state's alpha
                     L = None,
                     return_state_num = False,
@@ -912,7 +913,7 @@ class models_phenom(models_phenom):
                     T = 200,
                     Ds = np.array([[1, 0], [0.1, 0]]),
                     alphas = np.array([[1, 0], [1, 0]]),
-                    gamma_d = [0], # minimum distance between state's D
+                    gamma_d = [1], # minimum distance between state's D
                     epsilon_a = [0], # mininum distance between state's alpha
                     L = 100,
                     deltaT = 1,
