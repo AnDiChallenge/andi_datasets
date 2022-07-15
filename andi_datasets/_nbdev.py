@@ -52,7 +52,11 @@ index = {"get_angle": "analysis.ipynb",
          "segs_inside_fov": "utils_trajectories.ipynb",
          "inside_fov_dataset": "utils_trajectories.ipynb",
          "plot_trajs": "utils_trajectories.ipynb",
-         "get_video_andi": "utils_videos.ipynb"}
+         "func_poisson_noise": "utils_videos.ipynb",
+         "CIRCLE_RADIUS": "utils_videos.ipynb",
+         "circle": "utils_videos.ipynb",
+         "get_video_andi": "utils_videos.ipynb",
+         "play_video": "utils_videos.ipynb"}
 
 modules = ["analysis.py",
            "datasets_phenom.py",
