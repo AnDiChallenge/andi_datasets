@@ -280,11 +280,11 @@ class datasets_phenom(datasets_phenom):
             self.T = 500                   # Length of simulated trajectories
             self._min_T = 20               # Minimal length of output trajectories
             self.FOV_L = 128               # Length side of the FOV (px)
-            self.L = 2*self.FOV_L          # Length of the simulated environment
+            self.L = 1.2*self.FOV_L          # Length of the simulated environment
             'PARTICLES MOVE TOO SLOWLY WITH D = 0.1!!'
             self.D = 1                     # Baseline diffusion coefficient (px^2/frame)
             self.density = 2               # Particle density
-            self.N = self.density*self.L   # Number of particle in the whole experiment
+            self.N = 50                    # Number of particle in the whole experiment
             self.sigma_noise = 0.12        # Variance of the localization noise
 
             self.label_filter = lambda x: label_filter(x, window_size = 5, min_seg = 3)
@@ -319,23 +319,22 @@ class datasets_phenom(datasets_phenom):
         # alphas and Ds for 2-state, confinement and dimerization
         if model == 2 or model == 4 or model == 5:
 
-            fast_D = self._df_andi2().D
-            slow_D = self._df_andi2().D*np.random.choice([1e-1, 1e-2, 1e-3])
+            fast_D = self._df_andi2().D + np.random.randn()*self._df_andi2().D*0.01
+            slow_D = fast_D*np.random.rand()*(0.1-0.01)+0.01
 
             alpha1 = np.random.rand()*(1.2-0.8)+0.8
             # The second state will be at least 0.2 afar. We make sure not being
             # outside [0,2]
-            alpha2 = alpha1 + np.random.choice([-1, 1])*(np.random.rand()*(0.6-0.2)+0.2)
+            alpha2 = alpha1 - (np.random.rand()*(0.6-0.2)+0.2)
 
-            dic.update({'Ds': np.array([[fast_D, fast_D*0.01],
-                                        [slow_D, slow_D*0.01]]),
+            dic.update({'Ds': np.array([[fast_D, 0.01],
+                                        [slow_D, 0.01]]),
                         'alphas': np.array([[alpha1, 0.01],
                                             [alpha2, 0.01]])})
 
         # Particle/trap radius and ninding and unbinding probs for dimerization and immobilization
         if model == 3 or model == 4:
-            dic.update({'r': 1,                               # Radius of particles (dimerization) or traps (trapping)
-                        'Pu': 0.01,                            # Unbinding probability
+            dic.update({'Pu': 0.01,                           # Unbinding probability
                         'Pb': 1})                             # Binding probabilitiy
 
         if model == 1:
@@ -343,22 +342,25 @@ class datasets_phenom(datasets_phenom):
 
         if model == 2:
             dic.update({'model': self.avail_models_name[1],
-                        'M': np.array([[0.9, 0.1],            # Transition Matrix
-                                       [0.1, 0.9]]),
+                        'M': np.array([[0.99, 0.01],            # Transition Matrix
+                                       [0.01, 0.99]]),
                         'return_state_num': True              # To get the state numeration back, , hence labels.shape = TxNx4
                        })
         if model == 3:
             dic.update({'model': self.avail_models_name[2],
-                        'Nt': self._df_andi2().L})            # Number of traps (density = 1 currently)
+                        'Nt': 300,            # Number of traps (density = 1 currently)
+                        'r': 0.4}             # Size of trap
+                      )
         if model == 4:
             dic.update({'model': self.avail_models_name[3],
-                        'return_state_num': True              # To get the state numeration back, hence labels.shape = TxNx4
+                        'r': 0.6,                 # Size of particles
+                        'return_state_num': True  # To get the state numeration back, hence labels.shape = TxNx4
                        })
 
         if model == 5:
             dic.update({'model': self.avail_models_name[4],
-                        'r': 10,
-                        'Nc': 60,
+                        'r': 5,
+                        'Nc': 30,
                         'trans': 0.1})
 
         return dic
@@ -368,6 +370,7 @@ class datasets_phenom(datasets_phenom):
 
     def challenge_2022_dataset(self,
                               experiments = 5,
+                              dics = None,
                               repeat_exp = True,
                               num_fovs = 20,
                               return_timestep_labs = False,
@@ -380,16 +383,20 @@ class datasets_phenom(datasets_phenom):
         various diffusion models have been set such as to be in the same ranges as the ones expected for the
         challenge. For details, check the ANDI 2022 challenge webpage.
         This function will generate as many experiments (associated to one the diffusion models) as demanded.
-        For each experiment, as many field of view as wanted can be generated. The default values are taken
-        from datasets_phenom._df_andi2.
-        If you want to change the parameters of each model, change them at datasets_phenom._df_andi2 and
-        datasets_phenom._get_dic_andi2. It may be easier to generate the datasets directly from
-        datasets_phenom.create_datasets.
+        There are two ways of defining that:
+            - Give number of experiments (and optional parameters such as repeat_exp) to create. The diffusion
+            parameters are then taken from the default values are taken from datasets_phenom._df_andi2.
+            - Feed a list of dictionaries (dics) from which data will be generated
+        For each experiment, as many field of view as wanted can be generated
 
         Args:
             :experiments (int, list): - if int: Number of experiments to generate. Each experiment is
                                                 generated from one of the available diffusion models.
                                       - if list: diffusion models to generate
+            :dics (dictionary, list of dics): if given, uses this to set the parameters of the experiments
+                                              Must be of length equal to experiments. This overrides any
+                                              info about chosen models, as the model is set by the dictio-
+                                              nary.
             :repeat_exp (bool, list): (Does not enter into play if experiments is list)
                                       - True: picks at random the diffusion model from the pool
                                       - False: picks the diffusion in an ordered way from the pool
@@ -419,6 +426,8 @@ class datasets_phenom(datasets_phenom):
 
         # Set prefixes for saved files
         if save_data:
+            if not os.path.exists(path):
+                os.makedirs(path)
             pf_labs_traj = path+prefix+'traj_labs'
             pf_labs_ens = path+prefix+'ens_labs'
             pf_trajs = path+prefix+'trajs'
@@ -427,27 +436,37 @@ class datasets_phenom(datasets_phenom):
             df_list = []
 
         # Sets the models of the experiments that will be output by the function
-        if isinstance(experiments, int):
-            if repeat_exp: # If experiments can be repeated, we just sample randomly
-                model_exp = np.random.randint(len(self.avail_models_name), size = experiments)
-            else: # If not, we sampled them in an ordered way
-                if experiments >= len(self.avail_models_name):
-                    num_repeats = (experiments % len(self.avail_models_name))+1
-                else:
-                    num_repeats = 1
-                model_exp = np.tile(np.arange(len(self.avail_models_name)), num_repeats)[:experiments]
-            # We add one to get into non-Python numeration
-            model_exp += 1
+        if dics is None:
+            if isinstance(experiments, int):
+                if repeat_exp: # If experiments can be repeated, we just sample randomly
+                    model_exp = np.random.randint(len(self.avail_models_name), size = experiments)
+                else: # If not, we sampled them in an ordered way
+                    if experiments >= len(self.avail_models_name):
+                        num_repeats = (experiments % len(self.avail_models_name))+1
+                    else:
+                        num_repeats = 1
+                    model_exp = np.tile(np.arange(len(self.avail_models_name)), num_repeats)[:experiments]
+                # We add one to get into non-Python numeration
+                model_exp += 1
+            else:
+                model_exp = experiments
+        # If list of dics is given, then just create a list of length = len(dics)
         else:
-            model_exp = experiments
+            model_exp = [0]*len(dics)
 
         # Output lists
         trajs_out, labels_traj_out, labels_ens_out = [], [], []
         for idx_experiment, model in enumerate(tqdm(model_exp)):
 
             ''' Generate the trajectories '''
-            dic = self._get_dic_andi2(model)
-            trajs, labels = self.create_dataset(dics = dic, N_model=50)
+            if dics is None:
+                dic = self._get_dic_andi2(model)
+            else:
+                dic = dics[idx_experiment]
+                # Overide the info about model
+                model = self.avail_models_name.index(dic['model'])+1
+
+            trajs, labels = self.create_dataset(dics = dic)
 
             # Add noise the trajectories
             trajs += np.random.randn(*trajs.shape)*self._df_andi2().sigma_noise
