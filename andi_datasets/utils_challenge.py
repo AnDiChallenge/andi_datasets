@@ -5,8 +5,8 @@ __all__ = ['majority_filter', 'label_filter', 'stepwise_to_list', 'continuous_la
            'changepoint_error', 'segment_distance', 'create_binary_segment', 'jaccard_between_segments',
            'segment_assignment', 'metric_anomalous_exponent', 'metric_diffusion_coefficient', 'metric_diffusive_state',
            'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'multimode_dist',
-           'distribution_distance', 'check_prediction_length', 'separate_prediction_values', 'load_file_to_df',
-           'error_ensemble_prediction']
+           'distribution_distance', 'get_metric_ensemble', 'check_prediction_length', 'separate_prediction_values',
+           'load_file_to_df', 'error_SingleTraj_dataset']
 
 # Cell
 import numpy as np
@@ -593,6 +593,13 @@ def multimode_dist(params, weights, bound, x):
     func = scipy.stats.truncnorm
     dist = np.zeros_like(x)
     lower, upper = bound
+
+    # If we have single state, change values to list to still
+    # have a loop:
+    if isinstance(weights, float) or isinstance(weights, int):
+        params = [params]
+        weights = [weights]
+
     for param, w in zip(params, weights):
         mean, var  = param
         unimodal = func.pdf(x,
@@ -607,6 +614,39 @@ def multimode_dist(params, weights, bound, x):
 def distribution_distance(p, q):
 #     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
     return np.abs(p-q).mean()
+
+# Cell
+from .models_phenom import models_phenom
+
+def get_metric_ensemble(true_data, pred_data, return_distributions = False):
+
+    dists = []
+    for data in [true_data, pred_data]:
+
+        if len(data.shape) > 1: # If we have more than one state
+            alpha_info = np.delete(data, [2,3, -1], 0)
+            d_info = data[2:-1,:]
+            weights = data[-1,:]
+            if weights.sum() > 1: weights /= weights.sum()
+        else: # If single state
+            alpha_info = data[:2]
+            d_info = data[2:-1]
+            weights = 1
+
+        for idx, (var, bound) in enumerate(zip([alpha_info, d_info],
+                                               [models_phenom().bound_alpha, models_phenom().bound_D])):
+            if idx == 0: x = np.linspace(bound[0], bound[1], 1000)
+            else: x = np.logspace(np.log10(bound[0]), np.log10(bound[1]), 1000)
+            dists.append(multimode_dist(var.T, weights, bound, x))
+
+    # Distance between alpha dists
+    distance_alpha = distribution_distance(dists[0], dists[2])
+    distance_D = distribution_distance(dists[1], dists[3])
+
+    if return_distributions:
+        return distance_alpha, distance_D, dists
+    else:
+        return distance_alpha, distance_D
 
 # Cell
 def check_prediction_length(pred):
@@ -655,7 +695,7 @@ def load_file_to_df(path_file,
     return df
 
 # Cell
-def error_ensemble_prediction(df_pred, df_true,
+def error_SingleTraj_dataset(df_pred, df_true,
                               threshold_error_alpha = 2, max_val_alpha = 2, min_val_alpha = 0,
                               threshold_error_D = 1e5, max_val_D = 1e6, min_val_D = 1e-6, # this is in linear scale
                               threshold_error_s = -1, # this will transform nan into non-existing state

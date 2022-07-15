@@ -474,6 +474,13 @@ class datasets_phenom(datasets_phenom):
             ''' Apply the FOV '''
             for fov in range(num_fovs):
 
+                # Checking if file exist and creating an error
+                if save_data:
+                    if os.path.exists(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt') or os.path.exists(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt'):
+                        raise FileExistsError(f'Target files for experiment {idx_experiment} and FOV {fov}. Delete the file or change path/prefix.')
+
+
+
                 # We take as min/max for the fovs a 5 % distance of L
                 dist = 0.05
                 min_fov = int(dist*self._df_andi2().L)
@@ -482,16 +489,12 @@ class datasets_phenom(datasets_phenom):
                 fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
 
 
-                # Checking if file exist and creating an error
-                if save_data:
-                    if os.path.exists(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt') or os.path.exists(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt'):
-                        raise FileExistsError(f'Target files for experiment {idx_experiment} and FOV {fov}. Delete the file or change path/prefix.')
-
-
-
                 ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
-                trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov = [], [], [], []
+                trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
                 idx_seg = -1
+
+                # Total frames
+                frames = np.arange(trajs.shape[0])
                 for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
                                                         labels[:, :, :].transpose(1,0,2))):
                     nan_segms = segs_inside_fov(traj,
@@ -505,7 +508,10 @@ class datasets_phenom(datasets_phenom):
 
                             seg_x = traj[idx_nan[0]:idx_nan[1], 0]
                             seg_y = traj[idx_nan[0]:idx_nan[1], 1]
+
+
                             trajs_fov.append(np.vstack((seg_x, seg_y)).transpose())
+                            frames_fov.append(frames[idx_nan[0]:idx_nan[1]])
 
                             lab_seg = []
                             for idx_lab in range(labels.shape[-1]):
@@ -536,8 +542,10 @@ class datasets_phenom(datasets_phenom):
                 '''Extract ensemble trajectories'''
                 ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
 
-                df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1), np.concatenate(trajs_fov)))
-                df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'x', 'y'])
+                df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1),
+                                     np.expand_dims(np.concatenate(frames_fov), axis=1),
+                                     np.concatenate(trajs_fov)))
+                df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y'])
 
 
                 if return_timestep_labs:

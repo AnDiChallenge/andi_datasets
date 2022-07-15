@@ -288,7 +288,11 @@ def segs_inside_fov(traj, fov_origin, fov_length, cutoff_length):
 
 
 # Cell
-def inside_fov_dataset(trajs, labels, fov_origin, fov_length, cutoff_length = 10, func_labels = None, labels_as_list = False):
+def inside_fov_dataset(trajs, labels,
+                       fov_origin, fov_length,
+                       cutoff_length = 10,
+                       func_labels = None,
+                       return_frames = False):
     ''' Given a dataset of trajectories with labels and a FOV parameters, returns a list of
         trajectories with the corresponding labels inside the FOV
     Args:
@@ -307,7 +311,7 @@ def inside_fov_dataset(trajs, labels, fov_origin, fov_length, cutoff_length = 10
     '''
 
     trajs_fov, labels_fov = [], []
-
+    frames = np.arange(trajs.shape[0])
     for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
                                             labels[:, :, :].transpose(1,0,2))):
         nan_segms = segs_inside_fov(traj, fov_origin, fov_length, cutoff_length)
@@ -317,7 +321,11 @@ def inside_fov_dataset(trajs, labels, fov_origin, fov_length, cutoff_length = 10
 
                 traj_x = traj[idx_nan[0]:idx_nan[1], 0]
                 traj_y = traj[idx_nan[0]:idx_nan[1], 1]
-                trajs_fov.append(np.vstack((traj_x, traj_y)))
+                if return_frames:
+                    frames_cut = frames[idx_nan[0]:idx_nan[1]]
+                    trajs_fov.append(np.vstack((frames_cut, traj_x, traj_y)))
+                else:
+                    trajs_fov.append(np.vstack((traj_x, traj_y)))
 
 
                 lab_list = []
