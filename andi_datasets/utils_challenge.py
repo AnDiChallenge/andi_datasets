@@ -5,7 +5,7 @@ __all__ = ['majority_filter', 'label_filter', 'stepwise_to_list', 'continuous_la
            'changepoint_error', 'segment_distance', 'create_binary_segment', 'jaccard_between_segments',
            'segment_assignment', 'metric_anomalous_exponent', 'metric_diffusion_coefficient', 'metric_diffusive_state',
            'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'multimode_dist',
-           'distribution_distance', 'get_metric_ensemble', 'check_prediction_length', 'separate_prediction_values',
+           'distribution_distance', 'error_Ensemble_dataset', 'check_prediction_length', 'separate_prediction_values',
            'load_file_to_df', 'error_SingleTraj_dataset']
 
 # Cell
@@ -158,8 +158,7 @@ def data_to_df(trajs,
                label_values,
                diff_states,
                min_length = 10,
-               fov_min = 0,
-               fov_max = 1000):
+               fov_origin = [0,0], fov_length= 100, cutoff_length = 10):
     '''
     Inputs:
     :trajs (dimension: T x N x2):
@@ -183,7 +182,7 @@ def data_to_df(trajs,
     for traj, l_alpha, l_D, l_s in zip(tqdm(trajs), labels[:, :, 0], labels[:, :, 1], labels[:, :, 2]):
 
         # Check FOV and
-        idx_inside_segments = segs_inside_fov(traj, fov_max, fov_min, min_length)
+        idx_inside_segments = segs_inside_fov(traj, fov_origin, fov_length, cutoff_length)
 
         if idx_inside_segments is not None:
 
@@ -269,9 +268,11 @@ def jaccard_index(TP, FP, FN):
 
 # Cell
 def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
-    ''' Given an ensemble of groundtruth and predicted changepoints, iterates over each trajectory's changepoints. For each, it solves the assignment problem
-    between changepoints. Then, calculates the RMSE of the true positive pairs and the Jaccard index over the ensemble of changepoints (i.e. not the
-    mean of them w.r.t. to the trajectories)
+    ''' Given an ensemble of groundtruth and predicted changepoints, iterates
+    over each trajectory's changepoints. For each, it solves the assignment problem
+    between changepoints. Then, calculates the RMSE of the true positive pairs and
+    the Jaccard index over the ensemble of changepoints (i.e. not the mean of them
+    w.r.t. to the trajectories)
     '''
 
     TP, FP, FN = 0, 0, 0
@@ -361,6 +362,12 @@ def jaccard_between_segments(gt, pred):
     '''Given two segments, calculates the Jaccard index between them by considering TP as correct labeling,
     FN as missed events and FP leftover predictions'''
 
+    if len(gt) > len(pred):
+        pred = np.append(pred, np.zeros(len(gt) - len(pred)))
+    elif len(pred) > len(gt):
+        gt = np.append(gt, np.zeros(len(pred) - len(gt)))
+
+
     tp = np.sum(np.logical_and(pred == 1, gt == 1))
     fp = np.sum(np.logical_and(pred == 1, gt == 0))
     fn = np.sum(np.logical_and(pred == 0, gt == 1))
@@ -370,21 +377,31 @@ def jaccard_between_segments(gt, pred):
     else: return jaccard_index(tp, fp, fn)
 
 # Cell
-def segment_assignment(GT, preds, T):
-    ''' Given a list of groundtruth and predicted changepoints, generates a set of segments. Then constructs
+def segment_assignment(GT, preds, T = None):
+    '''
+    Given a list of groundtruth and predicted changepoints, generates a set of segments. Then constructs
     a cost matrix by calculting the Jaccard Index between segments. From this cost matrix, we solve the
     assignment  problem via the Munkres algorithm (aka Hungarian algorithm) and returns two arrays
-    containing the index of the groundtruth and predicted segments, respectively.'''
+    containing the index of the groundtruth and predicted segments, respectively.
 
-    # Check if the GT or predictions are a single integer or an empty array
-    if isinstance(GT, int): GT = [GT]
-    elif len(GT) == 0: GT = [T-1]
+    If T = None, then we consider that GT and preds may have different lenghts. In that case, the end
+    of the segments is the the last CP of each set of CPs.
 
-    if isinstance(preds, int): preds = [preds]
-    elif len(preds) == 0: preds = [T-1]
+    '''
+    if T is not None:
+        T_gt = T_pred = T
+        # Check if the GT or predictions are a single integer or an empty array
+        if isinstance(GT, int): GT = [GT]
+        elif len(GT) == 0: GT = [T-1]
 
-    seg_GT = create_binary_segment(GT, T)
-    seg_preds = create_binary_segment(preds, T)
+        if isinstance(preds, int): preds = [preds]
+        elif len(preds) == 0: preds = [T-1]
+    else:
+        T_gt = GT[-1]
+        T_pred = preds[-1]
+
+    seg_GT = create_binary_segment(GT, T_gt)
+    seg_preds = create_binary_segment(preds, T_pred)
 
     cost_matrix = np.zeros((seg_GT.shape[0], seg_preds.shape[0]))
 
@@ -618,7 +635,7 @@ def distribution_distance(p, q):
 # Cell
 from .models_phenom import models_phenom
 
-def get_metric_ensemble(true_data, pred_data, return_distributions = False):
+def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
 
     dists = []
     for data in [true_data, pred_data]:
@@ -651,8 +668,10 @@ def get_metric_ensemble(true_data, pred_data, return_distributions = False):
 # Cell
 def check_prediction_length(pred):
     '''Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values.
-    As it must also contain the index of the trajectory, this is summarized by being multiple of 4. '''
-    if len(pred) % 4 == 0:
+    As it must also contain the index of the trajectory, this is summarized by being multiple of 4.
+    In some cases, the user needs to also predict the final point of the trajectory. In this case,
+    we will have a residu of 1'''
+    if len(pred) % 4 == 0 or len(pred) % 4 == 1 :
         return True
     else:
         return False
@@ -669,7 +688,9 @@ def separate_prediction_values(pred):
 # Cell
 def load_file_to_df(path_file,
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
-    '''Given the path of a .txt file, extract the segmentation predictions based on the rules of the ANDI Challenge 2022'''
+    '''Given the path of a .txt file, extract the segmentation predictions based on
+    the rules of the ANDI Challenge 2022
+    '''
 
     with open(path_file) as f:
         lines_pred = f.read().splitlines()
@@ -723,7 +744,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
             continue
 
         traj_trues = df_true.loc[df_true.traj_idx == t_idx]
-        T = int(traj_trues['T'].values)
+        T = traj_trues['T'].values[0]
 
         preds_cp, preds_alpha, preds_D, preds_s = [np.array(traj_preds.changepoints.values[0]).astype(int),
                                                    traj_preds.alphas.values[0],
