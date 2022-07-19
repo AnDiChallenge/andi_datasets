@@ -134,6 +134,7 @@ def continuous_label_to_list(labs):
     # Check in which variable there is changes
     CP = np.argwhere((labs[:-1, :] != labs[1:, :]).sum(1) != 0).flatten()+1
     T = labs.shape[0]
+    CP = np.append(CP, T)
 
     alphas = np.zeros(len(CP)+1)
     Ds = np.zeros(len(CP)+1)
@@ -430,9 +431,9 @@ def metric_diffusive_state(gt, pred):
     return f1_score(gt.astype(int), pred.astype(int), average = 'micro')
 
 # Cell
-def check_no_changepoints(T,
-                          GT_cp, GT_alpha, GT_D, GT_s,
-                          preds_cp, preds_alpha, preds_D, preds_s):
+def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
+                          preds_cp, preds_alpha, preds_D, preds_s,
+                          T = None):
     '''Given predicionts over changepoints and variables, checks if in both GT and preds there is an
     absence of changepoint. If so, takes that into account to pair variables.'''
 
@@ -473,17 +474,16 @@ def check_no_changepoints(T,
         return True, paired_alpha, paired_D, paired_s
 
 # Cell
-def segment_property_errors(T,
-                            GT_cp, GT_alpha, GT_D, GT_s,
+def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
                             preds_cp, preds_alpha, preds_D, preds_s,
-                            return_pairs = False):
+                            return_pairs = False,
+                            T = None):
 
 
 
     # Check cases in which changepoint where not detected or there were none in groundtruth
-    no_change_point_case, paired_alpha, paired_D, paired_s = check_no_changepoints(T,
-                                                                                   GT_cp, GT_alpha, GT_D, GT_s,
-                                                                                   preds_cp, preds_alpha, preds_D, preds_s,)
+    no_change_point_case, paired_alpha, paired_D, paired_s = check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
+                                                                                   preds_cp, preds_alpha, preds_D, preds_s, T)
 
     if not no_change_point_case:
         # Solve the assignment problem
@@ -730,6 +730,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
     df_true must also contain a column 'T'
     '''
 
+
     # Deleter saving variables, just in case...
     try: del paired_alpha, paired_D, paired_s
     except: pass
@@ -738,13 +739,15 @@ def error_SingleTraj_dataset(df_pred, df_true,
     ensemble_pred_cp, ensemble_true_cp = [], []
     for t_idx in tqdm(df_true['traj_idx'].values):
 
+        print(t_idx)
+
         traj_preds = df_pred.loc[df_pred.traj_idx == t_idx]
         if traj_preds.shape[0] == 0:
             print('Missing trajectory, what to do?')
             continue
 
         traj_trues = df_true.loc[df_true.traj_idx == t_idx]
-        T = traj_trues['T'].values[0]
+
 
         preds_cp, preds_alpha, preds_D, preds_s = [np.array(traj_preds.changepoints.values[0]).astype(int),
                                                    traj_preds.alphas.values[0],
@@ -762,8 +765,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
         ensemble_true_cp.append(trues_cp)
 
         # collecting segment properties error after segment assignment
-        pair_a, pair_d, pair_s = segment_property_errors(T,
-                                                         trues_cp, trues_alpha, trues_D, trues_s,
+        pair_a, pair_d, pair_s = segment_property_errors(trues_cp, trues_alpha, trues_D, trues_s,
                                                          preds_cp, preds_alpha, preds_D, preds_s,
                                                          return_pairs = True)
 
@@ -803,7 +805,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
     if prints:
         print(f'Summary of the experiment: \n\nNumber of states: {len(np.unique(paired_alpha[:,0]))} \nExponents: {np.unique(paired_alpha[:,0])} \nDiffusion Coeff.: {np.unique(paired_D[:,0])}',
               f'\n\nChangepoint Metrics \nRMSE: {round(rmse_CP, 3)} \nJaccard Index: {round(JI, 3)}',
-              f'\n\nDiffusion property metrics \nError anomalous exponent: {error_alpha} \nError diffusion coefficient: {error_D} \nError diffusive state: {error_s}')
+              f'\n\nDiffusion property metrics \nMetric anomalous exponent: {error_alpha} \nMetric diffusion coefficient: {error_D} \nMetric diffusive state: {error_s}')
 
 
 
