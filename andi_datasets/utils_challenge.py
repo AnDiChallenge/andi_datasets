@@ -134,7 +134,6 @@ def continuous_label_to_list(labs):
     # Check in which variable there is changes
     CP = np.argwhere((labs[:-1, :] != labs[1:, :]).sum(1) != 0).flatten()+1
     T = labs.shape[0]
-    CP = np.append(CP, T)
 
     alphas = np.zeros(len(CP)+1)
     Ds = np.zeros(len(CP)+1)
@@ -144,6 +143,8 @@ def continuous_label_to_list(labs):
         alphas[idx] = labs[cp-1, 0]
         Ds[idx] = labs[cp-1, 1]
         if are_states: states[idx] = labs[cp-1, 2]
+
+    CP = np.append(CP, T)
 
     if are_states:
         return CP, alphas, Ds, states
@@ -177,7 +178,7 @@ def data_to_df(trajs,
     ys = []
     idxs = []
 
-    df_out = pandas.DataFrame(columns = ['traj_idx', 'T', 'Ds', 'alphas', 'states', 'changepoints'])
+    df_out = pandas.DataFrame(columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints'])
 
     idx_t = 0
     for traj, l_alpha, l_D, l_s in zip(tqdm(trajs), labels[:, :, 0], labels[:, :, 1], labels[:, :, 2]):
@@ -213,7 +214,7 @@ def data_to_df(trajs,
                 CP, alphas, Ds, states = continuous_label_to_list(merge)
 
                 # Saving each segment info in output dataframe
-                df_out.loc[df_out.shape[0]] = [idx_t, len(seg_x), Ds, alphas, states, CP]
+                df_out.loc[df_out.shape[0]] = [idx_t, Ds, alphas, states, CP]
 
                 # Updating segment index
                 idx_t += 1
@@ -293,6 +294,12 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
                 FP += 1
                 FN += 1
 
+        # Checking false positive and missed events
+        if len(pred_traj) > len(gt_traj):
+            FP += len(pred_traj) - len(gt_traj)
+        elif len(pred_traj) < len(gt_traj):
+            FN += len(gt_traj) - len(pred_traj)
+
     if TP+FP+FN == 0:
         wrn_str = f'No segments found in this dataset.'
         warnings.warn(wrn_str)
@@ -302,11 +309,7 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
     # Calculating RMSE
     TP_rmse = np.sqrt(np.mean(TP_rmse))
 
-    # Checking false positive and missed events
-    if len(pred_traj) > len(gt_traj):
-        FP += len(pred_traj) - len(gt_traj)
-    elif len(pred_traj) < len(gt_traj):
-        FN += len(gt_traj) - len(pred_traj)
+
 
     return TP_rmse, jaccard_index(TP, FP, FN)
 
@@ -389,6 +392,7 @@ def segment_assignment(GT, preds, T = None):
     of the segments is the the last CP of each set of CPs.
 
     '''
+
     if T is not None:
         T_gt = T_pred = T
         # Check if the GT or predictions are a single integer or an empty array
@@ -399,7 +403,14 @@ def segment_assignment(GT, preds, T = None):
         elif len(preds) == 0: preds = [T-1]
     else:
         T_gt = GT[-1]
+        if len(GT) > 1:
+            GT = GT[:-1]
+
         T_pred = preds[-1]
+        if len(preds) > 1:
+            preds = preds[:-1]
+
+
 
     seg_GT = create_binary_segment(GT, T_gt)
     seg_preds = create_binary_segment(preds, T_pred)
@@ -414,21 +425,30 @@ def segment_assignment(GT, preds, T = None):
 
 # Cell
 from sklearn.metrics import mean_squared_log_error, f1_score
+from .models_phenom import models_phenom
 
-def metric_anomalous_exponent(gt, pred):
-    # mean absolute error
-    return np.mean(np.abs(gt-pred))
+def metric_anomalous_exponent(gt = None, pred = None, max_error = False):
+    # Mean absolute error. Maximum error is 2
+    if max_error: return 2
+    else: return np.mean(np.abs(gt-pred))
 
-def metric_diffusion_coefficient(gt, pred, threshold_min = 1e-12):
-    # considering the presence of zeros and negatives
-    pred = np.array(pred).copy(); gt = np.array(gt).copy()
-    pred[pred <= threshold_min] = threshold_min
-    gt[gt <= threshold_min] = threshold_min
-    # mean squared log error
-    return mean_squared_log_error(gt, pred)
+def metric_diffusion_coefficient(gt = None, pred = None,
+                                 threshold_min = models_phenom().bound_D[0],
+                                 max_error = False):
+    if max_error:
+        return mean_squared_log_error(models_phenom().bound_D[0],
+                                      models_phenom().bound_D[1])
+    else:
+        # considering the presence of zeros and negatives
+        pred = np.array(pred).copy(); gt = np.array(gt).copy()
+        pred[pred <= threshold_min] = threshold_min
+        gt[gt <= threshold_min] = threshold_min
+        # mean squared log error
+        return mean_squared_log_error(gt, pred)
 
-def metric_diffusive_state(gt, pred):
-    return f1_score(gt.astype(int), pred.astype(int), average = 'micro')
+def metric_diffusive_state(gt = None, pred = None, max_error = False):
+    if max_error: return 0
+    else: return f1_score(gt.astype(int), pred.astype(int), average = 'micro')
 
 # Cell
 def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
@@ -444,8 +464,10 @@ def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
         preds_cp = [preds_cp]
 
     no_GT_cp = False; no_preds_cp = False
-    if len(GT_cp) == 0: no_GT_cp = True
-    if len(preds_cp) == 0: no_preds_cp = True
+    # CP always contain the final point of the trajectory, hence minimal length is one
+    if len(GT_cp) == 1: no_GT_cp = True
+    if len(preds_cp) == 1: no_preds_cp = True
+
 
     if no_GT_cp + no_preds_cp == 0:
         return False, None, None, None
@@ -479,8 +501,6 @@ def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
                             return_pairs = False,
                             T = None):
 
-
-
     # Check cases in which changepoint where not detected or there were none in groundtruth
     no_change_point_case, paired_alpha, paired_D, paired_s = check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
                                                                                    preds_cp, preds_alpha, preds_D, preds_s, T)
@@ -488,7 +508,6 @@ def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
     if not no_change_point_case:
         # Solve the assignment problem
         [row_ind, col_ind], _ = segment_assignment(GT_cp, preds_cp, T)
-
 
         # iterate over the groundtruth segments
         paired_alpha, paired_D, paired_s = [], [], []
@@ -729,7 +748,8 @@ def error_SingleTraj_dataset(df_pred, df_true,
     traj_idx | alphas | Ds | changepoints | states
     df_true must also contain a column 'T'
     '''
-
+    # Initiate counting missing trajectories
+    missing_traj = False
 
     # Deleter saving variables, just in case...
     try: del paired_alpha, paired_D, paired_s
@@ -739,25 +759,35 @@ def error_SingleTraj_dataset(df_pred, df_true,
     ensemble_pred_cp, ensemble_true_cp = [], []
     for t_idx in tqdm(df_true['traj_idx'].values):
 
-        print(t_idx)
+        traj_trues = df_true.loc[df_true.traj_idx == t_idx]
 
         traj_preds = df_pred.loc[df_pred.traj_idx == t_idx]
         if traj_preds.shape[0] == 0:
-            print('Missing trajectory, what to do?')
-            continue
+            # If there is no trajectory, we give maximum error. To do so, we redefine predictions
+            # and trues so that they give maximum error
+            missing_traj += 1
 
-        traj_trues = df_true.loc[df_true.traj_idx == t_idx]
+            preds_cp, preds_alpha, preds_D, preds_s = [[10],
+                                                       [0],
+                                                       [1],
+                                                       [0]]
 
+            trues_cp, trues_alpha, trues_D, trues_s = [[10+threshold_cp],
+                                                       [threshold_error_alpha],
+                                                       [1+threshold_error_D],
+                                                       [10]]
 
-        preds_cp, preds_alpha, preds_D, preds_s = [np.array(traj_preds.changepoints.values[0]).astype(int),
-                                                   traj_preds.alphas.values[0],
-                                                   traj_preds.Ds.values[0],
-                                                   traj_preds.states.values[0]]
+        else:
 
-        trues_cp, trues_alpha, trues_D, trues_s = [np.array(traj_trues.changepoints.values[0]).astype(int),
-                                                   traj_trues.alphas.values[0],
-                                                   traj_trues.Ds.values[0],
-                                                   traj_trues.states.values[0]]
+            preds_cp, preds_alpha, preds_D, preds_s = [np.array(traj_preds.changepoints.values[0]).astype(int),
+                                                       traj_preds.alphas.values[0],
+                                                       traj_preds.Ds.values[0],
+                                                       traj_preds.states.values[0]]
+
+            trues_cp, trues_alpha, trues_D, trues_s = [np.array(traj_trues.changepoints.values[0]).astype(int),
+                                                       traj_trues.alphas.values[0],
+                                                       traj_trues.Ds.values[0],
+                                                       traj_trues.states.values[0]]
 
 
         # collecting changepoints
@@ -769,7 +799,8 @@ def error_SingleTraj_dataset(df_pred, df_true,
                                                          preds_cp, preds_alpha, preds_D, preds_s,
                                                          return_pairs = True)
 
-#         print(trues_cp, preds_cp, np.max(pair_a))
+
+
         try:
             paired_alpha = np.vstack((paired_alpha, pair_a))
             paired_D = np.vstack((paired_D, pair_d))
@@ -778,7 +809,6 @@ def error_SingleTraj_dataset(df_pred, df_true,
             paired_alpha = pair_a
             paired_D = pair_d
             paired_s = pair_s
-
 
     #### Calculate metrics from assembled properties
 
@@ -793,7 +823,6 @@ def error_SingleTraj_dataset(df_pred, df_true,
     wrong_s = np.argwhere((paired_s[:, 1] > 4) | (paired_s[:, 1]<0))
     paired_s[wrong_s, 1] = threshold_error_s
 
-
     # Changepoints
     rmse_CP, JI = ensemble_changepoint_error(ensemble_true_cp, ensemble_pred_cp, threshold = threshold_cp)
 
@@ -802,9 +831,12 @@ def error_SingleTraj_dataset(df_pred, df_true,
     error_D = metric_diffusion_coefficient(paired_D[:,0], paired_D[:,1])
     error_s = metric_diffusive_state(paired_s[:,0], paired_s[:,1])
 
+
     if prints:
-        print(f'Summary of the experiment: \n\nNumber of states: {len(np.unique(paired_alpha[:,0]))} \nExponents: {np.unique(paired_alpha[:,0])} \nDiffusion Coeff.: {np.unique(paired_D[:,0])}',
-              f'\n\nChangepoint Metrics \nRMSE: {round(rmse_CP, 3)} \nJaccard Index: {round(JI, 3)}',
+        print(f'Summary of metrics assesments:')
+        if missing_traj is not False:
+            print(f'\n{missing_traj} missing trajectory/ies. ')
+        print(f'\nChangepoint Metrics \nRMSE: {round(rmse_CP, 3)} \nJaccard Index: {round(JI, 3)}',
               f'\n\nDiffusion property metrics \nMetric anomalous exponent: {error_alpha} \nMetric diffusion coefficient: {error_D} \nMetric diffusive state: {error_s}')
 
 
