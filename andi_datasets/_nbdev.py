@@ -55,8 +55,7 @@ index = {"get_angle": "analysis.ipynb",
          "inside_fov_dataset": "utils_trajectories.ipynb",
          "plot_trajs": "utils_trajectories.ipynb",
          "func_poisson_noise": "utils_videos.ipynb",
-         "CIRCLE_RADIUS": "utils_videos.ipynb",
-         "circle": "utils_videos.ipynb",
+         "mask": "utils_videos.ipynb",
          "get_video_andi": "utils_videos.ipynb",
          "play_video": "utils_videos.ipynb"}
 
