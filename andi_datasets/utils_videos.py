@@ -169,7 +169,7 @@ def get_video_andi(
     if with_masks==True:
         final_output = (_video, _masks)
     elif get_vip_particles:
-        final_output = (_masks[0], *video)
+        final_output = (_masks[0], *_video)
     else:
         final_output = _video
 
