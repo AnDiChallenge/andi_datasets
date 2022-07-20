@@ -790,9 +790,10 @@ def error_SingleTraj_dataset(df_pred, df_true,
                                                        traj_trues.states.values[0]]
 
 
-        # collecting changepoints
-        ensemble_pred_cp.append(preds_cp)
-        ensemble_true_cp.append(trues_cp)
+        # Collecting changepoints for metric
+        # In this metric, we don't want to enter the final point of the trajectory
+        ensemble_pred_cp.append(preds_cp[:-1])
+        ensemble_true_cp.append(trues_cp[:-1])
 
         # collecting segment properties error after segment assignment
         pair_a, pair_d, pair_s = segment_property_errors(trues_cp, trues_alpha, trues_D, trues_s,
