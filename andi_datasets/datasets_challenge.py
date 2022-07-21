@@ -9,7 +9,7 @@ import pandas as pd
 import os
 import csv
 
-from .utils_challenge import segs_inside_fov, continuous_label_to_list, extract_ensemble, label_filter
+from .utils_challenge import segs_inside_fov, continuous_label_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
 from .utils_trajectories import normalize
@@ -593,6 +593,8 @@ def challenge_2022_dataset(
             max_fov = int((1-dist)*_df_andi2().L)-_df_andi2().FOV_L
             # sample the position of the FOV
             fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
+            '''CARE, CHANGE!!!!'''
+            fov_origin = (0,0)
 
             ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
             trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
@@ -601,7 +603,6 @@ def challenge_2022_dataset(
             # Total frames
             frames = np.arange(trajs.shape[0])
             # We save the correspondance between idx in FOV and idx in trajs dataset
-            corresponance_idx = []
             for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
                                                     labels[:, :, :].transpose(1,0,2))):
                 nan_segms = segs_inside_fov(traj,
@@ -613,8 +614,6 @@ def challenge_2022_dataset(
                     for idx_nan in nan_segms:
                         idx_seg+= 1
 
-                        # save index correspondance
-                        corresponance_idx.append([idx, idx_seg])
 
                         seg_x = traj[idx_nan[0]:idx_nan[1], 0]
                         seg_y = traj[idx_nan[0]:idx_nan[1], 1]
@@ -658,7 +657,7 @@ def challenge_2022_dataset(
             ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
 
             df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1),
-                                 np.expand_dims(np.concatenate(frames_fov), axis=1),
+                                 np.expand_dims(np.concatenate(frames_fov), axis=1).astype(int),
                                  np.concatenate(trajs_fov)))
             df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y'])
 
@@ -683,9 +682,11 @@ def challenge_2022_dataset(
 
             if get_video:
                 print(f'Generating video for EXP {idx_experiment} FOV {fov}')
-                corresponance_idx = np.array(corresponance_idx)
-                idx_vip = corresponance_idx[np.random.randint(0, trajs.shape[1], size = num_vip), 0].tolist()
-                video_fov = transform_to_video(trajs_og, # see that we insert the trajectories without noise!
+
+                array_traj_fov = df_to_array(df_traj, pad = -1)
+                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = -1)
+
+                video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
                                                optics_props={
                                                    "output_region":[fov_origin[0], fov_origin[1],
                                                                     fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
