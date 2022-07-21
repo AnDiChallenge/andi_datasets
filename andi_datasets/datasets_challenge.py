@@ -13,6 +13,7 @@ from .utils_challenge import segs_inside_fov, continuous_label_to_list, extract_
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
 from .utils_trajectories import normalize
+from .utils_videos import transform_to_video
 
 # Cell
 
@@ -480,7 +481,7 @@ def challenge_2022_dataset(
                           save_data = False,
                           path = 'data/',
                           prefix = '',
-                          video_dataset = False
+                          get_video = False, num_vip = None
                             ):
     '''
     Creates a datasets with same structure as ones given in the ANDI 2022 challenge. Default values for the
@@ -570,10 +571,11 @@ def challenge_2022_dataset(
             # Overide the info about model
             model = datasets_phenom().avail_models_name.index(dic['model'])+1
 
-        trajs, labels = datasets_phenom().create_dataset(dics = dic)
+        trajs_og, labels = datasets_phenom().create_dataset(dics = dic)
+
 
         # Add noise the trajectories
-        trajs += np.random.randn(*trajs.shape)*_df_andi2().sigma_noise
+        trajs = trajs_og + np.random.randn(*trajs_og.shape)*_df_andi2().sigma_noise
 
         ''' Apply the FOV '''
         for fov in range(num_fovs):
@@ -592,13 +594,14 @@ def challenge_2022_dataset(
             # sample the position of the FOV
             fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
 
-
             ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
             trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
             idx_seg = -1
 
             # Total frames
             frames = np.arange(trajs.shape[0])
+            # We save the correspondance between idx in FOV and idx in trajs dataset
+            corresponance_idx = []
             for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
                                                     labels[:, :, :].transpose(1,0,2))):
                 nan_segms = segs_inside_fov(traj,
@@ -609,6 +612,9 @@ def challenge_2022_dataset(
                 if nan_segms is not None:
                     for idx_nan in nan_segms:
                         idx_seg+= 1
+
+                        # save index correspondance
+                        corresponance_idx.append([idx, idx_seg])
 
                         seg_x = traj[idx_nan[0]:idx_nan[1], 0]
                         seg_y = traj[idx_nan[0]:idx_nan[1], 1]
@@ -675,10 +681,26 @@ def challenge_2022_dataset(
                     f.write(f'model: {model_n}; num_state: {num_states} \n')
                     np.savetxt(f, ensemble_fov, delimiter = ';')
 
+            if get_video:
+                print(f'Generating video for EXP {idx_experiment} FOV {fov}')
+                corresponance_idx = np.array(corresponance_idx)
+                idx_vip = corresponance_idx[np.random.randint(0, trajs.shape[1], size = num_vip), 0].tolist()
+                video_fov = transform_to_video(trajs_og, # see that we insert the trajectories without noise!
+                                               optics_props={
+                                                   "output_region":[fov_origin[0], fov_origin[1],
+                                                                    fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
+                                                },
+                                               get_vip_particles=idx_vip)
+                try:
+                    videos_out.append(video_fov)
+                except:
+                    videos_out = [video_fov]
 
             # Add data to main lists (trajectories and lists with labels)
             trajs_out.append(df_traj)
             labels_traj_out.append(list_labels_fov)
             labels_ens_out.append(ensemble_fov)
-
-    return trajs_out, labels_traj_out, labels_ens_out
+    if get_video:
+        return trajs_out, videos_out, labels_traj_out, labels_ens_out
+    else:
+        return trajs_out, labels_traj_out, labels_ens_out
