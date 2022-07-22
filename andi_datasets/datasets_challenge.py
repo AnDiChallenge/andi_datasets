@@ -593,8 +593,6 @@ def challenge_2022_dataset(
             max_fov = int((1-dist)*_df_andi2().L)-_df_andi2().FOV_L
             # sample the position of the FOV
             fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
-            '''CARE, CHANGE!!!!'''
-            fov_origin = (0,0)
 
             ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
             trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
@@ -662,6 +660,29 @@ def challenge_2022_dataset(
             df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y'])
 
 
+            if get_video:
+                print(f'Generating video for EXP {idx_experiment} FOV {fov}')
+
+                pad = -20
+                array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
+                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = pad)
+
+                video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
+                                               optics_props={
+                                                   "output_region":[fov_origin[0], fov_origin[1],
+                                                                    fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
+                                                },
+                                               get_vip_particles=idx_vip)
+                try:
+                    videos_out.append(video_fov)
+                except:
+                    videos_out = [video_fov]
+
+            # Add noise to the trajectories (see that this has to be done
+            # after the videos, so these are not affected by the noise).
+            df.x += np.random.randn(df.shape[0])*_df_andi2().sigma_noise
+            df.y += np.random.randn(df.shape[0])*_df_andi2().sigma_noise
+
             if return_timestep_labs:
                 array_labels_fov = np.concatenate(array_labels_fov)
                 df_traj['alpha'] = array_labels_fov[:, 0]
@@ -680,22 +701,6 @@ def challenge_2022_dataset(
                     f.write(f'model: {model_n}; num_state: {num_states} \n')
                     np.savetxt(f, ensemble_fov, delimiter = ';')
 
-            if get_video:
-                print(f'Generating video for EXP {idx_experiment} FOV {fov}')
-
-                array_traj_fov = df_to_array(df_traj, pad = -1)
-                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = -1)
-
-                video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
-                                               optics_props={
-                                                   "output_region":[fov_origin[0], fov_origin[1],
-                                                                    fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
-                                                },
-                                               get_vip_particles=idx_vip)
-                try:
-                    videos_out.append(video_fov)
-                except:
-                    videos_out = [video_fov]
 
             # Add data to main lists (trajectories and lists with labels)
             trajs_out.append(df_traj)
