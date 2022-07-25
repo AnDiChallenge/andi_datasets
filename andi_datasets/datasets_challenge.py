@@ -481,7 +481,7 @@ def challenge_2022_dataset(
                           save_data = False,
                           path = 'data/',
                           prefix = '',
-                          get_video = False, num_vip = None
+                          get_video = False, num_vip = None, get_video_masks = False
                             ):
     '''
     Creates a datasets with same structure as ones given in the ANDI 2022 challenge. Default values for the
@@ -511,6 +511,12 @@ def challenge_2022_dataset(
         :save_data (bool): if True, saves all pertinent data.
         :path (str): path where to store the data
         :prefix (str): extra prefix that can be added in front of the files' names.
+
+    Video Args (see utils_videos for details):
+        :get_video (bool): if true, get as output the videos generated with Deeptrack for the generated
+                           datasets.
+        :num_vip (int): number of VIP highlighted in the videos.
+        :get_video_masks (bool): if True, get masks of videos
 
     Return:
         :trajs_out (list): list of lenght (experiments x num_fovs). Each elements are is dataframe
@@ -663,7 +669,8 @@ def challenge_2022_dataset(
             if get_video:
                 print(f'Generating video for EXP {idx_experiment} FOV {fov}')
 
-                pad = -20
+                pad = -20 #  padding has to be further enough from the FOV so that the PSF
+                          # of particles does not enter in the videos
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
                 idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = pad)
 
@@ -672,7 +679,8 @@ def challenge_2022_dataset(
                                                    "output_region":[fov_origin[0], fov_origin[1],
                                                                     fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
                                                 },
-                                               get_vip_particles=idx_vip)
+                                               get_vip_particles=idx_vip,
+                                               with_masks = get_video_masks )
                 try:
                     videos_out.append(video_fov)
                 except:

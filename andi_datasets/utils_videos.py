@@ -40,7 +40,7 @@ def play_video(video, figsize=(5, 5), fps=10):
     plt.close()
 
 # Cell
-def psf_width(NA, wavelength, resolution):
+def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
     """Computes the PSF width.
 
     Parameters
