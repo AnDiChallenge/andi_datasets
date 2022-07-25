@@ -542,6 +542,7 @@ def challenge_2022_dataset(
         pf_labs_traj = path+prefix+'traj_labs'
         pf_labs_ens = path+prefix+'ens_labs'
         pf_trajs = path+prefix+'trajs'
+        pf_videos = path+prefix+'videos'
 
     if return_timestep_labs:
         df_list = []
@@ -674,13 +675,17 @@ def challenge_2022_dataset(
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
                 idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = pad)
 
+                if not save_data:
+                    pf_videos = ''
+
                 video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
                                                optics_props={
                                                    "output_region":[fov_origin[0], fov_origin[1],
                                                                     fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
                                                 },
                                                get_vip_particles=idx_vip,
-                                               with_masks = get_video_masks )
+                                               with_masks = get_video_masks,
+                                               save_video = save_data, path = pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff')
                 try:
                     videos_out.append(video_fov)
                 except:
@@ -688,8 +693,8 @@ def challenge_2022_dataset(
 
             # Add noise to the trajectories (see that this has to be done
             # after the videos, so these are not affected by the noise).
-            df.x += np.random.randn(df.shape[0])*_df_andi2().sigma_noise
-            df.y += np.random.randn(df.shape[0])*_df_andi2().sigma_noise
+            df_traj.x += np.random.randn(df_traj.shape[0])*_df_andi2().sigma_noise
+            df_traj.y += np.random.randn(df_traj.shape[0])*_df_andi2().sigma_noise
 
             if return_timestep_labs:
                 array_labels_fov = np.concatenate(array_labels_fov)
