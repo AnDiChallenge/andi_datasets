@@ -13,7 +13,7 @@ from .utils_challenge import segs_inside_fov, continuous_label_to_list, extract_
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
 from .utils_trajectories import normalize
-from .utils_videos import transform_to_video
+from .utils_videos import transform_to_video, psf_width
 
 # Cell
 
@@ -673,7 +673,8 @@ def challenge_2022_dataset(
                 pad = -20 #  padding has to be further enough from the FOV so that the PSF
                           # of particles does not enter in the videos
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
-                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = 2, pad = pad)
+                min_distance = psf_width()
+                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = min_distance, pad = pad)
 
                 if not save_data:
                     pf_videos = ''
