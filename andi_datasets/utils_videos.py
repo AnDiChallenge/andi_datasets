@@ -214,8 +214,7 @@ def transform_to_video(
     # Masks
     get_masks = dt.SampleToMasks(
         lambda: mask(circle_radius=1, particle_list=get_vip_particles),
-        fov =  optics.output_region,
-        output_region=lambda fov: [fov[0], fov[1], fov[2]-fov[0], fov[3]-fov[1]],
+        output_region=optics.output_region,
         merge_method="add",
     )
 
