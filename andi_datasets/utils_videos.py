@@ -103,12 +103,16 @@ def mask(circle_radius, particle_list=[]):
 
 # Cell
 def transform_to_video(
-    trajectory_data, particle_props={}, optics_props={}, background_props={}, get_vip_particles=[], with_masks=False,
-    save_video = False, path = ''
+    trajectory_data,
+    particle_props={},
+    optics_props={},
+    background_props={},
+    get_vip_particles=[],
+    with_masks=False,
+    save_video=False,
+    path="",
 ):
     """Generates a video from a trajectory data.
-
-    Function needs to called with update().resolve() to create the video.
 
     Parameters
     ----------
@@ -123,19 +127,22 @@ def transform_to_video(
     """
 
     _particle_dict = {
-        "particle_intensity": [100, 20],                                # Mean and standard deviation of the particle intensity
+        "particle_intensity": [
+            100,
+            20,
+        ],  # Mean and standard deviation of the particle intensity
         "intensity": lambda particle_intensity: particle_intensity[0]
         + np.random.randn() * particle_intensity[1],
-        "intensity_variation": 0,                                       # Intensity variation of particle (in standard deviation)
-        "z": 0,                                                         # Particles are always at focus - this shouldn't be changed
-        "refractive_index": 1.45,                                       # Refractive index of the particle
+        "intensity_variation": 0,  # Intensity variation of particle (in standard deviation)
+        "z": 0,  # Particles are always at focus - this shouldn't be changed
+        "refractive_index": 1.45,  # Refractive index of the particle
         "position_unit": "pixel",
     }
 
     _optics_dict = {
-        "NA": 1.46,                 # Numerical aperture
-        "wavelength": 500e-9,       # Wavelength
-        "resolution": 100e-9,       # Camera resolution or effective resolution
+        "NA": 1.46,  # Numerical aperture
+        "wavelength": 500e-9,  # Wavelength
+        "resolution": 100e-9,  # Camera resolution or effective resolution
         "magnification": 1,
         "refractive_index_medium": 1.33,
         "output_region": [0, 0, 128, 128],
@@ -143,8 +150,8 @@ def transform_to_video(
 
     # Background offset
     _background_dict = {
-        "background_mean": 100,      # Mean background intensity
-        "background_std": 0,        # Standard deviation of background intensity within a video
+        "background_mean": 100,  # Mean background intensity
+        "background_std": 0,  # Standard deviation of background intensity within a video
     }
 
     # Update the dictionaries with the user-defined values
@@ -197,8 +204,15 @@ def transform_to_video(
     # Define optical setup
     optics = dt.Fluorescence(**_optics_dict)
 
-    # Scale factor for image plane peak intensity
-    scale_image = dt.Multiply(20)
+    # Normalising image plane particle intensity
+    scale_factor = (
+        (
+            optics.magnification()
+            * optics.wavelength()
+            / (optics.NA() * optics.resolution())
+        )
+        ** 2
+    ) * (1 / np.pi)
 
     # Poisson noise
     poisson_noise = dt.Lambda(func_poisson_noise)
@@ -206,7 +220,7 @@ def transform_to_video(
     # Sample
     sample = (
         optics(sequential_particle ^ sequential_particle.number_of_particles)
-        >> scale_image
+        >> dt.Multiply(scale_factor)
         >> sequential_background
         >> poisson_noise
     )
@@ -230,7 +244,7 @@ def transform_to_video(
     # Resolve the sample
     _video, _masks = sequential_sample.update().resolve()
 
-    if with_masks==True:
+    if with_masks == True:
         final_output = (_video, _masks)
     elif get_vip_particles:
         final_output = (_masks[0], *_video)
@@ -241,7 +255,7 @@ def transform_to_video(
         if len(final_output) == 2:
             video_8bit = convert_uint8(final_output[0])
         else:
-            video_8bit = convert_uint8(final_output, with_vips = get_vip_particles)
+            video_8bit = convert_uint8(final_output, with_vips=get_vip_particles)
         imageio.mimwrite(path, video_8bit)
 
     return final_output
