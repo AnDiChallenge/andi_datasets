@@ -102,7 +102,7 @@ def mask(circle_radius, particle_list=[]):
         return pix_val
     return inner
 
-# %% ..\source_nbs\utils_videos.ipynb 13
+# %% ..\source_nbs\utils_videos.ipynb 11
 def transform_to_video(
     trajectory_data,
     particle_props={},
@@ -248,7 +248,7 @@ def transform_to_video(
     if with_masks == True:
         final_output = (_video, _masks)
     elif get_vip_particles:
-        final_output = (_masks[0], *_video)
+        final_output = (_masks[0].squeeze(), *_video)
     else:
         final_output = _video
 
