@@ -752,13 +752,18 @@ class models_phenom(models_phenom):
         # Calculate alpha/D for each particle in state free state
         alphas_N = gaussian(alphas, size = N, bound = self.bound_alpha)
         Ds_N = gaussian(Ds, size = N, bound = self.bound_D)
+        
+        # Single particle case
+        if N == 1:
+            alphas_N = [alphas_N]
+            Ds_N = [Ds_N]
 
         # Traps positions
         if traps_pos is None:
             traps_pos = np.random.rand(Nt, 2)*L              
             
         # Get displacement for every particle
-        for n in range(N):            
+        for n in range(N):  
             disps[:, n, 0] = models_phenom().disp_fbm(alphas_N[n], Ds_N[n], T, deltaT = deltaT)
             disps[:, n, 1] = models_phenom().disp_fbm(alphas_N[n], Ds_N[n], T, deltaT = deltaT)
             
