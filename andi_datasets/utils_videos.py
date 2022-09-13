@@ -248,7 +248,7 @@ def transform_to_video(
     if with_masks == True:
         final_output = (_video, _masks)
     elif get_vip_particles:
-        final_output = (_masks[0].squeeze(), *_video)
+        final_output = (_masks[0], *_video)
     else:
         final_output = _video
 
@@ -257,6 +257,7 @@ def transform_to_video(
             video_8bit = convert_uint8(final_output[0])
         else:
             video_8bit = convert_uint8(final_output, with_vips=get_vip_particles)
+          
         imageio.mimwrite(path, video_8bit)
 
     return final_output

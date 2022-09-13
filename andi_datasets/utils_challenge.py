@@ -8,7 +8,7 @@ __all__ = ['majority_filter', 'label_filter', 'stepwise_to_list', 'continuous_la
            'metric_diffusion_coefficient', 'metric_diffusive_state', 'check_no_changepoints', 'segment_property_errors',
            'extract_ensemble', 'multimode_dist', 'distribution_distance', 'error_Ensemble_dataset',
            'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_SingleTraj_dataset',
-           'listdir_nohidden']
+           'listdir_nohidden', 'codalab_scoring']
 
 # %% ..\source_nbs\utils_challenge.ipynb 2
 import numpy as np
@@ -711,7 +711,9 @@ def multimode_dist(params, weights, bound, x, normalized = False):
         weights = [weights]
         
     for param, w in zip(params, weights):
-        mean, var  = param        
+        mean, var  = param  
+        # introduce a cutoff to avoid nan when var = 0
+        if var == 0: var = 1e-9
         unimodal = func.pdf(x,
                             (lower-mean)/np.sqrt(var),
                             (upper-mean)/np.sqrt(var),
@@ -744,7 +746,7 @@ def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
             alpha_info = data[:2]
             d_info = data[2:-1]
             weights = 1
-
+            
         for idx, (var, bound) in enumerate(zip([alpha_info, d_info], 
                                                [models_phenom().bound_alpha, models_phenom().bound_D])):
             if idx == 0: x = np.linspace(bound[0], bound[1], 1000)
@@ -929,13 +931,223 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ..\source_nbs\utils_challenge.ipynb 117
+# %% ..\source_nbs\utils_challenge.ipynb 115
 import re
 import sys
 import os
 
-# %% ..\source_nbs\utils_challenge.ipynb 118
+# %% ..\source_nbs\utils_challenge.ipynb 116
 def listdir_nohidden(path):
     for f in os.listdir(path):
         if not f.startswith(('.','_')):
             yield f
+
+# %% ..\source_nbs\utils_challenge.ipynb 118
+def codalab_scoring(input_dir , output_dir):
+    
+    # Error bounds
+    threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp = _get_error_bounds()
+    
+    ### Saving variables
+    # Track 1 - Videos
+    t1_ens = {'alpha': [],
+              'D': []}
+
+    t1_st = {'RMSE': [],
+             'JI': [],
+             'alpha': [],
+             'D': [],
+             'state': [],
+             'num_traj': [],
+             'num_traj_CP': []} # this last one takes into account no changepoint from single state
+
+    # Track 2 - Trajectories
+    t2_ens = {'alpha': [],
+              'D': []}
+
+    t2_st = {'RMSE': [],
+             'JI': [],
+             'alpha': [],
+             'D': [],
+             'state': [],
+             'num_traj': [],
+             'num_traj_CP': []} # this last one takes into account no changepoint from single state
+    
+    # Handling paths of input files
+    submit_dir = os.path.join(input_dir, 'pred')
+    truth_dir = os.path.join(input_dir, 'true')
+    if not os.path.isdir(submit_dir):
+        print( "%s doesn't exist", truth_dir)
+        
+    # Calculate metrics if directories exist
+    if os.path.isdir(submit_dir) and os.path.isdir(truth_dir):
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        # Extracts all files in reference directory
+        true_files_list = sorted(list(listdir_nohidden(truth_dir)))#os.listdir(truth_dir)
+
+        # Run over all files        
+        missing_tracks = []
+        for filename in tqdm(true_files_list):
+            task = re.search('_(.+?)_labs', filename).group(1)
+            exp = re.search('exp_(.+?)_', filename).group(1)
+            fov = re.search('fov_(.+?).', filename).group(1)
+            # check track and save found tracks
+            track = int(filename[1]) 
+            
+
+            true_file = os.path.join(truth_dir, filename)
+            corresponding_submission_file = os.path.join(submit_dir, filename)
+            
+            if not os.path.isfile(corresponding_submission_file):
+                if track not in missing_tracks:
+                    missing_tracks.append(track)
+                if len(missing_tracks) == 2:
+                    raise FileNotFoundError(f'Failed to find prediction files.')
+                else:
+                    continue
+            
+            # if not os.path.isfile(corresponding_submission_file) and missing_tracks == 1:
+            #     raise FileNotFoundError(f'Failed to find prediction files.')
+                # raise FileNotFoundError(f'Prediction file for: track {track}, task {task}, experiment {exp} and FOV {fov} not found.')
+            
+            # extract model
+            if task == 'ens':
+                model = np.genfromtxt(true_file, dtype='str', skip_footer=5)[1][:-1]
+            else:
+                file_ens = os.path.join(truth_dir, f't{track}_ens_labs_exp_{exp}_fov_{fov}.txt')
+                model = np.genfromtxt(file_ens, dtype='str', skip_footer=5)[1][:-1]
+            
+            # Ensemble
+            if task == 'ens':
+
+                true = np.loadtxt(true_file, skiprows=1, delimiter = ';')
+                pred = np.loadtxt(corresponding_submission_file, skiprows=1, delimiter = ';')
+
+                mae_alpha, mae_D, = error_Ensemble_dataset(true_data = true,
+                                                           pred_data = pred)
+
+                if track == 1:
+                    t1_ens['alpha'].append(mae_alpha)
+                    t1_ens['D'].append(mae_D)
+                if track == 2:                
+                    t2_ens['alpha'].append(mae_alpha)
+                    t2_ens['D'].append(mae_D)
+
+            # Single trajectory
+            if task == 'traj':    
+                df_true = load_file_to_df(true_file)
+                df_pred = load_file_to_df(corresponding_submission_file)
+
+                rmse_CP, JI, error_alpha, error_D, error_s = error_SingleTraj_dataset(df_true = df_true, df_pred = df_pred, 
+                                                                                      threshold_error_alpha = threshold_error_alpha,
+                                                                                      threshold_error_D = threshold_error_D, 
+                                                                                      threshold_error_s = threshold_error_s,
+                                                                                      threshold_cp = threshold_cp,
+                                                                                      prints = False, disable_tqdm = True)
+
+                if track == 1:
+                    # to avoid single state entering in CP metrics
+                    if model != 'single_state': 
+                        t1_st['RMSE'].append(rmse_CP)
+                        t1_st['JI'].append(JI)
+                        t1_st['num_traj_CP'].append(df_true.shape[0])
+                        
+                    t1_st['alpha'].append(error_alpha)
+                    t1_st['D'].append(error_D)
+                    t1_st['state'].append(error_s)                    
+                    t1_st['num_traj'].append(df_true.shape[0])
+                if track == 2:
+                    # to avoid single state entering in CP metrics
+                    if model != 'single_state': 
+                        t2_st['RMSE'].append(rmse_CP)
+                        t2_st['JI'].append(JI)
+                        t2_st['num_traj_CP'].append(df_true.shape[0])
+                    
+                    t2_st['alpha'].append(error_alpha)
+                    t2_st['D'].append(error_D)
+                    t2_st['state'].append(error_s)        
+                    t2_st['num_traj'].append(df_true.shape[0])
+
+            # print(f'Track {track}, Task {task}, Exp {exp}, FOV {fov}: OK!')
+       
+    ### Saving data
+    '''CHECK HOW TO DO THE MEAN!'''    
+    # Define output file
+    output_filename = os.path.join(output_dir, 'scores.txt')
+    output_file = open(output_filename, 'w')
+
+    # Single trajectory data
+    # We define a variable that gives the worst values for each metric. This is applied
+    # separetedly for every FOV
+    worst_value_st = {'RMSE': threshold_cp,
+                      'JI': 0,
+                      'alpha': threshold_error_alpha,
+                      'D': threshold_error_D,
+                      'state': 0}
+    # Run over all keys
+    for key in t1_st: 
+        
+        # Compare results with 
+        if key in ['RMSE', 'alpha', 'D']:            
+            if key == 'RMSE': avg_against = 'num_traj_CP'
+            else: avg_against = 'num_traj'
+            
+            if 1 not in missing_tracks:
+                
+                save_t1 = np.nanmin(np.vstack([t1_st[key],
+                                               np.ones_like(t1_st[key])*worst_value_st[key]]),
+                                    axis = 0)
+                save_t1 = np.average(save_t1, axis = 0, weights = t1_st[avg_against])
+                
+            if 2 not in missing_tracks:                     
+                save_t2 = np.nanmin(np.vstack([t2_st[key],
+                                               np.ones_like(t2_st[key])*worst_value_st[key]]),
+                                    axis = 0)            
+                save_t2 = np.average(save_t2, axis = 0, weights = t2_st[avg_against])
+            
+        elif key in ['JI', 'state']:                        
+            if key == 'JI': avg_against = 'num_traj_CP'
+            else: avg_against = 'num_traj'
+            
+            if 1 not in missing_tracks:
+                save_t1 = np.nanmax(np.vstack([t1_st[key],
+                                               np.ones_like(t1_st[key])*worst_value_st[key]]),
+                                    axis = 0)
+                save_t1 = np.average(save_t1, axis = 0, weights = t1_st[avg_against])
+                    
+            if 2 not in missing_tracks: 
+                save_t2 = np.nanmax(np.vstack([t2_st[key],
+                                               np.ones_like(t2_st[key])*worst_value_st[key]]),
+                                    axis = 0)           
+                save_t2 = np.average(save_t2, axis = 0, weights = t2_st[avg_against])
+
+        if 1 not in missing_tracks: 
+            output_file.write('T1_st_'+ key +f' : {save_t1}\n')    
+        if 2 not in missing_tracks: 
+            output_file.write('T2_st_'+ key +f' : {save_t2}\n')
+
+    ### Saving ensemble data
+    '''WHAT ARE THE THRESHOLDS FOR THIS?'''
+    worst_value_ens = {'alpha': 100,
+                       'D': 100}
+
+    for key in t1_ens: 
+        if key == 'num_traj': continue
+        
+        if 1 not in missing_tracks: 
+            save_t1 = np.nanmin(np.vstack([t1_ens[key],
+                                               np.ones_like(t1_ens[key])*worst_value_ens[key]]),
+                                    axis = 0).mean()
+        if 2 not in missing_tracks: 
+            save_t2 = np.nanmin(np.vstack([t2_ens[key],
+                                               np.ones_like(t2_ens[key])*worst_value_ens[key]]),
+                                    axis = 0).mean()
+
+        if 1 not in missing_tracks: 
+            output_file.write('T1_ens_'+ key +f' : {save_t1}\n')    
+        if 2 not in missing_tracks: 
+            output_file.write('T2_ens_'+ key +f' : {save_t2}\n')
+
+    output_file.close()
