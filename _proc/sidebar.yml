@@ -1,0 +1,12 @@
+website:
+  sidebar:
+    contents:
+      - analysis.ipynb
+      - datasets_challenge.ipynb
+      - datasets_phenom.ipynb
+      - datasets_theory.ipynb
+      - models_phenom.ipynb
+      - models_theory.ipynb
+      - utils_challenge.ipynb
+      - utils_trajectories.ipynb
+      - utils_videos.ipynb
