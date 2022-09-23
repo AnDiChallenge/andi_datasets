@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "andi_datasets"
+  site-url: "https://gorkamunoz.github.io/andi_datasets/"
+  description: "The Anomalous Diffusion Challenge package"
+  repo-branch: master
+  repo-url: "https://github.com/AnDiChallenge/andi_datasets"

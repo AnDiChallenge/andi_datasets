@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -148,19 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">andi_datasets</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnDiChallenge/andi_datasets"><i class="bi bi-github" role="img">
-</i> 
- </a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -195,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">datasets_theory</a>
+  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">Generate datasets of theoretical models</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -233,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#filtering-labels" id="toc-filtering-labels" class="nav-link active" data-scroll-target="#filtering-labels">Filtering labels</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#label_filter" id="toc-label_filter" class="nav-link" data-scroll-target="#label_filter">label_filter</a></li>
   <li><a href="#majority_filter" id="toc-majority_filter" class="nav-link" data-scroll-target="#majority_filter">majority_filter</a></li>
   <li><a href="#calculating-new-transition-rates-after-filtering" id="toc-calculating-new-transition-rates-after-filtering" class="nav-link" data-scroll-target="#calculating-new-transition-rates-after-filtering">Calculating new transition rates after filtering</a></li>
@@ -243,77 +231,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul></li>
   <li><a href="#continuous-labels-to-list-of-features" id="toc-continuous-labels-to-list-of-features" class="nav-link" data-scroll-target="#continuous-labels-to-list-of-features">Continuous labels to list of features</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#continuous_label_to_list" id="toc-continuous_label_to_list" class="nav-link" data-scroll-target="#continuous_label_to_list"><code>continuous_label_to_list</code></a></li>
   <li><a href="#continuous_label_to_list-1" id="toc-continuous_label_to_list-1" class="nav-link" data-scroll-target="#continuous_label_to_list-1">continuous_label_to_list</a></li>
   </ul></li>
   <li><a href="#list-of-features-to-continuous-labels" id="toc-list-of-features-to-continuous-labels" class="nav-link" data-scroll-target="#list-of-features-to-continuous-labels">List of features to continuous labels</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#list_to_continuous" id="toc-list_to_continuous" class="nav-link" data-scroll-target="#list_to_continuous">list_to_continuous</a></li>
   </ul></li>
   <li><a href="#storing-data-in-dataframe" id="toc-storing-data-in-dataframe" class="nav-link" data-scroll-target="#storing-data-in-dataframe">Storing data in DataFrame</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#data_to_df" id="toc-data_to_df" class="nav-link" data-scroll-target="#data_to_df"><code>data_to_df</code></a></li>
   <li><a href="#data_to_df-1" id="toc-data_to_df-1" class="nav-link" data-scroll-target="#data_to_df-1">data_to_df</a></li>
   </ul></li>
   <li><a href="#transform-dataframe-to-array-with-padding" id="toc-transform-dataframe-to-array-with-padding" class="nav-link" data-scroll-target="#transform-dataframe-to-array-with-padding">Transform dataframe to array with padding</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#df_to_array" id="toc-df_to_array" class="nav-link" data-scroll-target="#df_to_array">df_to_array</a></li>
   </ul></li>
   <li><a href="#get_vip" id="toc-get_vip" class="nav-link" data-scroll-target="#get_vip"><code>get_VIP</code></a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#get_vip-1" id="toc-get_vip-1" class="nav-link" data-scroll-target="#get_vip-1">get_VIP</a></li>
   </ul></li>
   <li><a href="#challenge-2022-metrics" id="toc-challenge-2022-metrics" class="nav-link" data-scroll-target="#challenge-2022-metrics">Challenge 2022 metrics</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#changepoint-pairing" id="toc-changepoint-pairing" class="nav-link" data-scroll-target="#changepoint-pairing">Changepoint pairing</a>
   <ul class="collapse">
-  <li><a href="#changepoint_assignment" id="toc-changepoint_assignment" class="nav-link" data-scroll-target="#changepoint_assignment"><code>changepoint_assignment</code></a></li>
-  <li><a href="#changepoint_assignment-1" id="toc-changepoint_assignment-1" class="nav-link" data-scroll-target="#changepoint_assignment-1">changepoint_assignment</a>
-  <ul class="collapse">
-  <li><a href="#changepoint_alpha_beta" id="toc-changepoint_alpha_beta" class="nav-link" data-scroll-target="#changepoint_alpha_beta"><code>changepoint_alpha_beta</code></a></li>
-  </ul></li>
-  <li><a href="#changepoint_alpha_beta-1" id="toc-changepoint_alpha_beta-1" class="nav-link" data-scroll-target="#changepoint_alpha_beta-1">changepoint_alpha_beta</a>
-  <ul class="collapse">
-  <li><a href="#jaccard_index" id="toc-jaccard_index" class="nav-link" data-scroll-target="#jaccard_index"><code>jaccard_index</code></a></li>
-  </ul></li>
-  <li><a href="#jaccard_index-1" id="toc-jaccard_index-1" class="nav-link" data-scroll-target="#jaccard_index-1">jaccard_index</a>
-  <ul class="collapse">
-  <li><a href="#ensemble_changepoint_error" id="toc-ensemble_changepoint_error" class="nav-link" data-scroll-target="#ensemble_changepoint_error"><code>ensemble_changepoint_error</code></a></li>
-  </ul></li>
+  <li><a href="#changepoint_assignment-1" id="toc-changepoint_assignment-1" class="nav-link" data-scroll-target="#changepoint_assignment-1">changepoint_assignment</a></li>
+  <li><a href="#changepoint_alpha_beta-1" id="toc-changepoint_alpha_beta-1" class="nav-link" data-scroll-target="#changepoint_alpha_beta-1">changepoint_alpha_beta</a></li>
+  <li><a href="#jaccard_index-1" id="toc-jaccard_index-1" class="nav-link" data-scroll-target="#jaccard_index-1">jaccard_index</a></li>
   <li><a href="#ensemble_changepoint_error-1" id="toc-ensemble_changepoint_error-1" class="nav-link" data-scroll-target="#ensemble_changepoint_error-1">ensemble_changepoint_error</a></li>
   <li><a href="#changepoint_error" id="toc-changepoint_error" class="nav-link" data-scroll-target="#changepoint_error">changepoint_error</a></li>
   </ul></li>
   <li><a href="#segments-pairing" id="toc-segments-pairing" class="nav-link" data-scroll-target="#segments-pairing">Segments pairing</a>
   <ul class="collapse">
-  <li><a href="#segment_distance" id="toc-segment_distance" class="nav-link" data-scroll-target="#segment_distance"><code>segment_distance</code></a></li>
-  <li><a href="#segment_distance-1" id="toc-segment_distance-1" class="nav-link" data-scroll-target="#segment_distance-1">segment_distance</a>
-  <ul class="collapse">
-  <li><a href="#create_binary_segment" id="toc-create_binary_segment" class="nav-link" data-scroll-target="#create_binary_segment"><code>create_binary_segment</code></a></li>
-  </ul></li>
-  <li><a href="#create_binary_segment-1" id="toc-create_binary_segment-1" class="nav-link" data-scroll-target="#create_binary_segment-1">create_binary_segment</a>
-  <ul class="collapse">
-  <li><a href="#jaccard_between_segments" id="toc-jaccard_between_segments" class="nav-link" data-scroll-target="#jaccard_between_segments"><code>jaccard_between_segments</code></a></li>
-  </ul></li>
-  <li><a href="#jaccard_between_segments-1" id="toc-jaccard_between_segments-1" class="nav-link" data-scroll-target="#jaccard_between_segments-1">jaccard_between_segments</a>
-  <ul class="collapse">
-  <li><a href="#segment_assignment" id="toc-segment_assignment" class="nav-link" data-scroll-target="#segment_assignment"><code>segment_assignment</code></a></li>
-  </ul></li>
+  <li><a href="#segment_distance-1" id="toc-segment_distance-1" class="nav-link" data-scroll-target="#segment_distance-1">segment_distance</a></li>
+  <li><a href="#create_binary_segment-1" id="toc-create_binary_segment-1" class="nav-link" data-scroll-target="#create_binary_segment-1">create_binary_segment</a></li>
+  <li><a href="#jaccard_between_segments-1" id="toc-jaccard_between_segments-1" class="nav-link" data-scroll-target="#jaccard_between_segments-1">jaccard_between_segments</a></li>
   <li><a href="#segment_assignment-1" id="toc-segment_assignment-1" class="nav-link" data-scroll-target="#segment_assignment-1">segment_assignment</a></li>
   </ul></li>
   <li><a href="#segment-properties-comparison" id="toc-segment-properties-comparison" class="nav-link" data-scroll-target="#segment-properties-comparison">Segment properties comparison</a>
   <ul class="collapse">
-  <li><a href="#metrics-of-segment-properties" id="toc-metrics-of-segment-properties" class="nav-link" data-scroll-target="#metrics-of-segment-properties">Metrics of segment properties</a></li>
   <li><a href="#metric_diffusive_state" id="toc-metric_diffusive_state" class="nav-link" data-scroll-target="#metric_diffusive_state">metric_diffusive_state</a></li>
   <li><a href="#metric_diffusion_coefficient" id="toc-metric_diffusion_coefficient" class="nav-link" data-scroll-target="#metric_diffusion_coefficient">metric_diffusion_coefficient</a></li>
-  <li><a href="#metric_anomalous_exponent" id="toc-metric_anomalous_exponent" class="nav-link" data-scroll-target="#metric_anomalous_exponent">metric_anomalous_exponent</a>
-  <ul class="collapse">
-  <li><a href="#check_no_changepoints" id="toc-check_no_changepoints" class="nav-link" data-scroll-target="#check_no_changepoints"><code>check_no_changepoints</code></a></li>
-  </ul></li>
-  <li><a href="#check_no_changepoints-1" id="toc-check_no_changepoints-1" class="nav-link" data-scroll-target="#check_no_changepoints-1">check_no_changepoints</a>
-  <ul class="collapse">
-  <li><a href="#segment_property_errors" id="toc-segment_property_errors" class="nav-link" data-scroll-target="#segment_property_errors"><code>segment_property_errors</code></a></li>
-  </ul></li>
+  <li><a href="#metric_anomalous_exponent" id="toc-metric_anomalous_exponent" class="nav-link" data-scroll-target="#metric_anomalous_exponent">metric_anomalous_exponent</a></li>
+  <li><a href="#check_no_changepoints-1" id="toc-check_no_changepoints-1" class="nav-link" data-scroll-target="#check_no_changepoints-1">check_no_changepoints</a></li>
   <li><a href="#segment_property_errors-1" id="toc-segment_property_errors-1" class="nav-link" data-scroll-target="#segment_property_errors-1">segment_property_errors</a></li>
   </ul></li>
   <li><a href="#ensemble-metrics" id="toc-ensemble-metrics" class="nav-link" data-scroll-target="#ensemble-metrics">Ensemble metrics</a>
@@ -329,27 +290,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#reading-participants-predictions" id="toc-reading-participants-predictions" class="nav-link" data-scroll-target="#reading-participants-predictions">Reading participants predictions</a>
   <ul class="collapse">
-  <li><a href="#check_prediction_length" id="toc-check_prediction_length" class="nav-link" data-scroll-target="#check_prediction_length"><code>check_prediction_length</code></a></li>
-  <li><a href="#check_prediction_length-1" id="toc-check_prediction_length-1" class="nav-link" data-scroll-target="#check_prediction_length-1">check_prediction_length</a>
-  <ul class="collapse">
-  <li><a href="#separate_prediction_values" id="toc-separate_prediction_values" class="nav-link" data-scroll-target="#separate_prediction_values"><code>separate_prediction_values</code></a></li>
-  </ul></li>
-  <li><a href="#separate_prediction_values-1" id="toc-separate_prediction_values-1" class="nav-link" data-scroll-target="#separate_prediction_values-1">separate_prediction_values</a>
-  <ul class="collapse">
-  <li><a href="#load_file_to_df" id="toc-load_file_to_df" class="nav-link" data-scroll-target="#load_file_to_df"><code>load_file_to_df</code></a></li>
-  </ul></li>
-  <li><a href="#load_file_to_df-1" id="toc-load_file_to_df-1" class="nav-link" data-scroll-target="#load_file_to_df-1">load_file_to_df</a>
-  <ul class="collapse">
-  <li><a href="#error_singletraj_dataset" id="toc-error_singletraj_dataset" class="nav-link" data-scroll-target="#error_singletraj_dataset"><code>error_SingleTraj_dataset</code></a></li>
-  </ul></li>
-  <li><a href="#error_singletraj_dataset-1" id="toc-error_singletraj_dataset-1" class="nav-link" data-scroll-target="#error_singletraj_dataset-1">error_SingleTraj_dataset</a>
-  <ul class="collapse">
-  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
-  </ul></li>
+  <li><a href="#check_prediction_length-1" id="toc-check_prediction_length-1" class="nav-link" data-scroll-target="#check_prediction_length-1">check_prediction_length</a></li>
+  <li><a href="#separate_prediction_values-1" id="toc-separate_prediction_values-1" class="nav-link" data-scroll-target="#separate_prediction_values-1">separate_prediction_values</a></li>
+  <li><a href="#load_file_to_df-1" id="toc-load_file_to_df-1" class="nav-link" data-scroll-target="#load_file_to_df-1">load_file_to_df</a></li>
+  <li><a href="#error_singletraj_dataset-1" id="toc-error_singletraj_dataset-1" class="nav-link" data-scroll-target="#error_singletraj_dataset-1">error_SingleTraj_dataset</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#codalab-scoring-program" id="toc-codalab-scoring-program" class="nav-link" data-scroll-target="#codalab-scoring-program">Codalab scoring program</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#listdir_nohidden" id="toc-listdir_nohidden" class="nav-link" data-scroll-target="#listdir_nohidden">listdir_nohidden</a></li>
   <li><a href="#codalab_scoring" id="toc-codalab_scoring" class="nav-link" data-scroll-target="#codalab_scoring">codalab_scoring</a></li>
   </ul></li>
@@ -466,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    res_ft <span class="op">=</span> np.append(res_ft, CP_f[<span class="dv">1</span>:] <span class="op">-</span> CP_f[:<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"cdd62df619124cca8bc13287a4eb957c","version_major":2,"version_minor":0}]
+{"model_id":"cdd62df619124cca8bc13287a4eb957c","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -598,7 +546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_in, df_out <span class="op">=</span> data_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"7e33bd68f62a43a083b295362c045299","version_major":2,"version_minor":0}]
+{"model_id":"7e33bd68f62a43a083b295362c045299","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1456,12 +1404,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>df_in, df_preds <span class="op">=</span> data_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"6a1fe6ab3cb4431d936c84bc5eeac373","version_major":2,"version_minor":0}]
+{"model_id":"6a1fe6ab3cb4431d936c84bc5eeac373","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"b96abba5a68a465f9a82d8b998313914","version_major":2,"version_minor":0}]
+{"model_id":"b96abba5a68a465f9a82d8b998313914","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1469,7 +1417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"78c03fa768e54e0a810e1fdf6b683520","version_major":2,"version_minor":0}]
+{"model_id":"78c03fa768e54e0a810e1fdf6b683520","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1509,12 +1457,12 @@ Metric diffusive state: 0.5135203436947182</code></pre>
 <span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a>df_in, df_preds <span class="op">=</span> data_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"722f2ef9f7d54fd3a6f961ac438180cb","version_major":2,"version_minor":0}]
+{"model_id":"722f2ef9f7d54fd3a6f961ac438180cb","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"382ad7f1f9404a3b8280ad939e0971eb","version_major":2,"version_minor":0}]
+{"model_id":"382ad7f1f9404a3b8280ad939e0971eb","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1522,7 +1470,7 @@ Metric diffusive state: 0.5135203436947182</code></pre>
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"32b2c930add14fe0a78d340fc2095149","version_major":2,"version_minor":0}]
+{"model_id":"32b2c930add14fe0a78d340fc2095149","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1563,12 +1511,12 @@ Metric diffusive state: 0.4913685263947961</code></pre>
 <span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>df_in, df_trues  <span class="op">=</span> data_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"e7158e67f9d74360a3dca327fbaf70ad","version_major":2,"version_minor":0}]
+{"model_id":"e7158e67f9d74360a3dca327fbaf70ad","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"047e0943b55341579c3ecbab3bd6aad5","version_major":2,"version_minor":0}]
+{"model_id":"047e0943b55341579c3ecbab3bd6aad5","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1576,7 +1524,7 @@ Metric diffusive state: 0.4913685263947961</code></pre>
 <div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"00329cc314f149939b4c5971fbfb2ae9","version_major":2,"version_minor":0}]
+{"model_id":"00329cc314f149939b4c5971fbfb2ae9","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
@@ -1625,7 +1573,7 @@ Metric diffusive state: 0.41379310344827586</code></pre>
 <span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>codalab_scoring(input_dir<span class="op">=</span>input_dir, output_dir<span class="op">=</span>output_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"e980f849bcdf4c45b745663d6ddb0ebf","version_major":2,"version_minor":0}]
+{"model_id":"e980f849bcdf4c45b745663d6ddb0ebf","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>

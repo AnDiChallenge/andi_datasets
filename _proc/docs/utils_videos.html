@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -144,19 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">andi_datasets</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnDiChallenge/andi_datasets"><i class="bi bi-github" role="img">
-</i> 
- </a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -191,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">datasets_theory</a>
+  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">Generate datasets of theoretical models</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -229,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#helpers-for-videos" id="toc-helpers-for-videos" class="nav-link active" data-scroll-target="#helpers-for-videos">Helpers for videos</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#play_video" id="toc-play_video" class="nav-link" data-scroll-target="#play_video">play_video</a></li>
   <li><a href="#convert_uint8" id="toc-convert_uint8" class="nav-link" data-scroll-target="#convert_uint8">convert_uint8</a></li>
   <li><a href="#psf_width" id="toc-psf_width" class="nav-link" data-scroll-target="#psf_width">psf_width</a></li>
@@ -237,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#mask" id="toc-mask" class="nav-link" data-scroll-target="#mask">mask</a></li>
   </ul></li>
   <li><a href="#transform_to_video" id="toc-transform_to_video" class="nav-link" data-scroll-target="#transform_to_video"><code>transform_to_video</code></a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#transform_to_video-1" id="toc-transform_to_video-1" class="nav-link" data-scroll-target="#transform_to_video-1">transform_to_video</a></li>
   <li><a href="#testing-psf-size" id="toc-testing-psf-size" class="nav-link" data-scroll-target="#testing-psf-size">Testing PSF size</a></li>
   <li><a href="#testing-generation" id="toc-testing-generation" class="nav-link" data-scroll-target="#testing-generation">Testing generation</a></li>
@@ -479,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>[plt.text(y<span class="op">+</span><span class="dv">2</span>, x, <span class="bu">str</span>(i), color<span class="op">=</span><span class="st">"orange"</span>) <span class="cf">for</span> i, (x, y) <span class="kw">in</span> <span class="bu">enumerate</span>(detections)]</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell">
@@ -492,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>&lt;matplotlib.colorbar.Colorbar&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -13904,7 +13892,7 @@ AJCAhg4ACfwfpI76eLmLxowAAAAASUVORK5CYII=\
 <pre><code>Text(0.5, 1.0, 'Mask 0')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell">
@@ -13915,7 +13903,7 @@ AJCAhg4ACfwfpI76eLmLxowAAAAASUVORK5CYII=\
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>,L)<span class="op">;</span> plt.ylim(<span class="dv">0</span>,L)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>

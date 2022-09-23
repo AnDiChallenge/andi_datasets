@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -148,19 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">andi_datasets</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnDiChallenge/andi_datasets"><i class="bi bi-github" role="img">
-</i> 
- </a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -195,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">datasets_theory</a>
+  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">Generate datasets of theoretical models</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -233,20 +221,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#class-constructor" id="toc-class-constructor" class="nav-link active" data-scroll-target="#class-constructor">Class constructor</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#models_phenom" id="toc-models_phenom" class="nav-link" data-scroll-target="#models_phenom">models_phenom</a></li>
   </ul></li>
   <li><a href="#fbm-displacements-generator" id="toc-fbm-displacements-generator" class="nav-link" data-scroll-target="#fbm-displacements-generator">FBM displacements generator</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#models_phenom-1" id="toc-models_phenom-1" class="nav-link" data-scroll-target="#models_phenom-1">models_phenom</a></li>
   <li><a href="#properties-of-fbm" id="toc-properties-of-fbm" class="nav-link" data-scroll-target="#properties-of-fbm">Properties of FBM</a></li>
   </ul></li>
   <li><a href="#sampling-diffusion-properties" id="toc-sampling-diffusion-properties" class="nav-link" data-scroll-target="#sampling-diffusion-properties">Sampling diffusion properties</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#models_phenom-2" id="toc-models_phenom-2" class="nav-link" data-scroll-target="#models_phenom-2">models_phenom</a></li>
   </ul></li>
   <li><a href="#single-state-model" id="toc-single-state-model" class="nav-link" data-scroll-target="#single-state-model">Single state model</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#single-trajectory-generator" id="toc-single-trajectory-generator" class="nav-link" data-scroll-target="#single-trajectory-generator">Single trajectory generator</a>
   <ul class="collapse">
   <li><a href="#models_phenom-3" id="toc-models_phenom-3" class="nav-link" data-scroll-target="#models_phenom-3">models_phenom</a></li>
@@ -257,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul></li>
   <li><a href="#multiple-state-model" id="toc-multiple-state-model" class="nav-link" data-scroll-target="#multiple-state-model">Multiple state model</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#single-trajectory-generator-1" id="toc-single-trajectory-generator-1" class="nav-link" data-scroll-target="#single-trajectory-generator-1">Single trajectory generator</a>
   <ul class="collapse">
   <li><a href="#models_phenom-5" id="toc-models_phenom-5" class="nav-link" data-scroll-target="#models_phenom-5">models_phenom</a></li>
@@ -268,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul></li>
   <li><a href="#dimerization" id="toc-dimerization" class="nav-link" data-scroll-target="#dimerization">Dimerization</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#auxiliary-functions" id="toc-auxiliary-functions" class="nav-link" data-scroll-target="#auxiliary-functions">Auxiliary functions</a>
   <ul class="collapse">
   <li><a href="#models_phenom-7" id="toc-models_phenom-7" class="nav-link" data-scroll-target="#models_phenom-7">models_phenom</a></li>
@@ -281,12 +269,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul></li>
   <li><a href="#immobile-traps" id="toc-immobile-traps" class="nav-link" data-scroll-target="#immobile-traps">Immobile traps</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#models_phenom-11" id="toc-models_phenom-11" class="nav-link" data-scroll-target="#models_phenom-11">models_phenom</a></li>
   <li><a href="#models_phenom-12" id="toc-models_phenom-12" class="nav-link" data-scroll-target="#models_phenom-12">models_phenom</a></li>
   </ul></li>
   <li><a href="#confinement" id="toc-confinement" class="nav-link" data-scroll-target="#confinement">Confinement</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#auxiliary-functions-1" id="toc-auxiliary-functions-1" class="nav-link" data-scroll-target="#auxiliary-functions-1">Auxiliary functions</a>
   <ul class="collapse">
   <li><a href="#distribute-compartments" id="toc-distribute-compartments" class="nav-link" data-scroll-target="#distribute-compartments">Distribute compartments</a></li>
@@ -380,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        vacf_a[idx_a, :] <span class="op">=</span> vacf(trajs <span class="op">=</span> trajs, delta_t <span class="op">=</span> <span class="dv">1</span>, taus <span class="op">=</span> taus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"6c0dce03fbf6478c831a8a279484f10c","version_major":2,"version_minor":0}]
+{"model_id":"6c0dce03fbf6478c831a8a279484f10c","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -121,19 +121,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="andi_datasets - datasets_phenom">
-<meta property="og:description" content="The class is initiated by accessing the models_phenom class and inspecting the available models">
+<meta property="og:description" content="This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).">
 <meta property="og:site-name" content="andi_datasets">
 <meta name="twitter:title" content="andi_datasets - datasets_phenom">
-<meta name="twitter:description" content="The class is initiated by accessing the models_phenom class and inspecting the available models">
+<meta name="twitter:description" content="This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -148,19 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">andi_datasets</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnDiChallenge/andi_datasets"><i class="bi bi-github" role="img">
-</i> 
- </a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -195,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">datasets_theory</a>
+  <a href="./datasets_theory.html" class="sidebar-item-text sidebar-link">Datasets of theoretical trajectories</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -232,40 +215,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#class-constructor" id="toc-class-constructor" class="nav-link active" data-scroll-target="#class-constructor">Class constructor</a>
-  <ul>
-  <li><a href="#datasets_phenom" id="toc-datasets_phenom" class="nav-link" data-scroll-target="#datasets_phenom">datasets_phenom</a></li>
-  </ul></li>
-  <li><a href="#create_dataset" id="toc-create_dataset" class="nav-link" data-scroll-target="#create_dataset"><code>create_dataset</code></a>
-  <ul>
-  <li><a href="#datasets_phenom-1" id="toc-datasets_phenom-1" class="nav-link" data-scroll-target="#datasets_phenom-1">datasets_phenom</a></li>
-  </ul></li>
-  <li><a href="#create_trajectories-_save_trajectories-_load_trajectories" id="toc-create_trajectories-_save_trajectories-_load_trajectories" class="nav-link" data-scroll-target="#create_trajectories-_save_trajectories-_load_trajectories"><code>_create_trajectories</code>, <code>_save_trajectories</code>, <code>_load_trajectories</code></a>
-  <ul>
-  <li><a href="#datasets_phenom-2" id="toc-datasets_phenom-2" class="nav-link" data-scroll-target="#datasets_phenom-2">datasets_phenom</a></li>
-  </ul></li>
-  <li><a href="#inspect_dic" id="toc-inspect_dic" class="nav-link" data-scroll-target="#inspect_dic"><code>_inspect_dic</code></a>
-  <ul>
-  <li><a href="#datasets_phenom-3" id="toc-datasets_phenom-3" class="nav-link" data-scroll-target="#datasets_phenom-3">datasets_phenom</a></li>
-  </ul></li>
-  <li><a href="#get_args" id="toc-get_args" class="nav-link" data-scroll-target="#get_args"><code>_get_args</code></a>
-  <ul>
-  <li><a href="#datasets_phenom-4" id="toc-datasets_phenom-4" class="nav-link" data-scroll-target="#datasets_phenom-4">datasets_phenom</a></li>
-  </ul></li>
-  <li><a href="#challenge-2022-dataset" id="toc-challenge-2022-dataset" class="nav-link" data-scroll-target="#challenge-2022-dataset">Challenge 2022 Dataset</a>
-  <ul>
-  <li><a href="#default-challenge-parameters" id="toc-default-challenge-parameters" class="nav-link" data-scroll-target="#default-challenge-parameters">Default challenge parameters</a>
+  <li><a href="#datasets_phenom" id="toc-datasets_phenom" class="nav-link active" data-scroll-target="#datasets_phenom">datasets_phenom</a></li>
+  <li><a href="#datasets_phenom.create_dataset" id="toc-datasets_phenom.create_dataset" class="nav-link" data-scroll-target="#datasets_phenom.create_dataset">datasets_phenom.create_dataset</a></li>
+  <li><a href="#creating-saving-and-loading-trajectories" id="toc-creating-saving-and-loading-trajectories" class="nav-link" data-scroll-target="#creating-saving-and-loading-trajectories">Creating, saving and loading trajectories</a>
   <ul class="collapse">
-  <li><a href="#datasets_phenom-5" id="toc-datasets_phenom-5" class="nav-link" data-scroll-target="#datasets_phenom-5">datasets_phenom</a></li>
-  <li><a href="#get_dic_andi2" id="toc-get_dic_andi2" class="nav-link" data-scroll-target="#get_dic_andi2"><code>get_dic_andi2</code></a></li>
-  <li><a href="#datasets_phenom-6" id="toc-datasets_phenom-6" class="nav-link" data-scroll-target="#datasets_phenom-6">datasets_phenom</a></li>
+  <li><a href="#datasets_phenom._create_trajectories" id="toc-datasets_phenom._create_trajectories" class="nav-link" data-scroll-target="#datasets_phenom._create_trajectories">datasets_phenom._create_trajectories</a></li>
+  <li><a href="#datasets_phenom._save_trajectories" id="toc-datasets_phenom._save_trajectories" class="nav-link" data-scroll-target="#datasets_phenom._save_trajectories">datasets_phenom._save_trajectories</a></li>
+  <li><a href="#datasets_phenom._load_trajectories" id="toc-datasets_phenom._load_trajectories" class="nav-link" data-scroll-target="#datasets_phenom._load_trajectories">datasets_phenom._load_trajectories</a></li>
   </ul></li>
-  <li><a href="#generating-function" id="toc-generating-function" class="nav-link" data-scroll-target="#generating-function">Generating function</a>
+  <li><a href="#managing-parameters-and-dictionaries" id="toc-managing-parameters-and-dictionaries" class="nav-link" data-scroll-target="#managing-parameters-and-dictionaries">Managing parameters and dictionaries</a>
   <ul class="collapse">
-  <li><a href="#datasets_phenom-7" id="toc-datasets_phenom-7" class="nav-link" data-scroll-target="#datasets_phenom-7">datasets_phenom</a></li>
+  <li><a href="#datasets_phenom._inspect_dic" id="toc-datasets_phenom._inspect_dic" class="nav-link" data-scroll-target="#datasets_phenom._inspect_dic">datasets_phenom._inspect_dic</a></li>
+  <li><a href="#datasets_phenom._get_args" id="toc-datasets_phenom._get_args" class="nav-link" data-scroll-target="#datasets_phenom._get_args">datasets_phenom._get_args</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#nbdev-export" id="toc-nbdev-export" class="nav-link" data-scroll-target="#nbdev-export">NBDEV Export</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/AnDiChallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -289,191 +251,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
-<section id="class-constructor" class="level2">
-<h2 class="anchored" data-anchor-id="class-constructor">Class constructor</h2>
-<p>The class is initiated by accessing the <code>models_phenom</code> class and inspecting the available models</p>
 <hr>
 <section id="datasets_phenom" class="level3">
 <h3 class="anchored" data-anchor-id="datasets_phenom">datasets_phenom</h3>
 <blockquote class="blockquote">
 <pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
+                  object at 0x0000021637E7A0E0&gt;)</code></pre>
 </blockquote>
-<p>Constructor of the class</p>
-</section>
-</section>
-<section id="create_dataset" class="level1">
-<h1><code>create_dataset</code></h1>
-<p>This function receives a list of dictionaries, each containing the properties of the trajectories to be created. The compulsory input for each dictionary is the key <code>model</code>, which defined the phenomenological diffusion model from which to create the trajectories. The rest of the properties are the ones of the model called. If no properties are given, the function automatically choses the default parameters of the model (check <code>models_phenom</code> for details).</p>
+<p>This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).</p>
 <hr>
-<section id="datasets_phenom-1" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-1">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
 </section>
-</section>
-<section id="create_trajectories-_save_trajectories-_load_trajectories" class="level1">
-<h1><code>_create_trajectories</code>, <code>_save_trajectories</code>, <code>_load_trajectories</code></h1>
-<p>Auxiliary functions to <code>create_trajectories</code> that allow for creating, load and saving trajectories.</p>
-<hr>
-<section id="datasets_phenom-2" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-2">datasets_phenom</h3>
+<section id="datasets_phenom.create_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom.create_dataset">datasets_phenom.create_dataset</h3>
 <blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
+<pre><code> datasets_phenom.create_dataset (dics=False, T=None, N_model=None,
+                                 path='', save=False, load=False)</code></pre>
 </blockquote>
-<p>Constructor of the class</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">dph = datasets_phenom()</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">path = 'data/'</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">main =  [{'model': 'dimerization', 'N': 40}</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">        ]</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<p>Given a list of dictionaries, generates trajectories of the demanded properties. The only compulsory input for every dictionary is ‘model’, i.e.&nbsp;the model from which trajectories must be generated. The rest of inputs are optional. You can see the input parameters of the different models in andi_datasets.models_phenom, This function checks and handles the input dataset and the manages both the creation, loading and saving of trajectories.</p>
+<p>In the example below we create two dictionaries and generate a dataset with it. See the corresponding tutorial for more details.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dict_model3 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'dimerization'</span>, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Pu'</span>: <span class="fl">0.1</span>, <span class="st">'Pb'</span>: <span class="dv">1</span>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dict_model5 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'confinement'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L, </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">'trans'</span>: <span class="fl">0.2</span>}</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">trajs, labels = dph.create_dataset(T = None, dics = main, N_model = None, path = path, load = False)'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="inspect_dic" class="level1">
-<h1><code>_inspect_dic</code></h1>
-<p>Given a dictionary, this function checks that it fulfils the constraints of the program and checks the validity of the save/load actions.</p>
-<hr>
-<section id="datasets_phenom-3" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-3">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
-</section>
-</section>
-<section id="get_args" class="level1">
-<h1><code>_get_args</code></h1>
-<p>Given the name of a model, returns its input parameters</p>
-<hr>
-<section id="datasets_phenom-4" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-4">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
-</section>
-</section>
-<section id="challenge-2022-dataset" class="level1">
-<h1>Challenge 2022 Dataset</h1>
-<section id="default-challenge-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="default-challenge-parameters">Default challenge parameters</h2>
-<p>This function generates dictionaries of plausible parameters for each experiment. We start with the following groudbase values:</p>
-<ul>
-<li>Fielf of view (fov): <span class="math inline">\(128 x 128 px^2\)</span>, with a pixel size of 100 nm, for a size of the box <span class="math inline">\(FOV=12.8 \ \mu m\)</span>. We will simulate trajectories in a box of <span class="math inline">\(L = 2*FOV\)</span> and the only considers segments inside the fov. This allows to eliminate problems with boundaries.</li>
-<li>Frame rate <span class="math inline">\(= 0.1 Hz\)</span>, i.e.&nbsp;<span class="math inline">\(\Delta t = 100 \ ms = 0.1 \ s\)</span> .</li>
-<li>Typical <span class="math inline">\(D = 0.01 \ \mu m^2/s\)</span>. To calculate the input of the program, we need to consider the following:
-<ul>
-<li>As a working definition of <span class="math inline">\(D\)</span>, valid also for anomalous diffusion, we consider it as proporcional to the variance of the displacements along one dimension at the shortest time lag, i.e.&nbsp;$_{x}^2= 2 D t $</li>
-<li>Given the values of pixel size and frame rate, in adimensional unit <span class="math inline">\(D\)</span> is given by: $D= 0.01 &nbsp; &nbsp; = 0.1 px^2/t $ .</li>
-<li>Localization precision <span class="math inline">\(\sigma_{x} = 12 \ nm = \frac{12 \ nm} {100 \ nm/px} = 0.12 \ px\)</span>.</li>
-</ul></li>
-</ul>
-<hr>
-<section id="datasets_phenom-5" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-5">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
-</section>
-<section id="get_dic_andi2" class="level3">
-<h3 class="anchored" data-anchor-id="get_dic_andi2"><code>get_dic_andi2</code></h3>
-<hr>
-</section>
-<section id="datasets_phenom-6" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-6">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
-</section>
-</section>
-<section id="generating-function" class="level2">
-<h2 class="anchored" data-anchor-id="generating-function">Generating function</h2>
-<p>This function generates trajectory datasets like the ones considered in the ANDI 2022 Challenge. It is based in <code>models_phenom.create_dataset</code> but also applies:</p>
-<ul>
-<li>Apply Field of View (FOV)</li>
-<li>Add localization noise</li>
-<li>Smooth labels</li>
-<li>Extracts ensemble properties</li>
-<li>Correct labeling of trajectories</li>
-</ul>
-<p><strong>Inputs:</strong> - Number of experiments (one experiment = one model).</p>
-<pre><code>For each experiment:
-- Number of particles
-- Number of FOVs
-- Parameters of the model
-- Mininum length of trajectories</code></pre>
-<p><strong>Outputs:</strong> (this should be the same as the expected challenge inputs)</p>
-<ul>
-<li>For each FOV:
-<ul>
-<li>Ensemble properties (Compulsory: model, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> distribution)</li>
-<li>Trajectory properties (list of properties: <span class="math inline">\(\alpha_1\)</span>, <span class="math inline">\(D_1\)</span>, CP<span class="math inline">\(_1\)</span>, <span class="math inline">\(\alpha_2\)</span>, <span class="math inline">\(D_2\)</span>, CP<span class="math inline">\(_2\)</span>,…)</li>
-</ul></li>
-</ul>
-<hr>
-<section id="datasets_phenom-7" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_phenom-7">datasets_phenom</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x00000292937454B0&gt;)</code></pre>
-</blockquote>
-<p>Constructor of the class</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dph <span class="op">=</span> datasets_phenom()</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>num_experiments, num_fovs <span class="op">=</span> <span class="dv">5</span>, <span class="dv">5</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df_list, lab_t, lab_e <span class="op">=</span> dph.challenge_2022_dataset(experiments <span class="op">=</span> num_experiments,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                                   num_fovs <span class="op">=</span> num_fovs, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                                   return_timestep_labs<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                                   repeat_exp <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>dict_all <span class="op">=</span> [dict_model3, dict_model5]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> <span class="dv">10</span>, <span class="co"># number of trajectories per model</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L , <span class="dv">10</span>, </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>           num_to_plot <span class="op">=</span> <span class="dv">3</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>           labels <span class="op">=</span> labels,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"1d6bd47fc6b14d858f793d2ac379c798","version_major":2,"version_minor":0}]
-</script>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>KeyboardInterrupt: </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dph <span class="op">=</span> datasets_phenom()</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>num_experiments <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>dic <span class="op">=</span> dph._get_dic_andi2(<span class="dv">3</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df_list, lab_t, lab_e <span class="op">=</span> dph.challenge_2022_dataset(save_data <span class="op">=</span> <span class="va">False</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                                   dics <span class="op">=</span> [dic],</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                                   num_fovs <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-[{"model_id":"d4b848055d2c46468c6a95284a1745da","version_major":2,"version_minor":0}]
-</script>
+<p><img src="datasets_phenom_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
+<section id="creating-saving-and-loading-trajectories" class="level1">
+<h1>Creating, saving and loading trajectories</h1>
+<p>These auxiliary functions used in <code>create_trajectories</code> that allow for manipulate trajectories in various forms.</p>
+<hr>
+<section id="datasets_phenom._create_trajectories" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom._create_trajectories">datasets_phenom._create_trajectories</h3>
+<blockquote class="blockquote">
+<pre><code> datasets_phenom._create_trajectories ()</code></pre>
+</blockquote>
+<p>Given a list of dictionaries, generates trajectories of the demanded properties. First checks in the .csv of each demanded model if a dataset of similar properties exists. If it does, it loads it from the corresponding file.</p>
+<hr>
+</section>
+<section id="datasets_phenom._save_trajectories" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom._save_trajectories">datasets_phenom._save_trajectories</h3>
+<blockquote class="blockquote">
+<pre><code> datasets_phenom._save_trajectories (trajs, labels, dic, df, dataset_idx,
+                                     path)</code></pre>
+</blockquote>
+<p>Given a set of trajectories and labels, saves two things:</p>
+<ul>
+<li>In the .csv corresponding to the demanded model, all the input parameters of the generated dataset.</li>
+<li>In a .npy file, the trajectories and labels generated.</li>
+</ul>
+<hr>
+</section>
+<section id="datasets_phenom._load_trajectories" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom._load_trajectories">datasets_phenom._load_trajectories</h3>
+<blockquote class="blockquote">
+<pre><code> datasets_phenom._load_trajectories (model_name, dataset_idx, path)</code></pre>
+</blockquote>
+<p>Given the path for a dataset, loads the trajectories and labels</p>
 </section>
 </section>
-<section id="nbdev-export" class="level1">
-<h1>NBDEV Export</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev<span class="op">;</span> nbdev.nbdev_export()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="managing-parameters-and-dictionaries" class="level1">
+<h1>Managing parameters and dictionaries</h1>
+<hr>
+<section id="datasets_phenom._inspect_dic" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom._inspect_dic">datasets_phenom._inspect_dic</h3>
+<blockquote class="blockquote">
+<pre><code> datasets_phenom._inspect_dic (dic)</code></pre>
+</blockquote>
+<p>Checks the information of the input dictionaries, complete missing information with default values and then decides about loading/saving depending on parameters.</p>
+<hr>
+</section>
+<section id="datasets_phenom._get_args" class="level3">
+<h3 class="anchored" data-anchor-id="datasets_phenom._get_args">datasets_phenom._get_args</h3>
+<blockquote class="blockquote">
+<pre><code> datasets_phenom._get_args (model, return_defaults=False)</code></pre>
+</blockquote>
+<p>Given the name of a diffusion model, return its inputs arguments.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
