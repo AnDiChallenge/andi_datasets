@@ -3,8 +3,7 @@ project:
 
 format:
   html:
-    theme: sandstone
-    css: styles.css
+    theme: flatly
     toc: true
 
 website:
@@ -14,7 +13,16 @@ website:
   navbar:
     background: primary
     search: true
+    logo-href: Readme.md
+    collapse-below: lg
+    left:
+      - text: "Documentation"
+        href: Readme.md
+      - text: "Tutorials"
+        href: tutorials/tutorials.md
   sidebar:
     style: floating
+    
+    
 
 metadata-files: [nbdev.yml, sidebar.yml]

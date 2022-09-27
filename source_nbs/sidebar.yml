@@ -1,12 +1,33 @@
 website:
   sidebar:
-    contents:
-      - analysis.ipynb
-      - datasets_challenge.ipynb
-      - datasets_phenom.ipynb
-      - datasets_theory.ipynb
-      - models_phenom.ipynb
-      - models_theory.ipynb
-      - utils_challenge.ipynb
-      - utils_trajectories.ipynb
-      - utils_videos.ipynb
+    style: "docked"
+    collapse-level: 1
+    contents:      
+      - section: Documentation
+        href: Readme.md
+        contents:  
+          - section: "Theory datasets"
+            contents:        
+                  - lib_nbs/models_theory.ipynb  
+                  - lib_nbs/datasets_theory.ipynb 
+          - section: "Phenomenological datasets"
+            contents:
+                - lib_nbs/models_phenom.ipynb 
+                - lib_nbs/datasets_phenom.ipynb
+          - section: "ANDI challenge datasets"
+            contents:
+                - lib_nbs/datasets_challenge.ipynb
+                - lib_nbs/utils_challenge.ipynb
+          - section: "Trajectory analysis"
+            contents:
+                - lib_nbs/analysis.ipynb
+          - section: "Helpers"
+            contents:        
+                - lib_nbs/utils_trajectories.ipynb            
+                - lib_nbs/utils_videos.ipynb
+      - section: Tutorials 
+        href: tutorials/tutorials.md
+        contents: 
+            - tutorials/challenge_one_datasets.ipynb
+            - tutorials/challenge_one_submission.ipynb
+            - tutorials/challenge_two_datasets.ipynb
