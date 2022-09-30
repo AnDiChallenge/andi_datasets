@@ -331,9 +331,9 @@ def plot_trajs(trajs, L , N,
               ):
     
     if plot_labels:
-        fig, axs = plt.subplots(3, num_to_plot, figsize = (num_to_plot*4, 3*3), tight_layout = True)
+        fig, axs = plt.subplots(3, num_to_plot, figsize = (num_to_plot*3, 3*3), tight_layout = True)
     else:
-        fig, axs = plt.subplots(2, num_to_plot, figsize = (num_to_plot*4, 2*3), tight_layout = True)
+        fig, axs = plt.subplots(2, num_to_plot, figsize = (num_to_plot*3, 2*3), tight_layout = True)
 
     for ax in axs.transpose():
         

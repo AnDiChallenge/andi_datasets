@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>andi_datasets - Single state</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<meta property="og:title" content="andi_datasets - Single state">
+<meta property="og:site-name" content="andi_datasets">
+<meta name="twitter:title" content="andi_datasets - Single state">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="index.md" class="navbar-brand navbar-brand-logo">
+    <img src="../../figures/andi_logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">andi_datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page">Documentation</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/tutorials.html">Tutorials</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Single state</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../index.html" class="sidebar-item-text sidebar-link">Documentation</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Theory datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link"><code>models_theory</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link"><code>datasets_theory</code></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Phenomenological datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link"><code>models_phenom</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/datasets_phenom.html" class="sidebar-item-text sidebar-link">datasets_phenom</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">ANDI challenge datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/datasets_challenge.html" class="sidebar-item-text sidebar-link">datasets_challenge</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/utils_challenge.html" class="sidebar-item-text sidebar-link">utils_challenge</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Trajectory analysis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/analysis.html" class="sidebar-item-text sidebar-link">analysis</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Helpers</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/utils_trajectories.html" class="sidebar-item-text sidebar-link">utils_trajectories</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../lib_nbs/utils_videos.html" class="sidebar-item-text sidebar-link">utils_videos</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../tutorials/tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">Examples of use of ANDI</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">Submitting to the ANDI challenge: from trajectories to predictions</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">ANDI challenge 2022 datasets</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#state" id="toc-state" class="nav-link active" data-scroll-target="#state">2-state</a></li>
+  <li><a href="#confinement" id="toc-confinement" class="nav-link" data-scroll-target="#confinement">Confinement</a></li>
+  <li><a href="#trapping" id="toc-trapping" class="nav-link" data-scroll-target="#trapping">Trapping</a></li>
+  <li><a href="#dimerization" id="toc-dimerization" class="nav-link" data-scroll-target="#dimerization">Dimerization</a></li>
+  <li><a href="#all" id="toc-all" class="nav-link" data-scroll-target="#all">All</a></li>
+  <li><a href="#matrix-data" id="toc-matrix-data" class="nav-link" data-scroll-target="#matrix-data">Matrix data</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/AnDiChallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Single state</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_phenom <span class="im">import</span> models_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_color_lines(traj, label, ax, <span class="bu">cmp</span>, dim <span class="op">=</span> <span class="dv">1</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(label, <span class="bu">int</span>) <span class="kw">or</span> <span class="bu">isinstance</span>(label, <span class="bu">float</span>):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> dim <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            ax.plot(traj[:,<span class="dv">0</span>], c <span class="op">=</span> <span class="bu">cmp</span>(label))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> dim <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            ax.plot(traj[:,<span class="dv">0</span>], traj[:,<span class="dv">1</span>], c <span class="op">=</span> <span class="bu">cmp</span>(label))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        CPs <span class="op">=</span> [<span class="dv">0</span>] <span class="op">+</span> np.argwhere(label[<span class="dv">1</span>:] <span class="op">!=</span> label[:<span class="op">-</span><span class="dv">1</span>]).flatten().tolist() <span class="op">+</span> [traj.shape[<span class="dv">0</span>]<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, o <span class="kw">in</span> <span class="bu">zip</span>(CPs[:<span class="op">-</span><span class="dv">1</span>], CPs[<span class="dv">1</span>:]):</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i<span class="op">==</span>o: <span class="cf">break</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            lab_cp <span class="op">=</span> np.<span class="bu">round</span>(label[i:o].mean())</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> lab_cp <span class="op">==</span> <span class="dv">0</span>: zorder <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>: zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> dim <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                ax.plot(np.arange(i, o<span class="op">+</span><span class="dv">1</span>), traj[i:o<span class="op">+</span><span class="dv">1</span>], c <span class="op">=</span> <span class="bu">cmp</span>(lab_cp), zorder <span class="op">=</span> zorder)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> dim <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                ax.plot(traj[i:o<span class="op">+</span><span class="dv">1</span>, <span class="dv">0</span>], traj[i:o<span class="op">+</span><span class="dv">1</span>, <span class="dv">1</span>], c <span class="op">=</span> <span class="bu">cmp</span>(lab_cp), zorder <span class="op">=</span> zorder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm(x):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(np.unique(x)) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.ones_like(x)<span class="op">*</span>x[<span class="dv">0</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (x <span class="op">-</span> x.<span class="bu">min</span>()) <span class="op">/</span> (x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> clr</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> clr.LinearSegmentedColormap.from_list(<span class="st">'custom blue'</span>, [<span class="st">'#2790DB'</span>,<span class="st">'#DB403D'</span>], N<span class="op">=</span><span class="dv">256</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>fov <span class="op">=</span> <span class="dv">128</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>pad <span class="op">=</span> <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">30</span><span class="op">;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>as_hard <span class="op">=</span> [<span class="fl">0.9</span>,<span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [<span class="fl">0.25</span>, <span class="fl">0.4</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>as_easy <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">0</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [<span class="fl">0.25</span>, <span class="dv">0</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>s_hard, s_l_hard <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, alphas <span class="op">=</span> as_hard, Ds <span class="op">=</span> Ds_hard)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>s_easy, s_l_easy <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, alphas <span class="op">=</span> as_easy, Ds <span class="op">=</span> Ds_easy)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>s_l_hard <span class="op">=</span> norm(s_l_hard[:,:,<span class="dv">1</span>].transpose())</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>s_hard[:,<span class="dv">0</span>,:] <span class="op">+=</span> <span class="op">-</span>s_hard[<span class="dv">0</span>,<span class="dv">0</span>,:]<span class="op">+</span>fov<span class="op">/</span><span class="dv">2</span><span class="op">+</span>pad</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>s_easy[:,<span class="dv">0</span>,:] <span class="op">+=</span> <span class="op">-</span>s_easy[<span class="dv">0</span>,<span class="dv">0</span>,:]<span class="op">+</span>fov<span class="op">/</span><span class="dv">2</span><span class="op">+</span>pad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(s_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), lab_hard)):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, ll[<span class="dv">0</span>],axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(s_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, <span class="dv">0</span>,axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_hard[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_easy[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>, xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/s_hard.npy'</span>, s_hard)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/s_l_hard.npy'</span>, s_l_hard)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/s_easy.npy'</span>, s_easy)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/s_l_easy.npy'</span>, s_l_easy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="state" class="level1">
+<h1>2-state</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">30</span><span class="op">;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>as_hard <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="fl">0.9</span>,<span class="dv">0</span>]]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [[<span class="fl">0.25</span>,<span class="dv">0</span>], [<span class="fl">0.25</span>,<span class="dv">0</span>]]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>as_easy <span class="op">=</span> [[<span class="fl">1.4</span>,<span class="dv">0</span>], [<span class="fl">0.6</span>,<span class="dv">0</span>]]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [[<span class="fl">0.25</span>,<span class="dv">0</span>], [<span class="fl">0.25</span>,<span class="dv">0</span>]]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>M_easy <span class="op">=</span> np.array([[<span class="fl">0.99</span>, <span class="fl">0.01</span>],</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                   [<span class="fl">0.001</span>, <span class="fl">0.999</span>]])</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>M_hard <span class="op">=</span> np.array([[<span class="fl">0.9</span>, <span class="fl">0.1</span>],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                   [<span class="fl">0.1</span>, <span class="fl">0.9</span>]])</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>m_hard, m_l_hard <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, alphas <span class="op">=</span> as_hard, Ds <span class="op">=</span> Ds_hard, M <span class="op">=</span> M_hard)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>m_easy, m_l_easy <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, alphas <span class="op">=</span> as_easy, Ds <span class="op">=</span> Ds_easy, M <span class="op">=</span> M_easy, init_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>m_hard[:,<span class="dv">0</span>,:] <span class="op">+=</span> <span class="op">-</span>m_hard[<span class="dv">0</span>,<span class="dv">0</span>,:]<span class="op">+</span>fov<span class="op">/</span><span class="dv">2</span><span class="op">+</span>pad</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>m_easy[:,<span class="dv">0</span>,:] <span class="op">+=</span> <span class="op">-</span>m_easy[<span class="dv">0</span>,<span class="dv">0</span>,:]<span class="op">+</span>fov<span class="op">/</span><span class="dv">2</span><span class="op">+</span>pad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]) ,axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_hard[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_hard[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_easy[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_easy[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>, xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/m_hard.npy'</span>, m_hard)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/m_l_hard.npy'</span>, m_l_hard)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/m_easy.npy'</span>, m_easy)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/m_l_easy.npy'</span>, m_l_easy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="confinement" class="level1">
+<h1>Confinement</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [[<span class="fl">0.25</span>,<span class="dv">0</span>], [<span class="fl">0.1</span>,<span class="dv">0</span>]]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [[<span class="fl">0.25</span>,<span class="dv">0</span>], [<span class="dv">3</span><span class="op">*</span><span class="fl">0.25</span>,<span class="dv">0</span>]]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>r_comp , L, Nc <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>c_hard, c_l_hard <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> <span class="dv">200</span>, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, comp_center <span class="op">=</span> comp_center, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                                           trans <span class="op">=</span> <span class="fl">0.2</span>, Ds <span class="op">=</span> Ds_hard, r <span class="op">=</span> r)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>c_easy, c_l_easy <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> <span class="dv">200</span>, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, comp_center <span class="op">=</span> comp_center, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                                           trans <span class="op">=</span> <span class="dv">0</span>, Ds <span class="op">=</span> Ds_easy, r <span class="op">=</span> r)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#c_hard[:,0,:] += -c_hard[0,0,:]+fov/2+pad</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#c_easy[:,0,:] += -c_easy[0,0,:]+fov/2+pad</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)) ,axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]), axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_hard[:,<span class="dv">8</span>,<span class="dv">0</span>], norm(c_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)), axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>idx_e <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_easy[:,idx_e,<span class="dv">0</span>], norm(c_l_easy[:,idx_e,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        circle1 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">0</span>,<span class="dv">0</span>].add_patch(circle1) </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        circle2 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">0</span>,<span class="dv">1</span>].add_patch(circle2)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>, xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/c_hard.npy'</span>, c_hard)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/c_l_hard.npy'</span>, c_l_hard)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/c_easy.npy'</span>, c_easy)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/c_l_easy.npy'</span>, c_l_easy)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/comp_center.npy'</span>, comp_center)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="trapping" class="level1">
+<h1>Trapping</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">80</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [<span class="fl">0.5</span>,<span class="dv">0</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [<span class="fl">0.5</span>,<span class="dv">0</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>alphas_easy <span class="op">=</span> [<span class="fl">1.2</span>, <span class="dv">0</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Nt <span class="op">=</span><span class="dv">300</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>trap_pos <span class="op">=</span> np.random.rand(Nt, <span class="dv">2</span>)<span class="op">*</span>L</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>t_hard, t_l_hard <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.1</span>, Ds <span class="op">=</span> Ds_hard, Nt <span class="op">=</span> Nt, traps_pos <span class="op">=</span> trap_pos)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>t_easy, t_l_easy <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">200</span>, L <span class="op">=</span> L, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="dv">0</span>, alphas <span class="op">=</span> alphas_easy, Ds <span class="op">=</span> Ds_easy, Nt <span class="op">=</span> Nt, traps_pos <span class="op">=</span> trap_pos)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#t_easy  += np.random.randn(t_easy.shape[0], t_easy.shape[1], t_easy.shape[2])*0.5</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#t_hard  += np.random.randn(t_hard.shape[0], t_hard.shape[1], t_hard.shape[2])*0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">abs</span>(norm(t_l_hard[:,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>])<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 0., 0., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 0., 1., 0., 0., 0., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0.,
+       0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0.,
+       0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cmap.r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div style="vertical-align: middle;"><strong>custom blue</strong> </div><div class="cmap"><img alt="custom blue colormap" title="custom blue" style="border: 1px solid #555;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAABACAYAAABsv8+/AAAAGnRFWHRUaXRsZQBjdXN0b20gYmx1ZSBjb2xvcm1hcMPdKOgAAAAgdEVYdERlc2NyaXB0aW9uAGN1c3RvbSBibHVlIGNvbG9ybWFwUsNsvgAAADB0RVh0QXV0aG9yAE1hdHBsb3RsaWIgdjMuNS4yLCBodHRwczovL21hdHBsb3RsaWIub3Jnwlp4nAAAADJ0RVh0U29mdHdhcmUATWF0cGxvdGxpYiB2My41LjIsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmfs/Oe7AAAB0klEQVR4nO3WSVICMQBA0eBlvK738zC6kKFoiD1U7/57G4pQJLSJqX/5/Pr+GWOM8fP3chm316vV8fH8+XV8bB5/fj8W6zy+Nxt/v879d66tsxh/fP68zut828bv883WeRlffm/v+Pt1LvfHWhtfPvf/+7Y+3+zvv7LOxvXX9nO+z7ePd57vg/s5W+e08715vtk+L+bbO/4y37H/o8Pn+z7tvv2c32PL5zt4vs++F/ee77Pvxb3n++B+Tu/Fs8732ffi3vN90r14+Hxf338MACBHAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAIEgAAECQAACBIAABAkAAAgCABAABBAgAAggQAAAQJAAAI+gVhzPDXc4TUbQAAAABJRU5ErkJggg=="></div><div style="vertical-align: middle; max-width: 514px; display: flex; justify-content: space-between;"><div style="float: left;"><div title="#2790dbff" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #2790dbff;"></div> under</div><div style="margin: 0 auto; display: inline-block;">bad <div title="#00000000" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #00000000;"></div></div><div style="float: right;">over <div title="#db403dff" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #db403dff;"></div></div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span><span class="fl">0.5</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                     norm(ll[:,<span class="op">-</span><span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span><span class="fl">0.5</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                     norm(ll[:,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_hard[:,<span class="dv">2</span>,<span class="dv">0</span>], norm(t_l_hard[:,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_easy[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(t_l_easy[:,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs:</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>,<span class="dv">0</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>,<span class="dv">1</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>, xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/t_hard.npy'</span>, t_hard)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/t_l_hard.npy'</span>, t_l_hard)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/t_easy.npy'</span>, t_easy)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/t_l_easy.npy'</span>, t_l_easy)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/trap_pos.npy'</span>, trap_pos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>,<span class="dv">9</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> clr.LinearSegmentedColormap.from_list(<span class="st">'custom blue'</span>, [<span class="st">'#2790DB'</span>,<span class="st">'#DB403D'</span>], N<span class="op">=</span><span class="dv">256</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].hist2d(xh,yh, bins <span class="op">=</span> <span class="dv">50</span>, cmap <span class="op">=</span> cmap, rasterized<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> np.histogram2d(xe,ye, bins <span class="op">=</span> <span class="dv">50</span>)[<span class="dv">0</span>]<span class="co">#, cmap = cmap);</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>h[h <span class="op">&gt;</span> <span class="dv">250</span>] <span class="op">=</span> h.<span class="bu">max</span>()<span class="op">/</span><span class="dv">50</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].matshow(h.transpose(), cmap <span class="op">=</span> cmap, origin<span class="op">=</span><span class="st">'lower'</span>, rasterized<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># for ax in axs:</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># axs[-1].hist2d(xe, ye, bins = 100)</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="op">-</span><span class="dv">1</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.31</span>, facecolor <span class="op">=</span> <span class="st">'none'</span>, edgecolor <span class="op">=</span> <span class="st">'k'</span>, s <span class="op">=</span> <span class="dv">250</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="op">-</span><span class="dv">1</span>], xlim <span class="op">=</span> (<span class="dv">0</span>, L), ylim <span class="op">=</span> (<span class="dv">0</span>, L))</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>fig.savefig(<span class="st">'help/fig3/histo_traps.svg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</div></section>
+<section id="dimerization" class="level1">
+<h1>Dimerization</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">15</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">250</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="dv">1</span>,<span class="dv">0</span>]]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [[<span class="fl">0.01</span>,<span class="dv">0</span>], [<span class="fl">0.01</span>,<span class="dv">0</span>]]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>alphas_easy <span class="op">=</span> [[<span class="fl">1.8</span>,<span class="dv">0</span>], [<span class="dv">1</span>,<span class="dv">0</span>]]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">80</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>dim_hard, _ <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">150</span>, L <span class="op">=</span> L, Pb <span class="op">=</span> <span class="fl">0.1</span>, Pu <span class="op">=</span> <span class="fl">0.2</span>, Ds <span class="op">=</span> Ds_hard)<span class="co">#</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>dim_easy, lab_easy <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N, T <span class="op">=</span> <span class="dv">1000</span>, L <span class="op">=</span> L, Pb <span class="op">=</span> <span class="dv">1</span>, </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                                                  Pu <span class="op">=</span> <span class="dv">0</span>, r <span class="op">=</span> <span class="dv">1</span>, Ds <span class="op">=</span> Ds_easy, alphas<span class="op">=</span> alphas_easy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>r_dimer <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Ds_hard <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="fl">0.9</span>,<span class="dv">0</span>]]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Ds_easy <span class="op">=</span> [[<span class="fl">0.01</span>,<span class="dv">0</span>], [<span class="fl">0.01</span>,<span class="dv">0</span>]]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>alphas_easy <span class="op">=</span> [[<span class="fl">1.8</span>,<span class="dv">0</span>], [<span class="dv">1</span>,<span class="dv">0</span>]]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">80</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#d_hard, d_l_hard = models_phenom().dimerization(N = N, T = 200, L = L, Pb = 1, Pu = 0.2, </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                Ds = Ds_hard, r = r_dimer)#</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">#d_easy, d_l_easy = models_phenom().dimerization(N = N, T = 200, L = L, Pb = 1, </span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                  Pu = 0, r = 1, Ds = Ds_easy, alphas= alphas_easy)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">8</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">50</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">2</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">2</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">5</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">5</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>, xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/d_hard.npy'</span>, d_hard)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/d_l_hard.npy'</span>, d_l_hard)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/d_easy.npy'</span>, d_easy)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>np.save(<span class="st">'help/fig3/data/d_l_easy.npy'</span>, d_l_easy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'trap_pos' is not defined</code></pre>
+</div>
+</div>
+</section>
+<section id="all" class="level1">
+<h1>All</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>s_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/s_hard.npy'</span>, )</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>s_l_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/s_l_hard.npy'</span>, )</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>s_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/s_easy.npy'</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>s_l_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/s_l_easy.npy'</span>, )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>m_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/m_hard.npy'</span>, )</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>m_l_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/m_l_hard.npy'</span>, )</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>m_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/m_easy.npy'</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>m_l_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/m_l_easy.npy'</span>, )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>c_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/c_hard.npy'</span>, )</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>c_l_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/c_l_hard.npy'</span>, )</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>c_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/c_easy.npy'</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>c_l_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/c_l_easy.npy'</span>, )</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> np.load(<span class="st">'help/fig3/data/comp_center.npy'</span>,)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>r_comp , L, Nc <span class="op">=</span> (<span class="dv">12</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>t_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/t_hard.npy'</span>, )</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>t_l_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/t_l_hard.npy'</span>, )</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>t_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/t_easy.npy'</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>t_l_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/t_l_easy.npy'</span>, )</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>trap_pos <span class="op">=</span> np.load(<span class="st">'help/fig3/data/trap_pos.npy'</span>, )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>d_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/d_hard.npy'</span>, )</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>d_l_hard <span class="op">=</span> np.load(<span class="st">'help/fig3/data/d_l_hard.npy'</span>, )</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>d_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/d_easy.npy'</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>d_l_easy <span class="op">=</span> np.load(<span class="st">'help/fig3/data/d_l_easy.npy'</span>, )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>size<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sigma_noise <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">5</span>, figsize <span class="op">=</span> (<span class="dv">5</span><span class="op">*</span>size, <span class="dv">4</span><span class="op">*</span>size))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">###### SINGLE</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(s_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), s_l_hard)):</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, ll[<span class="dv">0</span>],axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(s_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, <span class="dv">0</span>, axs[<span class="dv">2</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_hard[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_easy[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">3</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">###### MULTI</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]) ,axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">2</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)  </span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_hard[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_hard[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_easy[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_easy[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co">###### CONFINEMENT</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)) ,axs[<span class="dv">0</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]), axs[<span class="dv">2</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap.<span class="bu">reversed</span>(), dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_hard[:,<span class="dv">8</span>,<span class="dv">0</span>], norm(c_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)), axs[<span class="dv">1</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_easy[:,<span class="dv">9</span>,<span class="dv">0</span>], norm(c_l_easy[:,<span class="dv">9</span>,<span class="dv">1</span>]), axs[<span class="dv">3</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>        circle1 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">0</span>,<span class="dv">2</span>].add_patch(circle1) </span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>        circle2 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">2</span>,<span class="dv">2</span>].add_patch(circle2)</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a><span class="co">###### TRAPPING</span></span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise, norm(ll[:,<span class="op">-</span><span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt  <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>                     , norm(ll[:,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">2</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_hard[:,<span class="dv">2</span>,<span class="dv">0</span>] <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>])<span class="op">*</span>sigma_noise<span class="op">/</span><span class="dv">3</span>, </span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>                 norm(t_l_hard[:,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_easy[:,<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>])<span class="op">*</span>sigma_noise<span class="op">/</span><span class="dv">3</span>,</span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>                 norm(t_l_easy[:,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">3</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">3</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>,<span class="dv">3</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a><span class="co">####### DIMERIZATION</span></span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">2</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">8</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">50</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-70"><a href="#cb31-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-71"><a href="#cb31-71" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">2</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">2</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-72"><a href="#cb31-72" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">5</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">5</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb31-73"><a href="#cb31-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-75"><a href="#cb31-75" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,:],  xlabel <span class="op">=</span> <span class="st">'X (px)'</span>,</span>
+<span id="cb31-76"><a href="#cb31-76" aria-hidden="true" tabindex="-1"></a>         xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), </span>
+<span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a>         xticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], xticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]),</span>
+<span id="cb31-78"><a href="#cb31-78" aria-hidden="true" tabindex="-1"></a>         yticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], yticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]))<span class="op">;</span></span>
+<span id="cb31-79"><a href="#cb31-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-80"><a href="#cb31-80" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)<span class="op">;</span></span>
+<span id="cb31-81"><a href="#cb31-81" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,<span class="dv">1</span>:], yticklabels <span class="op">=</span> [])<span class="op">;</span></span>
+<span id="cb31-82"><a href="#cb31-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-83"><a href="#cb31-83" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>::<span class="dv">2</span>,:], yticks <span class="op">=</span> [], xlabel <span class="op">=</span> <span class="st">'Time'</span>)<span class="op">;</span></span>
+<span id="cb31-84"><a href="#cb31-84" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>::<span class="dv">2</span>,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'X'</span>)<span class="op">;</span></span>
+<span id="cb31-85"><a href="#cb31-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-86"><a href="#cb31-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-87"><a href="#cb31-87" aria-hidden="true" tabindex="-1"></a>fig.savefig(<span class="st">'dataset_examples_raw.svg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>size<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>sigma_noise <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">5</span>, figsize <span class="op">=</span> (<span class="dv">5</span><span class="op">*</span>size, <span class="dv">4</span><span class="op">*</span>size))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">###### SINGLE</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(s_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), s_l_hard)):</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, ll[<span class="dv">0</span>],axs[<span class="dv">0</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(s_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, <span class="dv">0</span>, axs[<span class="dv">2</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_hard[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">1</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>plot_color_lines(s_easy[:,<span class="dv">0</span>,:], <span class="dv">0</span>, axs[<span class="dv">3</span>,<span class="dv">0</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">###### MULTI</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]) ,axs[<span class="dv">0</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(m_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), m_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">2</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)  </span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_hard[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_hard[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">1</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>plot_color_lines(m_easy[:,<span class="dv">0</span>,<span class="dv">0</span>], norm(m_l_easy[:,<span class="dv">0</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">1</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="co">###### CONFINEMENT</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)) ,axs[<span class="dv">0</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(c_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), c_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]), axs[<span class="dv">2</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_hard[:,<span class="dv">8</span>,<span class="dv">0</span>], norm(c_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]<span class="op">*</span>(<span class="op">-</span><span class="dv">1</span>)), axs[<span class="dv">1</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>plot_color_lines(c_easy[:,<span class="dv">9</span>,<span class="dv">0</span>], norm(c_l_easy[:,<span class="dv">9</span>,<span class="dv">1</span>]), axs[<span class="dv">3</span>,<span class="dv">2</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>        circle1 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">0</span>,<span class="dv">2</span>].add_patch(circle1) </span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>        circle2 <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r_comp, facecolor <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, lw <span class="op">=</span> <span class="dv">0</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">10</span>)</span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>        axs[<span class="dv">2</span>,<span class="dv">2</span>].add_patch(circle2)</span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a><span class="co">###### TRAPPING</span></span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise, norm(ll[:,<span class="op">-</span><span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(t_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), t_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt  <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>], tt.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a>                     , norm(ll[:,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">2</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_hard[:,<span class="dv">2</span>,<span class="dv">0</span>] <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>])<span class="op">*</span>sigma_noise<span class="op">/</span><span class="dv">3</span>, </span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>                 norm(t_l_hard[:,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a>plot_color_lines(t_easy[:,<span class="dv">0</span>,<span class="dv">0</span>] <span class="op">+</span> np.random.randn(tt.shape[<span class="dv">0</span>])<span class="op">*</span>sigma_noise<span class="op">/</span><span class="dv">3</span>,</span>
+<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a>                 norm(t_l_easy[:,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>]), axs[<span class="dv">3</span>,<span class="dv">3</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>,<span class="dv">3</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>,<span class="dv">3</span>].scatter(trap_pos[:,<span class="dv">0</span>], trap_pos[:,<span class="dv">1</span>], zorder <span class="op">=</span> <span class="op">-</span><span class="dv">5</span>,alpha <span class="op">=</span> <span class="fl">0.1</span>, c <span class="op">=</span> <span class="st">'k'</span>, lw <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a><span class="co">####### DIMERIZATION</span></span>
+<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_hard.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">1</span>]) ,axs[<span class="dv">0</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (tt, ll) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(d_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>), d_l_easy.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>))):</span>
+<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a>    plot_color_lines(tt, norm(ll[:,<span class="dv">0</span>]), axs[<span class="dv">2</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">8</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_hard[:,<span class="dv">50</span>,<span class="dv">1</span>], norm(d_l_hard[:,<span class="dv">8</span>,<span class="dv">1</span>]), axs[<span class="dv">1</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">2</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">2</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a>plot_color_lines(d_easy[:,<span class="dv">5</span>,<span class="dv">0</span>], norm(d_l_easy[:,<span class="dv">5</span>,<span class="dv">0</span>]), axs[<span class="dv">3</span>,<span class="dv">4</span>], <span class="bu">cmp</span> <span class="op">=</span> cmap, dim <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-74"><a href="#cb32-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-75"><a href="#cb32-75" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,:],  xlabel <span class="op">=</span> <span class="st">'X (px)'</span>,</span>
+<span id="cb32-76"><a href="#cb32-76" aria-hidden="true" tabindex="-1"></a>         xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), </span>
+<span id="cb32-77"><a href="#cb32-77" aria-hidden="true" tabindex="-1"></a>         xticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], xticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]),</span>
+<span id="cb32-78"><a href="#cb32-78" aria-hidden="true" tabindex="-1"></a>         yticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], yticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]))<span class="op">;</span></span>
+<span id="cb32-79"><a href="#cb32-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-80"><a href="#cb32-80" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)<span class="op">;</span></span>
+<span id="cb32-81"><a href="#cb32-81" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[::<span class="dv">2</span>,<span class="dv">1</span>:], yticklabels <span class="op">=</span> [])<span class="op">;</span></span>
+<span id="cb32-82"><a href="#cb32-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-83"><a href="#cb32-83" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>::<span class="dv">2</span>,:], yticks <span class="op">=</span> [], xlabel <span class="op">=</span> <span class="st">'Time'</span>)<span class="op">;</span></span>
+<span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>::<span class="dv">2</span>,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'X'</span>)<span class="op">;</span></span>
+<span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-86"><a href="#cb32-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-87"><a href="#cb32-87" aria-hidden="true" tabindex="-1"></a>fig.savefig(<span class="st">'dataset_scheme.svg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-32-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>np.arange(<span class="dv">4</span>)[<span class="dv">1</span>::<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([1, 3])</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">5</span>, figsize <span class="op">=</span> (<span class="dv">5</span><span class="op">*</span>size, <span class="dv">2</span><span class="op">*</span>size))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>sigma_noise <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># SINGLE</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(s_hard[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>, <span class="dv">0</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)    </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(s_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>, <span class="dv">0</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-STATE</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(twoS_hard[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>, <span class="dv">1</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)    </span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(twoS_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>, <span class="dv">1</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="co"># DIMERIZATION</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(dim_hard[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>, <span class="dv">2</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)    </span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(dim_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>, <span class="dv">2</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[:,<span class="dv">2</span>], xlim <span class="op">=</span> (<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>))<span class="op">;</span></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="co"># CONFINEMENT</span></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(conf_hard[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>, <span class="dv">3</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)    </span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(conf_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>, <span class="dv">3</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)</span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="co"># TRAPPING</span></span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(trap_hard[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()    </span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise</span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)    </span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, tt <span class="kw">in</span> <span class="bu">enumerate</span>(trap_easy[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">=</span> tt.copy()</span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>    og_traj <span class="op">+=</span> np.random.randn(og_traj.shape[<span class="dv">0</span>], og_traj.shape[<span class="dv">1</span>])<span class="op">*</span>sigma_noise<span class="op">*</span><span class="dv">7</span></span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>].plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>)   </span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-63"><a href="#cb35-63" aria-hidden="true" tabindex="-1"></a>plt.setp(axs,  xlim <span class="op">=</span> (<span class="dv">50</span>,<span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), ylim<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>), </span>
+<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a>         xticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], xticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]),</span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a>         yticks <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span><span class="op">/</span><span class="dv">2</span>, <span class="dv">50</span><span class="op">+</span><span class="dv">128</span>], yticklabels <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="bu">int</span>(<span class="dv">128</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">128</span>]))<span class="op">;</span></span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[:,<span class="dv">1</span>:], yticklabels <span class="op">=</span> [])</span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>,:], xticklabels <span class="op">=</span> [])</span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[:, <span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)</span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="op">-</span><span class="dv">1</span>, :], xlabel <span class="op">=</span> <span class="st">'X (px)'</span>)</span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="op">;</span></span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, name <span class="kw">in</span> <span class="bu">zip</span>(axs[<span class="dv">0</span>,:], [<span class="st">'SSM'</span>, <span class="st">'MSM'</span>, <span class="st">'DIM'</span>, <span class="st">'TCM'</span>, <span class="st">'QTM'</span>]):</span>
+<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name)</span>
+<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="co"># fig.savefig('help/fig3/panel_c.svg')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="generate_frames_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="matrix-data" class="level1">
+<h1>Matrix data</h1>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

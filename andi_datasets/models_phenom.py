@@ -12,7 +12,9 @@ import warnings
 # %% ../source_nbs/lib_nbs/models_phenom.ipynb 5
 class models_phenom():
     def __init__(self):
-        '''Constructor of the class''' 
+        '''
+        This class handles the generation of trajectories from different theoretical models. 
+        ''' 
         # We define here the bounds of the anomalous exponent and diffusion coefficient
         self.bound_D = [1e-12, 1e6]
         self.bound_alpha = [0, 1.999]
@@ -28,17 +30,34 @@ class models_phenom():
 class models_phenom(models_phenom):
     
     @staticmethod
-    def disp_fbm(alpha, D, T, deltaT = 1):
+    def disp_fbm(alpha : float,
+                 D : float,
+                 T: int, 
+                 deltaT : int = 1):
         ''' Generates normalized Fractional Gaussian noise. This means that, in 
         general:
+        
                             <x^2(t)> = 2Dt^alpha
+                            
         and in particular:
+        
                             <x^2(t = 1)> = 2D 
-        Args:
-            :alpha (float): anomalous exponent
-            :D (float): diffusion coefficient
-            :T (int): number of displacements to generate
-            :deltaT (int, optional): sampling time
+        
+        Parameters
+        ----------
+        alpha : float in [0,2]
+            Anomalous exponent
+        D : float
+            Diffusion coefficient
+        T : int
+            Number of displacements to generate
+        deltaT : int, optional
+            Sampling time
+            
+        Returns
+        ----------
+        disp : numpy.array
+            Array containing T displacements of given parameters
         
         '''
         
@@ -51,7 +70,7 @@ class models_phenom(models_phenom):
         
         return disp
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 14
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 15
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -70,33 +89,41 @@ class models_phenom(models_phenom):
             return d2 < d1*gamma_d
     
     @staticmethod
-    def _sample_diff_parameters(alphas, Ds, num_states,
-                                epsilon_a, gamma_d):
+    def _sample_diff_parameters(alphas : list, # List containing the parameters to sample anomalous exponent in state (adapt to sampling function)
+                                Ds : list, # List containing the parameters to sample the diffusion coefficient in state (adapt to sampling function).
+                                num_states : int, # Number of diffusive states.
+                                epsilon_a : float, #  Minimum distance between anomalous exponents of various states.
+                                gamma_d : float, # Factor between diffusion coefficient of various states.
+                               ) : 
         '''    
-        Given information of the anomalous exponents (alphas), diffusion coefficients (Ds),
+        Given information of the anomalous exponents (alphas), diffusion coefficients (Ds), the function
         samples these from a bounded Gaussian distribution with the indicated constraints (epsilon_a,
-        gamma_d).
-        Args:
-            :alphas (list): list containing the parameters to sample anomalous exponent
-            in state (adapt to sampling function).
-            :Ds (list): list containing the parameters to sample the diffusion coefficient
-            in state (adapt to sampling function).
-            :num_states (int): number of diffusive states.
-            
-            :epsilon_a (float): minimum distance between anomalous exponents of various states.
-            
+        gamma_d). Outputs the list of demanded alphas and Ds.
+        
+        
+        Parameters
+        ------------
+        alphas : list
+        List containing the parameters to sample anomalous exponent in state (adapt to sampling function).
+        Ds : list
+        List containing the parameters to sample the diffusion coefficient in state (adapt to sampling function).
+        num_states : int
+        Number of diffusive states.
+        epsilon_a : float
+        Minimum distance between anomalous exponents of various states.            
                 epsilon workflow: we check val[i] - val[i-1] < epsilon
                     if you want that val[i] > val[i-1]: epsilon has to be positive
                     if you want that val[i] < val[i-1]: epsilon has to be negative
                     if you don't care: epsilon = 0
                 
-            :gamma_d (float): factor between diffusion coefficient of various states.
-            
+        gamma_d : float
+        Factor between diffusion coefficient of various states.            
                 gamma workflow: 
                     for gamma < 1: val[i] < val[i-1]*gamma
                     for gamma > 1: val[i] > val[i-1]*gamma
                     for gamma = 1: no check
-        Return:
+        Returns
+        ------------
             :alphas_traj (list): list of anomalous exponents
             :Ds_traj (list): list of diffusion coefficients
                       
@@ -145,22 +172,37 @@ class models_phenom(models_phenom):
                 
         return alphas_traj, Ds_traj
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 20
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 23
 class models_phenom(models_phenom):
     
     @staticmethod
-    def _single_state_traj(T = 200, 
-                          D = 1, 
-                          alpha = 1, 
-                          L = None,
-                          deltaT = 1):
-        '''Generates a single state trajectory with given parameters.
-        Args: 
-            :T (int): length of the trajectory
-            :D (float): diffusion coefficient
-            :alpha (float): anomalous exponent
-            :L (float): length of the box acting as the environment
-            :deltaT (int, optional): sampling time
+    def _single_state_traj(T :int = 200, 
+                          D : float = 1, 
+                          alpha : float = 1, 
+                          L : float = None,
+                          deltaT : int = 1):
+        '''
+        Generates a single state trajectory with given parameters. 
+        
+        Parameters
+        -----------
+        T : int
+            Length of the trajectory
+        D : float
+            Diffusion coefficient       
+        alpha : float
+            Anomalous exponent
+        L : float
+            Length of the box acting as the environment
+        deltaT : int, optional
+            Sampling time
+            
+        Returns
+        ----------
+        tuple
+            - pos: position of the particle
+            - labels:  anomalous exponent, D and state at each timestep. State is always free here.
+            
         '''
         
         
@@ -196,28 +238,42 @@ class models_phenom(models_phenom):
 
             return pos, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 23
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 27
 class models_phenom(models_phenom):
     
     
     def single_state(self,
-                     N = 10,
-                     T = 200, 
-                     Ds = [1, 0], 
-                     alphas = [1, 0], 
-                     L = None):
-        '''Generates a dataset made of single state trajectories with given parameters.
-        Args: 
-            :N (int): number of trajectories to generate
-            :T (int): length of the trajectories
-            :D (list, float): if list, mean and variance from which to sample the
-            diffusion coefficient. If float, we consider variance = 0.
-            :alpha (list, float): if list, mean and variance from which to sample the
-            anomalous exponent. If float, we consider variance = 0.
-            :L (float): length of the box acting as the environment
+                     N:int = 10,
+                     T:int = 200, 
+                     Ds:list = [1, 0], 
+                     alphas:list = [1, 0], 
+                     L:float = None):
+        '''
+        Generates a dataset made of single state trajectories with given parameters.
+        
+        Parameters
+        -----------
+        N : int, list
+            Number of trajectories in the dataset
+        T : int
+            Length of the trajectory
+        Ds : float
+            If list, mean and variance from which to sample the diffusion coefficient. If float, we consider variance = 0.
+        alphas : float
+            If list, mean and variance from which to sample the anomalous exponent. If float, we consider variance = 0.
+        L : float
+            Length of the box acting as the environment
+        deltaT : int, optional
+            Sampling time
+            
+        Returns
+        ----------
+        tuple
+            - positions: position of the N trajectories.
+            - labels:  anomalous exponent, D and state at each timestep. State is always free here.         
         '''
 
-        data = np.zeros((T, N, 2))
+        positions = np.zeros((T, N, 2))
         labels = np.zeros((T, N, 3))
 
         for n in range(N):
@@ -228,48 +284,57 @@ class models_phenom(models_phenom):
                                    D = D_traj, 
                                    alpha = alpha_traj, 
                                    L = L)        
-            data[:, n, :] = pos
+            positions[:, n, :] = pos
             labels[:, n, :] = lab
 
-        return data, labels
+        return positions, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 28
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 33
 class models_phenom(models_phenom):
     
     @staticmethod
-    def _multiple_state_traj(T = 200,
-                    M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
-                    Ds = np.array([1, 0.1]), # Diffusion coefficients of two states
-                    alphas = np.array([1, 1]), # Anomalous exponents for two states
-                    L = None,
-                    deltaT = 1,
-                    return_state_num = False, # if True, returns the number assigned to the curren state
-                    init_state = None
+    def _multiple_state_traj(T = 200, 
+                             M = [[0.95 , 0.05],[0.05 ,0.95]], 
+                             Ds = [1, 0.1], 
+                             alphas = [1, 1], 
+                             L = None,
+                             deltaT = 1,
+                             return_state_num = False, 
+                             init_state = None
                             ):
-        '''Generates a 2D multi state trajectory with given parameters.
-        Args: 
-            :T (int): length of the trajectories.
-            :M (list, array): transition matrix between diffusive states.
-            :Ds (list, array): diffusion coefficient of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0).
-            :alpha (list, float): anomalous expoenent of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0)
-            :L (float): length of the box acting as the environment.
-            :deltaT (int): sampling time.
-            :return_state_num (bool): if True, returns as label the number assigned to the state
-            at each time step.
-            :init_state (bool): if True, the particle starts in state 0. If not, sample initial 
-            state.
-        Return:
-            :pos (array Tx2): particle's position
-            :array containing:
-                :alphas_t: particle's anomalous exponent at each step
-                :Ds_t: particle's diffusion coefficient at each step
-                :label_diff_state: particle's state (can be either free or directed for alpha ~ 2)
-                at each step
-                :state (optional): state label at each step
+        
+        '''
+        Generates a 2D multi state trajectory with given parameters.        
+        
+        Parameters
+        ----------
+        T : int
+            Length of the trajectory
+        M : list, array
+            Transition matrix between diffusive states.        
+        Ds : list
+            Diffusion coefficients of the diffusive states. Must have as many Ds as states defined by M.
+        alphas : list
+            Anomalous exponents of the diffusive states. Must have as many alphas as states defined by M.
+        L : float
+            Length of the box acting as the environment
+        deltaT : int, optional
+            Sampling time
+        return_state_num : bool
+            If True, returns as label the number assigned to the state at each time step.
+        init_state : bool
+            If True, the particle starts in state 0. If not, sample initial state.
+            
+            
+        Returns
+        -------
+        tuple
+            - pos: position of the particle
+            - alphas_t: anomalous exponent at each  step
+            - Ds_t: diffusion coefficient at each step. 
+            - label_diff_state: particle's state (can be either free or directed for alpha ~ 2) at each step.
+            - state (optional): state label at each step.            
+        
         '''
         
         # transform lists to numpy if needed
@@ -348,7 +413,7 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 31
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 37
 class models_phenom(models_phenom):
     def multi_state(self,
                     N = 10,
@@ -356,36 +421,46 @@ class models_phenom(models_phenom):
                     M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
                     Ds = np.array([[1, 0], [0.1, 0]]), 
                     alphas = np.array([[1, 0], [1, 0]]), 
-                    gamma_d = [1], # minimum distance between state's D
-                    epsilon_a = [0], # mininum distance between state's alpha
+                    gamma_d = [1], 
+                    epsilon_a = [0], 
                     L = None,
                     return_state_num = False,
                     init_state = None): 
+        '''
+        Generates a dataset of 2D multi state trajectory with given parameters.
         
-        '''Generates a dataset of 2D multi state trajectory with given parameters.
-        Args: 
-            :N (int): number of trajectories
-            :T (int): length of the trajectories.
-            :M (list, array): transition matrix between diffusive states.
-            :Ds (list, array): diffusion coefficient of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0).
-            :alpha (list, float): anomalous expoenent of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0).
-            :gamma_d (float): minimum factor between D of diffusive states
-            (see ._sampling_diff_parameters)
-            :epsilon_a (float): distance between alpha of diffusive states
-            (see ._sampling_diff_parameters)
-            :L (float): length of the box acting as the environment.
-            :deltaT (int): sampling time.
-            :return_state_num (bool): if True, returns as label the number assigned to the state
-            at each time step.
-            :init_state (bool): if True, the particle starts in state 0. If not, sample initial 
-            state.
-        Return:
-            :trajs (array TxNx2): particles' position
-            :labels (array TxNx2): particles' labels (see ._multi_state for details on labels)
+        Parameters
+        ----------
+        N : int
+            Number of trajectories
+        T : int
+            Length of the trajectory
+        M : list, array
+            Transition matrix between diffusive states
+        Ds : list
+            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+        alphas : float
+            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
+        gamma_d : list
+            Minimum factor between D of diffusive states (see ._sampling_diff_parameters)
+        epsilon_a : list
+            Distance between alpha of diffusive states (see ._sampling_diff_parameters)
+        L : float
+            Length of the box acting as the environment
+        deltaT : int, optional
+            Sampling time
+        return_state_num : bool
+            If True, returns as label the number assigned to the state at each time step.
+        init_state : bool
+            If True, the particle starts in state 0. If not, sample initial state.
+            
+            
+        Returns
+        -------
+        tuple
+            - trajs (array TxNx2): particles' position
+            - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)           
+        
         '''
         
         
@@ -423,16 +498,23 @@ class models_phenom(models_phenom):
             
         return trajs, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 38
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 46
 class models_phenom(models_phenom):
     @staticmethod
     def _get_distance(x):
-        ''' Given a matrix of size Nx2, calculates the distance between the N
-        particles
-        Args: 
-            :x (array Nx2): particles positions.
-        Return:
-            :distance (array NxN): distance between particles
+        '''
+        Given a matrix of size Nx2, calculates the distance between the N particles.
+        
+        Parameters
+        ----------
+        x : array
+            Particles' positions
+            
+        Returns
+        -------
+        array
+            Distance between particles         
+        
         '''
         
         M = np.reshape(np.repeat(x[ :, :], x.shape[0], axis = 0), (x.shape[0], x.shape[0], 2))
@@ -441,13 +523,29 @@ class models_phenom(models_phenom):
                          + np.square(M[:,:, 1]-Mtrans[:,:, 1]))  
         return distance
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 40
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 49
 class models_phenom(models_phenom):
     @staticmethod
     def _make_escape(Pu, label, diff_state):
-        ''' Given an unbinding probablity (Pu), the current labeling of particles (label)
+        ''' 
+        Given an unbinding probablity (Pu), the current labeling of particles (label)
         and the current state of particle (diff_state, either bound, 1, or unbound, 0), simulate an
         stochastic binding mechanism. 
+        
+        Parameters
+        ----------
+        Pu : float
+            Unbinding probablity
+        label : array
+            Current labeling of the particles (i.e. to which condensate they belong)
+        diff_state : array
+            Current state of the particles
+            
+        Returns
+        -------
+        tuple
+            New labeling and diffusive state of the particles        
+        
         '''
 
         # if unbinding probability is zero
@@ -468,7 +566,7 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 42
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 52
 class models_phenom(models_phenom):
     @staticmethod
     def _make_condensates(Pb, label, diff_state, r, distance, max_label):
@@ -477,6 +575,26 @@ class models_phenom(models_phenom):
         their current diffusive state (diff_state), the particle size (r), their 
         distances (distance) and the label from which binding is not possible 
         (max_label), simulates a binding mechanism.
+                
+        Parameters
+        ----------
+        Pb : float
+            Binding probablity.
+        label : array
+            Current labeling of the particles (i.e. to which condensate they belong)
+        diff_state : array
+            Current state of the particles
+        r : float
+            Particle size.
+        distance : array
+            Distance between particles
+        max_label : int
+            Maximum label from which particles will not be considered for binding
+            
+        Returns
+        -------
+        tuple
+            New labeling and diffusive state of the particles
         '''
 
         label = label.copy()
@@ -520,46 +638,79 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 47
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 57
+class models_phenom(models_phenom):
+    @staticmethod
+    def _stokes(D):
+        '''
+        Applies a Stokes-Einstein-like transformation to two diffusion coefficients.        
+                
+        Parameters
+        ----------
+        D : tuple
+            Diffusion coefficients of the two binding particles.
+            
+        Returns
+        -------
+        float
+            Resulting diffusion coefficient.
+        '''
+        
+        D1 = D[0]; D2 = D[1]
+        return 1/((1/D1)+(1/D2))
+
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 60
 class models_phenom(models_phenom):
     def dimerization(self,
                      N = 10,
                      T = 200,                
                      L = 100,
                      r = 1,
-                     Pu = 0.1, # Unbinding probability
-                     Pb = 0.01, # Binding probability
-                     Ds = np.array([[1, 0], [0.1, 0]]), # Diffusion coefficients of two states
-                     alphas = np.array([[1, 0], [1, 0]]), # Anomalous exponents for two states
-                     deltaT = 1,
+                     Pu = 0.1, 
+                     Pb = 0.01,
+                     Ds = np.array([[1, 0], [0.1, 0]]),
+                     alphas = np.array([[1, 0], [1, 0]]),
+                     epsilon_a = 0, stokes = False,
                      return_state_num = False,
-                     epsilon_a = 0, stokes = False
+                     deltaT = 1
                      ):
-        '''Generates a dataset of 2D trajectories of particles perfoming stochastic dimerization
-        with the given parameters.
-        Args: 
-            :N (int): number of trajectories
-            :T (int): length of the trajectories.            
-            :L (float): length of the box acting as the environment.
-            :r (float): radius of particles.
-            :Pu (float in [0,1]): unbinding probability.
-            :Pb (float in [0,1]): binding probability.
-            :Ds (list, array): diffusion coefficient of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0).
-            :alphas (list, float): anomalous expoenent of the diffusive states, given either as 
-            tuple for mean / variance of gaussian from where to sample or single value per 
-            state (in this case variance = 0).            
-            :deltaT (int): sampling time.
-            :return_state_num (bool): if True, returns as label the number assigned to the state
-            at each time step.
-            :epsilon_a (float): distance between alpha of diffusive states
-            (see ._sampling_diff_parameters)            
-            :stokes (bool): if True, applies a Stokes-Einstein like coefficient to calculate
-            the diffusion coefficient of dimerized particles.
-        Return:
-            :trajs (array TxNx2): particles' position
-            :labels (array TxNx2): particles' labels (alpha, D, state, num_state (optional))
+        '''
+        Generates a dataset of 2D trajectories of particles perfoming stochastic dimerization.
+        
+        Parameters
+        ----------
+        N : int
+            Number of trajectories
+        T : int
+            Length of the trajectory
+        L : float
+            Length of the box acting as the environment
+        r : float
+            Radius of particles.
+        Pu : float in [0,1]
+            Unbinding probability.
+        Pb : float in [0,1])
+            Binding probability.    
+        Ds : list
+            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+        alphas : float
+            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
+        epsilon_a : float
+            Distance between alpha of diffusive states (see ._sampling_diff_parameters)           
+        stokes : bool
+            If True, applies a Stokes-Einstein like coefficient to calculate the diffusion coefficient of dimerized particles.  
+            If False, we use as D resulting from the dimerization the D assigned to the dimerized state of one of the two particles.
+        deltaT : int
+            Sampling time
+        return_state_num : bool
+            If True, returns as label the number assigned to the state at each time step.            
+            
+        Returns
+        -------
+        tuple
+            - trajs (array TxNx2): particles' position
+            - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)
+            
         '''
         
         # transform lists to numpy if needed
@@ -646,7 +797,7 @@ class models_phenom(models_phenom):
                 # diffusion coefficient
                 if stokes and state == 1:
                     Ds_t[t:, label[t, :] == l] = models_phenom()._stokes(Ds_t[t-1, label[t, :] == l])
-                else: # if no stokes is given, use the alpha of the first particle (see alpha sampling for more details)
+                else: # if no stokes is given, use the D assgined to the dimerized state of the first particle 
                     Ds_t[t:, label[t, :] == l] = Ds_N[state, label[t, :] == l].repeat(T-t).reshape(count, T-t).transpose()
                     
                 for idx, i in enumerate(np.argwhere(label[t,:] == l)):
@@ -687,18 +838,46 @@ class models_phenom(models_phenom):
                                  )).transpose(1,2,0)
     
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 53
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 67
 class models_phenom(models_phenom):
     @staticmethod
-    def _update_bound(mask, # current bind vector
-                         N, # number of particles
-                         pos, # position of particles
-                         Nt, # number of traps
-                         traps_pos, # position of traps
-                         Pb, # binding probability
-                         Pu, # unbinding probability
-                         r, # trap radius
-                        ):
+    def _update_bound(mask, # Current binding array
+                      N, # Number of particles
+                      pos, # Position of particles
+                      Nt, # Number of traps
+                      traps_pos, # Position of traps
+                      Pb, # Binding probability
+                      Pu, # Unbinding probability
+                      r, # Trap radius
+                     ): # Updated binding array
+        '''
+        Binds and unbinds particles to traps based on their position and binding and unbinding probabilities
+        
+        Parameters
+        ----------
+        mask : array
+            Current binding array
+        N : int
+            Number of particles
+        pos : array
+            Position of particles
+        Nt : int
+            Number of traps
+        traps_pos : array
+            Position of traps
+        Pb : float in [0,1]
+            Binding probability
+        Pu : float in [0,1]
+            Unbinding probability
+        r : float
+            Trap radius
+            
+        Returns
+        -------
+        array
+            Updated binding array
+            
+        '''
 
         # from the ones that are bound, get the ones that unbind. These will be descarted for binding in same time step
         mask_new_free = np.array(1-(np.random.rand(N) < Pu)*mask).astype(bool)
@@ -719,7 +898,7 @@ class models_phenom(models_phenom):
 
         return mask
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 54
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 69
 class models_phenom(models_phenom):
 
     def immobile_traps(self,
@@ -727,14 +906,49 @@ class models_phenom(models_phenom):
                        T = 200,                
                        L = 100,
                        r = 1,
-                       Pu = 0.1, # Unbinding probability
-                       Pb = 0.01, # Binding probability
-                       Ds = [1, 0], # Diffusion coefficients of moving state
-                       alphas = [1, 0], # Anomalous exponents of moving state
+                       Pu = 0.1, 
+                       Pb = 0.01, 
+                       Ds = [1, 0], 
+                       alphas = [1, 0], 
                        Nt = 10,
-                       traps_pos = None,
+                       traps_pos: np.array = None,
                        deltaT = 1
                       ): 
+        '''
+        Generates a dataset of 2D trajectories of particles diffusing in an environment with immobilizing traps.
+        
+        Parameters
+        ----------
+        N : int
+            Number of trajectories
+        T : int
+            Length of the trajectory
+        L : float
+            Length of the box acting as the environment
+        r : float
+            Radius of particles.
+        Pu : float in [0,1]
+            Unbinding probability.
+        Pb : float in [0,1])
+            Binding probability.    
+        Ds : list, float
+            Mean and variance from which to sample the diffusion coefficient of the free state. If float, we consider variance = 0
+        alphas : list, float
+            Mean and variance from which to sample the anomalous exponent of the free state. If float, we consider variance = 0
+        Nt : int
+            Number of traps
+        traps_pos : array, None
+            Positions of the traps. Can be given by array or sampled randomly if None.
+        deltaT : int
+            Sampling time.            
+            
+        Returns
+        -------
+        tuple
+            - trajs (array TxNx2): particles' position
+            - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)
+            
+        '''
 
         # Info to output
         pos = np.zeros((T, N, 2)) # position over time
@@ -818,23 +1032,29 @@ class models_phenom(models_phenom):
 
         return pos, output_label
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 61
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 76
 class models_phenom(models_phenom):
     
     @staticmethod
     def _distribute_circular_compartments(Nc, r, L):
-        '''Distributes circular compartments over an environment without overlapping. Raises a warning and stops when no more compartments can be inserted.
-        Arguments:
-        :Nc (float): 
-            - number of compartments
-        :r (float):
-            - Size of the compartments
-        :L (float):
-            - Side length of the squared environment.
-        Return:
-        :comp_center (numpy.array):
-            - Position of the centers of the compartments        
-           '''
+        '''
+        Distributes circular compartments over an environment without overlapping. Raises a warning and stops when no more compartments can be inserted.                   
+        
+        Parameters
+        ----------
+        Nc : float
+            Number of compartments
+        r : float
+            Size of the compartments
+        L : float
+            Side length of the squared environment.
+            
+        Returns
+        -------
+        array
+            Position of the centers of the compartments
+        
+        '''
 
         comp_center = np.random.rand(1, 2)*(L - 2*r) + r 
         hardness = 0
@@ -855,7 +1075,7 @@ class models_phenom(models_phenom):
         
         return comp_center
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 64
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 80
 from .utils_trajectories import trigo
 
 class models_phenom(models_phenom):
@@ -866,6 +1086,29 @@ class models_phenom(models_phenom):
                             beg, 
                             end,
                             precision_boundary = 1e-4):
+        '''
+        Given the begining and end of a segment crossing the boundary of a circle, calculates the new position considering that boundaries are fully reflective.
+        
+        Parameters
+        ----------
+        circle_center : float
+            Center of the circle            
+        circle_radius : float
+            Radius of the circle
+        beg : tuple
+            Position (in 2D) of the begining of the segment
+        end : tuple
+            Position (in 2D) of the begining of the segment
+        precision_boundary : float
+            Small area around the real boundary which is also considered as boundary. For numerical stability
+            
+        Returns
+        -------
+        tuple
+            - Reflected position
+            - Intersection point
+        
+        '''
         
         # If the begining of the segment is in the exact boundary, no intersection is found.
         # In that case, we bring closer the point to the center of the cercle so it is
@@ -898,19 +1141,50 @@ class models_phenom(models_phenom):
         # Final point is the previous vector times the distance starting at the intersect point  
         return np.array(intersect)+dist_int_end*np.array(vec_bounce), intersect
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 67
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 84
 class models_phenom(models_phenom):
     
     @staticmethod
     def _confinement_traj(T = 200,
-                          Ds = np.array([1, 0.1]),
-                          alphas = np.array([1, 1]),
                           L = 100,
-                          deltaT = 1,
+                          Ds = [1, 0.1],
+                          alphas = [1, 1],
                           r = 1,
                           comp_center = None,
                           Nc = 10,
-                          trans = 0.1):
+                          trans = 0.1,
+                          deltaT = 1):
+        '''
+        Generates a 2D trajectory of particles diffusing in an environment with partially transmitting circular compartments.
+        
+        Parameters
+        ----------
+        T : int
+            Length of the trajectory
+        L : float
+            Length of the box acting as the environment 
+        Ds : list
+            Diffusion coefficients of the two diffusive states (first free, the confined). Size must be 2.
+        alphas : list
+            Anomalous exponents of the two diffusive states (first free, the confined). Size must be 2.
+        r : float
+            Radius of the compartments.             
+        comp_center : array, None
+            If given, center of the compartments. If None, centers are uniformly sampled.
+        Nc : int
+            Number of compartments
+        trans : float
+            Transmittance of the boundaries
+        deltaT : int
+            Sampling time.            
+            
+        Returns
+        -------
+        tuple
+            - pos (array Tx2): particle's position
+            - labels (array Tx2): particle's labels (see ._multi_state for details on labels)
+            
+        '''
 
         
         # transform lists to numpy if needed
@@ -1033,21 +1307,58 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 70
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 88
 class models_phenom(models_phenom):
     def confinement(self,
                     N = 10,
                     T = 200,
-                    Ds = np.array([[1, 0], [0.1, 0]]), 
-                    alphas = np.array([[1, 0], [1, 0]]),
-                    gamma_d = [1], # minimum distance between state's D
-                    epsilon_a = [0], # mininum distance between state's alpha
                     L = 100,
-                    deltaT = 1,
+                    Ds = [[1, 0], [0.1, 0]], 
+                    alphas = [[1, 0], [1, 0]],
+                    gamma_d = [1], 
+                    epsilon_a = [0],
                     r = 1,
                     comp_center = None,
                     Nc = 10,
-                    trans = 0.1):
+                    trans = 0.1, 
+                    deltaT = 1):
+        '''
+        Generates a dataset of 2D trajectories of particles diffusing in an environment with partially transmitting circular compartments.
+        
+        Parameters
+        ----------
+        N : int
+            Number of trajectories
+        T : int
+            Length of the trajectory
+        L : float
+            Length of the box acting as the environment 
+        Ds : list
+            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+        alphas : float
+            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.       
+        gamma_d : list
+            Minimum factor between D of diffusive states (see ._sampling_diff_parameters). Size is number of states -1 (in this case size 1)
+        epsilon_a : list
+            Distance between alpha of diffusive states (see ._sampling_diff_parameters). Size is number of states -1 (in this case size 1)
+        r : float
+            Radius of the compartments.             
+        comp_center : array, None
+            If given, center of the compartments. If None, centers are uniformly sampled.
+        Nc : int
+            Number of compartments
+        trans : float
+            Transmittance of the boundaries
+        deltaT : int
+            Sampling time.  
+            
+        Returns
+        -------
+        tuple
+            - pos (array Tx2): particle's position
+            - labels (array Tx2): particle's labels (see ._multi_state for details on labels)
+            
+        '''
        
         if isinstance(Ds, list):
             Ds = np.array(Ds)

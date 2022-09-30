@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -137,6 +137,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
+    <a href="index.md" class="navbar-brand navbar-brand-logo">
+    <img src="../figures/andi_logo.png" alt="" class="navbar-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">andi_datasets</span>
     </a>
@@ -147,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../Readme.html" aria-current="page">Documentation</a>
+    <a class="nav-link active" href="../index.html" aria-current="page">Documentation</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tutorials/tutorials.html">Tutorials</a>
@@ -174,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Readme.html" class="sidebar-item-text sidebar-link">Documentation</a>
+            <a href="../index.html" class="sidebar-item-text sidebar-link">Documentation</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -190,12 +193,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link">models_theory</a>
+  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link"><code>models_theory</code></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link">Datasets of theoretical trajectories</a>
+  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link"><code>datasets_theory</code></a>
   </div>
 </li>
       </ul>
@@ -210,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link">models_phenom</a>
+  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link"><code>models_phenom</code></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -418,7 +421,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td><strong>Returns</strong></td>
-<td><strong>int</strong></td>
+<td><strong>tuple</strong></td>
 <td><strong>angle between three points</strong></td>
 </tr>
 </tbody>
@@ -434,7 +437,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code> msd_analysis ()</code></pre>
 </blockquote>
 <p>Contains mean squared displacement (MSD) based methods to analyze trajectories.</p>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Returns 
 ---------- in 
 Calculates the time average mean squared displacement (TA-MSD) of a trajectory at various time lags,
@@ -474,7 +477,7 @@ Calculates the time average mean squared displacement (TA-MSD) of a trajectory a
 </tr>
 </tbody>
 </table>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Returns 
 ---------- in 
 Calculates the diffusion coefficient of a trajectory by means of the linear
@@ -485,8 +488,7 @@ fitting of the TA-MSD....
 <section id="msd_analysis.get_diff_coeff" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis.get_diff_coeff">msd_analysis.get_diff_coeff</h3>
 <blockquote class="blockquote">
-<pre><code> msd_analysis.get_diff_coeff (traj:numpy.ndarray,
-                              t_lags:bool|list|numpy.ndarray=None)</code></pre>
+<pre><code> msd_analysis.get_diff_coeff (traj:numpy.ndarray, t_lags:list=None)</code></pre>
 </blockquote>
 <p>Calculates the diffusion coefficient of a trajectory by means of the linear fitting of the TA-MSD.</p>
 <table class="table">
@@ -513,7 +515,7 @@ fitting of the TA-MSD....
 </tr>
 <tr class="even">
 <td>t_lags</td>
-<td>bool | list | numpy.ndarray</td>
+<td>list</td>
 <td>None</td>
 <td>Time lags used for the TA-MSD.</td>
 </tr>
@@ -543,7 +545,7 @@ fitting of the TA-MSD....
 <p><img src="analysis_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Returns 
 ---------- in 
 Calculates the anolaous of a trajectory by means of the linear
@@ -554,8 +556,7 @@ fitting of the logarithm of the TA-MSD....
 <section id="msd_analysis.get_exponent" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis.get_exponent">msd_analysis.get_exponent</h3>
 <blockquote class="blockquote">
-<pre><code> msd_analysis.get_exponent (traj:numpy.ndarray,
-                            t_lags:bool|list|numpy.ndarray=None)</code></pre>
+<pre><code> msd_analysis.get_exponent (traj, t_lags:list=None)</code></pre>
 </blockquote>
 <p>Calculates the anolaous of a trajectory by means of the linear fitting of the logarithm of the TA-MSD.</p>
 <table class="table">
@@ -576,13 +577,13 @@ fitting of the logarithm of the TA-MSD....
 <tbody>
 <tr class="odd">
 <td>traj</td>
-<td>ndarray</td>
+<td>np.array</td>
 <td></td>
 <td>1D trajectory from whicto calculate TA-MSD.</td>
 </tr>
 <tr class="even">
 <td>t_lags</td>
-<td>bool | list | numpy.ndarray</td>
+<td>list</td>
 <td>None</td>
 <td>Time lags used for the TA-MSD.</td>
 </tr>
@@ -616,7 +617,7 @@ fitting of the logarithm of the TA-MSD....
 </section>
 <section id="velocity-autocorrelation-function-vacf" class="level1">
 <h1>Velocity Autocorrelation Function (VACF)</h1>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Returns 
 ---------- in 
 Calculates the velocity autocorrelation function for 
@@ -695,7 +696,7 @@ the given set of trajectories....
 </section>
 <section id="convex-hull-analysis" class="level1">
 <h1>Convex hull analysis</h1>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Returns 
 ---------- in 
 Computes the changes points a multistate trajectory based on the Convex Hull approach proposed in PRE 96 (022144), 2017.

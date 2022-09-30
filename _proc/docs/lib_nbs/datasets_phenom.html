@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -123,7 +123,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="andi_datasets - datasets_phenom">
 <meta property="og:description" content="This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).">
 <meta property="og:site-name" content="andi_datasets">
@@ -139,6 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
+    <a href="index.md" class="navbar-brand navbar-brand-logo">
+    <img src="../figures/andi_logo.png" alt="" class="navbar-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">andi_datasets</span>
     </a>
@@ -149,7 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../doc_nbs/start.ipynb">Get Started</a>
+    <a class="nav-link active" href="../index.html" aria-current="page">Documentation</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tutorials/tutorials.html">Tutorials</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -173,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link">Documentation</a>
+            <a href="../index.html" class="sidebar-item-text sidebar-link">Documentation</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -189,12 +194,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link">models_theory</a>
+  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link"><code>models_theory</code></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link">Datasets of theoretical trajectories</a>
+  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link"><code>datasets_theory</code></a>
   </div>
 </li>
       </ul>
@@ -209,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link">models_phenom</a>
+  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link"><code>models_phenom</code></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -278,21 +283,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">Tutorials</a>
+            <a href="../tutorials/tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
-  tutorials/challenge20_datasets.ipynb
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">Examples of use of ANDI</a>
+  </div>
+</li>
           <li class="sidebar-item">
-  tutorials/challenge2020_submission.ipynb
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">Submitting to the ANDI challenge: from trajectories to predictions</a>
+  </div>
+</li>
           <li class="sidebar-item">
-  tutorials/challenge2022_datasets.ipynb
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">ANDI challenge 2022 datasets</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -345,16 +356,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="datasets_phenom">datasets_phenom</h3>
 <blockquote class="blockquote">
 <pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x0000020E70A7A230&gt;)</code></pre>
+                  object at 0x00000199BD2FAA40&gt;)</code></pre>
 </blockquote>
 <p>This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).</p>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
 Inputs 
 ------- in 
 Given a list of dictionaries, generates trajectories of the demanded properties.
 The only compulsory input for every dictionary is 'model', i.e. the model from which ...
   else: warn(msg)
-C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Inputs
+C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Inputs
   else: warn(msg)</code></pre>
 <hr>
 </section>
@@ -398,7 +409,7 @@ C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.
 <section id="creating-saving-and-loading-trajectories" class="level1">
 <h1>Creating, saving and loading trajectories</h1>
 <p>These auxiliary functions used in <code>create_trajectories</code> that allow for manipulate trajectories in various forms.</p>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Outputs
+<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Outputs
   else: warn(msg)</code></pre>
 <hr>
 <section id="datasets_phenom._create_trajectories" class="level3">

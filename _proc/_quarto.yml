@@ -10,14 +10,16 @@ website:
   twitter-card: true
   open-graph: true
   repo-actions: [issue]
-  navbar:
+  site-url: ''
+  navbar:    
+    logo: figures/andi_logo.png
+    logo-href: index.md
     background: primary
-    search: true
-    logo-href: Readme.md
+    search: true    
     collapse-below: lg
     left:
       - text: "Documentation"
-        href: Readme.md
+        href: index.md
       - text: "Tutorials"
         href: tutorials/tutorials.md
   sidebar:

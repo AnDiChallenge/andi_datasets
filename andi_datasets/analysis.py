@@ -10,8 +10,9 @@ import math
 # %% ../source_nbs/lib_nbs/analysis.ipynb 5
 def get_angle(a:tuple, # point 1
               b:tuple, # point 2
-              c:tuple # point 3
-             ) -> int: # angle between three points
+              c:tuple # point 3       
+             ) -> tuple:  # angle between three points
+                
     ''' Calculates the angle between the segments generate by three points '''
     ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))
     return ang + 360 if ang < 0 else ang
@@ -59,8 +60,8 @@ class msd_analysis():
         return tamsd
 
     def get_diff_coeff(self, 
-                       traj:np.ndarray,
-                       t_lags:bool | list | np.ndarray = None):
+                       traj:np.ndarray, 
+                       t_lags:list = None):
         '''
         Calculates the diffusion coefficient of a trajectory by means of the linear
         fitting of the TA-MSD.
@@ -87,8 +88,8 @@ class msd_analysis():
         return np.polyfit(t_lags, tasmd, deg = 1)[0]/2
 
     def get_exponent(self, 
-                     traj:np.ndarray,
-                     t_lags:bool | list | np.ndarray = None):
+                     traj,
+                     t_lags:list = None):
         '''
         Calculates the anolaous of a trajectory by means of the linear
         fitting of the logarithm of the TA-MSD.
@@ -98,7 +99,7 @@ class msd_analysis():
         traj : np.array
             1D trajectory from whicto calculate TA-MSD.
         
-        t_lags : bool | list 
+        t_lags : bool, list 
             Time lags used for the TA-MSD.
         
         Returns       
