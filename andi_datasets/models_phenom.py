@@ -418,9 +418,9 @@ class models_phenom(models_phenom):
     def multi_state(self,
                     N = 10,
                     T = 200,
-                    M = np.array([[0.9 , 0.1],[0.1 ,0.9]]),
-                    Ds = np.array([[1, 0], [0.1, 0]]), 
-                    alphas = np.array([[1, 0], [1, 0]]), 
+                    M: np.array = [[0.9 , 0.1],[0.1 ,0.9]],
+                    Ds: np.array = [[1, 0], [0.1, 0]], 
+                    alphas: np.array = [[1, 0], [1, 0]], 
                     gamma_d = [1], 
                     epsilon_a = [0], 
                     L = None,
@@ -438,9 +438,9 @@ class models_phenom(models_phenom):
         M : list, array
             Transition matrix between diffusive states
         Ds : list
-            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+            List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
         alphas : float
-            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
+            List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
         gamma_d : list
             Minimum factor between D of diffusive states (see ._sampling_diff_parameters)
         epsilon_a : list
@@ -462,6 +462,14 @@ class models_phenom(models_phenom):
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)           
         
         '''
+        
+        # transform lists to numpy if needed
+        if isinstance(M, list):
+            M = np.array(M)
+        if isinstance(Ds, list):
+            Ds = np.array(Ds)
+        if isinstance(alphas, list):
+            alphas = np.array(alphas)
         
         
 
@@ -668,8 +676,8 @@ class models_phenom(models_phenom):
                      r = 1,
                      Pu = 0.1, 
                      Pb = 0.01,
-                     Ds = np.array([[1, 0], [0.1, 0]]),
-                     alphas = np.array([[1, 0], [1, 0]]),
+                     Ds: np.array = [[1, 0], [0.1, 0]],
+                     alphas: np.array = [[1, 0], [1, 0]],
                      epsilon_a = 0, stokes = False,
                      return_state_num = False,
                      deltaT = 1
@@ -691,10 +699,10 @@ class models_phenom(models_phenom):
             Unbinding probability.
         Pb : float in [0,1])
             Binding probability.    
-        Ds : list
-            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
-        alphas : float
-            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
+        Ds : array
+            List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+        alphas : array
+            List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.   
         epsilon_a : float
             Distance between alpha of diffusive states (see ._sampling_diff_parameters)           
         stokes : bool
@@ -1334,9 +1342,9 @@ class models_phenom(models_phenom):
         L : float
             Length of the box acting as the environment 
         Ds : list
-            List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
+            List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.
         alphas : float
-            List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.       
+            List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.       
         gamma_d : list
             Minimum factor between D of diffusive states (see ._sampling_diff_parameters). Size is number of states -1 (in this case size 1)
         epsilon_a : list

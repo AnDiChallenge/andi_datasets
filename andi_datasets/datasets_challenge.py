@@ -44,8 +44,8 @@ def challenge_2020_dataset(N:np.ndarray|int = 1000,
         
     See the tutorials in our Github repository to learn about this function.
     
-    Inputs
-    ------
+    Parameters
+    ----------
         N : 
          Number of trajectories per class (i.e.size # models x # classes). If int, all classes have same number.
         max_T :
@@ -79,8 +79,8 @@ def challenge_2020_dataset(N:np.ndarray|int = 1000,
         return_noise :
          If True, returns the amplitudes of the noises added to the trajectories. 
      
-    Outputs
-    --------
+    Returns
+    -------
         x : multiple
          Xn (lists): trajectories
          Yn (lists): labels
@@ -391,8 +391,10 @@ def challenge_2020_dataset(N:np.ndarray|int = 1000,
         return X1, Y1, X2, Y2, X3, Y3
 
 # %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 7
-class _df_andi2: 
-    'This class defines the default values set for the ANDI 2022 challenge'
+class _defaults_andi2: 
+    '''
+    This class defines the default values set for the ANDI 2022 challenge.
+    '''
     def __init__(self):        
         # General parameters
 
@@ -400,7 +402,6 @@ class _df_andi2:
         self._min_T = 20               # Minimal length of output trajectories
         self.FOV_L = 128               # Length side of the FOV (px)
         self.L = 1.8*self.FOV_L          # Length of the simulated environment
-        'PARTICLES MOVE TOO SLOWLY WITH D = 0.1!!'
         self.D = 1                     # Baseline diffusion coefficient (px^2/frame)
         self.density = 2               # Particle density   
         self.N = 50                    # Number of particle in the whole experiment
@@ -408,9 +409,10 @@ class _df_andi2:
 
         self.label_filter = lambda x: label_filter(x, window_size = 5, min_seg = 3) 
 
-# %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 8
+# %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 9
 def _get_dic_andi2(model):
-    ''' Given the number label of diffusion model, returns a default
+    ''' 
+    Given the number label of diffusion model, returns a default
     dictionary of the model's parameters to be fed to create_dataset
     The numeration is as follow:
             1: single state
@@ -418,30 +420,31 @@ def _get_dic_andi2(model):
             3: immobilization
             4: dimerization
             5: confinement
+            
     Parameters
     ----------
     model : int in [1,6]
         Number of the diffusion model
     
     Returns
-    ---------
+    -------
     dic : dictionary
         Dictionary containing the default parameters for ANDI2022 of the indicated model.
     '''
 
-    dic = {'N': _df_andi2().N,
-           'T': _df_andi2().T,
-           'L': _df_andi2().L}
+    dic = {'N': _defaults_andi2().N,
+           'T': _defaults_andi2().T,
+           'L': _defaults_andi2().L}
 
     # alpha and D for single-state and immobilization
     if model == 1 or model == 3:    
-        dic.update({'Ds': [_df_andi2().D, _df_andi2().D*0.01], # mean and varianve for D
+        dic.update({'Ds': [_defaults_andi2().D, _defaults_andi2().D*0.01], # mean and varianve for D
                     'alphas': np.array([np.random.rand()*(1.5-0.5)+0.5, 0.01])})
 
     # alphas and Ds for 2-state, confinement and dimerization
     if model == 2 or model == 4 or model == 5:            
 
-        fast_D = _df_andi2().D + np.random.randn()*_df_andi2().D*0.01
+        fast_D = _defaults_andi2().D + np.random.randn()*_defaults_andi2().D*0.01
         slow_D = fast_D*np.random.rand()*(0.1-0.01)+0.01    
 
         alpha1 = np.random.rand()*(1.2-0.8)+0.8
@@ -487,7 +490,7 @@ def _get_dic_andi2(model):
 
     return dic
 
-# %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 9
+# %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 11
 def challenge_2022_dataset( 
                           experiments = 5,
                           dics = None,
@@ -509,35 +512,34 @@ def challenge_2022_dataset(
     This function will generate as many experiments (associated to one the diffusion models) as demanded.
     There are two ways of defining that:
         - Give number of experiments (and optional parameters such as repeat_exp) to create. The diffusion
-        parameters are then taken from the default values are taken from datasets_phenom._df_andi2.
+        parameters are then taken from the default values are taken from datasets_phenom._defaults_andi2.
         - Feed a list of dictionaries (dics) from which data will be generated
     For each experiment, as many field of view as wanted can be generated        
 
-    Inputs   
-    -----
-        experiments : int, list
+    Parameters   
+    ----------
+    experiments : int, list
             - if int: Number of experiments to generate. Each experiment is 
             generated from one of the available diffusion models.  
             - if list: diffusion models to generate (starting with 1!!!!!)
-        dics : dictionary, list of dics
-            if given, uses this to set the parameters of the experiments
-            Must be of length equal to experiments. This overrides any
-            info about chosen models, as the model is set by the dictionary.
-        repeat_exp : bool, list
+    dics : dictionary, list of dics
+            If given, uses this to set the parameters of the experiments.
+            Must be of length equal to experiments. 
+            This overrides any info about chosen models, as the model is set by the dictionary.
+    repeat_exp : bool, list
             -> Does not enter into play if experiments is list        
             If True: picks at random the diffusion model from the pool.
             If False: picks the diffusion in an ordered way from the pool.
-        num_fovs : int
+    num_fovs : int
             Number of field of views to get trajectories from in each experiment.
-        return_timestep_labs : bool
-            if True, the output trajectories dataframes containing also the 
-            labels alpha, D and state at each time step.        
-        save_data : bool
-            If True, saves all pertinent data.
-        path : str
-            Path where to store the data.
-        prefix : str
-            Extra prefix that can be added in front of the files' names.
+    return_timestep_labs : bool
+            If True, the output trajectories dataframes containing also the labels alpha, D and state at each time step.        
+    save_data : bool
+        If True, saves all pertinent data.
+    path : str
+        Path where to store the data.
+    prefix : str
+        Extra prefix that can be added in front of the files' names.
         
     Video Inputs
     ----------
@@ -629,8 +631,8 @@ def challenge_2022_dataset(
 
             # We take as min/max for the fovs a 5 % distance of L
             dist = 0.05
-            min_fov = int(dist*_df_andi2().L)
-            max_fov = int((1-dist)*_df_andi2().L)-_df_andi2().FOV_L
+            min_fov = int(dist*_defaults_andi2().L)
+            max_fov = int((1-dist)*_defaults_andi2().L)-_defaults_andi2().FOV_L
             # sample the position of the FOV
             fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
 
@@ -645,8 +647,8 @@ def challenge_2022_dataset(
                                                     labels[:, :, :].transpose(1,0,2))):
                 nan_segms = segs_inside_fov(traj, 
                                             fov_origin = fov_origin,
-                                            fov_length = _df_andi2().FOV_L,
-                                            cutoff_length = _df_andi2()._min_T)
+                                            fov_length = _defaults_andi2().FOV_L,
+                                            cutoff_length = _defaults_andi2()._min_T)
 
                 if nan_segms is not None:
                     for idx_nan in nan_segms:  
@@ -662,7 +664,7 @@ def challenge_2022_dataset(
 
                         lab_seg = []
                         for idx_lab in range(labels.shape[-1]):
-                            lab_seg.append(_df_andi2().label_filter(label[idx_nan[0]:idx_nan[1], idx_lab]))
+                            lab_seg.append(_defaults_andi2().label_filter(label[idx_nan[0]:idx_nan[1], idx_lab]))
                         lab_seg = np.vstack(lab_seg).transpose()                    
                         array_labels_fov.append(lab_seg)
 
@@ -715,7 +717,7 @@ def challenge_2022_dataset(
                 video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
                                                optics_props={
                                                    "output_region":[fov_origin[0], fov_origin[1],
-                                                                    fov_origin[0] + _df_andi2().FOV_L, fov_origin[1] + _df_andi2().FOV_L]
+                                                                    fov_origin[0] + _defaults_andi2().FOV_L, fov_origin[1] + _defaults_andi2().FOV_L]
                                                 },
                                                get_vip_particles=idx_vip,
                                                with_masks = get_video_masks,
@@ -727,8 +729,8 @@ def challenge_2022_dataset(
                     
             # Add noise to the trajectories (see that this has to be done
             # after the videos, so these are not affected by the noise).
-            df_traj.x += np.random.randn(df_traj.shape[0])*_df_andi2().sigma_noise 
-            df_traj.y += np.random.randn(df_traj.shape[0])*_df_andi2().sigma_noise 
+            df_traj.x += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
+            df_traj.y += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
                     
             if return_timestep_labs:
                 array_labels_fov = np.concatenate(array_labels_fov)

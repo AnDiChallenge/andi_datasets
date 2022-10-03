@@ -21,8 +21,9 @@ import warnings
 class datasets_phenom():
     def __init__(self,
                 models_class = models_phenom()):
-            ''' This class generates, saves and loads datasets of trajectories simulated 
-                from various phenomenological diffusion models (available at andi_datasets.models_phenom). '''
+            ''' 
+            This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom). 
+            '''
             self.models_class = models_class
             self._get_models()
         
@@ -56,36 +57,44 @@ class datasets_phenom():
 class datasets_phenom(datasets_phenom):
                 
     def create_dataset(self,
-                       dics = False,
-                       T = None,
-                       N_model = None,  
-                       path = '',
-                       save = False, load = False):
-        ''' Given a list of dictionaries, generates trajectories of the demanded properties.
+                       dics: list|dict|bool = False,
+                       T: None|int = None,
+                       N_model: None|int = None,  
+                       path: str = '',
+                       save: bool = False,
+                       load: bool = False):
+        ''' 
+        Given a list of dictionaries, generates trajectories of the demanded properties.
         The only compulsory input for every dictionary is 'model', i.e. the model from which 
         trajectories must be generated. The rest of inputs are optional.
         You can see the input parameters of the different models in andi_datasets.models_phenom,
         This function checks and handles the input dataset and the manages both the creation,
         loading and saving of trajectories.
         
-        Inputs
-        -------
-            :dics (list, dictionary, bool):
-                - if list or dictionary: the function generates trajectories with the 
-                properties stated in each dictionary.
-                - if bool: the function generates trajectories with default parameters.
-                set for the ANDI2022 challenge for every available diffusion model.
-            :T (int or None): 
-                - if int: overrides the values of trajectory length in the dictionaries.
-                - if None: uses the trajectory length values in the dictionaries.
-            :N_model (int or None):
-                - if int: overrides the values of number of trajectories in the dictionaries.
-                - if None: uses the number of trajectories in the dictionaries
-            :save (bool): if True, saves the generated dataset (see self._save_trajectories).
-            :load (bool): if True, loads a dataset from path (see self._load_trajectories).
-            :path (str): path from where to save or load the dataset.
-        Outputs
-        --------
+        Parameters
+        ----------
+        dics : list, dictionary, bool
+            - if list or dictionary: the function generates trajectories with the properties stated in each dictionary.
+            - if bool: the function generates trajectories with default parameters set for the ANDI2022 challenge for every available diffusion model.
+        T : int, None
+            - if int: overrides the values of trajectory length in the dictionaries.
+            - if None: uses the trajectory length values in the dictionaries. 
+            Caution: the minim T of all dictionaries will be considered!
+        N_model : int, None
+            - if int: overrides the values of number of trajectories in the dictionaries.
+            - if None: uses the number of trajectories in the dictionaries
+        save : bool
+            If True, saves the generated dataset (see self._save_trajectories).
+        load : bool
+            If True, loads a dataset from path (see self._load_trajectories).
+        path : str
+            Path from where to save or load the dataset.
+            
+        Returns
+        ----------
+        tuple
+            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. 
+            - labels (array TxNx2): particles' labels (see ._multi_state for details on labels) 
         '''
         
         self.T = T
@@ -117,18 +126,20 @@ class datasets_phenom(datasets_phenom):
         
         return trajs, labels                        
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 13
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 12
 class datasets_phenom(datasets_phenom):   
     
-    def _create_trajectories(self):
-        ''' Given a list of dictionaries, generates trajectories of the demanded properties.
-        First checks in the .csv of each demanded model if a dataset of similar properties
-        exists. If it does, it loads it from the corresponding file.
-       
-        Outputs
-        -------
-            :data_t (array): array containing the generated trajectories
-            :data_l (array): array containing the corresponding labels.
+    def _create_trajectories(self): 
+        ''' 
+        Given a list of dictionaries, generates trajectories of the demanded properties.
+        First checks in the .csv of each demanded model if a dataset of similar properties exists. 
+        If it does, it loads it from the corresponding file.       
+        
+        Returns
+        ----------
+        tuple
+            data_t  array containing the generated trajectories
+            data_l  array containing the corresponding labels.
         '''
 
         for dic in self.dics:
@@ -168,11 +179,10 @@ class datasets_phenom(datasets_phenom):
         return data_t, data_l  
     
     def _save_trajectories(self, trajs, labels, dic, df, dataset_idx, path):
-        ''' Given a set of trajectories and labels, saves two things:
-        
-                - In the .csv corresponding to the demanded model, all the input parameters 
-                of the generated dataset.
-                - In a .npy file, the trajectories and labels generated.
+        ''' 
+        Given a set of trajectories and labels, saves two things:        
+            - In the .csv corresponding to the demanded model, all the input parameters of the generated dataset. This allows to keed that of what was created before.
+            - In a .npy file, the trajectories and labels generated.
         '''
         
         file_name = path+dic['model']+'_'+str(df.shape[0])+'.npy'
@@ -186,19 +196,34 @@ class datasets_phenom(datasets_phenom):
         np.save(file_name, data)
         
     def _load_trajectories(self, model_name, dataset_idx, path):
-        ''' Given the path for a dataset, loads the trajectories and labels'''
+        ''' 
+        Given the path for a dataset, loads the trajectories and labels
+        '''
         
         file_name = path+model_name+'_'+str(dataset_idx)+'.npy'
         data = np.load(file_name)
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 19
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 18
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
-        '''Checks the information of the input dictionaries, complete missing information
+        '''        
+        Checks the information of the input dictionaries so that they fulfil the constraints of the program , completes missing information
         with default values and then decides about loading/saving depending on parameters.
+        
+        Parameters
+        ----------
+        dic : dict
+            Dictionary with the information of the trajectories we want to generate
+        
+        Returns
+        -----------
+        tuple
+            df: dataframe collecting the information of the dataset to load.
+            dataset_idx: location in the previous dataframe of the particular dataset we want to generate.
+            
         '''        
             
         # Add time and number of trajectories information
@@ -257,22 +282,26 @@ class datasets_phenom(datasets_phenom):
                 # This allows to mix saving and loading
                 dataset_idx = False
                 
-        return dataset_idx, df
+        return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 22
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 21
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
-        ''' Given the name of a diffusion model, return its inputs arguments.
+        ''' 
+        Given the name of a diffusion model, return its inputs arguments.
         
-        Inputs
-        ------
-            :model (str): name of the diffusion model (see self.available_models_name)
-            :return_defaults (optional, bool): if True, the function will also return
-            the default values of each input argument.
-        Outputs
+        Parameters
+        ----------
+        model : str
+            Name of the diffusion model (see self.available_models_name)
+        return_defaults : bool
+            If True, the function will also return the default values of each input argument.
+            
+        Returns
         -------
-            :args (list): list of input arguments
-            :defaults (optional, list): list of default value for the input arguments.
+        tuple
+            args (list): list of input arguments.
+            defaults (optional, list): list of default value for the input arguments.
         '''
         model_f = self.avail_models_func[self.avail_models_name.index(model)]    
         # Check arguments and defaults from model's function            

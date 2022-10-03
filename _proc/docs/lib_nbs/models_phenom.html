@@ -344,7 +344,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#multiple_state_traj" id="toc-multiple_state_traj" class="nav-link" data-scroll-target="#multiple_state_traj">_multiple_state_traj</a></li>
   </ul></li>
-  <li><a href="#dataset-generation-1" id="toc-dataset-generation-1" class="nav-link" data-scroll-target="#dataset-generation-1">Dataset generation</a></li>
+  <li><a href="#dataset-generation-1" id="toc-dataset-generation-1" class="nav-link" data-scroll-target="#dataset-generation-1">Dataset generation</a>
+  <ul class="collapse">
+  <li><a href="#multi_state" id="toc-multi_state" class="nav-link" data-scroll-target="#multi_state">multi_state</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#dimerization" id="toc-dimerization" class="nav-link" data-scroll-target="#dimerization">Dimerization</a>
   <ul class="collapse">
@@ -355,7 +358,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#make_condensates" id="toc-make_condensates" class="nav-link" data-scroll-target="#make_condensates">_make_condensates</a></li>
   <li><a href="#stokes" id="toc-stokes" class="nav-link" data-scroll-target="#stokes">_stokes</a></li>
   </ul></li>
-  <li><a href="#time-evolution" id="toc-time-evolution" class="nav-link" data-scroll-target="#time-evolution">Time evolution</a></li>
+  <li><a href="#time-evolution" id="toc-time-evolution" class="nav-link" data-scroll-target="#time-evolution">Time evolution</a>
+  <ul class="collapse">
+  <li><a href="#dimerization-1" id="toc-dimerization-1" class="nav-link" data-scroll-target="#dimerization-1">dimerization</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#immobile-traps" id="toc-immobile-traps" class="nav-link" data-scroll-target="#immobile-traps">Immobile traps</a>
   <ul class="collapse">
@@ -932,9 +938,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="dataset-generation-1" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-generation-1">Dataset generation</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#show_doc(models_phenom.multi_state)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<hr>
+<section id="multi_state" class="level3">
+<h3 class="anchored" data-anchor-id="multi_state">multi_state</h3>
+<blockquote class="blockquote">
+<pre><code> multi_state (N=10, T=200, M:&lt;built-infunctionarray&gt;=[[0.9, 0.1], [0.1,
+              0.9]], Ds:&lt;built-infunctionarray&gt;=[[1, 0], [0.1, 0]],
+              alphas:&lt;built-infunctionarray&gt;=[[1, 0], [1, 0]],
+              gamma_d=[1], epsilon_a=[0], L=None, return_state_num=False,
+              init_state=None)</code></pre>
+</blockquote>
+<p>Generates a dataset of 2D multi state trajectory with given parameters.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N</td>
+<td>int</td>
+<td>10</td>
+<td>Number of trajectories</td>
+</tr>
+<tr class="even">
+<td>T</td>
+<td>int</td>
+<td>200</td>
+<td>Length of the trajectory</td>
+</tr>
+<tr class="odd">
+<td>M</td>
+<td>array</td>
+<td>[[0.9, 0.1], [0.1, 0.9]]</td>
+<td>Transition matrix between diffusive states</td>
+</tr>
+<tr class="even">
+<td>Ds</td>
+<td>array</td>
+<td>[[1, 0], [0.1, 0]]</td>
+<td>List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.</td>
+</tr>
+<tr class="odd">
+<td>alphas</td>
+<td>array</td>
+<td>[[1, 0], [1, 0]]</td>
+<td>List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.</td>
+</tr>
+<tr class="even">
+<td>gamma_d</td>
+<td>list</td>
+<td>[1]</td>
+<td>Minimum factor between D of diffusive states (see ._sampling_diff_parameters)</td>
+</tr>
+<tr class="odd">
+<td>epsilon_a</td>
+<td>list</td>
+<td>[0]</td>
+<td>Distance between alpha of diffusive states (see ._sampling_diff_parameters)</td>
+</tr>
+<tr class="even">
+<td>L</td>
+<td>NoneType</td>
+<td>None</td>
+<td>Length of the box acting as the environment</td>
+</tr>
+<tr class="odd">
+<td>return_state_num</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, returns as label the number assigned to the state at each time step.</td>
+</tr>
+<tr class="even">
+<td>init_state</td>
+<td>NoneType</td>
+<td>None</td>
+<td>If True, the particle starts in state 0. If not, sample initial state.</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>tuple</strong></td>
+<td></td>
+<td><strong>- trajs (array TxNx2): particles’ position<br>- labels (array TxNx2): particles’ labels (see ._multi_state for details on labels) </strong></td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -973,6 +1071,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="models_phenom_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="dimerization" class="level1">
@@ -1180,9 +1279,112 @@ After unbinding: 106</code></pre>
 </section>
 <section id="time-evolution" class="level2">
 <h2 class="anchored" data-anchor-id="time-evolution">Time evolution</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#show_doc(models_phenom.dimerization, name = 'dimerization')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<hr>
+<section id="dimerization-1" class="level3">
+<h3 class="anchored" data-anchor-id="dimerization-1">dimerization</h3>
+<blockquote class="blockquote">
+<pre><code> dimerization (N=10, T=200, L=100, r=1, Pu=0.1, Pb=0.01, Ds:&lt;built-
+               infunctionarray&gt;=[[1, 0], [0.1, 0]], alphas:&lt;built-
+               infunctionarray&gt;=[[1, 0], [1, 0]], epsilon_a=0,
+               stokes=False, return_state_num=False, deltaT=1)</code></pre>
+</blockquote>
+<p>Generates a dataset of 2D trajectories of particles perfoming stochastic dimerization.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N</td>
+<td>int</td>
+<td>10</td>
+<td>Number of trajectories</td>
+</tr>
+<tr class="even">
+<td>T</td>
+<td>int</td>
+<td>200</td>
+<td>Length of the trajectory</td>
+</tr>
+<tr class="odd">
+<td>L</td>
+<td>int</td>
+<td>100</td>
+<td>Length of the box acting as the environment</td>
+</tr>
+<tr class="even">
+<td>r</td>
+<td>int</td>
+<td>1</td>
+<td>Radius of particles.</td>
+</tr>
+<tr class="odd">
+<td>Pu</td>
+<td>float</td>
+<td>0.1</td>
+<td>Unbinding probability.</td>
+</tr>
+<tr class="even">
+<td>Pb</td>
+<td>float</td>
+<td>0.01</td>
+<td>Binding probability.</td>
+</tr>
+<tr class="odd">
+<td>Ds</td>
+<td>array</td>
+<td>[[1, 0], [0.1, 0]]</td>
+<td>List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.</td>
+</tr>
+<tr class="even">
+<td>alphas</td>
+<td>array</td>
+<td>[[1, 0], [1, 0]]</td>
+<td>List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.</td>
+</tr>
+<tr class="odd">
+<td>epsilon_a</td>
+<td>int</td>
+<td>0</td>
+<td>Distance between alpha of diffusive states (see ._sampling_diff_parameters)</td>
+</tr>
+<tr class="even">
+<td>stokes</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, applies a Stokes-Einstein like coefficient to calculate the diffusion coefficient of dimerized particles. <br>If False, we use as D resulting from the dimerization the D assigned to the dimerized state of one of the two particles.</td>
+</tr>
+<tr class="odd">
+<td>return_state_num</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, returns as label the number assigned to the state at each time step.</td>
+</tr>
+<tr class="even">
+<td>deltaT</td>
+<td>int</td>
+<td>1</td>
+<td>Sampling time</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>tuple</strong></td>
+<td></td>
+<td><strong>- trajs (array TxNx2): particles’ position<br>- labels (array TxNx2): particles’ labels (see ._multi_state for details on labels)</strong></td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Pu <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># Unbinding probability</span></span>
@@ -1231,6 +1433,7 @@ After unbinding: 106</code></pre>
 <p><img src="models_phenom_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="immobile-traps" class="level1">
@@ -1756,13 +1959,13 @@ After unbinding: 106</code></pre>
 <td>Ds</td>
 <td>list</td>
 <td>[[1, 0], [0.1, 0]]</td>
-<td>List of mean and variance from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.</td>
+<td>List of means and variances from which to sample the diffusion coefficient of each state. If element size is one, we consider variance = 0.</td>
 </tr>
 <tr class="odd">
 <td>alphas</td>
 <td>list</td>
 <td>[[1, 0], [1, 0]]</td>
-<td>List of mean and variance from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.</td>
+<td>List of means and variances from which to sample the anomalous exponent of each state. If element size is one, we consider variance = 0.</td>
 </tr>
 <tr class="even">
 <td>gamma_d</td>
