@@ -8,10 +8,10 @@ import numpy as np
 import math
 
 # %% ../source_nbs/lib_nbs/analysis.ipynb 5
-def get_angle(a:tuple, # point 1
-              b:tuple, # point 2
-              c:tuple # point 3       
-             ) -> tuple:  # angle between three points
+def get_angle(a:tuple, # 2d position point A
+              b:tuple, # 2d position point B
+              c:tuple # 2d position point C       
+             ) -> tuple:  # angle between segments AB and BC points
                 
     ''' Calculates the angle between the segments generate by three points '''
     ang = math.degrees(math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0]))

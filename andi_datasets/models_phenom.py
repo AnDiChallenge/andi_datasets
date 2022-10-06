@@ -55,8 +55,8 @@ class models_phenom(models_phenom):
             Sampling time
             
         Returns
-        ----------
-        disp : numpy.array
+        -------
+        numpy.array
             Array containing T displacements of given parameters
         
         '''

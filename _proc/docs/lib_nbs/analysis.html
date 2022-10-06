@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.1.251">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -396,6 +396,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>Calculates the angle between the segments generate by three points</p>
 <table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
@@ -407,22 +412,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="odd">
 <td>a</td>
 <td>tuple</td>
-<td>point 1</td>
+<td>2d position point A</td>
 </tr>
 <tr class="even">
 <td>b</td>
 <td>tuple</td>
-<td>point 2</td>
+<td>2d position point B</td>
 </tr>
 <tr class="odd">
 <td>c</td>
 <td>tuple</td>
-<td>point 3</td>
+<td>2d position point C</td>
 </tr>
 <tr class="even">
 <td><strong>Returns</strong></td>
 <td><strong>tuple</strong></td>
-<td><strong>angle between three points</strong></td>
+<td><strong>angle between segments AB and BC points</strong></td>
 </tr>
 </tbody>
 </table>
@@ -437,12 +442,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code> msd_analysis ()</code></pre>
 </blockquote>
 <p>Contains mean squared displacement (MSD) based methods to analyze trajectories.</p>
-<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Returns 
----------- in 
-Calculates the time average mean squared displacement (TA-MSD) of a trajectory at various time lags,
-...
-  else: warn(msg)</code></pre>
 <hr>
 </section>
 <section id="msd_analysis.tamsd" class="level3">
@@ -477,12 +476,6 @@ Calculates the time average mean squared displacement (TA-MSD) of a trajectory a
 </tr>
 </tbody>
 </table>
-<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Returns 
----------- in 
-Calculates the diffusion coefficient of a trajectory by means of the linear
-fitting of the TA-MSD....
-  else: warn(msg)</code></pre>
 <hr>
 </section>
 <section id="msd_analysis.get_diff_coeff" class="level3">
@@ -529,15 +522,15 @@ fitting of the TA-MSD....
 </table>
 <p>Here we show an example for the calculation of a Brownian motion trajectory. We create 100 trajectories from displacements of variance <span class="math inline">\(\sigma =1\)</span>, which results in a diffusion coefficient <span class="math inline">\(D=0.5\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> []</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):    </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> np.cumsum(np.random.randn(<span class="dv">100</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    D.append(msd_analysis().get_diff_coeff(pos))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.hist(D, bins <span class="op">=</span> <span class="dv">30</span>)<span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.mean(D), c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="ss">f'Mean of predictions = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.mean(D), <span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>)                                                                  </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, c <span class="op">=</span> <span class="st">'r'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Expected'</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> []</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):    </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> np.cumsum(np.random.randn(<span class="dv">100</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    D.append(msd_analysis().get_diff_coeff(pos))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.hist(D, bins <span class="op">=</span> <span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.mean(D), c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="ss">f'Mean of predictions = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.mean(D), <span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>)                                                                  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, c <span class="op">=</span> <span class="st">'r'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Expected'</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
 </div>
@@ -545,12 +538,6 @@ fitting of the TA-MSD....
 <p><img src="analysis_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Returns 
----------- in 
-Calculates the anolaous of a trajectory by means of the linear
-fitting of the logarithm of the TA-MSD....
-  else: warn(msg)</code></pre>
 <hr>
 </section>
 <section id="msd_analysis.get_exponent" class="level3">
@@ -597,15 +584,15 @@ fitting of the logarithm of the TA-MSD....
 </table>
 <p>To showcase this function, we generate fractional brownian motion trajectories with <span class="math inline">\(\alpha = 0.5\)</span> and calculate their exponent:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> []</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>trajs, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">1000</span>, T <span class="op">=</span> <span class="dv">100</span>, alphas <span class="op">=</span> <span class="fl">0.5</span>) </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj <span class="kw">in</span> trajs.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>):    </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    alpha.append(msd_analysis().get_exponent(traj[:,<span class="dv">0</span>]))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.hist(alpha, bins <span class="op">=</span> <span class="dv">30</span>)<span class="op">;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.mean(alpha), c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="ss">f'Mean of predictions = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.mean(alpha), <span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, c <span class="op">=</span> <span class="st">'r'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Expected'</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>trajs, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">1000</span>, T <span class="op">=</span> <span class="dv">100</span>, alphas <span class="op">=</span> <span class="fl">0.5</span>) </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj <span class="kw">in</span> trajs.transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>):    </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    alpha.append(msd_analysis().get_exponent(traj[:,<span class="dv">0</span>]))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.hist(alpha, bins <span class="op">=</span> <span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.mean(alpha), c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="ss">f'Mean of predictions = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.mean(alpha), <span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, c <span class="op">=</span> <span class="st">'r'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Expected'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
 </div>
@@ -617,12 +604,6 @@ fitting of the logarithm of the TA-MSD....
 </section>
 <section id="velocity-autocorrelation-function-vacf" class="level1">
 <h1>Velocity Autocorrelation Function (VACF)</h1>
-<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Returns 
----------- in 
-Calculates the velocity autocorrelation function for 
-the given set of trajectories....
-  else: warn(msg)</code></pre>
 <hr>
 <section id="vacf" class="level3">
 <h3 class="anchored" data-anchor-id="vacf">vacf</h3>
@@ -675,16 +656,16 @@ the given set of trajectories....
 </table>
 <p>We show here an example of the VACF for FBM trajectories at various time lages, showing that they all coincide (as expected for this diffusion model).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>deltats <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">5</span>).tolist()</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>taus <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>trajs, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">200</span>, T <span class="op">=</span> <span class="dv">200</span>, alphas <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)[:,:,<span class="dv">0</span>]</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> deltat <span class="kw">in</span> deltats:  </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> vacf(trajs, deltat, taus)        </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(taus<span class="op">/</span>deltat, v.flatten(), <span class="st">'o-'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>)    </span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'VACF'</span>)<span class="op">;</span> plt.xlabel(<span class="vs">r'$\tau / \delta$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>deltats <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">5</span>).tolist()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>taus <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>trajs, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">200</span>, T <span class="op">=</span> <span class="dv">200</span>, alphas <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)[:,:,<span class="dv">0</span>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> deltat <span class="kw">in</span> deltats:  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> vacf(trajs, deltat, taus)        </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(taus<span class="op">/</span>deltat, v.flatten(), <span class="st">'o-'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>)    </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'VACF'</span>)<span class="op">;</span> plt.xlabel(<span class="vs">r'$\tau / \delta$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>Text(0.5, 0, '$\\tau / \\delta$')</code></pre>
 </div>
@@ -696,12 +677,6 @@ the given set of trajectories....
 </section>
 <section id="convex-hull-analysis" class="level1">
 <h1>Convex hull analysis</h1>
-<pre><code>C:\Users\Gorka\miniconda3\envs\andi_datasets\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Returns 
----------- in 
-Computes the changes points a multistate trajectory based on the Convex Hull approach proposed in PRE 96 (022144), 2017.
-...
-  else: warn(msg)</code></pre>
 <hr>
 <section id="ch_changepoints" class="level3">
 <h3 class="anchored" data-anchor-id="ch_changepoints">CH_changepoints</h3>
@@ -753,39 +728,39 @@ Computes the changes points a multistate trajectory based on the Convex Hull app
 </table>
 <p>We showcase the use of the convex hull in a Brownian motion trajectory with two distinct diffusion coefficients, one 10 times the other:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate trajectories and plot change points</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> on <span class="op">=</span> <span class="dv">40</span><span class="op">;</span> off <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> np.random.randn(T, <span class="dv">2</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>traj[on:off, :] <span class="op">=</span> traj[on:off, :]<span class="op">*</span><span class="dv">10</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> traj.cumsum(<span class="dv">0</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(on<span class="op">-</span>tau, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(off<span class="op">-</span>tau, c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="st">'True change points'</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variable Sd </span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>tau <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>Sd <span class="op">=</span> np.zeros(traj.shape[<span class="dv">0</span>]<span class="op">-</span><span class="dv">2</span><span class="op">*</span>tau)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(traj.shape[<span class="dv">0</span>]<span class="op">-</span><span class="dv">2</span><span class="op">*</span>tau):       </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    Sd[k] <span class="op">=</span> ConvexHull(traj[k:(k<span class="op">+</span><span class="dv">2</span><span class="op">*</span>tau)], ).volume  </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute change points both with volume and area</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>CPs <span class="op">=</span> CH_changepoints([traj], tau <span class="op">=</span> tau)[<span class="dv">0</span>].flatten()<span class="op">-</span>tau</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>CPs_a <span class="op">=</span> CH_changepoints([traj], tau <span class="op">=</span> tau, metric <span class="op">=</span> <span class="st">'area'</span>)[<span class="dv">0</span>].flatten()<span class="op">-</span>tau</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot everything</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>label_cp <span class="op">=</span> <span class="st">'CH Volume'</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cp <span class="kw">in</span> CPs:</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    plt.axvline(cp, c <span class="op">=</span> <span class="st">'g'</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> label_cp)</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    label_cp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>label_cp <span class="op">=</span> <span class="st">'CH Area'</span>    </span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cp <span class="kw">in</span> CPs_a:</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    plt.axvline(cp, alpha <span class="op">=</span> <span class="fl">0.8</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'orange'</span>, label <span class="op">=</span> label_cp)</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    label_cp <span class="op">=</span> <span class="st">''</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>plt.plot(Sd, <span class="st">'-o'</span>)</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>plt.axhline(Sd.mean(), label <span class="op">=</span> <span class="st">'CH Volume mean'</span>, c <span class="op">=</span> <span class="st">'g'</span>,)</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)<span class="op">;</span> plt.ylabel(<span class="vs">r'$S_d(n)$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate trajectories and plot change points</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> on <span class="op">=</span> <span class="dv">40</span><span class="op">;</span> off <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> np.random.randn(T, <span class="dv">2</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>traj[on:off, :] <span class="op">=</span> traj[on:off, :]<span class="op">*</span><span class="dv">10</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> traj.cumsum(<span class="dv">0</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(on<span class="op">-</span>tau, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(off<span class="op">-</span>tau, c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="st">'True change points'</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variable Sd </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>tau <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>Sd <span class="op">=</span> np.zeros(traj.shape[<span class="dv">0</span>]<span class="op">-</span><span class="dv">2</span><span class="op">*</span>tau)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(traj.shape[<span class="dv">0</span>]<span class="op">-</span><span class="dv">2</span><span class="op">*</span>tau):       </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    Sd[k] <span class="op">=</span> ConvexHull(traj[k:(k<span class="op">+</span><span class="dv">2</span><span class="op">*</span>tau)], ).volume  </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute change points both with volume and area</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>CPs <span class="op">=</span> CH_changepoints([traj], tau <span class="op">=</span> tau)[<span class="dv">0</span>].flatten()<span class="op">-</span>tau</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>CPs_a <span class="op">=</span> CH_changepoints([traj], tau <span class="op">=</span> tau, metric <span class="op">=</span> <span class="st">'area'</span>)[<span class="dv">0</span>].flatten()<span class="op">-</span>tau</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot everything</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>label_cp <span class="op">=</span> <span class="st">'CH Volume'</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cp <span class="kw">in</span> CPs:</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    plt.axvline(cp, c <span class="op">=</span> <span class="st">'g'</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> label_cp)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    label_cp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>label_cp <span class="op">=</span> <span class="st">'CH Area'</span>    </span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cp <span class="kw">in</span> CPs_a:</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    plt.axvline(cp, alpha <span class="op">=</span> <span class="fl">0.8</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'orange'</span>, label <span class="op">=</span> label_cp)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    label_cp <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>plt.plot(Sd, <span class="st">'-o'</span>)</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>plt.axhline(Sd.mean(), label <span class="op">=</span> <span class="st">'CH Volume mean'</span>, c <span class="op">=</span> <span class="st">'g'</span>,)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)<span class="op">;</span> plt.ylabel(<span class="vs">r'$S_d(n)$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>Text(0, 0.5, '$S_d(n)$')</code></pre>
 </div>

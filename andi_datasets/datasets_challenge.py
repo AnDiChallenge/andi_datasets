@@ -10,7 +10,7 @@ import pandas as pd
 import os
 import csv
 
-from .utils_challenge import segs_inside_fov, continuous_label_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
+from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
 from .utils_trajectories import normalize
@@ -553,23 +553,24 @@ def challenge_2022_dataset(
     get_video_masks : bool
         If True, get masks of videos 
 
-    Outputs
-    --------
-    trajs_out : list
-        List of lenght (experiments x num_fovs). Each elements are is dataframe
-        containing the trajectories of a particular experiment/fov, in order of 
-        generation (i.e. [exp1_fov1, exp1_fov2, ..., exp2_fov1 ....]).
-        If return_timestep_labs = True, the dataframes also contain the labels
-        at each time step.
-    labels_traj_out : list
-        list of same length of trajs_out containing the labels of the 
-        corresponding trajectories. Each element contains a list with the 
-        labels of each trajectory, following the scheme:
-        [idx_traj, D_1, alpha_1, state_1, CP_1, D_2, alpha_2, .... state_N]
-    labels_ens_out : list
-        list of same length of trajs_out containing the ensemble labels of 
-        given experiment. See description of output matrix in 
-        utils_challenge._extract_ensemble()
+    Returns
+    -------
+    tuple
+        - trajs_out:
+            List of lenght (experiments x num_fovs). Each elements are is dataframe
+            containing the trajectories of a particular experiment/fov, in order of 
+            generation (i.e. [exp1_fov1, exp1_fov2, ..., exp2_fov1 ....]).
+            If return_timestep_labs = True, the dataframes also contain the labels
+            at each time step.
+        - labels_traj_out:
+            list of same length of trajs_out containing the labels of the 
+            corresponding trajectories. Each element contains a list with the 
+            labels of each trajectory, following the scheme:
+            [idx_traj, D_1, alpha_1, state_1, CP_1, D_2, alpha_2, .... state_N]
+        - labels_ens_out:
+            list of same length of trajs_out containing the ensemble labels of 
+            given experiment. See description of output matrix in 
+            utils_challenge._extract_ensemble()
         '''
 
 
@@ -671,9 +672,9 @@ def challenge_2022_dataset(
                         # Tranform continuous labels to list for correct output
                         if model == 2 or model == 4: 
                             # if multi-state or dimerization, we get rid of the label of state numbering
-                            CP, alphas, Ds, states = continuous_label_to_list(lab_seg[:, :-1])
+                            CP, alphas, Ds, states = label_continuous_to_list(lab_seg[:, :-1])
                         else:
-                            CP, alphas, Ds, states = continuous_label_to_list(lab_seg)
+                            CP, alphas, Ds, states = label_continuous_to_list(lab_seg)
                         
                         # Extract final point of trajectory 
                         T = CP[-1]

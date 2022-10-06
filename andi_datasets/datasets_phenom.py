@@ -5,8 +5,6 @@ __all__ = ['datasets_phenom']
 
 # %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 2
 from .models_phenom import models_phenom
-from .utils_trajectories import segs_inside_fov
-from .utils_challenge import label_filter, continuous_label_to_list, extract_ensemble
 
 import inspect
 import numpy as np
