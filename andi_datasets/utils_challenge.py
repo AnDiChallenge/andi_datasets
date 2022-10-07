@@ -967,7 +967,7 @@ def extract_ensemble(state_label, dic):
                                    ))
         return ensemble
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 71
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 70
 import scipy.stats
 def multimode_dist(params, weights, bound, x, normalized = False):
     '''
@@ -1017,7 +1017,7 @@ def multimode_dist(params, weights, bound, x, normalized = False):
         dist /= np.sum(dist)
     return dist
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 73
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 71
 def distribution_distance(p:np.array, # distribution 1
                           q:np.array # distribution 2
                          )-> float:  # distance between distributions
@@ -1025,7 +1025,7 @@ def distribution_distance(p:np.array, # distribution 1
 #     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
     return np.abs(p-q).mean()
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 76
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 74
 from .models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
@@ -1086,7 +1086,7 @@ def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
     else:
         return distance_alpha, distance_D
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 78
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 76
 def check_prediction_length(pred):
     '''
     Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values.
@@ -1099,7 +1099,7 @@ def check_prediction_length(pred):
     else: 
         return False
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 79
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 77
 def separate_prediction_values(pred):
     '''
     Given a prediction over trjaectory segments, extracts the predictions for each segment property
@@ -1111,7 +1111,7 @@ def separate_prediction_values(pred):
     cp = pred[4::4]    
     return Ds, alphas, states, cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 80
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 78
 def load_file_to_df(path_file, 
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
     '''
@@ -1142,7 +1142,7 @@ def load_file_to_df(path_file,
                 
     return df
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 85
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 83
 def _get_error_bounds():
     '''
     Sets the current maximum errors we can do in the different diffusive properties.
@@ -1154,7 +1154,7 @@ def _get_error_bounds():
     threshold_cp = 10
     return threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 86
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 84
 def error_SingleTraj_dataset(df_pred, df_true, 
                               threshold_error_alpha = 2, max_val_alpha = 2, min_val_alpha = 0, 
                               threshold_error_D = 1e5, max_val_D = 1e6, min_val_D = 1e-6, 
@@ -1293,18 +1293,18 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 98
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 96
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 99
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 97
 def listdir_nohidden(path):
     for f in os.listdir(path):
         if not f.startswith(('.','_')):
             yield f
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 100
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 98
 def codalab_scoring(input_dir , output_dir):
     '''
     Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found,

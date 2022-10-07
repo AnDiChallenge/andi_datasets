@@ -1,83 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gorkamunoz.github.io/andi_datasets/figures/figures_andi2/generate scheme.html</loc>
-    <lastmod>2022-10-03T11:35:37.998Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gorkamunoz.github.io/andi_datasets/figures/figures_andi2/generate_frames.html</loc>
-    <lastmod>2022-10-03T11:35:39.692Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gorkamunoz.github.io/andi_datasets/figures/figures_andi2/generate_videos.html</loc>
-    <lastmod>2022-10-03T11:35:40.612Z</lastmod>
-  </url>
-  <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/index.html</loc>
-    <lastmod>2022-10-03T11:35:41.356Z</lastmod>
+    <lastmod>2022-10-07T09:05:53.752Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/analysis.html</loc>
-    <lastmod>2022-10-03T11:39:37.936Z</lastmod>
+    <lastmod>2022-10-07T09:05:54.281Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/datasets_challenge.html</loc>
-    <lastmod>2022-10-06T13:08:15.302Z</lastmod>
+    <lastmod>2022-10-07T09:07:51.004Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/datasets_phenom.html</loc>
-    <lastmod>2022-10-04T08:05:03.102Z</lastmod>
+    <lastmod>2022-10-07T09:05:55.264Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/datasets_theory.html</loc>
-    <lastmod>2022-10-03T11:35:44.050Z</lastmod>
+    <lastmod>2022-10-07T09:16:47.271Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/index_docs.html</loc>
+    <lastmod>2022-10-07T09:05:56.027Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/models_phenom.html</loc>
-    <lastmod>2022-10-06T13:02:31.478Z</lastmod>
+    <lastmod>2022-10-07T09:05:56.929Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/models_theory.html</loc>
-    <lastmod>2022-10-06T10:47:38.081Z</lastmod>
+    <lastmod>2022-10-07T09:05:57.290Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/utils_challenge.html</loc>
-    <lastmod>2022-10-06T13:15:24.087Z</lastmod>
+    <lastmod>2022-10-07T09:05:58.364Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/utils_trajectories.html</loc>
-    <lastmod>2022-10-06T13:15:54.916Z</lastmod>
+    <lastmod>2022-10-07T09:05:58.873Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/lib_nbs/utils_videos.html</loc>
-    <lastmod>2022-10-06T10:32:23.792Z</lastmod>
+    <lastmod>2022-10-07T09:05:59.711Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/andi2_tutorial_video_datasets.html</loc>
-    <lastmod>2022-10-03T11:35:57.108Z</lastmod>
+    <lastmod>2022-10-07T09:06:04.758Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/challenge_one_datasets.html</loc>
-    <lastmod>2022-10-03T11:35:58.110Z</lastmod>
+    <lastmod>2022-10-07T09:25:32.283Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/challenge_one_submission.html</loc>
-    <lastmod>2022-10-06T10:33:54.162Z</lastmod>
+    <lastmod>2022-10-07T09:19:45.648Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/challenge_two_datasets.html</loc>
-    <lastmod>2022-10-03T11:35:59.793Z</lastmod>
+    <lastmod>2022-10-07T09:18:47.402Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/changes v2.html</loc>
-    <lastmod>2022-09-30T11:33:45.433Z</lastmod>
+    <lastmod>2022-10-07T09:06:08.328Z</lastmod>
   </url>
   <url>
     <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/creating_videos_phenom.html</loc>
-    <lastmod>2022-10-06T10:47:06.162Z</lastmod>
+    <lastmod>2022-10-07T09:06:10.653Z</lastmod>
   </url>
   <url>
-    <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/tutorials.html</loc>
-    <lastmod>2022-09-30T11:33:48.794Z</lastmod>
+    <loc>https://gorkamunoz.github.io/andi_datasets/tutorials/index_tutorials.html</loc>
+    <lastmod>2022-10-07T09:25:29.226Z</lastmod>
   </url>
 </urlset>

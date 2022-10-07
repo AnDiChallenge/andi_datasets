@@ -8,7 +8,7 @@ import numpy as np
 import os
 import inspect
 import h5py
-from tqdm import trange
+from tqdm.auto import trange
 import csv
 
 # %% ../source_nbs/lib_nbs/datasets_theory.ipynb 4

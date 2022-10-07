@@ -4,7 +4,7 @@ website:
     collapse-level: 1
     contents:      
       - section: Documentation
-        href: index.md
+        href: lib_nbs/index_docs.ipynb
         contents:  
           - section: "Theory datasets"
             contents:        
@@ -26,7 +26,7 @@ website:
                 - lib_nbs/utils_trajectories.ipynb            
                 - lib_nbs/utils_videos.ipynb
       - section: Tutorials 
-        href: tutorials/tutorials.md
+        href: tutorials/index_tutorials.ipynb
         contents: 
             - tutorials/challenge_one_datasets.ipynb
             - tutorials/challenge_one_submission.ipynb

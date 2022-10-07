@@ -156,10 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page">Documentation</a>
+    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">Documentation</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/tutorials.html">Tutorials</a>
+    <a class="nav-link" href="../tutorials/index_tutorials.md">Tutorials</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../index.html" class="sidebar-item-text sidebar-link">Documentation</a>
+            <a href="../lib_nbs/index_docs.html" class="sidebar-item-text sidebar-link">Documentation</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../tutorials/tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+            <a href="../tutorials/index_tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -545,6 +545,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="models_phenom_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Parameters 
+------------ in 
+Given information of the anomalous exponents (alphas), diffusion coefficients (Ds), the function
+samples these from a bounded Gaussian distribution with the indicated constraints (epsilon_a,...
+  else: warn(msg)</code></pre>
 <hr>
 </section>
 <section id="sample_diff_parameters" class="level3">
@@ -596,10 +602,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>models_phenom._sample_diff_parameters(alphas <span class="op">=</span> [[<span class="dv">1</span>,<span class="fl">0.1</span>]]<span class="op">*</span><span class="dv">2</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                      Ds <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">10</span>]]<span class="op">*</span><span class="dv">2</span>, </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                      num_states<span class="op">=</span><span class="dv">2</span>, </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                      epsilon_a <span class="op">=</span> [<span class="fl">0.5</span>, <span class="fl">0.01</span>], gamma_d <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>models_phenom._sample_diff_parameters(alphas <span class="op">=</span> [[<span class="dv">1</span>,<span class="fl">0.1</span>]]<span class="op">*</span><span class="dv">2</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                      Ds <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">10</span>]]<span class="op">*</span><span class="dv">2</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                      num_states<span class="op">=</span><span class="dv">2</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                      epsilon_a <span class="op">=</span> [<span class="fl">0.5</span>, <span class="fl">0.01</span>], gamma_d <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>([1.115597834914795, 0.5914573119483875],
  [2.644760360927501, 7.380304450199705])</code></pre>
@@ -607,28 +613,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can test that this distances are taken into account when generating trajectories:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>epsilon_a<span class="op">=</span>[<span class="fl">0.5</span>]<span class="op">;</span> gamma_d <span class="op">=</span> [<span class="fl">0.75</span>]</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                           epsilon_a<span class="op">=</span>epsilon_a, gamma_d <span class="op">=</span> gamma_d, <span class="co"># This is the important part </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                           T <span class="op">=</span> T, N <span class="op">=</span> N, L <span class="op">=</span> L,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                           Ds <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="dv">0</span>], [<span class="dv">2</span>, <span class="fl">0.2</span>]]), </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                                           alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="fl">0.75</span>, <span class="fl">0.1</span>]]),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                           return_state_num<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>epsilon_a<span class="op">=</span>[<span class="fl">0.5</span>]<span class="op">;</span> gamma_d <span class="op">=</span> [<span class="fl">0.75</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                           epsilon_a<span class="op">=</span>epsilon_a, gamma_d <span class="op">=</span> gamma_d, <span class="co"># This is the important part </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                           T <span class="op">=</span> T, N <span class="op">=</span> N, L <span class="op">=</span> L,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                           Ds <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="dv">0</span>], [<span class="dv">2</span>, <span class="fl">0.2</span>]]), </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                                           alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="fl">0.75</span>, <span class="fl">0.1</span>]]),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                                           return_state_num<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> labels[:,:,<span class="dv">0</span>].flatten()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> labels[:,:,<span class="dv">1</span>].flatten()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>states_num <span class="op">=</span> labels[:,:,<span class="dv">3</span>].flatten()</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> np.unique(states_num):    </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].hist(alphas[states_num <span class="op">==</span> s], bins <span class="op">=</span> <span class="dv">100</span>, density <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].hist(Ds[states_num <span class="op">==</span> s], bins <span class="op">=</span> <span class="dv">100</span>, density <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="vs">fr'Distribution of $\alpha$ - $\epsilon_a = </span><span class="sc">{</span>epsilon_a[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">$'</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="vs">fr'Distribution of $D$ - $\gamma_d = </span><span class="sc">{</span>gamma_d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">$'</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, ylim <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">10</span>])</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlim(<span class="dv">0</span>,<span class="fl">1.1</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlim(<span class="dv">0</span>,<span class="fl">2.1</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'Frequency'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> labels[:,:,<span class="dv">0</span>].flatten()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> labels[:,:,<span class="dv">1</span>].flatten()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>states_num <span class="op">=</span> labels[:,:,<span class="dv">3</span>].flatten()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> np.unique(states_num):    </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].hist(alphas[states_num <span class="op">==</span> s], bins <span class="op">=</span> <span class="dv">100</span>, density <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].hist(Ds[states_num <span class="op">==</span> s], bins <span class="op">=</span> <span class="dv">100</span>, density <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="vs">fr'Distribution of $\alpha$ - $\epsilon_a = </span><span class="sc">{</span>epsilon_a[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">$'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="vs">fr'Distribution of $D$ - $\gamma_d = </span><span class="sc">{</span>gamma_d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">$'</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, ylim <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">10</span>])</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlim(<span class="dv">0</span>,<span class="fl">1.1</span>)<span class="op">;</span> ax[<span class="dv">1</span>].set_xlim(<span class="dv">0</span>,<span class="fl">2.1</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'Frequency'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>Text(0, 0.5, 'Frequency')</code></pre>
 </div>
@@ -643,6 +649,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Particles diffusing according to a single diffusion state, as observed for some lipids in the plasma membrane or for nanoparticles in the cellular environment.</p>
 <section id="single-trajectory-generator" class="level2">
 <h2 class="anchored" data-anchor-id="single-trajectory-generator">Single trajectory generator</h2>
+<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Parameters 
+----------- in 
+Generates a single state trajectory with given parameters. 
+...
+  else: warn(msg)
+C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Returns 
+---------- in 
+Generates a single state trajectory with given parameters. 
+...
+  else: warn(msg)</code></pre>
 <hr>
 <section id="single_state_traj" class="level3">
 <h3 class="anchored" data-anchor-id="single_state_traj">_single_state_traj</h3>
@@ -706,27 +724,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>traj, labels <span class="op">=</span> models_phenom._single_state_traj(D <span class="op">=</span> <span class="fl">0.05</span>,  alpha <span class="op">=</span> <span class="fl">1.5</span>, </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                                                T <span class="op">=</span><span class="dv">1000</span>, L <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">2</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(traj[:, <span class="dv">0</span>], traj[:, <span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="st">'X'</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="st">'Y'</span>, )</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], ylabel <span class="op">=</span> <span class="st">'Position'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend()</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$D$'</span> )</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">2</span>], ylabel <span class="op">=</span> <span class="st">'Label'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].legend()</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> [<span class="dv">0</span>,<span class="dv">10</span>]:</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axvline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>traj, labels <span class="op">=</span> models_phenom._single_state_traj(D <span class="op">=</span> <span class="fl">0.05</span>,  alpha <span class="op">=</span> <span class="fl">1.5</span>, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                                                T <span class="op">=</span><span class="dv">1000</span>, L <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">2</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(traj[:, <span class="dv">0</span>], traj[:, <span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="st">'X'</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="st">'Y'</span>, )</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], ylabel <span class="op">=</span> <span class="st">'Position'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend()</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$D$'</span> )</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">2</span>], ylabel <span class="op">=</span> <span class="st">'Label'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].legend()</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> [<span class="dv">0</span>,<span class="dv">10</span>]:</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axvline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
@@ -735,6 +753,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="dataset-generation" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-generation">Dataset generation</h2>
+<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Parameters 
+----------- in 
+Generates a dataset made of single state trajectories with given parameters.
+...
+  else: warn(msg)
+C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Returns 
+---------- in 
+Generates a dataset made of single state trajectories with given parameters.
+...
+  else: warn(msg)</code></pre>
 <hr>
 <section id="single_state" class="level3">
 <h3 class="anchored" data-anchor-id="single_state">single_state</h3>
@@ -798,23 +828,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">5</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> [<span class="fl">0.8</span>, <span class="fl">0.1</span>]<span class="op">;</span> D <span class="op">=</span> <span class="fl">1.2</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                           L <span class="op">=</span> L,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                                           T <span class="op">=</span> T, </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                                           alphas <span class="op">=</span> alpha,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                                           Ds <span class="op">=</span> D)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>ax.hist(labels[<span class="dv">0</span>,:,<span class="dv">0</span>], bins <span class="op">=</span> <span class="dv">50</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">5</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> [<span class="fl">0.8</span>, <span class="fl">0.1</span>]<span class="op">;</span> D <span class="op">=</span> <span class="fl">1.2</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                           L <span class="op">=</span> L,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                                           T <span class="op">=</span> T, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                                           alphas <span class="op">=</span> alpha,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                                           Ds <span class="op">=</span> D)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>ax.hist(labels[<span class="dv">0</span>,:,<span class="dv">0</span>], bins <span class="op">=</span> <span class="dv">50</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
 </div>
@@ -909,32 +939,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>traj, labels <span class="op">=</span> models_phenom._multiple_state_traj(T <span class="op">=</span> T,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                                  L <span class="op">=</span> L,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                                  alphas <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.7</span>], </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                                  Ds <span class="op">=</span> [<span class="fl">1.5</span>, <span class="dv">2</span>],                                                  </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                                                  return_state_num<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(traj[:, <span class="dv">0</span>], traj[:, <span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">0</span>], label <span class="op">=</span> <span class="st">'X'</span>)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Y'</span>, )</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], ylabel <span class="op">=</span> <span class="st">'Position'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend()</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$D$'</span> )</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">3</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$state \#$'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span> )</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">2</span>], ylabel <span class="op">=</span> <span class="st">'Label'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].legend()</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> [<span class="dv">0</span>,L]:</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axvline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>traj, labels <span class="op">=</span> models_phenom._multiple_state_traj(T <span class="op">=</span> T,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                                  L <span class="op">=</span> L,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                                  alphas <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.7</span>], </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                                  Ds <span class="op">=</span> [<span class="fl">1.5</span>, <span class="dv">2</span>],                                                  </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                                                  return_state_num<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(traj[:, <span class="dv">0</span>], traj[:, <span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">0</span>], label <span class="op">=</span> <span class="st">'X'</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(traj[:, <span class="dv">1</span>], label <span class="op">=</span> <span class="st">'Y'</span>, )</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], ylabel <span class="op">=</span> <span class="st">'Position'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend()</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">0</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">1</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$D$'</span> )</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].plot(labels[:, <span class="dv">3</span>], <span class="st">'.'</span>, label <span class="op">=</span> <span class="vs">r'$state \#$'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span> )</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">2</span>], ylabel <span class="op">=</span> <span class="st">'Label'</span>, xlabel <span class="op">=</span> <span class="st">'Time'</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">2</span>].legend()</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> [<span class="dv">0</span>,L]:</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].axvline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].axhline(b, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
 </div>
@@ -1039,29 +1069,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> N, T <span class="op">=</span> T, L <span class="op">=</span> L,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                            M <span class="op">=</span> np.array([[<span class="fl">0.95</span> , <span class="fl">0.05</span>],[<span class="fl">0.05</span>, <span class="fl">0.95</span>]]),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="fl">0.5</span>]]), </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="fl">0.01</span>], [<span class="fl">0.5</span>, <span class="fl">0.02</span>]]),</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                                            epsilon_a<span class="op">=</span>[<span class="fl">0.4</span>], gamma_d <span class="op">=</span> [<span class="fl">0.75</span>],</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                                            return_state_num<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> N, T <span class="op">=</span> T, L <span class="op">=</span> L,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                                            M <span class="op">=</span> np.array([[<span class="fl">0.95</span> , <span class="fl">0.05</span>],[<span class="fl">0.05</span>, <span class="fl">0.95</span>]]),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="fl">0.5</span>]]), </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="fl">0.01</span>], [<span class="fl">0.5</span>, <span class="fl">0.02</span>]]),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                                            epsilon_a<span class="op">=</span>[<span class="fl">0.4</span>], gamma_d <span class="op">=</span> [<span class="fl">0.75</span>],</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                                            return_state_num<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can first check the parameter distributions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $D$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $D$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
 </div>
@@ -1071,7 +1101,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>And then see some examples of trajectories:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
@@ -1220,29 +1250,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <p>Here is a test in which some particles, distributed randomly through a bounded space, first bind and then unbind using the previous defined functions:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Binding and unbinding probabilities</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="fl">0.8</span><span class="op">;</span> Pu <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the particles</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">200</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> max_n <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> Ds <span class="op">=</span> np.ones(<span class="dv">100</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> np.random.rand(N, <span class="dv">2</span>)<span class="op">*</span>L    </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Put random labels (label = which condensate you belong). diff_state is zero because all are unbound)</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> np.arange(N)<span class="co">#np.random.choice(range(500), N, replace = False)</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>diff_state <span class="op">=</span> np.zeros(N).astype(<span class="bu">int</span>)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define max_label bigger than max of label so everybody binds</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>max_label <span class="op">=</span> <span class="bu">max</span>(label)<span class="op">+</span><span class="dv">2</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance between particles</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> models_phenom._get_distance(pos)</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'# of free particles:'</span>)</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Before binding: </span><span class="sc">{</span><span class="bu">len</span>(label)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># First make particle bind:</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>lab, ds <span class="op">=</span> models_phenom._make_condensates(Pb, label, diff_state, r, distance, max_label)</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'After binding: </span><span class="sc">{</span>np<span class="sc">.</span>unique(lab[np.argwhere(ds <span class="op">==</span> <span class="dv">0</span>)], return_counts<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Then we do unbinding:</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>lab, ds <span class="op">=</span> models_phenom._make_escape(Pu, lab, ds)</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'After unbinding: </span><span class="sc">{</span>np<span class="sc">.</span>unique(lab[np.argwhere(ds <span class="op">==</span> <span class="dv">0</span>)], return_counts<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Binding and unbinding probabilities</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="fl">0.8</span><span class="op">;</span> Pu <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the particles</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">200</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> max_n <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> Ds <span class="op">=</span> np.ones(<span class="dv">100</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> np.random.rand(N, <span class="dv">2</span>)<span class="op">*</span>L    </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Put random labels (label = which condensate you belong). diff_state is zero because all are unbound)</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> np.arange(N)<span class="co">#np.random.choice(range(500), N, replace = False)</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>diff_state <span class="op">=</span> np.zeros(N).astype(<span class="bu">int</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define max_label bigger than max of label so everybody binds</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>max_label <span class="op">=</span> <span class="bu">max</span>(label)<span class="op">+</span><span class="dv">2</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distance between particles</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> models_phenom._get_distance(pos)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'# of free particles:'</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Before binding: </span><span class="sc">{</span><span class="bu">len</span>(label)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co"># First make particle bind:</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>lab, ds <span class="op">=</span> models_phenom._make_condensates(Pb, label, diff_state, r, distance, max_label)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'After binding: </span><span class="sc">{</span>np<span class="sc">.</span>unique(lab[np.argwhere(ds <span class="op">==</span> <span class="dv">0</span>)], return_counts<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Then we do unbinding:</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>lab, ds <span class="op">=</span> models_phenom._make_escape(Pu, lab, ds)</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'After unbinding: </span><span class="sc">{</span>np<span class="sc">.</span>unique(lab[np.argwhere(ds <span class="op">==</span> <span class="dv">0</span>)], return_counts<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># of free particles:
 Before binding: 200
@@ -1391,40 +1421,40 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Pu <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># Unbinding probability</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="dv">1</span> <span class="co"># Binding probability</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients of two states</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>stokes <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="fl">0.01</span>], [<span class="fl">1e-5</span>, <span class="dv">0</span>]]) <span class="co"># because stokes = True, we don't care about the second state</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents for two states</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="fl">0.2</span>]]) </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N,</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                                            L <span class="op">=</span> L,</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                                            r <span class="op">=</span> r,</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>                                            T <span class="op">=</span> T,</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>                                            Pu <span class="op">=</span> Pu, <span class="co"># Unbinding probability</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>                                            Pb <span class="op">=</span> Pb, <span class="co"># Binding probability</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> Ds, <span class="co"># Diffusion coefficients of two states</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> alphas, <span class="co"># Anomalous exponents for two states,</span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>                                            return_state_num <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>                                            stokes <span class="op">=</span> <span class="va">True</span>, epsilon_a<span class="op">=</span><span class="fl">0.2</span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>                                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Pu <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># Unbinding probability</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="dv">1</span> <span class="co"># Binding probability</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients of two states</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>stokes <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> np.array([[<span class="dv">2</span>, <span class="fl">0.01</span>], [<span class="fl">1e-5</span>, <span class="dv">0</span>]]) <span class="co"># because stokes = True, we don't care about the second state</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents for two states</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="fl">0.2</span>]]) </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                                            L <span class="op">=</span> L,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>                                            r <span class="op">=</span> r,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>                                            T <span class="op">=</span> T,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>                                            Pu <span class="op">=</span> Pu, <span class="co"># Unbinding probability</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>                                            Pb <span class="op">=</span> Pb, <span class="co"># Binding probability</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> Ds, <span class="co"># Diffusion coefficients of two states</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> alphas, <span class="co"># Anomalous exponents for two states,</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>                                            return_state_num <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>                                            stokes <span class="op">=</span> <span class="va">True</span>, epsilon_a<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>                                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $D$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Diffusion coefficients</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - % = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="op">/</span>np<span class="sc">.</span>prod(labels.shape[:<span class="dv">2</span>])<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $D$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Anomalous exponents</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 1 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(labels[labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>].flatten(), label <span class="op">=</span> <span class="ss">f'State 2 - # = </span><span class="sc">{</span>(labels[:,:,<span class="dv">3</span>] <span class="op">==</span> <span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], title <span class="op">=</span> <span class="vs">r'Distribution of $\alpha$'</span>, xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>, ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)<span class="op">;</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
 </div>
@@ -1433,7 +1463,7 @@ After unbinding: 106</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
 </div>
@@ -1445,7 +1475,7 @@ After unbinding: 106</code></pre>
 <h1>Immobile traps</h1>
 <p>Particles diffusing according to a space-dependent 2-state model of diffusion, representing proteins being transiently immobilized at specific locations as induced by binding to immobile structures, such as cytoskeleton-induced molecular pinning.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>models_phenom._update_bound(</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>models_phenom._update_bound(</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <section id="update_bound" class="level3">
@@ -1611,26 +1641,26 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Binding and unbinding probs</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> Pu <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># D and alpha</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.2</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.2</span>]</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Traps properties</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>Nt <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>traps_pos <span class="op">=</span> np.random.rand(Nt, <span class="dv">2</span>)<span class="op">*</span>L </span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N, T <span class="op">=</span> T, L <span class="op">=</span> L,</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>                                               r <span class="op">=</span> r,</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                                               Pu <span class="op">=</span> Pu, Pb <span class="op">=</span> Pb, </span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>                                               Ds <span class="op">=</span> D, alphas <span class="op">=</span> alpha,</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>                                               Nt <span class="op">=</span> Nt, traps_pos <span class="op">=</span> traps_pos</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>                                              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Binding and unbinding probs</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>Pb <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> Pu <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># D and alpha</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.2</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.2</span>]</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Traps properties</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>Nt <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>traps_pos <span class="op">=</span> np.random.rand(Nt, <span class="dv">2</span>)<span class="op">*</span>L </span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N, T <span class="op">=</span> T, L <span class="op">=</span> L,</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>                                               r <span class="op">=</span> r,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>                                               Pu <span class="op">=</span> Pu, Pb <span class="op">=</span> Pb, </span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>                                               Ds <span class="op">=</span> D, alphas <span class="op">=</span> alpha,</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>                                               Nt <span class="op">=</span> Nt, traps_pos <span class="op">=</span> traps_pos</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                                              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>, traps_positions<span class="op">=</span>traps_pos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>, traps_positions<span class="op">=</span>traps_pos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-34-output-1.png" class="img-fluid"></p>
 </div>
@@ -1687,16 +1717,16 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">5</span>,<span class="dv">5</span>))</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">60</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc, r, L)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r)</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>,L)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>,L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">60</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">256</span><span class="op">;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc, r, L)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>,L)</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>,L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(0.0, 256.0)</code></pre>
 </div>
@@ -1769,23 +1799,23 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>circle_radius <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>circle_center <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">0</span>]</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>beg <span class="op">=</span> np.array([<span class="fl">0.8</span>, <span class="dv">0</span>])<span class="op">+</span>circle_center</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> np.array([<span class="fl">2.5</span>, <span class="op">-</span><span class="fl">0.8</span>])<span class="op">+</span>circle_center</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>final_point, intersect <span class="op">=</span> models_phenom._reflected_position(circle_center, circle_radius, beg, end)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>circle <span class="op">=</span> plt.Circle(circle_center, circle_radius, facecolor <span class="op">=</span> <span class="st">'w'</span>, ec <span class="op">=</span> <span class="st">'C0'</span>, label <span class="op">=</span> <span class="st">'Compartment'</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>ax.add_patch(circle)</span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>ax.plot([beg[<span class="dv">0</span>],end[<span class="dv">0</span>]], [beg[<span class="dv">1</span>], end[<span class="dv">1</span>]], <span class="st">'-o'</span>, c <span class="op">=</span> <span class="st">'C1'</span>, label <span class="op">=</span> <span class="st">'Displacement segment'</span>)</span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>ax.plot([circle_center[<span class="dv">0</span>], intersect[<span class="dv">0</span>]], [circle_center[<span class="dv">1</span>], intersect[<span class="dv">1</span>]], c <span class="op">=</span> <span class="st">'C2'</span>)</span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>ax.plot([intersect[<span class="dv">0</span>], final_point[<span class="dv">0</span>]], [intersect[<span class="dv">1</span>], final_point[<span class="dv">1</span>]], <span class="st">'-o'</span>, c <span class="op">=</span> <span class="st">'C4'</span>, label <span class="op">=</span> <span class="st">'Resulting reflection'</span>)</span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(circle_center[<span class="dv">1</span>]<span class="op">-</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>, circle_center[<span class="dv">1</span>]<span class="op">+</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>)</span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(circle_center[<span class="dv">0</span>]<span class="op">-</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>, circle_center[<span class="dv">0</span>]<span class="op">+</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>)</span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize <span class="op">=</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>circle_radius <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>circle_center <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">0</span>]</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>beg <span class="op">=</span> np.array([<span class="fl">0.8</span>, <span class="dv">0</span>])<span class="op">+</span>circle_center</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> np.array([<span class="fl">2.5</span>, <span class="op">-</span><span class="fl">0.8</span>])<span class="op">+</span>circle_center</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>final_point, intersect <span class="op">=</span> models_phenom._reflected_position(circle_center, circle_radius, beg, end)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>circle <span class="op">=</span> plt.Circle(circle_center, circle_radius, facecolor <span class="op">=</span> <span class="st">'w'</span>, ec <span class="op">=</span> <span class="st">'C0'</span>, label <span class="op">=</span> <span class="st">'Compartment'</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>ax.add_patch(circle)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>ax.plot([beg[<span class="dv">0</span>],end[<span class="dv">0</span>]], [beg[<span class="dv">1</span>], end[<span class="dv">1</span>]], <span class="st">'-o'</span>, c <span class="op">=</span> <span class="st">'C1'</span>, label <span class="op">=</span> <span class="st">'Displacement segment'</span>)</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>ax.plot([circle_center[<span class="dv">0</span>], intersect[<span class="dv">0</span>]], [circle_center[<span class="dv">1</span>], intersect[<span class="dv">1</span>]], c <span class="op">=</span> <span class="st">'C2'</span>)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>ax.plot([intersect[<span class="dv">0</span>], final_point[<span class="dv">0</span>]], [intersect[<span class="dv">1</span>], final_point[<span class="dv">1</span>]], <span class="st">'-o'</span>, c <span class="op">=</span> <span class="st">'C4'</span>, label <span class="op">=</span> <span class="st">'Resulting reflection'</span>)</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(circle_center[<span class="dv">1</span>]<span class="op">-</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>, circle_center[<span class="dv">1</span>]<span class="op">+</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>)</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(circle_center[<span class="dv">0</span>]<span class="op">-</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>, circle_center[<span class="dv">0</span>]<span class="op">+</span>circle_radius<span class="op">*</span><span class="fl">1.5</span>)</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize <span class="op">=</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
 </div>
@@ -1884,28 +1914,28 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span>  L <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">15</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.1</span>]</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>r , L, Nc <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">256</span>, <span class="dv">20</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L)</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom()._confinement_traj(trans <span class="op">=</span> <span class="fl">0.1</span>, Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L, T <span class="op">=</span><span class="dv">200</span>, comp_center<span class="op">=</span>comp_center, Ds <span class="op">=</span> Ds)</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>]</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C0'</span>)</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle)    </span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>ax.scatter(trajs[:,<span class="dv">0</span>], trajs[:,<span class="dv">1</span>], c <span class="op">=</span> plt.cm.cividis(labels[:,<span class="op">-</span><span class="dv">1</span>]<span class="op">/</span><span class="dv">2</span>), zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, s <span class="op">=</span> <span class="dv">2</span>)   </span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlim <span class="op">=</span> (<span class="dv">0</span>,L), ylim <span class="op">=</span> (<span class="dv">0</span>,L), xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(trajs[:,<span class="dv">0</span>], label <span class="op">=</span> <span class="st">'x'</span>)<span class="op">;</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(trajs[:,<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'y'</span>)<span class="op">;</span></span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend()</span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>], xlabel <span class="op">=</span> <span class="st">'Position'</span>, ylabel <span class="op">=</span> <span class="st">'Time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span>  L <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">15</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> [<span class="dv">1</span>, <span class="fl">0.1</span>]</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>r , L, Nc <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">256</span>, <span class="dv">20</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom()._confinement_traj(trans <span class="op">=</span> <span class="fl">0.1</span>, Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L, T <span class="op">=</span><span class="dv">200</span>, comp_center<span class="op">=</span>comp_center, Ds <span class="op">=</span> Ds)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axs[<span class="dv">0</span>]</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), r, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C0'</span>)</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle)    </span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>ax.scatter(trajs[:,<span class="dv">0</span>], trajs[:,<span class="dv">1</span>], c <span class="op">=</span> plt.cm.cividis(labels[:,<span class="op">-</span><span class="dv">1</span>]<span class="op">/</span><span class="dv">2</span>), zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, s <span class="op">=</span> <span class="dv">2</span>)   </span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], xlim <span class="op">=</span> (<span class="dv">0</span>,L), ylim <span class="op">=</span> (<span class="dv">0</span>,L), xlabel <span class="op">=</span> <span class="st">'X'</span>, ylabel <span class="op">=</span> <span class="st">'Y'</span>)</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(trajs[:,<span class="dv">0</span>], label <span class="op">=</span> <span class="st">'x'</span>)<span class="op">;</span></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(trajs[:,<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'y'</span>)<span class="op">;</span></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend()</span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>], xlabel <span class="op">=</span> <span class="st">'Position'</span>, ylabel <span class="op">=</span> <span class="st">'Time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>[Text(0.5, 0, 'Position'), Text(0, 0.5, 'Time')]</code></pre>
 </div>
@@ -2023,17 +2053,17 @@ After unbinding: 106</code></pre>
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span>  L <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">15</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="dv">150</span>,<span class="fl">0.1</span>]]</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="fl">1.5</span>,<span class="fl">0.1</span>]]</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>r , L, Nc <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">256</span>, <span class="dv">15</span>)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L)</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N, L <span class="op">=</span> L, comp_center <span class="op">=</span> comp_center, trans <span class="op">=</span> <span class="fl">0.1</span>, Ds <span class="op">=</span> Ds, </span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>                                            r <span class="op">=</span> r, alphas <span class="op">=</span> alphas, epsilon_a <span class="op">=</span> [<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span>  L <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>Nc <span class="op">=</span> <span class="dv">15</span><span class="op">;</span> r <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> L <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> [[<span class="dv">1</span>,<span class="dv">0</span>], [<span class="dv">150</span>,<span class="fl">0.1</span>]]</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="fl">1.5</span>,<span class="fl">0.1</span>]]</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>r , L, Nc <span class="op">=</span> (<span class="dv">20</span>, <span class="dv">256</span>, <span class="dv">15</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>comp_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> Nc, r <span class="op">=</span> r, L <span class="op">=</span> L)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N, L <span class="op">=</span> L, comp_center <span class="op">=</span> comp_center, trans <span class="op">=</span> <span class="fl">0.1</span>, Ds <span class="op">=</span> Ds, </span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>                                            r <span class="op">=</span> r, alphas <span class="op">=</span> alphas, epsilon_a <span class="op">=</span> [<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>, comp_center <span class="op">=</span> comp_center, r_cercle<span class="op">=</span>r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, labels <span class="op">=</span> labels, plot_labels <span class="op">=</span> <span class="va">True</span>, comp_center <span class="op">=</span> comp_center, r_cercle<span class="op">=</span>r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="models_phenom_files/figure-html/cell-43-output-1.png" class="img-fluid"></p>
 </div>

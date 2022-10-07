@@ -19,9 +19,9 @@ website:
     collapse-below: lg
     left:
       - text: "Documentation"
-        href: index.md
+        href: lib_nbs/index_docs.ipynb
       - text: "Tutorials"
-        href: tutorials/tutorials.md
+        href: tutorials/index_tutorials.ipynb
   sidebar:
     style: floating
     

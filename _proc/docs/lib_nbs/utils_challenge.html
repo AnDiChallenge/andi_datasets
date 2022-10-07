@@ -129,10 +129,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="andi_datasets - Help functions">
-<meta property="og:description" content="File organization">
+<meta property="og:description" content="Here we prepare the program that will be uploaded to codalab in order to do the assesment of the participants predictions.">
 <meta property="og:site-name" content="andi_datasets">
 <meta name="twitter:title" content="andi_datasets - Help functions">
-<meta name="twitter:description" content="File organization">
+<meta name="twitter:description" content="Here we prepare the program that will be uploaded to codalab in order to do the assesment of the participants predictions.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -156,10 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page">Documentation</a>
+    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">Documentation</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/tutorials.html">Tutorials</a>
+    <a class="nav-link" href="../tutorials/index_tutorials.md">Tutorials</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../index.html" class="sidebar-item-text sidebar-link">Documentation</a>
+            <a href="../lib_nbs/index_docs.html" class="sidebar-item-text sidebar-link">Documentation</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../tutorials/tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+            <a href="../tutorials/index_tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -383,9 +383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#ensemble-metrics" id="toc-ensemble-metrics" class="nav-link" data-scroll-target="#ensemble-metrics">Ensemble metrics</a>
   <ul class="collapse">
   <li><a href="#extract_ensemble" id="toc-extract_ensemble" class="nav-link" data-scroll-target="#extract_ensemble">extract_ensemble</a></li>
-  <li><a href="#generating-multimodal-from-mean-and-variance" id="toc-generating-multimodal-from-mean-and-variance" class="nav-link" data-scroll-target="#generating-multimodal-from-mean-and-variance">Generating multimodal from mean and variance</a></li>
   <li><a href="#multimode_dist" id="toc-multimode_dist" class="nav-link" data-scroll-target="#multimode_dist">multimode_dist</a></li>
-  <li><a href="#distance-between-distributions" id="toc-distance-between-distributions" class="nav-link" data-scroll-target="#distance-between-distributions">Distance between distributions</a></li>
   <li><a href="#distribution_distance" id="toc-distribution_distance" class="nav-link" data-scroll-target="#distribution_distance">distribution_distance</a></li>
   <li><a href="#calculate-ensemble-metric" id="toc-calculate-ensemble-metric" class="nav-link" data-scroll-target="#calculate-ensemble-metric">Calculate ensemble metric</a></li>
   <li><a href="#error_ensemble_dataset" id="toc-error_ensemble_dataset" class="nav-link" data-scroll-target="#error_ensemble_dataset">error_Ensemble_dataset</a></li>
@@ -400,10 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#codalab-scoring-program" id="toc-codalab-scoring-program" class="nav-link" data-scroll-target="#codalab-scoring-program">Codalab scoring program</a>
   <ul class="collapse">
-  <li><a href="#listdir_nohidden" id="toc-listdir_nohidden" class="nav-link" data-scroll-target="#listdir_nohidden">listdir_nohidden</a></li>
   <li><a href="#codalab_scoring" id="toc-codalab_scoring" class="nav-link" data-scroll-target="#codalab_scoring">codalab_scoring</a></li>
   </ul></li>
-  <li><a href="#nbdev-export" id="toc-nbdev-export" class="nav-link" data-scroll-target="#nbdev-export">NBDEV Export</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/AnDiChallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -1053,7 +1049,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tr>
 </tbody>
 </table>
-<div class="cell" data-execution_count="29">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="vs">r'Random Guess + $N_p&gt;N_</span><span class="sc">{gt}</span><span class="vs">$'</span>,</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>          <span class="vs">r'Random Guess + $N_p&lt;N_</span><span class="sc">{gt}</span><span class="vs">$'</span>,</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="vs">r'GT + rand $\in [-3, 3]$'</span>,</span>
@@ -1856,9 +1852,6 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="generating-multimodal-from-mean-and-variance" class="level3">
-<h3 class="anchored" data-anchor-id="generating-multimodal-from-mean-and-variance">Generating multimodal from mean and variance</h3>
 <hr>
 </section>
 <section id="multimode_dist" class="level3">
@@ -1921,9 +1914,6 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="distance-between-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="distance-between-distributions">Distance between distributions</h3>
 <hr>
 </section>
 <section id="distribution_distance" class="level3">
@@ -2276,7 +2266,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <section id="test" class="level4">
 <h4 class="anchored" data-anchor-id="test">Test</h4>
 <p><strong>Two datasets with same number of trajs</strong></p>
-<div class="cell" data-execution_count="76">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">250</span>, alphas<span class="op">=</span><span class="fl">0.5</span>, Ds <span class="op">=</span> <span class="dv">1</span>, L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
@@ -2292,55 +2282,45 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>df_in, df_preds <span class="op">=</span> array_to_df(trajs, labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"7d4e06b8b28f4918a1d1f1751861ce84","version_major":2,"version_minor":0}
+{"model_id":"8ef46efe5638454c870655fc1a8cb419","version_major":2,"version_minor":0}
 </script>
 </div>
-<div class="cell-output cell-output-error">
-<pre><code>NameError: name 'label_filter' is not defined</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"78c03fa768e54e0a810e1fdf6b683520","version_major":2,"version_minor":0}
+{"model_id":"8dfca3309a874824a204bfaf2f22f667","version_major":2,"version_minor":0}
 </script>
 </div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>, disable_tqdm<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Summary of metrics assesments:
 
 Changepoint Metrics 
-RMSE: 3.977 
-Jaccard Index: 0.436 
+RMSE: 4.222 
+Jaccard Index: 0.402 
 
 Diffusion property metrics 
-Metric anomalous exponent: 0.3196485708934536 
-Metric diffusion coefficient: 0.233730617081089 
-Metric diffusive state: 0.5135203436947182</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>(3.9773268837631606,
- 0.43570617804443,
- 0.3196485708934536,
- 0.233730617081089,
- 0.5135203436947182)</code></pre>
+Metric anomalous exponent: 0.3187475166785641 
+Metric diffusion coefficient: 0.2407373554580533 
+Metric diffusive state: 0.49893673577884107</code></pre>
 </div>
 </div>
 <p><strong>Two datasets with different number of trajectories</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">350</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>,<span class="fl">0.01</span>], Ds <span class="op">=</span> [<span class="fl">1.</span>, <span class="fl">0.1</span>], L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>df_in, df_trues <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">250</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>, <span class="fl">0.1</span>], Ds <span class="op">=</span> <span class="dv">1</span>, L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
-<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>df_in, df_preds <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">350</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>,<span class="fl">0.01</span>], Ds <span class="op">=</span> [<span class="fl">1.</span>, <span class="fl">0.1</span>], L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>df_in, df_trues <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">250</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>, <span class="fl">0.1</span>], Ds <span class="op">=</span> <span class="dv">1</span>, L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>df_in, df_preds <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"722f2ef9f7d54fd3a6f961ac438180cb","version_major":2,"version_minor":0}
@@ -2353,7 +2333,7 @@ Metric diffusive state: 0.5135203436947182</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"32b2c930add14fe0a78d340fc2095149","version_major":2,"version_minor":0}
@@ -2382,19 +2362,19 @@ Metric diffusive state: 0.4913685263947961</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">5</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>,<span class="fl">0.01</span>], Ds <span class="op">=</span> [<span class="fl">1.</span>, <span class="fl">0.1</span>], L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>df_in, df_preds  <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">7</span>, L <span class="op">=</span> <span class="dv">20</span>, M <span class="op">=</span> np.array([[<span class="fl">0.9</span>,<span class="fl">0.1</span>],[<span class="fl">0.9</span>,<span class="fl">0.1</span>]]))</span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>df_in, df_trues  <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().immobile_traps(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">5</span>, alphas<span class="op">=</span>[<span class="fl">0.5</span>,<span class="fl">0.01</span>], Ds <span class="op">=</span> [<span class="fl">1.</span>, <span class="fl">0.1</span>], L <span class="op">=</span> <span class="dv">20</span>, Nt <span class="op">=</span> <span class="dv">100</span>, Pb <span class="op">=</span> <span class="dv">1</span>, Pu <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>df_in, df_preds  <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(T <span class="op">=</span> <span class="dv">200</span>, N <span class="op">=</span> <span class="dv">7</span>, L <span class="op">=</span> <span class="dv">20</span>, M <span class="op">=</span> np.array([[<span class="fl">0.9</span>,<span class="fl">0.1</span>],[<span class="fl">0.9</span>,<span class="fl">0.1</span>]]))</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> trajs.transpose((<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)).copy()</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> labels.transpose(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>df_in, df_trues  <span class="op">=</span> array_to_df(trajs, labels, label_values<span class="op">=</span>[<span class="fl">0.5</span>, <span class="dv">1</span>], diff_states<span class="op">=</span>[<span class="dv">3</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"e7158e67f9d74360a3dca327fbaf70ad","version_major":2,"version_minor":0}
@@ -2407,7 +2387,7 @@ Metric diffusive state: 0.4913685263947961</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>error_SingleTraj_dataset(df_preds, df_trues, prints <span class="op">=</span> <span class="va">True</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"00329cc314f149939b4c5971fbfb2ae9","version_major":2,"version_minor":0}
@@ -2434,44 +2414,32 @@ Metric diffusive state: 0.41379310344827586</code></pre>
 </section>
 <section id="codalab-scoring-program" class="level1">
 <h1>Codalab scoring program</h1>
+<p>Here we prepare the program that will be uploaded to codalab in order to do the assesment of the participants predictions.</p>
 <p><strong>File organization</strong></p>
-<p>Names: <code>Ti_ens_exp_XXX_fov_yyy.txt</code> and <code>Ti_st_exp_XXX_fov_yyy.txt</code>, where <code>i</code> refers to the track and can be 1 (video track) or 2 (trajectory track)</p>
+<p>The files must have names: <code>Ti_ens_exp_XXX_fov_yyy.txt</code> and <code>Ti_st_exp_XXX_fov_yyy.txt</code>, where <code>i</code> refers to the track and can be 1 (video track) or 2 (trajectory track. <code>ens</code> refers to ensemble informations and <code>st</code> to single trajectory.</p>
 <p><strong>Extra information</strong></p>
-<p>We will have an extra reference file which gives the model of each experiment. This is done to avoid considering Single state in the averages of change point metrics</p>
+<p>We will have an extra reference file which gives the model of each experiment. This is also needed to avoid considering Single state in the averages of change point metrics.</p>
 <hr>
-<section id="listdir_nohidden" class="level3">
-<h3 class="anchored" data-anchor-id="listdir_nohidden">listdir_nohidden</h3>
-<blockquote class="blockquote">
-<pre><code> listdir_nohidden (path)</code></pre>
-</blockquote>
-<p><strong>CHECK TRELLO LIST: we need to introduce weighting of the FOVs w.r.t to number of trajectories?</strong></p>
-<hr>
-</section>
 <section id="codalab_scoring" class="level3">
 <h3 class="anchored" data-anchor-id="codalab_scoring">codalab_scoring</h3>
 <blockquote class="blockquote">
 <pre><code> codalab_scoring (input_dir, output_dir)</code></pre>
 </blockquote>
+<p>Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found, calculates metrics and outputs the results in a file in the given output directory. This code is prepared to be run in Codalab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>input_dir <span class="op">=</span> <span class="st">'C:/Users/Gorka/github/ANDI_datasets/testing/codalab_data'</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>output_dir <span class="op">=</span> <span class="st">'C:/Users/Gorka/github/ANDI_datasets/testing/codalab_data'</span></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>codalab_scoring(input_dir<span class="op">=</span>input_dir, output_dir<span class="op">=</span>output_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>input_dir <span class="op">=</span> <span class="st">'C:/Users/Gorka/github/ANDI_datasets/testing/codalab_data'</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>output_dir <span class="op">=</span> <span class="st">'C:/Users/Gorka/github/ANDI_datasets/testing/codalab_data'</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>codalab_scoring(input_dir<span class="op">=</span>input_dir, output_dir<span class="op">=</span>output_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"e980f849bcdf4c45b745663d6ddb0ebf","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
-</section>
-</section>
-<section id="nbdev-export" class="level1">
-<h1>NBDEV Export</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev<span class="op">;</span> nbdev.nbdev_export()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
