@@ -47,7 +47,7 @@ Examples of their use and properties can be found in [this tutorial](https://git
 
 ### Phenomenological models
 
- We have also included models specifically developed to simulate realistic physical systems, in which random events alter the diffusion behaviour of the particle. The sources of these changes can be very broad, from the presence of heterogeneities either in space or time, the possibility of creating dimers or bigger clusters or condensates or the presence of immobile traps in the environment.
+We have also included models specifically developed to simulate realistic physical systems, in which random events alter the diffusion behaviour of the particle. The sources of these changes can be very broad, from the presence of heterogeneities either in space or time, the possibility of creating dimers or bigger clusters or condensates or the presence of immobile traps in the environment.
 
 Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2022_datasets.ipynb).
 
