@@ -1,9 +1,9 @@
 project:
-  output-dir: docs
+  output-dir: source_nbs
 
 website:
   title: "andi_datasets"
-  site-url: "https://gorkamunoz.github.io/andi_datasets/"
-  description: "The Anomalous Diffusion Challenge package"
+  site-url: "https://andichallenge.github.io/andi_datasets"
+  description: "Generate, manage and analyze anomalous diffusion trajectories."
   repo-branch: master
-  repo-url: "https://github.com/AnDiChallenge/andi_datasets"
+  repo-url: "https://github.com/andichallenge/andi_datasets"

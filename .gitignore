@@ -147,3 +147,4 @@ dist/
 
 # hiding useless
 testing/
+_proc\docs
