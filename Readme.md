@@ -3,11 +3,11 @@
 
 # The Anomalous Diffusion (AnDi) dataset library
 
-This library has been created in the framework of the [**Anomalous Diffusion (AnDi) Challenge**](http://andi-challenge.org/) and allows to create trajectories and datasets from various anomalous diffusion models. You can install the package using:
+This library has been created in the framework of the [**Anomalous Diffusion (AnDi) Challenge**](http://andi-challenge.org/) and allows to create trajectories and datasets from various anomalous diffusion models. The current version can be installed by cloning this repository and running the following line in the parent folder of the repo:
 
 
 ```
-pip install andi-datasets
+pip install -e andi_datasets
 ```
 
 You can then import the package in a Python3 environment using:
@@ -16,6 +16,7 @@ You can then import the package in a Python3 environment using:
 import andi_datasets
 ```
 
+This version will soon be available in PyPi.
 
 
 ### 1st AnDi Challenge 2020
@@ -43,13 +44,13 @@ The `andi_datasets` class allows to generate, transform, analyse, save and load 
 
 The library allows to generate trajectories from various anomalous diffusion models:  [continuous-time random walk (CTRW)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.12.2455), [fractional Brownian motion (FBM)](https://doi.org/10.1137%2F1010093), [Lévy walks (LW)](https://doi.org/10.1103%2FPhysRevE.49.4873), [annealed transit time model (ATTM)](https://doi.org/10.1103%2FPhysRevLett.112.150603) and [scaled Brownian motion (SBM)](https://doi.org/10.1103%2FPhysRevE.66.021114). You can generate trajectories with the desired anomalous exponent in either one, two or three dimensions.
 
-Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge2020_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge_one_datasets.ipynb.ipynb).
 
 ### Phenomenological models
 
 We have also included models specifically developed to simulate realistic physical systems, in which random events alter the diffusion behaviour of the particle. The sources of these changes can be very broad, from the presence of heterogeneities either in space or time, the possibility of creating dimers or bigger clusters or condensates or the presence of immobile traps in the environment.
 
-Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge2022_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge_two_datasets.ipynb.ipynb).
 
 ## Contributing
 
