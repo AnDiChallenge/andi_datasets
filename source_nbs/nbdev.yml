@@ -1,5 +1,5 @@
 project:
-  output-dir: source_nbs
+  output-dir: docs
 
 website:
   title: "andi_datasets"

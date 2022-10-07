@@ -13,7 +13,7 @@ website:
   site-url: ''
   navbar:    
     logo: figures/andi_logo.png
-    logo-href: index.ipynb
+    logo-href: index.md
     background: primary
     search: true    
     collapse-below: lg
