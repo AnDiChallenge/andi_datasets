@@ -1,0 +1,30 @@
+project:
+  type: website
+
+format:
+  html:
+    theme: flatly
+    toc: true
+
+website:
+  twitter-card: true
+  open-graph: true
+  repo-actions: [issue]
+  site-url: ''
+  navbar:    
+    logo: figures/andi_logo.png
+    logo-href: index.md
+    background: primary
+    search: true    
+    collapse-below: lg
+    left:
+      - text: "Documentation"
+        href: lib_nbs/index_docs.ipynb
+      - text: "Tutorials"
+        href: tutorials/index_tutorials.ipynb
+  sidebar:
+    style: floating
+    
+    
+
+metadata-files: [nbdev.yml, sidebar.yml]

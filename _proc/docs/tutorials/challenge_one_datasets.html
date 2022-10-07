@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>andi_datasets - Theory models and AnDi 2020</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta property="og:title" content="andi_datasets - Theory models and AnDi 2020">
+<meta property="og:description" content="Before starting, make sure that you know the details of the competition. You can learn about every in the associated webpage.">
+<meta property="og:site-name" content="andi_datasets">
+<meta name="twitter:title" content="andi_datasets - Theory models and AnDi 2020">
+<meta name="twitter:description" content="Before starting, make sure that you know the details of the competition. You can learn about every in the associated webpage.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="index.md" class="navbar-brand navbar-brand-logo">
+    <img src="../figures/andi_logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">andi_datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">Documentation</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tutorials/index_tutorials.html">Tutorials</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Theory models and AnDi 2020</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../lib_nbs/index_docs.html" class="sidebar-item-text sidebar-link">Documentation</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Theory datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link"><code>models_theory</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link"><code>datasets_theory</code></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Phenomenological datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link"><code>models_phenom</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_phenom.html" class="sidebar-item-text sidebar-link"><code>datasets_phenom</code></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">ANDI challenge datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_challenge.html" class="sidebar-item-text sidebar-link">datasets_challenge</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_challenge.html" class="sidebar-item-text sidebar-link">Help functions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Trajectory analysis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/analysis.html" class="sidebar-item-text sidebar-link">analysis</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Helpers</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_trajectories.html" class="sidebar-item-text sidebar-link">utils_trajectories</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_videos.html" class="sidebar-item-text sidebar-link">utils_videos</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../tutorials/index_tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link active">Theory models and AnDi 2020</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">ANDI 2020 submission: from trajectories to predictions</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">Phenom models and ANDI 2022</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link">Creating videos tutorial</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#creating-the-andi-2020-challenge-dataset" id="toc-creating-the-andi-2020-challenge-dataset" class="nav-link active" data-scroll-target="#creating-the-andi-2020-challenge-dataset">Creating the ANDI 2020 challenge dataset</a></li>
+  <li><a href="#creating-trajectories-from-theoretical-models" id="toc-creating-trajectories-from-theoretical-models" class="nav-link" data-scroll-target="#creating-trajectories-from-theoretical-models">Creating trajectories from theoretical models</a>
+  <ul class="collapse">
+  <li><a href="#saving-and-loading-datasets" id="toc-saving-and-loading-datasets" class="nav-link" data-scroll-target="#saving-and-loading-datasets">Saving and loading datasets</a></li>
+  <li><a href="#creating-noisy-datasets" id="toc-creating-noisy-datasets" class="nav-link" data-scroll-target="#creating-noisy-datasets">Creating noisy datasets</a></li>
+  <li><a href="#creating-segmented-datasets" id="toc-creating-segmented-datasets" class="nav-link" data-scroll-target="#creating-segmented-datasets">Creating segmented datasets</a></li>
+  </ul></li>
+  <li><a href="#accesing-the-diffusion-models-from-models_theory" id="toc-accesing-the-diffusion-models-from-models_theory" class="nav-link" data-scroll-target="#accesing-the-diffusion-models-from-models_theory">Accesing the diffusion models from <code>models_theory</code></a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/AnDiChallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Theory models and AnDi 2020</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="creating-the-andi-2020-challenge-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-andi-2020-challenge-dataset">Creating the ANDI 2020 challenge dataset</h2>
+<p>Before starting, make sure that you know the details of the competition. You can learn about every in the associated webpage. A quick overview: there are three tasks: 1) inference of the anomalous diffusion exponent, 2) classification of the diffusion model and 3) segmentation of trajectories. For each task, there are three subtasks, one per dimension. To create a dataset for every task and dimension, each e.g.&nbsp;of <span class="math inline">\(N=10\)</span> trajectories, you just need to run</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_challenge <span class="im">import</span> challenge_2020_dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X1, Y1, X2, Y2, X3, Y3 <span class="op">=</span> challenge_2020_dataset(N <span class="op">=</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating a dataset for task(s) [1, 2, 3] and dimension(s) [1, 2, 3].
+Generating dataset for dimension 1.
+Generating dataset for dimension 2.
+Generating dataset for dimension 3.</code></pre>
+</div>
+</div>
+<p><code>X1</code>, <code>X2</code> and <code>X3</code> correspond to the trajectories of Task 1, 2 and 3, respectively, while <code>Y1</code>, <code>Y2</code> and <code>Y_3</code> correspond to the labels. Each of these list contains three list, each one containing the trajectories for each dimension, in ascending order. For example, <code>X2[2]</code> contains the trajectories for Task 2 for dimension 3. If you only want to generate trajectories for a specific Task and dimensions, you can specify it as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X1, Y1, X2, Y2, X3, Y3 <span class="op">=</span> challenge_2020_dataset(N <span class="op">=</span> <span class="dv">10</span>, tasks <span class="op">=</span> <span class="dv">1</span>, dimensions <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating a dataset for task(s) 1 and dimension(s) 3.
+Generating dataset for dimension 3.</code></pre>
+</div>
+</div>
+<p>In this case <strong>all the lists but the ones specified will be empty.</strong> For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Task 3, dimension 1 is empty: len(X3[0]) = '</span><span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(X3[<span class="dv">0</span>])))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'But Task 1, dimension 3 has our 10 trajectories: len(X1[2]) = '</span><span class="op">+</span><span class="bu">str</span>(<span class="bu">len</span>(X1[<span class="dv">2</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Task 3, dimension 1 is empty: len(X3[0]) = 0
+But Task 1, dimension 3 has our 10 trajectories: len(X1[2]) = 10</code></pre>
+</div>
+</div>
+<p>To avoiding having to create a dataset every time we want to use it, you can use the option <code>save_dataset</code>, which will save a file for every dataset of trajectories (named task1.txt, task2.txt and task3.txt) and their corresponding labels (named ref1.txt, ref2.txt and ref3.txt). The first column of each file corresponds to the dimension of the trajectory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X1, Y1, X2, Y2, X3, Y3 <span class="op">=</span> challenge_2020_dataset(N <span class="op">=</span> <span class="dv">10</span>, save_dataset <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating a dataset for task(s) [1, 2, 3] and dimension(s) [1, 2, 3].
+Generating dataset for dimension 1.
+Generating dataset for dimension 2.
+Generating dataset for dimension 3.</code></pre>
+</div>
+</div>
+<p>Now that we saved the dataset, we can load it with the option <code>load_dataset</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>X1, Y1, X2, Y2, X3, Y3 <span class="op">=</span> challenge_2020_dataset(N <span class="op">=</span> <span class="dv">10</span>, load_dataset <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating a dataset for task(s) [1, 2, 3] and dimension(s) [1, 2, 3].</code></pre>
+</div>
+</div>
+<p>Take into account that if you saved <span class="math inline">\(N=10\)</span> trajectories, you will only be able to load this 10, even if you ask for <span class="math inline">\(N=20\)</span>.</p>
+<p>By default, the trajectories in this dataset will have a maximum length of 1000 steps and a minimum length of 10. To change that, you can use the options <code>max_T</code> and <code>min_T</code>. Take into account that you will need trajectories of 200 steps for task 3. Shorter trajectories will raise an error.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>X1, Y1, X2, Y2, X3, Y3 <span class="op">=</span> challenge_2020_dataset(N <span class="op">=</span> <span class="dv">10</span>, min_T <span class="op">=</span> <span class="dv">15</span>, max_T <span class="op">=</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating a dataset for task(s) [1, 2, 3] and dimension(s) [1, 2, 3].
+Generating dataset for dimension 1.
+Generating dataset for dimension 2.
+Generating dataset for dimension 3.</code></pre>
+</div>
+</div>
+<p>The rests of the optional inputs of the function (<code>load_trajectories</code>, <code>save_trajectories</code>, <code>N_save</code> and <code>t_save</code>) refer to the saving/loading of the trajectories used to generate the datasets, in <code>numpy</code> format. See Section 2 for more details on this.</p>
+</section>
+<section id="creating-trajectories-from-theoretical-models" class="level2">
+<h2 class="anchored" data-anchor-id="creating-trajectories-from-theoretical-models">Creating trajectories from theoretical models</h2>
+<p>For this, we will the class <code>andi_datasets.datasets_theory</code> class. First, lets import some auxiliary packages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, let’s define the class. One thing we can do is to access the available diffusion models:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_theory <span class="im">import</span> datasets_theory</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>AD <span class="op">=</span> datasets_theory()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>AD.avail_models_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['attm', 'ctrw', 'fbm', 'lw', 'sbm']</code></pre>
+</div>
+</div>
+<p>The label asigned to each model is given by its position in the previous list. Now, we will generate a dataset containing <span class="math inline">\(N=2\)</span> trajectories per model and exponent. We will consider anomalous exponents <span class="math inline">\(\alpha = [0.7, 0.9]\)</span> and lenghts <span class="math inline">\(T=5\)</span> from the models <code>attm</code> and <code>fbm</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">4</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">0.9</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[ 0.    0.7   0.    0.4  -0.15  0.04]
+ [ 0.    0.7   0.   -0.49 -1.02 -0.87]
+ [ 0.    0.9   0.    0.04  0.85  0.64]
+ [ 0.    0.9   0.    1.26  2.33  2.38]
+ [ 2.    0.7   0.    0.08  2.09  1.03]
+ [ 2.    0.7   0.    0.18  0.61  1.12]
+ [ 2.    0.9   0.    0.12  1.12  0.33]
+ [ 2.    0.9   0.    0.08 -0.59 -0.45]]</code></pre>
+</div>
+</div>
+<p>Each row corresponds to a trajectory. The first column is the model label, while the second column labels the exponent. The rest of the row is the trajectory. The default dimension for the trajectories is one. We will see later how to create trajectories with more dimensions.</p>
+<p>To create datasets of trajectories with higher dimensions, you can use the input <code>dimensions</code>. The trajectories will be outputed as a single row of the dataset matrix. This means that if you create a dataset of trajectories of length <span class="math inline">\(T = 10\)</span> and dimensions 2, the number of columns of the dataset will be 2 (the labels) + <span class="math inline">\(2\cdot 10\)</span> (the trajectory). Here is an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">10</span>, N_models <span class="op">=</span> <span class="dv">1</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>], models <span class="op">=</span> [<span class="dv">2</span>], dimension <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset[<span class="dv">0</span>], <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 2.    0.7   0.   -1.14 -1.17 -1.36 -1.62 -0.88 -0.85 -1.05 -1.23 -0.57
+  0.   -0.37 -0.33 -0.71 -0.25  0.39  0.7   0.05 -0.18 -0.24]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset[<span class="dv">0</span>,<span class="dv">2</span>:<span class="dv">12</span>], dataset[<span class="dv">0</span>, <span class="dv">12</span>:], <span class="st">'-'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(dataset[<span class="dv">0</span>,<span class="dv">2</span>:<span class="dv">12</span>], dataset[<span class="dv">0</span>,<span class="dv">12</span>:], c<span class="op">=</span>np.arange(<span class="dv">10</span>), s <span class="op">=</span> <span class="dv">250</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.colorbar().set_label(<span class="st">'Time'</span>)<span class="op">;</span> plt.xlabel(<span class="st">'X'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Y'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="saving-and-loading-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
+<p><a href="https://gorkamunoz.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> allows also to save and load datasets, avoiding the need of generate new trajectories each time we want to create a dataset. There exist two optional inputs to the function <code>create_datasets</code>: <code>save_trajectories</code> and <code>load_trajectories</code>, which if <code>True</code>, save and load datasets, respectively. A dataset for each exponent and model considered are saved in a .h5py file whose name is the model considered. Each file contains datasets for each exponent.</p>
+<p>In these cases, two important variables take also into play, <code>t_save</code> and <code>N_save</code>. These set the lenght and number of trajectories to save for each exponent and model. They are set as default to <code>t_save</code><span class="math inline">\(=10^3\)</span> and <code>N_save</code><span class="math inline">\(=10^4\)</span> as this allows to create any other combinantion of dataset. See that in the ANDI challenge we will never consider trajectories longer than <span class="math inline">\(T=10^3\)</span>.</p>
+<p>The name of the datasets inside the .h5py file is then <code>(exponent)_(t_save)_(N_save)</code>.</p>
+<p>Using the default values for this two variables, let’s save datasets for the previous examples:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">4</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">0.9</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>], </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                              save_trajectories <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets/'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|█████████████████████████████████████████| 1000/1000 [00:02&lt;00:00, 365.01it/s, exponent=0.7, model=attm, saving=1]
+100%|█████████████████████████████████████████| 1000/1000 [00:06&lt;00:00, 156.58it/s, exponent=0.9, model=attm, saving=1]
+100%|█████████████████████████████████████████| 1000/1000 [00:00&lt;00:00, 2349.36it/s, exponent=0.7, model=fbm, saving=1]
+100%|█████████████████████████████████████████| 1000/1000 [00:00&lt;00:00, 2394.90it/s, exponent=0.9, model=fbm, saving=1]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[ 0.    0.7   0.   -0.16 -1.69 -0.53]
+ [ 0.    0.7   0.   -0.45 -0.9  -0.39]
+ [ 0.    0.9   0.    0.08  0.69  0.15]
+ [ 0.    0.9   0.   -1.65  0.29  2.47]
+ [ 2.    0.7   0.   -0.02  0.11  0.15]
+ [ 2.    0.7   0.    0.01  0.02  0.05]
+ [ 2.    0.9   0.    0.   -0.04 -0.06]
+ [ 2.    0.9   0.   -0.03  0.05  0.03]]</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+</div>
+<p>If the datasets were already saved, we can load them instead:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">4</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">0.9</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>], </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                              load_trajectories <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets/'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[ 0.    0.7   0.   -0.16 -1.69 -0.53]
+ [ 0.    0.7   0.   -0.45 -0.9  -0.39]
+ [ 0.    0.9   0.    0.08  0.69  0.15]
+ [ 0.    0.9   0.   -1.65  0.29  2.47]
+ [ 2.    0.7   0.   -0.02  0.11  0.15]
+ [ 2.    0.7   0.    0.01  0.02  0.05]
+ [ 2.    0.9   0.    0.   -0.04 -0.06]
+ [ 2.    0.9   0.   -0.03  0.05  0.03]]</code></pre>
+</div>
+</div>
+</section>
+<section id="creating-noisy-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="creating-noisy-datasets">Creating noisy datasets</h3>
+<p>There are two ways of adding noise to the trajectories: either by varying their diffusion coefficient or by adding noise to each of the trahectory’s points. You can do it with the functions <code>create_noisy_diffusion_dataset</code> or <code>create_noisy_localization_dataset</code>, respectively. These functions allow to either create a new dataset to which we will add the noise or give as input the dataset. We will use now the dataset we created in previous cells.</p>
+<p><strong>Noisy diffusion coefficients</strong> The function <code>create_noisy_diffusion_dataset</code> changes the diffusion coefficient of a given trajectory. This function works similarly to <code>create_dataset</code>, but has as optional input <code>diffusion_coefficients</code>. You can use this variable to change the diffusion coefficient of the input trajectories at your please. If you don’t give an input to it, they will be drawn randomly from a Gaussian distribution with variance 1. See that, as <span class="math inline">\(D\)</span> may be negative, the trajectories can be reversed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dataset_noise_D <span class="op">=</span> AD.create_noisy_diffusion_dataset(dataset.copy(), T <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset_noise_D[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="vs">r'Trajectory with changed $D$'</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Position'</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Localization noise</strong> The class also allows to create noisy trajectories via <code>create_noisy_localization_dataset</code>. This functions works as <code>create_dataset</code> but has three extra optional input parameters: <code>noise_func</code>, <code>sigma</code> and <code>mu</code>. If <code>noise_func</code> is <code>False</code>, the function generates a dataset with Gaussian noise with variance <code>sigma</code> and mean <code>mu</code>. Keep in mind that the function will never save noisy trajectories. The saved/loaded trajectories will never have noise, which will be added a posteriori. Here is an example with Gaussian noise:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The default value of noise_func is False, so we don't need to input it. </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Default value of sigma is 1 and mu is 0.</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>dataset_noisy <span class="op">=</span> AD.create_noisy_localization_dataset(dataset.copy(), T <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset_noisy,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[ 0.    0.7   0.46 -1.3  -1.02 -0.32]
+ [ 0.    0.7   0.34  0.5  -0.23 -1.24]
+ [ 0.    0.9   0.04 -0.48 -0.9   0.79]
+ [ 0.    0.9  -0.4  -3.01  0.58  0.02]
+ [ 2.    0.7   0.81  0.23  1.45 -1.03]
+ [ 2.    0.7  -0.15  0.43  1.02  0.98]
+ [ 2.    0.9  -0.09 -0.25 -0.39 -0.57]
+ [ 2.    0.9  -0.12 -0.36  0.68 -0.74]]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset_noisy[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Trajectory + Gaussian noise'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>You can also define your own noise function. The noise created by this functions will be added to each of the trajectories of the dataset. The ouput must be a matrix of size given as input:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uniformly distributed noise</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniform_noise(N, M):</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.rand(N, M)<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>np.random.randint(<span class="dv">2</span>, size <span class="op">=</span> (N, M))<span class="op">-</span><span class="dv">1</span>) </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>dataset_uniform <span class="op">=</span> AD.create_noisy_localization_dataset(dataset.copy(), T <span class="op">=</span> <span class="dv">4</span>, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                                                       noise_func<span class="op">=</span>uniform_noise)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(dataset_uniform,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[ 0.    0.7  -0.02 -0.47 -1.31 -1.44]
+ [ 0.    0.7   0.13 -0.34 -1.54 -1.1 ]
+ [ 0.    0.9   0.13 -0.14  0.43  0.1 ]
+ [ 0.    0.9  -0.37 -1.06  0.64  3.03]
+ [ 2.    0.7   0.12 -0.79  1.02  0.59]
+ [ 2.    0.7   0.71 -0.51 -0.94 -0.65]
+ [ 2.    0.9  -0.78  0.47  0.46 -0.99]
+ [ 2.    0.9  -0.25 -0.83 -0.7  -0.53]]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset_noisy[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Trajectory + Gaussian noise'</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.plot(dataset_uniform[<span class="dv">1</span>,<span class="dv">2</span>:],<span class="st">'o-'</span>, label <span class="op">=</span> <span class="st">'Trajectory + uniform noise'</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="creating-segmented-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="creating-segmented-datasets">Creating segmented datasets</h3>
+<p>The class <a href="https://gorkamunoz.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> also allows to create trajectories which are made of two different diffusion models or anomalous exponent, at a given changing point. Such function has the name <code>create_segmented_dataset</code>. Following the ANDI challenge guidelines, the output trajectories will have length 200. However, you can choose an arbitrary length with the variable <code>final_length</code>. The input datasets must have at least the same size as <code>final_length</code>. There is also the option to randomly shuffle the input datasets from which the segmented output dataset will be generate, throught the variable <code>random_shuffle</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we define two datasets. Let's take same anomalous exponent but various models</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>dataset1 <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">200</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>dataset2 <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">200</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we give them to the desired function</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>seg <span class="op">=</span> AD.create_segmented_dataset(dataset1, dataset2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first 5 elements of every row of the variable <code>seg</code> label the trajectory. First point is the changing time, second and third, and fourth and fifthe are the labels of the model and exponent of the input trajectories, respectevely.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>seg[:, :<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([[145. ,   0. ,   0.7,   0. ,   0.7],
+       [ 91. ,   0. ,   0.7,   0. ,   0.7],
+       [ 16. ,   1. ,   0.7,   1. ,   0.7],
+       [ 88. ,   1. ,   0.7,   1. ,   0.7],
+       [100. ,   2. ,   0.7,   2. ,   0.7],
+       [ 82. ,   2. ,   0.7,   2. ,   0.7],
+       [175. ,   4. ,   0.7,   4. ,   0.7],
+       [189. ,   4. ,   0.7,   4. ,   0.7]])</code></pre>
+</div>
+</div>
+<p>As we did not shuffle data and <code>dataset1</code> and <code>dataset2</code> have the trajectories ordered by model, there are no mixes between different models. This can be done thanks to the <code>random_shuffle</code> variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>seg <span class="op">=</span> AD.create_segmented_dataset(dataset1, dataset2, random_shuffle <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>seg[:, :<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([[ 33. ,   0. ,   0.7,   2. ,   0.7],
+       [ 86. ,   2. ,   0.7,   1. ,   0.7],
+       [ 74. ,   0. ,   0.7,   0. ,   0.7],
+       [132. ,   1. ,   0.7,   2. ,   0.7],
+       [140. ,   1. ,   0.7,   4. ,   0.7],
+       [ 75. ,   4. ,   0.7,   0. ,   0.7],
+       [ 12. ,   2. ,   0.7,   4. ,   0.7],
+       [163. ,   4. ,   0.7,   1. ,   0.7]])</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plt.plot(seg[<span class="dv">0</span>,<span class="dv">5</span>:], label <span class="op">=</span> <span class="st">'Model 1 = '</span><span class="op">+</span>AD.avail_models_name[<span class="bu">int</span>(seg[<span class="dv">0</span>, <span class="dv">1</span>])]<span class="op">+</span><span class="st">', Model 2 = '</span><span class="op">+</span>AD.avail_models_name[<span class="bu">int</span>(seg[<span class="dv">0</span>, <span class="dv">3</span>])])</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(seg[<span class="dv">0</span>,<span class="dv">0</span>], c <span class="op">=</span> <span class="st">'C1'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Changing point'</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="accesing-the-diffusion-models-from-models_theory" class="level2">
+<h2 class="anchored" data-anchor-id="accesing-the-diffusion-models-from-models_theory">Accesing the diffusion models from <a href="https://gorkamunoz.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a></h2>
+<p>All the theoretical diffusion models available in <code>andi</code> are collected in the class <code>models_theory()</code>. We can access them with a simple import :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_theory <span class="im">import</span> models_theory</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We will also need the following libraries</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inspect</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There exist three subclasses, one for each dimensions. To see the available models for each dimension, you can use the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> dimensions <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dimensions <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>        models <span class="op">=</span> models_theory()._oneD()</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> dimensions <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>        models <span class="op">=</span> models_theory()._twoD()</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> dimensions <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>        models <span class="op">=</span> models_theory()._threeD()</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    available_models <span class="op">=</span> inspect.getmembers(models, inspect.ismethod)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">The availailabe models for dimension '</span><span class="op">+</span><span class="bu">str</span>(dimensions<span class="op">+</span><span class="dv">1</span>)<span class="op">+</span><span class="st">' are:'</span>)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    [<span class="bu">print</span>(<span class="st">'- '</span><span class="op">+</span>x[<span class="dv">0</span>]) <span class="cf">for</span> x <span class="kw">in</span> available_models]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The availailabe models for dimension 1 are:
+- attm
+- ctrw
+- fbm
+- lw
+- sbm
+
+The availailabe models for dimension 2 are:
+- attm
+- ctrw
+- fbm
+- lw
+- sbm
+
+The availailabe models for dimension 3 are:
+- attm
+- ctrw
+- fbm
+- lw
+- sbm</code></pre>
+</div>
+</div>
+<p><strong>One dimensional trajectories</strong></p>
+<p>For this example, we will create a trajectory of a 1D continuous time random walk (ctrw). All the model functions must have as inputs the length of the trajectories and the anomalous exponent <span class="math inline">\(\alpha\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>oneD <span class="op">=</span> models_theory()._oneD()</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> oneD.ctrw(T <span class="op">=</span> <span class="dv">100</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>plt.plot(traj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Some diffusion models are constructed from a collection of positions at different sampling times. This means that their output array does not have <span class="math inline">\(T\)</span> points, but rather number <span class="math inline">\(m\)</span> of sampled posisition. In order to acces such kind of information, some model generators have the optional parameter <code>regulare_time</code>, which if <code>False</code>, makes the function to return an array with two rows and <span class="math inline">\(m\)</span> columns. The first row are the sampling times and the second are the positions. CTRW is an example of these models:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>traj_nonR <span class="op">=</span> oneD.ctrw(T <span class="op">=</span> <span class="dv">100</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>, regular_time <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>traj_nonR.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(2, 13)</code></pre>
+</div>
+</div>
+<p>If <code>regulare_time = True</code> (default value), the trajectory is fed to the function <a href="https://gorkamunoz.github.io/andi_datasets/lib_nbs/utils_trajectories.html#regularize"><code>regularize</code></a> from <code>utils_trajectories</code>, which transforms the trajectory to regular sampling times. Below is an example with the previously defined trajectory. The offset is due to the need of rounding the times coming from the variable <code>traj_nonR[1]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> regularize</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>traj_R <span class="op">=</span> regularize(positions <span class="op">=</span> traj_nonR[<span class="dv">1</span>,:], times <span class="op">=</span> traj_nonR[<span class="dv">0</span>, :], T <span class="op">=</span> <span class="dv">100</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>ax.scatter(traj_nonR[<span class="dv">0</span>,:], traj_nonR[<span class="dv">1</span>, :], c <span class="op">=</span> <span class="st">'C0'</span>, label <span class="op">=</span> <span class="st">'Irregular sampling'</span>)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>ax.plot(traj_R, c <span class="op">=</span> <span class="st">'C1'</span>, label <span class="op">=</span> <span class="st">'Regularized sampling'</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Positions'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'Time'</span>)<span class="op">;</span> ax.axvline(<span class="dv">100</span>,ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'C2'</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>ax.legend()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Two dimensional trajectories</strong></p>
+<p>We will proceed with an example of a 2D trajectory coming from the ATTM model. 2D trajectories are output as an array of length <span class="math inline">\(2\times T\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>traj <span class="op">=</span> models_theory()._twoD().attm(T <span class="op">=</span> T, alpha <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(traj.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(40,)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>,<span class="dv">5</span>))</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca(projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>ax.plot(traj[:T], traj[T:], np.arange(T))</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>scat <span class="op">=</span> ax.scatter3D(traj[:T], traj[T:], np.arange(T), c<span class="op">=</span>np.arange(T), s <span class="op">=</span> <span class="dv">250</span>)<span class="op">;</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Position X'</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Position Y'</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'Time'</span>)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_ticklabels([])</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>ax.yaxis.set_ticklabels([])</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>ax.zaxis.set_ticklabels([])</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_one_datasets_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Ensemble averages of <code>diffusion_models</code> trajectories</strong></p>
+<p>In the ANDI challenge, one of the parameters to be extracted is the anomalous exponent <span class="math inline">\(\alpha\)</span>. This exponents corresponds to the proportionality relation between the mean squared displacement averaged over <span class="math inline">\(N\)</span> trajectories (eMSD) and time: <span class="math inline">\(\left&lt; x^2(t) \right&gt;\sim t^\alpha\)</span>. Here are a series of examples of eMSD calculated for various models:</p>
+<p><em>(If your viewer does not allow you to see the following images, you can see them in the folder <code>figures/</code>)</em></p>
+<p><em>Subdiffusive trajectories:</em></p>
+<p><img src="../figures/eMSD_0.8.png" width="600"></p>
+<p><em>Superdiffusive trajectories:</em></p>
+<p><img src="../figures/eMSD_1.4.png" width="600"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
