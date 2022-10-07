@@ -9,7 +9,7 @@ This repository contains the necessary functions to generate datasets of traject
 ```
 pip install andi-datasets
 ```
- 
+
 You can then import the package in a Python3 environment using:
 
 ```python
@@ -19,7 +19,7 @@ import andi
 
 ## Functions organization
 
-The `ANDI` class allows to generate, save and load trajectories generated with various diffusion models. Its main purpose is to generate datasets similar to the ones proposed in the ANDI challenge. Moreover, it also allows to generate datasets of trajectories of various kinds, depending on the needs of the user. 
+The `ANDI` class allowse to generate, save and load trajectories generated with various diffusion models. Its main purpose is to generate datasets similar to the ones proposed in the ANDI challenge. Moreover, it also allows to generate datasets of trajectories of various kinds, depending on the needs of the user. 
 
 Examples of use of the class and more detailed descriptions of all the functions can be found in the notebook [`tutorial_andi_datasets.ipynb`](https://github.com/AnDiChallenge/ANDI_datasets/blob/master/tutorial_andi_datasets.ipynb).
 
@@ -54,11 +54,13 @@ Each of the models available in the `andi` package are created by a function whi
     - `T`: the length of the trajectory.
     - `alpha`: the anomalous exponent. 
     
+
 Important: in this class we are defining the anomalous exponent as the one calculated throught a ensemble averaged mean squared displacement over many trajectories. 
 
 - **Output:**
     - `trajectory`: numpy.array of size `1x(d.T)`, where `d` is the number of dimensions.
     
+
 Other outputs via optional inputs can be added at your discretion.
 
 
