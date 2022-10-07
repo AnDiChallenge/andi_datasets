@@ -35,7 +35,7 @@ We are currently preparing the second edition of the AnDi Challenge. Stay tuned,
 
 The `andi_datasets` class allows to generate, transform, analyse, save and load diffusion trajectories from a plethora of diffusion models and experimental generated with various diffusion models. The library is structured in two main blocks, containing either theoretical or phenomenological models. Here is a scheme of the library's content:
 
-<img src="figures/scheme_v1.svg" alt="drawing" width="700"/>
+<img src="source_nbs/figures/scheme_v1.svg" alt="drawing" width="700"/>
 
 
 
@@ -43,13 +43,13 @@ The `andi_datasets` class allows to generate, transform, analyse, save and load 
 
 The library allows to generate trajectories from various anomalous diffusion models:  [continuous-time random walk (CTRW)](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.12.2455), [fractional Brownian motion (FBM)](https://doi.org/10.1137%2F1010093), [Lévy walks (LW)](https://doi.org/10.1103%2FPhysRevE.49.4873), [annealed transit time model (ATTM)](https://doi.org/10.1103%2FPhysRevLett.112.150603) and [scaled Brownian motion (SBM)](https://doi.org/10.1103%2FPhysRevE.66.021114). You can generate trajectories with the desired anomalous exponent in either one, two or three dimensions.
 
-Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2020_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge2020_datasets.ipynb).
 
 ### Phenomenological models
 
 We have also included models specifically developed to simulate realistic physical systems, in which random events alter the diffusion behaviour of the particle. The sources of these changes can be very broad, from the presence of heterogeneities either in space or time, the possibility of creating dimers or bigger clusters or condensates or the presence of immobile traps in the environment.
 
-Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2022_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge2022_datasets.ipynb).
 
 ## Contributing
 
