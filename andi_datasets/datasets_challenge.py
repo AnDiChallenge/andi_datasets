@@ -10,11 +10,11 @@ import pandas as pd
 import os
 import csv
 
-from andi_datasets.utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
-from andi_datasets.datasets_phenom import datasets_phenom
-from andi_datasets.datasets_theory import datasets_theory
-from andi_datasets.utils_trajectories import normalize
-from andi_datasets.utils_videos import transform_to_video, psf_width
+from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
+from .datasets_phenom import datasets_phenom
+from .datasets_theory import datasets_theory
+from .utils_trajectories import normalize
+from .utils_videos import transform_to_video, psf_width
 
 # %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 5
 def challenge_2020_dataset(N:np.ndarray|int = 1000, 

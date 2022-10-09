@@ -12,8 +12,8 @@ from tqdm.auto import trange
 import csv
 
 # %% ../source_nbs/lib_nbs/datasets_theory.ipynb 4
-from andi_datasets.utils_trajectories import normalize
-from andi_datasets.models_theory import models_theory as models_theory
+from .utils_trajectories import normalize
+from .models_theory import models_theory as models_theory
 
 # %% ../source_nbs/lib_nbs/datasets_theory.ipynb 6
 class datasets_theory():

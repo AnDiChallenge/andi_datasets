@@ -4,7 +4,7 @@
 __all__ = ['datasets_phenom']
 
 # %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 2
-from andi_datasets.models_phenom import models_phenom
+from .models_phenom import models_phenom
 
 import inspect
 import numpy as np

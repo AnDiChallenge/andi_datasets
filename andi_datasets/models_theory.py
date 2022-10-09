@@ -9,7 +9,7 @@ from stochastic.processes.continuous import FractionalBrownianMotion as fbm
 from math import pi as pi
 from scipy.special import erfcinv
 
-from andi_datasets.utils_trajectories import regularize, bm1D, sample_sphere
+from .utils_trajectories import regularize, bm1D, sample_sphere
 
 # %% ../source_nbs/lib_nbs/models_theory.ipynb 5
 class models_theory(object):
