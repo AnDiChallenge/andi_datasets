@@ -196,7 +196,7 @@ def label_list_to_continuous(CP, label):
     return (segs.transpose()*label).sum(1)
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 24
-from .utils_trajectories import segs_inside_fov
+from andi_datasets.utils_trajectories import segs_inside_fov
 
 
 def array_to_df(trajs, 
@@ -682,7 +682,7 @@ def segment_assignment(GT, preds, T:int = None):
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 56
 from sklearn.metrics import mean_squared_log_error as msle, f1_score
-from .models_phenom import models_phenom
+from andi_datasets.models_phenom import models_phenom
 
 def metric_anomalous_exponent(gt = None,
                               pred = None,
@@ -881,7 +881,7 @@ def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
         return error_alpha, error_D, error_s
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 69
-from .models_phenom import models_phenom
+from andi_datasets.models_phenom import models_phenom
 def extract_ensemble(state_label, dic):
         ''' 
         Given an array of the diffusive state and a dictionary with the diffusion information,
@@ -1026,7 +1026,7 @@ def distribution_distance(p:np.array, # distribution 1
     return np.abs(p-q).mean()
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 74
-from .models_phenom import models_phenom
+from andi_datasets.models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
     ''' 

@@ -6,7 +6,7 @@ __all__ = ['models_phenom']
 # %% ../source_nbs/lib_nbs/models_phenom.ipynb 2
 import numpy as np
 from stochastic.processes.noise import FractionalGaussianNoise as FGN
-from .utils_trajectories import gaussian
+from andi_datasets.utils_trajectories import gaussian
 import warnings
 
 # %% ../source_nbs/lib_nbs/models_phenom.ipynb 5
@@ -1084,7 +1084,7 @@ class models_phenom(models_phenom):
         return comp_center
 
 # %% ../source_nbs/lib_nbs/models_phenom.ipynb 80
-from .utils_trajectories import trigo
+from andi_datasets.utils_trajectories import trigo
 
 class models_phenom(models_phenom):
     
