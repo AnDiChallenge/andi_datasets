@@ -22,6 +22,9 @@ website:
         href: lib_nbs/index_docs.ipynb
       - text: "Tutorials"
         href: tutorials/index_tutorials.ipynb
+      - text: "ANDI interactive tool"
+        href: https://andi-app.herokuapp.com/andi_app
+          
   sidebar:
     style: floating
     

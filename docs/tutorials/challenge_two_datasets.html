@@ -121,10 +121,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -160,6 +156,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tutorials/index_tutorials.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">ANDI interactive tool</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -415,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                                          T <span class="op">=</span> T,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                          alphas <span class="op">=</span> [<span class="fl">1.2</span>, <span class="fl">0.7</span>],</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">10</span><span class="op">*</span>D, <span class="fl">0.1</span><span class="op">*</span>D],</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                                          M <span class="op">=</span> np.array([[<span class="fl">0.98</span>, <span class="fl">0.02</span>], [<span class="fl">0.02</span>, <span class="fl">0.98</span>]])</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                                          M <span class="op">=</span> [[<span class="fl">0.98</span>, <span class="fl">0.02</span>], [<span class="fl">0.02</span>, <span class="fl">0.98</span>]]</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See that now we have define the labels of the trajectories. This contain very important information: the value of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> at each time step. For instance, let’s check the values of the labels for the first particle:</p>
@@ -434,17 +433,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>As you can see, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> change over time randomly, following the transition matrix <span class="math inline">\(M\)</span>. If you prefer to work with changepoints and physical properties in the different systems, you can use the following function for it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> continuous_label_to_list</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> label_continuous_to_list</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>changepoints, alphas, Ds <span class="op">=</span> continuous_label_to_list(labels_model2[:, <span class="dv">0</span>, :])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>changepoints, alphas, Ds, state_num <span class="op">=</span> label_continuous_to_list(labels_model2[:, <span class="dv">0</span>, :])</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'changepoints:'</span>, changepoints,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">alphas:'</span>, alphas,</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">Ds:'</span>, Ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>changepoints: [  7  41  62 129 182 278 296 319 341 348 451] 
-alphas: [1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7] 
-Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
+<pre><code>changepoints: [ 14  73  88 106 155 170 290 351 394 407 445 500] 
+alphas: [0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2] 
+Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
 </div>
 </div>
 <p>The previous gives <span class="math inline">\(C\)</span> changepoints, which creates <span class="math inline">\(C+1\)</span> segments, and hence <span class="math inline">\(C+1\)</span> <span class="math inline">\(\alpha\)</span>s and <span class="math inline">\(D\)</span>s.</p>
@@ -462,11 +461,6 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                                           Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># binding probability</span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                                                           Pu <span class="op">=</span> <span class="dv">0</span> <span class="co"># unbinding probability</span></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"6d89ee4ddf1a4eccaf9e556d493b4d2b","version_major":2,"version_minor":0}
-</script>
-</div>
 </div>
 <p>Now, let’s plot them to see how they change over time. You can see them in third row of the next plot:</p>
 <div class="cell">
@@ -492,16 +486,11 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                                             r <span class="op">=</span> <span class="dv">1</span>, <span class="co"># radius of the traps</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                                             Pu <span class="op">=</span> <span class="fl">0.01</span>, <span class="co"># Unbinding probability</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                                                             Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Binding probability</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                                                             D <span class="op">=</span> D, <span class="co"># Diffusion coefficients of moving state</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                                                             alpha <span class="op">=</span> <span class="fl">1.6</span>, <span class="co"># Anomalous exponents of moving state</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                                                             Ds <span class="op">=</span> D, <span class="co"># Diffusion coefficients of moving state</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                                                             alphas <span class="op">=</span> <span class="fl">1.6</span>, <span class="co"># Anomalous exponents of moving state</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                                                             Nt <span class="op">=</span> number_traps, <span class="co"># number of traps</span></span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                                                             traps_pos <span class="op">=</span> traps_positions</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                                                             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"a0082b7d9bfe406498f7219a53663676","version_major":2,"version_minor":0}
-</script>
-</div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model4, L, N, </span>
@@ -517,24 +506,20 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <h3 class="anchored" data-anchor-id="model-5---confinement">Model 5 - Confinement</h3>
 <p>Last but not least, we have one of the most relevant models of the challenge: the presence of compartments, whose boundaries can prevent particles to exit them. Note that we consider here the case of <em>osmotic</em> boundaries, which means that the particles will always enter the compartment. Once inside, the boundaries have a certain transmittance <code>trans</code>, i.e.&nbsp;the probability of the particle exiting the compartment. Just as the case of immobile traps, we can define (optionally) a priori the compartments’ distribution. Note that we always consider here circular compartment of given radius <code>r</code>. You can use the following built-in function to distribute cercles over the environment, without overlap. If the algorithm does manage to place them all, a warning is printed, and only the circles states are placed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>number_compartments <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>number_compartments <span class="op">=</span> <span class="dv">50</span><span class="op">;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>radius_compartments <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>compartments_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> number_compartments, </span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                                                      r <span class="op">=</span> radius_compartments,</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                                                      L <span class="op">=</span> L <span class="co"># size of the environment</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                                                                      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>c:\users\gorka\github\andi_datasets_dev\andi_datasets\models_phenom.py:556: UserWarning: Could accomodate 54 circles of the 100 requested. Increase size of environment or decrease radius of compartments.
-  warnings.warn(warn_str)</code></pre>
-</div>
 </div>
 <p>We can check the distribution of the compartments like below. As you can see, the environment is quite dense!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">4</span>,<span class="dv">4</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> comp_center:</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), radius_compartments, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C1'</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle) </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlim <span class="op">=</span> (<span class="dv">0</span>, L), ylim <span class="op">=</span> (<span class="dv">0</span>, L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> compartments_center:</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), radius_compartments, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C1'</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle) </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlim <span class="op">=</span> (<span class="dv">0</span>, L), ylim <span class="op">=</span> (<span class="dv">0</span>, L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>[0.0, 192.0, 0.0, 192.0]</code></pre>
 </div>
@@ -546,21 +531,21 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <p><strong>Comment on default values:</strong> the default values for <code>alpha</code> are always 1 for all methods. Hence, if no exponents are given, all diffusive states are normally diffusing. Most of the variables of the functions presented here have default values, with similar values as the ones used in this notebook. If you want to know more, you can check their <a href="https://github.com/AnDiChallenge/andi_datasets/blob/main/source_nbs/models_phenom.ipynb">source code</a>.</p>
 <p>For the boundaries of the compartments, let’s consider a transmittance <code>trans</code> = 0.2:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>trajs_model5, labels_model5 <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                                                          L <span class="op">=</span> L,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">1500</span><span class="op">*</span>D, <span class="dv">50</span><span class="op">*</span>D],</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                                          comp_center <span class="op">=</span> compartments_center,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                                          r <span class="op">=</span> radius_compartments,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                                                          trans <span class="op">=</span> <span class="fl">0.2</span> <span class="co"># boundary transmittance</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>trajs_model5, labels_model5 <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                                          L <span class="op">=</span> L,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">1500</span><span class="op">*</span>D, <span class="dv">50</span><span class="op">*</span>D],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                                          comp_center <span class="op">=</span> compartments_center,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                                                          r <span class="op">=</span> radius_compartments,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                                          trans <span class="op">=</span> <span class="fl">0.2</span> <span class="co"># boundary transmittance</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s see the resulting trajectories, superimposed to the cercles we create just before.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model5, L, N, </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>           comp_center <span class="op">=</span> compartments_center,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>           r_cercle <span class="op">=</span> radius_compartments,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels_model5</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model5, L, N, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>           comp_center <span class="op">=</span> compartments_center,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           r_cercle <span class="op">=</span> radius_compartments,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels_model5</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="challenge_two_datasets_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
@@ -571,57 +556,64 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <h1>Creating datasets with multiple models</h1>
 <p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <code>datasets_phenom</code>. Let’s import it and see some of its properties:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>One of the first things we can check is the models that we can access with this class. Spoiler: they are the same we just reviewed above!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datasets_phenom().avail_models_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>datasets_phenom().avail_models_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>['confinement',
- 'dimerization',
- 'immobile_traps',
+<pre><code>['single_state',
  'multi_state',
- 'single_state']</code></pre>
+ 'immobile_traps',
+ 'dimerization',
+ 'confinement']</code></pre>
 </div>
 </div>
 <p>As we have seen previously, each model has its own parameters. As we commented, most of them have some meaningful default values, so we can skip them when generating trajectories. Nonetheless, if you want to know the parameters for a given model, you can use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">'confinement'</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>datasets_phenom()._get_inputs_models(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">'confinement'</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>datasets_phenom()._get_inputs_models(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>['N', 'T', 'Ds', 'alphas', 'L', 'deltaT', 'r', 'comp_center', 'Nc', 'trans']</code></pre>
+<pre><code>['N',
+ 'T',
+ 'L',
+ 'Ds',
+ 'alphas',
+ 'gamma_d',
+ 'epsilon_a',
+ 'r',
+ 'comp_center',
+ 'Nc',
+ 'trans',
+ 'deltaT']</code></pre>
 </div>
 </div>
-<p>Of course, you can also check the <a href="https://github.com/AnDiChallenge/andi_datasets/blob/main/source_nbs/models_phenom.ipynb">source code</a> of the models to inspect them.</p>
+<p>Of course, you can also check the <a href="https://andichallenge.github.io/andi_datasets/">Documentation</a> and inspect all the details about the models.</p>
 <p>In order to generate trajectories, we first need to set: 1) the models we want to generate trajectories from; 2) the properties of each of the models. For that, we need to create a <em>dictionary</em> that stores all the needed information. For each model, a dictionary is needed. Hence, for multiple models, we will need to input a list of dictionaries. For example, let’s create a dataset with trajectories from the dimerization (model 3) and confinement (model 5) models. We will make use of the default values of the previous models, and only input the binding/unbinding probability for the former and the transmittance for the latter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dict_model3 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'dimerization'</span>, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Pu'</span>: <span class="fl">0.1</span>, <span class="st">'Pb'</span>: <span class="dv">1</span>}</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>dict_model5 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'confinement'</span>, </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">'trans'</span>: <span class="fl">0.2</span>}</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>dict_all <span class="op">=</span> [dict_model3, dict_model5]</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"eb232d17d35e4461aefc935e33affcf1","version_major":2,"version_minor":0}
-</script>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dict_model3 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'dimerization'</span>, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Pu'</span>: <span class="fl">0.1</span>, <span class="st">'Pb'</span>: <span class="dv">1</span>}</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>dict_model5 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'confinement'</span>, </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">'trans'</span>: <span class="fl">0.2</span>}</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>dict_all <span class="op">=</span> [dict_model3, dict_model5]</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>                                            </span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The trajectories arising from the previous function are ordered following the order of the input list of dictionaries. We requested <code>N_model = N = 50</code> trajectories per model, hence the dataset will have a total of 100 trajectories. The first 50 will come from the dimerization model and the last 50 from the confinement model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="challenge_two_datasets_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
 </div>
@@ -630,15 +622,16 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 <h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
 <p>Just as with the <code>datasets_theory</code> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                                                 save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder'</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"263fcce3398d46a88c1bedb28e6a53ef","version_major":2,"version_minor":0}
-</script>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                                                 save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:268: UserWarning: The dataset you want to save already exists (file: dimerization_0.npy). Switching to Load mode.
+  warnings.warn(wrn_str)
+c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:189: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  df = df.append(dic, ignore_index = True)</code></pre>
 </div>
 </div>
 <p>Saving creates two files per model:</p>
@@ -648,15 +641,16 @@ Ds: [1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01]</code></pre>
 </ul>
 <p>After saving, we can just load the dataset with the same function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                                                 save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"0b4784950b184bef988ed2688c4f6586","version_major":2,"version_minor":0}
-</script>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>ValueError: The dataset you want to load does not exist.</code></pre>
 </div>
 </div>
 

@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import csv
 from tqdm.auto import tqdm
+import copy
 
 import os
 import warnings
@@ -89,7 +90,7 @@ class datasets_phenom(datasets_phenom):
             Path from where to save or load the dataset.
             
         Returns
-        ----------
+        -------
         tuple
             - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. 
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels) 
@@ -140,9 +141,9 @@ class datasets_phenom(datasets_phenom):
             data_l  array containing the corresponding labels.
         '''
 
-        for dic in self.dics:
+        for dic in copy.deepcopy(self.dics):
             
-            dataset_idx, df = self._inspect_dic(dic)
+            df, dataset_idx = self._inspect_dic(dic)
             
             # If the dataset does not yet exists
             if dataset_idx is False:
@@ -186,7 +187,11 @@ class datasets_phenom(datasets_phenom):
         file_name = path+dic['model']+'_'+str(df.shape[0])+'.npy'
         
         # Save information in CSV handler
-        df = df.append(dic, ignore_index = True)
+        df = df.append(dic, ignore_index = True) 
+        #print(dic)
+        #df = pd.concat([df, 
+        #                pd.DataFrame(dic)], 
+        #               ignore_index=True)        
         df.to_csv(path+dic['model']+'.csv')
         
         # Save trajectories and labels
@@ -203,7 +208,7 @@ class datasets_phenom(datasets_phenom):
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 18
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 21
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
@@ -240,8 +245,7 @@ class datasets_phenom(datasets_phenom):
             df = pd.read_csv(self.path+model_m+'.csv', index_col=0)
         except:                
             # convert to dataframe and add model
-            df = pd.DataFrame(columns = args+['model'])                
-
+            df = pd.DataFrame(columns = args+['model'])   
         # Assign missing keys in dic with default values
         for arg, default in zip(args, defaults):
             if arg not in dic.keys():
@@ -253,13 +257,18 @@ class datasets_phenom(datasets_phenom):
 
         # Check if the dataset already exists:
         df_conditions = df.copy()
-        df_conditions = df_conditions.where(pd.notnull(df_conditions), None) # Need in case of empty elements because deafults are None
+        # Nones in dataframes are transformed into Nans. We change back this here
+        # but instead of putting None, we put False.
+        df_conditions = df_conditions.where(pd.notnull(df_conditions), False)
         for key in dic:
+            # Transforming Nones to False in variables dictionaries (see problem with df just above) 
+            if dic[key] is None: dic[key] = False
             # We need to transform it to str to do a fair comparison between matrices (e.g. transition matrix, Ds, alphas,...)
             df_conditions = df_conditions.loc[(df_conditions[key].astype(str) == str(dic[key]))]
-            if len(df_conditions.index) == 0:
+            if len(df_conditions.index) == 0:                
                 break
-
+        
+        
         # If dataset exists
         if len(df_conditions.index) > 0:
             # if the dataset exists and save was True, do not save but load
@@ -282,7 +291,7 @@ class datasets_phenom(datasets_phenom):
                 
         return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 21
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 34
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
         ''' 

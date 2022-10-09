@@ -14,7 +14,9 @@ Diffusion (AnDi) Challenge**](http://andi-challenge.org/) and allows to
 create trajectories and datasets from various anomalous diffusion
 models. You can install the package using:
 
-    pip install andi-datasets
+``` python
+pip install andi-datasets
+```
 
 You can then import the package in a Python3 environment using:
 
@@ -24,9 +26,7 @@ import andi_datasets
 
 ### 1st AnDi Challenge 2020
 
-<p align="center">
-<img src="figures/experiments_andi1.svg" alt="drawing" width="700"/>
-</p>
+![](figures/experiments_andi1.svg)
 
 The first AnDi challenge was held between March and November 2020 and
 focused on the characterization of trajectories arising from different
@@ -59,7 +59,7 @@ experimental generated with various diffusion models. The library is
 structured in two main blocks, containing either theoretical or
 phenomenological models. Here is a scheme of the library’s content:
 
-<img src="figures/scheme_v1.svg" alt="drawing" width="700"/>
+![](figures/scheme_v1.svg)
 
 ### Theoretical models
 

@@ -129,10 +129,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="andi_datasets - Help functions">
-<meta property="og:description" content="Here we prepare the program that will be uploaded to codalab in order to do the assesment of the participants predictions.">
+<meta property="og:description" content="source">
 <meta property="og:site-name" content="andi_datasets">
 <meta name="twitter:title" content="andi_datasets - Help functions">
-<meta name="twitter:description" content="Here we prepare the program that will be uploaded to codalab in order to do the assesment of the participants predictions.">
+<meta name="twitter:description" content="source">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -160,6 +160,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tutorials/index_tutorials.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">ANDI interactive tool</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -429,6 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="smoothing-labels">Smoothing labels</h2>
 <p>These functions are used to smooth a given vector of labels of heterogeneous processes by means of majority filter. It allows to define a minimum segment length.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L42" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="label_filter" class="level3">
 <h3 class="anchored" data-anchor-id="label_filter">label_filter</h3>
 <blockquote class="blockquote">
@@ -478,6 +482,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L21" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="majority_filter" class="level3">
 <h3 class="anchored" data-anchor-id="majority_filter">majority_filter</h3>
@@ -580,6 +585,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="continuous-labels-to-list-of-features">Continuous labels to list of features</h2>
 <p>The labels in the challenge will be the list of <span class="math inline">\(n\)</span> changepoints as well as the <span class="math inline">\(n+1\)</span> diffusion properties (<span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>) for each segment. This function transforms the stepwise labels into three lists: CPs, <span class="math inline">\(\alpha\)</span>s and <span class="math inline">\(D\)</span>s.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L127" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="label_continuous_to_list" class="level3">
 <h3 class="anchored" data-anchor-id="label_continuous_to_list">label_continuous_to_list</h3>
 <blockquote class="blockquote">
@@ -636,6 +642,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="list-of-features-to-continuous-labels">List of features to continuous labels</h2>
 <p>This function does the opposite from than <code>label_continuous _to_list</code>. From a list of properties as the one used in ANDI 2022, creates continuous labels</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L174" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="label_list_to_continuous" class="level3">
 <h3 class="anchored" data-anchor-id="label_list_to_continuous">label_list_to_continuous</h3>
 <blockquote class="blockquote">
@@ -689,6 +696,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="storing-array-data-in-dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="storing-array-data-in-dataframe">Storing array data in dataframe</h2>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L202" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="array_to_df" class="level3">
 <h3 class="anchored" data-anchor-id="array_to_df">array_to_df</h3>
 <blockquote class="blockquote">
@@ -834,6 +842,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="transform-andi-dataframe-to-array-with-padding" class="level2">
 <h2 class="anchored" data-anchor-id="transform-andi-dataframe-to-array-with-padding">Transform ANDI dataframe to array with padding</h2>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L287" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="df_to_array" class="level3">
 <h3 class="anchored" data-anchor-id="df_to_array">df_to_array</h3>
 <blockquote class="blockquote">
@@ -882,6 +891,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="isolate-vip-particles" class="level1">
 <h1>Isolate VIP particles</h1>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L327" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="get_vip" class="level3">
 <h3 class="anchored" data-anchor-id="get_vip">get_VIP</h3>
 <blockquote class="blockquote">
@@ -945,6 +955,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="changepoint-pairing">Changepoint pairing</h2>
 <p>We use an assignment algorithm to pair predicted and groundtruth changepoints. From there, we will calculate the various metrics of the challenge.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L389" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="changepoint_assignment" class="level3">
 <h3 class="anchored" data-anchor-id="changepoint_assignment">changepoint_assignment</h3>
 <blockquote class="blockquote">
@@ -1000,6 +1011,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </div>
 </div>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L421" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="changepoint_alpha_beta" class="level3">
 <h3 class="anchored" data-anchor-id="changepoint_alpha_beta">changepoint_alpha_beta</h3>
@@ -1095,6 +1107,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </div>
 </div>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L459" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="jaccard_index" class="level3">
 <h3 class="anchored" data-anchor-id="jaccard_index">jaccard_index</h3>
@@ -1134,6 +1147,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L469" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="single_changepoint_error" class="level3">
 <h3 class="anchored" data-anchor-id="single_changepoint_error">single_changepoint_error</h3>
@@ -1184,6 +1198,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L516" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="ensemble_changepoint_error" class="level3">
 <h3 class="anchored" data-anchor-id="ensemble_changepoint_error">ensemble_changepoint_error</h3>
@@ -1284,6 +1299,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <h2 class="anchored" data-anchor-id="segments-pairing">Segments pairing</h2>
 <p>Here we focus on pairing the segments arising from a list of changepoints. We will use this to latter compare the predicted physical properties for each segment</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L577" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="create_binary_segment" class="level3">
 <h3 class="anchored" data-anchor-id="create_binary_segment">create_binary_segment</h3>
 <blockquote class="blockquote">
@@ -1332,6 +1348,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </div>
 </div>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L593" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="jaccard_between_segments" class="level3">
 <h3 class="anchored" data-anchor-id="jaccard_between_segments">jaccard_between_segments</h3>
@@ -1371,6 +1388,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L626" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="segment_assignment" class="level3">
 <h3 class="anchored" data-anchor-id="segment_assignment">segment_assignment</h3>
@@ -1507,6 +1525,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <section id="metrics-of-segment-properties" class="level3">
 <h3 class="anchored" data-anchor-id="metrics-of-segment-properties">Metrics of segment properties</h3>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L721" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="metric_diffusive_state" class="level3">
 <h3 class="anchored" data-anchor-id="metric_diffusive_state">metric_diffusive_state</h3>
@@ -1515,6 +1534,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </blockquote>
 <p>Compute the F1 score between diffusive states.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L700" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="metric_diffusion_coefficient" class="level3">
 <h3 class="anchored" data-anchor-id="metric_diffusion_coefficient">metric_diffusion_coefficient</h3>
@@ -1524,6 +1544,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </blockquote>
 <p>Compute the mean squared log error (msle) between diffusion coefficients. Checks the current bounds of diffusion from models_phenom to calculate the maximum error.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L687" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="metric_anomalous_exponent" class="level3">
 <h3 class="anchored" data-anchor-id="metric_anomalous_exponent">metric_anomalous_exponent</h3>
@@ -1545,6 +1566,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <section id="pairing-and-metrics-calculation" class="level3">
 <h3 class="anchored" data-anchor-id="pairing-and-metrics-calculation">Pairing and metrics calculation</h3>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L728" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="check_no_changepoints" class="level3">
 <h3 class="anchored" data-anchor-id="check_no_changepoints">check_no_changepoints</h3>
@@ -1632,6 +1654,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L804" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="segment_property_errors" class="level3">
 <h3 class="anchored" data-anchor-id="segment_property_errors">segment_property_errors</h3>
@@ -1815,6 +1838,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <section id="ensemble-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="ensemble-metrics">Ensemble metrics</h2>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L885" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="extract_ensemble" class="level3">
 <h3 class="anchored" data-anchor-id="extract_ensemble">extract_ensemble</h3>
 <blockquote class="blockquote">
@@ -1853,6 +1877,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L972" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="multimode_dist" class="level3">
 <h3 class="anchored" data-anchor-id="multimode_dist">multimode_dist</h3>
@@ -1915,6 +1940,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1021" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="distribution_distance" class="level3">
 <h3 class="anchored" data-anchor-id="distribution_distance">distribution_distance</h3>
@@ -1993,6 +2019,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <section id="calculate-ensemble-metric" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-ensemble-metric">Calculate ensemble metric</h3>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1031" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="error_ensemble_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="error_ensemble_dataset">error_Ensemble_dataset</h3>
@@ -2094,6 +2121,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <p>Last, t<span class="math inline">\(_j\)</span> corresponds to the <span class="math inline">\(j\)</span>-th changepoints. The last changepoint <span class="math inline">\(T\)</span> corresponds to the length of the trajectory. Each prediction <strong>must</strong> contain <span class="math inline">\(C\)</span> changepoints and <span class="math inline">\(C\)</span> segments property values. If this is not fulfilled, the whole trajectory is considered as mispredicted.</p>
 <p>The .txt file will be first inspected. The data will then be collected into a dataframe</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1090" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="check_prediction_length" class="level3">
 <h3 class="anchored" data-anchor-id="check_prediction_length">check_prediction_length</h3>
 <blockquote class="blockquote">
@@ -2101,6 +2129,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </blockquote>
 <p>Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values. As it must also contain the index of the trajectory, this is summarized by being multiple of 4. In some cases, the user needs to also predict the final point of the trajectory. In this case, we will have a residu of 1.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1103" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="separate_prediction_values" class="level3">
 <h3 class="anchored" data-anchor-id="separate_prediction_values">separate_prediction_values</h3>
@@ -2109,6 +2138,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 </blockquote>
 <p>Given a prediction over trjaectory segments, extracts the predictions for each segment property as well as the changepoint values.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1115" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="load_file_to_df" class="level3">
 <h3 class="anchored" data-anchor-id="load_file_to_df">load_file_to_df</h3>
@@ -2155,6 +2185,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>df_true <span class="op">=</span> load_file_to_df(true_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1158" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="error_singletraj_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="error_singletraj_dataset">error_SingleTraj_dataset</h3>
@@ -2420,6 +2451,7 @@ Metric diffusive state: 0.41379310344827586</code></pre>
 <p><strong>Extra information</strong></p>
 <p>We will have an extra reference file which gives the model of each experiment. This is also needed to avoid considering Single state in the averages of change point metrics.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1308" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="codalab_scoring" class="level3">
 <h3 class="anchored" data-anchor-id="codalab_scoring">codalab_scoring</h3>
 <blockquote class="blockquote">
