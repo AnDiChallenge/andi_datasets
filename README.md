@@ -7,12 +7,10 @@ The Anomalous Diffusion (AnDi) dataset library
 
 </div>
 
-![](figures/experiments_andi1.svg)
-
 This library has been created in the framework of the [**Anomalous
 Diffusion (AnDi) Challenge**](http://andi-challenge.org/) and allows to
 create trajectories and datasets from various anomalous diffusion
-models. Learn all the details and discover the available tutorials in the [Documentation webpage](https://andichallenge.github.io/andi_datasets/)
+models. Learn all the details and discover the available tutorials in the [**library webpage**](https://andichallenge.github.io/andi_datasets/)
 
 ## Installation
 
@@ -41,4 +39,4 @@ issues with any feedback or comments you may have.
 All current requirements are declared in the file `setting.ini`.
 
 Further details can be found at the [PYPI package
-webpage](https://pypi.org/project/andi-datasets/).\_
+webpage](https://pypi.org/project/andi-datasets/).
