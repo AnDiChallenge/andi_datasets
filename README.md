@@ -48,7 +48,8 @@ If you found this package useful and used it in your projects, you can use the f
 
 ````
 Muñoz-Gil, G., Requena B., Volpe G., Garcia-March M.A. and Manzo C.
-AnDiChallenge/ANDI_datasets: Challenge 2020 release (v.1.0). Zenodo (2021). https://doi.org/10.5281/zenodo.4775311
+AnDiChallenge/ANDI_datasets: Challenge 2020 release (v.1.0). Zenodo (2021). 
+https://doi.org/10.5281/zenodo.4775311
 ````
 
 Or you can cite the paper this package was developed for:
