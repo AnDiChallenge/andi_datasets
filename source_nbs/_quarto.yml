@@ -3,7 +3,7 @@ project:
 
 format:
   html:
-    theme: flatly
+    theme: default
     toc: true
 
 website:
@@ -12,7 +12,7 @@ website:
   repo-actions: [issue]
   site-url: ''
   navbar:    
-    logo: figures/andi_logo.png
+    logo: figures/logo_noname.svg
     logo-href: index.ipynb
     background: primary
     search: true    

@@ -2,8 +2,8 @@
 
 d = { 'settings': { 'branch': 'master',
                 'doc_baseurl': '/andi_datasets',
-                'doc_host': 'https://gorka.munoz.github.io',
-                'git_url': 'https://github.com/gorka.munoz/andi_datasets',
+                'doc_host': 'https://andichallenge.github.io',
+                'git_url': 'https://github.com/andichallenge/andi_datasets',
                 'lib_path': 'andi_datasets'},
   'syms': { 'andi_datasets.analysis': { 'andi_datasets.analysis.CH_changepoints': ( 'lib_nbs/analysis.html#ch_changepoints',
                                                                                     'andi_datasets/analysis.py'),
