@@ -339,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#figures-videos" id="toc-figures-videos" class="nav-link" data-scroll-target="#figures-videos">Figures videos</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/gorka.munoz/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -478,7 +478,7 @@ C:\Users\Gorka\anaconda3\lib\site-packages\deeptrack\backend\_config.py:25: User
 </div>
 <section id="generating-videos" class="level3">
 <h3 class="anchored" data-anchor-id="generating-videos">6.1. Generating videos</h3>
-<p>The trajectory data generated through <code>models_phenom()</code> can be directly passed through <code>transform_to_video</code> function to generate fluorescence images of the particles (and the particle masks). By default, <code>transform_to_video</code> will output just the videos. If the list <code>get_vip_particles</code> is non-empty, the masks of the vip particles in the first frame are appended to the first frame of the output. If the <code>with_masks</code> is set to <code>True</code>, the function will output both the video and masks. In this case, the function can be called as <code>video, masks = transform_to_video(...., with_masks=True)</code>.</p>
+<p>The trajectory data generated through <code>models_phenom()</code> can be directly passed through <code>[</code>transform_to_video<code>](https://gorka.munoz.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</code> function to generate fluorescence images of the particles (and the particle masks). By default, <code>[</code>transform_to_video<code>](https://gorka.munoz.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</code> will output just the videos. If the list <code>get_vip_particles</code> is non-empty, the masks of the vip particles in the first frame are appended to the first frame of the output. If the <code>with_masks</code> is set to <code>True</code>, the function will output both the video and masks. In this case, the function can be called as <code>video, masks = transform_to_video(...., with_masks=True)</code>.</p>
 <p>The properites of the videos can be controlled by the dictionaries <code>particle_props</code>, <code>optics_props</code>, and <code>background_props</code>.</p>
 <ol type="1">
 <li><p><em>particle_props</em>: The intensity of various particles in the final image can be controlled with <code>particle_intensity</code> by giving a mean intensity and standard deviation. The intensity variation of a single particle within multiple frames can be controlled by giving a standard deviation in <code>intensity_variation</code>. Note that the intensity variation will be applied on the randomly sampled particle intensities from the first frame</p></li>
@@ -546,7 +546,7 @@ C:\Users\Gorka\anaconda3\lib\site-packages\deeptrack\backend\_config.py:25: User
 <p><img src="creating_videos_phenom_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Visualzing the generated videos using <code>play_video</code> function</p>
+<p>Visualzing the generated videos using <code>[</code>play_video<code>](https://gorka.munoz.github.io/andi_datasets/lib_nbs/utils_videos.html#play_video)</code> function</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>play_video(video, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>)) <span class="co"># can also be used with masks</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">

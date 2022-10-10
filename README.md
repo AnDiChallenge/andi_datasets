@@ -24,6 +24,9 @@ You can then import the package in a Python3 environment using:
 import andi_datasets
 ```
 
+In Octobre 2022, the library undergone major changes leading to version
+`2.0.0`. You can check the realese notes [here](changes_andi_v2.md).
+
 ### 1st AnDi Challenge 2020
 
 ![](figures/experiments_andi1.svg)
@@ -75,7 +78,7 @@ You can generate trajectories with the desired anomalous exponent in
 either one, two or three dimensions.
 
 Examples of their use and properties can be found in [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2020_datasets.ipynb).
+tutorial](tutorials/challenge_one_datasets.ipynb).
 
 ### Phenomenological models
 
@@ -87,7 +90,7 @@ possibility of creating dimers or bigger clusters or condensates or the
 presence of immobile traps in the environment.
 
 Examples of their use and properties can be found in [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2022_datasets.ipynb).
+tutorial](tutorials/challenge_two_datasets.ipynb).
 
 ## Contributing
 
@@ -102,4 +105,4 @@ issues with any feedback or comments you may have.
 All current requirements are declared in the file `setting.ini`.
 
 Further details can be found at the [PYPI package
-webpage](https://pypi.org/project/andi-datasets/).
+webpage](https://pypi.org/project/andi-datasets/).\_
