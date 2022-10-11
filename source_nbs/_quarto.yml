@@ -3,7 +3,7 @@ project:
 
 format:
   html:
-    theme: default
+    theme: yeti
     toc: true
 
 website:
@@ -13,7 +13,6 @@ website:
   site-url: ''
   navbar:    
     logo: figures/logo_noname.svg
-    logo-href: index.ipynb
     background: primary
     search: true    
     collapse-below: lg
@@ -24,6 +23,11 @@ website:
         href: tutorials/index_tutorials.ipynb
       - text: "ANDI interactive tool"
         href: https://andi-app.herokuapp.com/andi_app
+    right:
+      - icon: github
+        href: "https://github.com/andichallenge/andi_datasets"
+      - icon: twitter
+        href: https://twitter.com/AndiChallenge
           
   sidebar:
     style: floating

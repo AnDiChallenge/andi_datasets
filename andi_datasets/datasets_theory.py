@@ -49,37 +49,38 @@ class datasets_theory():
         ''' 
         Creates a dataset of trajectories via the theoretical models defined in `.models_theory`. Check our tutorials for use cases of this function.
         
-        Inputs
-        --------
-            :T (int):
-                - length of the trajectories.   
-            :N_models (int, numpy.array):
-                - if int, number of trajectories per class (i.e. exponent and model) in the dataset.
-                - if numpy.array, number of trajectories per classes: size (number of models)x(number of classes)    
-            :exponents (float, array):
-                - anomalous exponents to include in the dataset. Allows for two digit precision.
-            :models (bool, int, list):
-                - labels of the models to include in the dataset. Correspodance between models and labels
-                  is given by self.label_correspodance, defined at init.
-                  If int/list, choose the given models. If False, choose all of them.
-            :dimensions (int):
-                - Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.
-            :save_trajectories (bool):
-                - - if True, the module saves a .h5 file for each model considered, with N_save trajectories 
-                  and T = T_save.
-            :load_trajectories (bool):
-                - if True, the module loads the trajectories of an .h5 file.
-            :path (str):
-                - path to the folder where to save/load the trajectories dataset.
-            :N_save (int):
-                - Number of trajectories to save for each exponents/model. Advise: save at the beggining
-                  a big dataset (t_save ~ 1e3 and N_save ~ 1e4) which allows you to load any other combiantion
-                  of T and N_models.
-            :t_save (int):
-                - Length of the trajectories to be saved. See comments on N_save.                
-        Outputs
-        ----
-            :data_models (numpy.array):
+        Parameters
+        ----------
+        T : int
+            Length of the trajectories.   
+        N_models : int, numpy.array
+            - if int, number of trajectories per class (i.e. exponent and model) in the dataset.
+            - if numpy.array, number of trajectories per classes: size (number of models)x(number of classes)    
+        exponents : float, array
+            Anomalous exponents to include in the dataset. Allows for two digit precision.
+        models : bool, int, list
+            Labels of the models to include in the dataset. 
+            Correspodance between models and labels is given by self.label_correspodance, defined at init.
+            If int/list, choose the given models. If False, choose all of them.
+        dimensions : int
+            Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.
+        save_trajectories : bool
+            If True, the module saves a .h5 file for each model considered, with N_save trajectories 
+            and T = T_save.
+        load_trajectories : bool
+            If True, the module loads the trajectories of an .h5 file.
+        path : str
+            Path to the folder where to save/load the trajectories dataset.
+        N_save : int
+            Number of trajectories to save for each exponents/model. 
+            Advise: save at the beggining a big dataset (t_save ~ 1e3 and N_save ~ 1e4) 
+            which then allows you to load any other combiantion of T and N_models.
+        t_save : int
+            Length of the trajectories to be saved. See comments on N_save.                
+        
+        Returns
+        -------
+        numpy.array
                 - Dataset of trajectories of lenght Nx(T+2), with the following structure:
                     o First column: model label 
                     o Second column: value of the anomalous exponent
@@ -184,6 +185,7 @@ class datasets_theory():
         ''' Load trajectories from a h5py file of the given path. The name of the datasets in the
         file have the following structure: 
             '(exponent with 2 digit_precision)_T_(lenght of trajectories in the dataset)_N_(number of trajectories in the dataset)'
+            
         Arguments: 
             :T (int):
                 - length of the trajectories.   
@@ -371,23 +373,29 @@ class datasets_theory():
                                           save_trajectories = False, load_trajectories = False, 
                                           path = 'datasets/',
                                           N_save = 1000, t_save = 1000): 
-        ''' Create a dataset of noisy trajectories. This function creates trajectories with _create_trajectories
-        and then adds given noise to them.        
-        Arguments: All arguments are the same as _create_trajectories but noise_func
-            :dataset (bool, numpy array):
-                - If False, creates a dataset with the given parameters. If numpy array, dataset to which the
-                  function applies the noise.
-            :noise_func (bool, function):
-                - if False, the noise added to the trajectories will be Gaussian distributed, with 
-                  variance sigma and mean value mu.
-                - if function, uses the given function to generate noise to be added to the trajectory. The 
-                  function must have as input two ints, N and M and the output must be a matrix of size NxM.
-        Return:
-            :data_models (numpy.array):
-                - Dataset of trajectories of lenght Nx(T+2), with the following structure:
-                    o First column: model label 
-                    o Second column: value of the anomalous exponent
-                    o 2:T columns: trajectories'''
+        ''' 
+        Create a dataset of noisy trajectories. 
+        This function creates trajectories with _create_trajectories and then adds given noise to them.        
+        All parameters are the same as _create_trajectories but noise_func.
+        
+        Parameters
+        ----------
+        dataset : bool, numpy array
+            If False, creates a dataset with the given parameters.
+            If numpy array, dataset to which the function applies the noise.
+        noise_func : bool, function
+            If False, the noise added to the trajectories will be Gaussian distributed, with 
+            variance sigma and mean value mu.
+            If function, uses the given function to generate noise to be added to the trajectory.
+            The function must have as input two ints, N and M and the output must be a matrix of size NxM.
+        
+        Returns
+        -------
+        numpy.array
+            Dataset of trajectories of lenght Nx(T+2), with the following structure:
+                o First column: model label 
+                o Second column: value of the anomalous exponent
+                o 2:T columns: trajectories'''
                     
         if not dataset.any():
             dataset = self.create_dataset(T, N, exponents, models, dimension,
@@ -406,30 +414,29 @@ class datasets_theory():
     def create_noisy_diffusion_dataset(self, 
                                        dataset = False,
                                        T = False, N = False, exponents = False, models = False, dimension = 1,
-                                       diffusion_coefficients = False,
+                                       diffusion_coefficients = False, sigma = 1, mu = 0,
                                        save_trajectories = False, load_trajectories = False, 
                                        path = 'datasets/',
                                        N_save = 1000, t_save = 1000): 
         ''' 
-        Create a dataset of noisy trajectories. This function creates trajectories with `_create_trajectories`
-        and then adds given noise to them.        
+        Create a dataset of noisy trajectories. 
+        This function creates trajectories with `_create_trajectories` and then adds given noise to them.        
+        All arguments are the same as `_create_trajectories` but dataset and diffusion_coefficients.
         
-        Arguments
-        ---------
-        All arguments are the same as `_create_trajectories` but dataset and diffusion_coefficients
-            :dataset (bool, numpy array):
-                - If False, creates a dataset with the given parameters. If numpy array, dataset to which the
-                  function applies the noise.
-            :noise_func (bool, function):
-                - if False, the noise added to the trajectories will be Gaussian distributed, with 
-                  variance sigma and mean value mu.
-                - if function, uses the given function to generate noise to be added to the trajectory. The 
-                  function must have as input two ints, N and M and the output must be a matrix of size NxM.
-                 - if numpy array, sums it to the trajectories
+        Parameters
+        ----------       
+        dataset : bool, numpy array
+                - If False, creates a dataset with the given parameters. 
+                - If numpy array, dataset to which the function applies the noise.
+        diffusion_coefficient : bool, function
+                - If False, the diffusion noise added to the trajectories will 
+                  be Gaussian distributed, with variance sigma and mean value mu.
+                - If numpy array, multiply the displacements by them.
+                
         Returns
         --------
-            :data_models (numpy.array):
-                - Dataset of trajectories of lenght Nx(T+2), with the following structure:
+        data_models : numpy.array
+                Dataset of trajectories of lenght Nx(T+2), with the following structure:
                     o First column: model label 
                     o Second column: value of the anomalous exponent
                     o 2:T columns: trajectories'''
@@ -441,7 +448,7 @@ class datasets_theory():
                                                      N_save, t_save)
         # Add the noise to the trajectories 
         trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
-        trajs = self._add_noisy_diffusion(trajs, diffusion_coefficients)
+        trajs = self._add_noisy_diffusion(trajs, diffusion_coefficients, sigma = sigma, mu = mu)
         
         dataset[:, 2:] = trajs.reshape(dataset.shape[0], T*dimension)
         
@@ -468,8 +475,11 @@ class datasets_theory():
         
         # First normalize the trajectories
         trajs = normalize(trajs)
+        # Check if diffusion coefficient are an array
+        if isinstance(diffusion_coefficients, np.ndarray):
+            pass
         # If no new diffusion coefficients given, create new ones randonmly
-        if not diffusion_coefficients:
+        elif not diffusion_coefficients:
             diffusion_coefficients = np.random.randn(trajs.shape[0])
         # Apply new diffusion coefficients
         trajs = (trajs.transpose()*diffusion_coefficients).transpose()
@@ -482,24 +492,25 @@ class datasets_theory():
         ''' 
         Creates a dataset with trajectories which change diffusive feature (either model or anomalous exponent) after a time 't_change'. 
         
-        Arguments
-        ---------
-            :dataset1 (numpy.array):
-                - array of size Nx(t+2), where the first columns values correspond
-                to the labels of the model and anomalous exponent. The rest 
-                correspond to the trajectories of length t.
-            :dataset2 (numpy.array):
-                - same as dataset1
-            :dimension (int):
-                - Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.
-            :final_length (int):
-                - length of the output trajectories.
-            :random_shuffle (bool):
-                - If True, shuffles the first axis of dataset1 and dataset2.
+        Parameters
+        ----------
+        dataset1 : numpy.array
+            Array of size Nx(t+2), where the first columns values correspond
+            to the labels of the model and anomalous exponent. The rest 
+            correspond to the trajectories of length t.
+        dataset2 : numpy.array
+            Same as dataset1
+        dimension : int
+            Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.
+        final_length : int
+            Length of the output trajectories.
+        random_shuffle : bool
+            If True, shuffles the first axis of dataset1 and dataset2.
+            
         Returns
-        ---------
-            :seg_dataset (numpy.array):
-                - array of size Nx(t+5) whose columns represent:
+        -------
+        numpy.array
+                Array of size Nx(t+5) whose columns represent:
                     o Column 0: changing time
                     o Column 1,2: labels first part of the trajectory (model, exponent)
                     o Column 3,4: labels second part of the trajectory (model, exponent)
@@ -548,19 +559,17 @@ class datasets_theory():
         return seg_dataset
     
     @staticmethod
-    def _save_row(data, file):
-        '''Auxiliary function to save append data in existing files using csv
-        Arguments:
-            :data (numpy.array):
-                - row to be appended to the filed
-            :file (str):
-                - file where to append data.'''
+    def _save_row(data:np.array, # Row to be appended to the filed
+                  file:str # File where to append data
+                 ):
+        ''' Auxiliary function to save append data in existing files using csv. '''
+        
         with open(file, 'a') as f:
             writer = csv.writer(f, delimiter=';', lineterminator='\n',)
             writer.writerow(data)
 
     @staticmethod
     def _cut_trajectory(traj, t_cut, dim=1):
-        "Takes a trajectory and cuts it to `t_cut` length."
+        ''' Takes a trajectory and cuts it to `t_cut` length. '''
         cut_traj = traj.reshape(dim, -1)[:, :t_cut]
         return cut_traj.reshape(-1)    

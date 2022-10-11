@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="54.128742mm"
-   height="55.026207mm"
-   viewBox="0 0 54.128742 55.026207"
+   width="54.785526mm"
+   height="55.939297mm"
+   viewBox="0 0 54.785526 55.939297"
    version="1.1"
    id="svg5"
    inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.6819304"
-     inkscape:cx="-37.754237"
-     inkscape:cy="177.77192"
+     inkscape:zoom="2.3786088"
+     inkscape:cx="-12.402208"
+     inkscape:cy="97.115592"
      inkscape:window-width="1920"
      inkscape:window-height="1106"
      inkscape:window-x="-11"
@@ -106,7 +106,7 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-124.7151,-79.149847)">
+     transform="translate(-124.38671,-79.149847)">
     <g
        aria-label="α"
        id="text190"
@@ -226,13 +226,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.20181px;font-family:Constantia;-inkscape-font-specification:Constantia;font-variation-settings:normal;opacity:1;fill:#0d65d9;fill-opacity:1;stroke:none;stroke-width:0.139126;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-       x="124.36268"
+       x="124.03429"
        y="134.06392"
        id="text8631"><tspan
          sodipodi:role="line"
          id="tspan8629"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';fill:#0d65d9;fill-opacity:1;stroke:none;stroke-width:0.139126;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-         x="124.36268"
-         y="134.06392">andi-datasets</tspan></text>
+         x="124.03429"
+         y="134.06392">andi_datasets</tspan></text>
   </g>
 </svg>

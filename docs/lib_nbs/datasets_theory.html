@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="index.ipynb" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../figures/logo_noname.svg" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
@@ -95,6 +95,18 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">ANDI interactive tool</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/andichallenge/andi_datasets"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/AndiChallenge"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -261,9 +273,10 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#datasets_theory" id="toc-datasets_theory" class="nav-link active" data-scroll-target="#datasets_theory">datasets_theory</a></li>
-  <li><a href="#datasets_theory.create_dataset" id="toc-datasets_theory.create_dataset" class="nav-link" data-scroll-target="#datasets_theory.create_dataset">datasets_theory.create_dataset</a></li>
-  <li><a href="#datasets_theory.create_segmented_dataset" id="toc-datasets_theory.create_segmented_dataset" class="nav-link" data-scroll-target="#datasets_theory.create_segmented_dataset">datasets_theory.create_segmented_dataset</a></li>
-  <li><a href="#datasets_theory.create_noisy_diffusion_dataset" id="toc-datasets_theory.create_noisy_diffusion_dataset" class="nav-link" data-scroll-target="#datasets_theory.create_noisy_diffusion_dataset">datasets_theory.create_noisy_diffusion_dataset</a></li>
+  <li><a href="#create_dataset" id="toc-create_dataset" class="nav-link" data-scroll-target="#create_dataset">create_dataset</a></li>
+  <li><a href="#create_segmented_dataset" id="toc-create_segmented_dataset" class="nav-link" data-scroll-target="#create_segmented_dataset">create_segmented_dataset</a></li>
+  <li><a href="#create_noisy_diffusion_dataset" id="toc-create_noisy_diffusion_dataset" class="nav-link" data-scroll-target="#create_noisy_diffusion_dataset">create_noisy_diffusion_dataset</a></li>
+  <li><a href="#create_noisy_localization_dataset" id="toc-create_noisy_localization_dataset" class="nav-link" data-scroll-target="#create_noisy_localization_dataset">create_noisy_localization_dataset</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -296,57 +309,421 @@ ul.task-list li input[type="checkbox"] {
 <pre><code> datasets_theory ()</code></pre>
 </blockquote>
 <p>This class generates, saves and loads datasets of theoretical trajectories simulated from various diffusion models (available at andi_datasets.models_theory).</p>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
-Inputs 
--------- in 
-Creates a dataset of trajectories via the theoretical models defined in `.models_theory`. Check our tutorials for use cases of this function.
-...
-  else: warn(msg)
-C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Inputs
-  else: warn(msg)</code></pre>
 <hr>
 <p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L44" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
-<section id="datasets_theory.create_dataset" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_theory.create_dataset">datasets_theory.create_dataset</h3>
+<section id="create_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="create_dataset">create_dataset</h3>
 <blockquote class="blockquote">
-<pre><code> datasets_theory.create_dataset (T, N_models, exponents, models,
-                                 dimension=1, save_trajectories=False,
+<pre><code> create_dataset (T, N_models, exponents, models, dimension=1,
+                 save_trajectories=False, load_trajectories=False,
+                 path='datasets/', N_save=1000, t_save=1000)</code></pre>
+</blockquote>
+<p>Creates a dataset of trajectories via the theoretical models defined in <code>.models_theory</code>. Check our tutorials for use cases of this function.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>int</td>
+<td></td>
+<td>Length of the trajectories.</td>
+</tr>
+<tr class="even">
+<td>N_models</td>
+<td>int, numpy.array</td>
+<td></td>
+<td>- if int, number of trajectories per class (i.e.&nbsp;exponent and model) in the dataset.<br>- if numpy.array, number of trajectories per classes: size (number of models)x(number of classes)</td>
+</tr>
+<tr class="odd">
+<td>exponents</td>
+<td>float, array</td>
+<td></td>
+<td>Anomalous exponents to include in the dataset. Allows for two digit precision.</td>
+</tr>
+<tr class="even">
+<td>models</td>
+<td>bool, int, list</td>
+<td></td>
+<td>Labels of the models to include in the dataset. <br>Correspodance between models and labels is given by self.label_correspodance, defined at init.<br>If int/list, choose the given models. If False, choose all of them.</td>
+</tr>
+<tr class="odd">
+<td>dimension</td>
+<td>int</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>save_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, the module saves a .h5 file for each model considered, with N_save trajectories <br>and T = T_save.</td>
+</tr>
+<tr class="odd">
+<td>load_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, the module loads the trajectories of an .h5 file.</td>
+</tr>
+<tr class="even">
+<td>path</td>
+<td>str</td>
+<td>datasets/</td>
+<td>Path to the folder where to save/load the trajectories dataset.</td>
+</tr>
+<tr class="odd">
+<td>N_save</td>
+<td>int</td>
+<td>1000</td>
+<td>Number of trajectories to save for each exponents/model. <br>Advise: save at the beggining a big dataset (t_save ~ 1e3 and N_save ~ 1e4) <br>which then allows you to load any other combiantion of T and N_models.</td>
+</tr>
+<tr class="even">
+<td>t_save</td>
+<td>int</td>
+<td>1000</td>
+<td>Length of the trajectories to be saved. See comments on N_save.</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>numpy.array</strong></td>
+<td></td>
+<td><strong>- Dataset of trajectories of lenght Nx(T+2), with the following structure:<br> o First column: model label <br> o Second column: value of the anomalous exponent<br> o 2:T columns: trajectories</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L480" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="create_segmented_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="create_segmented_dataset">create_segmented_dataset</h3>
+<blockquote class="blockquote">
+<pre><code> create_segmented_dataset (dataset1, dataset2, dimension=1,
+                           final_length=200, random_shuffle=False)</code></pre>
+</blockquote>
+<p>Creates a dataset with trajectories which change diffusive feature (either model or anomalous exponent) after a time ‘t_change’.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dataset1</td>
+<td>numpy.array</td>
+<td></td>
+<td>Array of size Nx(t+2), where the first columns values correspond<br>to the labels of the model and anomalous exponent. The rest <br>correspond to the trajectories of length t.</td>
+</tr>
+<tr class="even">
+<td>dataset2</td>
+<td>numpy.array</td>
+<td></td>
+<td>Same as dataset1</td>
+</tr>
+<tr class="odd">
+<td>dimension</td>
+<td>int</td>
+<td>1</td>
+<td>Dimensions of the generated trajectories. Three possible values: 1, 2 and 3.</td>
+</tr>
+<tr class="even">
+<td>final_length</td>
+<td>int</td>
+<td>200</td>
+<td>Length of the output trajectories.</td>
+</tr>
+<tr class="odd">
+<td>random_shuffle</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, shuffles the first axis of dataset1 and dataset2.</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>numpy.array</strong></td>
+<td></td>
+<td><strong>Array of size Nx(t+5) whose columns represent:<br> o Column 0: changing time<br> o Column 1,2: labels first part of the trajectory (model, exponent)<br> o Column 3,4: labels second part of the trajectory (model, exponent)<br> o Column 5:(t+5): trajectories of lenght t.</strong></td>
+</tr>
+</tbody>
+</table>
+<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: potentially wrong underline length... 
+Returns 
+-------- in 
+Create a dataset of noisy trajectories. 
+This function creates trajectories with `_create_trajectories` and then adds given noise to them.        ...
+  else: warn(msg)</code></pre>
+<hr>
+<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L406" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="create_noisy_diffusion_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="create_noisy_diffusion_dataset">create_noisy_diffusion_dataset</h3>
+<blockquote class="blockquote">
+<pre><code> create_noisy_diffusion_dataset (dataset=False, T=False, N=False,
+                                 exponents=False, models=False,
+                                 dimension=1,
+                                 diffusion_coefficients=False, sigma=1,
+                                 mu=0, save_trajectories=False,
                                  load_trajectories=False,
                                  path='datasets/', N_save=1000,
                                  t_save=1000)</code></pre>
 </blockquote>
-<p>Creates a dataset of trajectories via the theoretical models defined in <code>.models_theory</code>. Check our tutorials for use cases of this function.</p>
-<pre><code>C:\Users\Gorka\Anaconda3\envs\andi_dataset\lib\site-packages\fastcore\docscrape.py:225: UserWarning: Unknown section Arguments
-  else: warn(msg)</code></pre>
+<p>Create a dataset of noisy trajectories. This function creates trajectories with <code>_create_trajectories</code> and then adds given noise to them.<br>
+All arguments are the same as <code>_create_trajectories</code> but dataset and diffusion_coefficients.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dataset</td>
+<td>bool</td>
+<td>False</td>
+<td>- If False, creates a dataset with the given parameters. <br>- If numpy array, dataset to which the function applies the noise.</td>
+</tr>
+<tr class="even">
+<td>T</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>N</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>exponents</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>models</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dimension</td>
+<td>int</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>diffusion_coefficients</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>sigma</td>
+<td>int</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>mu</td>
+<td>int</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>save_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>load_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>path</td>
+<td>str</td>
+<td>datasets/</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>N_save</td>
+<td>int</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>t_save</td>
+<td>int</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>numpy.array</strong></td>
+<td></td>
+<td><strong>Dataset of trajectories of lenght Nx(T+2), with the following structure:<br> o First column: model label <br> o Second column: value of the anomalous exponent<br> o 2:T columns: trajectories</strong></td>
+</tr>
+</tbody>
+</table>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L480" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L367" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
-<section id="datasets_theory.create_segmented_dataset" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_theory.create_segmented_dataset">datasets_theory.create_segmented_dataset</h3>
+<section id="create_noisy_localization_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="create_noisy_localization_dataset">create_noisy_localization_dataset</h3>
 <blockquote class="blockquote">
-<pre><code> datasets_theory.create_segmented_dataset (dataset1, dataset2,
-                                           dimension=1, final_length=200,
-                                           random_shuffle=False)</code></pre>
+<pre><code> create_noisy_localization_dataset (dataset=False, T=False, N=False,
+                                    exponents=False, models=False,
+                                    dimension=1, noise_func=False,
+                                    sigma=1, mu=0,
+                                    save_trajectories=False,
+                                    load_trajectories=False,
+                                    path='datasets/', N_save=1000,
+                                    t_save=1000)</code></pre>
 </blockquote>
-<p>Creates a dataset with trajectories which change diffusive feature (either model or anomalous exponent) after a time ‘t_change’.</p>
-<hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/datasets_theory.py#L406" target="_blank" style="float:right; font-size:smaller">source</a></p>
-</section>
-<section id="datasets_theory.create_noisy_diffusion_dataset" class="level3">
-<h3 class="anchored" data-anchor-id="datasets_theory.create_noisy_diffusion_dataset">datasets_theory.create_noisy_diffusion_dataset</h3>
-<blockquote class="blockquote">
-<pre><code> datasets_theory.create_noisy_diffusion_dataset (dataset=False, T=False,
-                                                 N=False, exponents=False,
-                                                 models=False,
-                                                 dimension=1, diffusion_co
-                                                 efficients=False,
-                                                 save_trajectories=False,
-                                                 load_trajectories=False,
-                                                 path='datasets/',
-                                                 N_save=1000, t_save=1000)</code></pre>
-</blockquote>
-<p>Create a dataset of noisy trajectories. This function creates trajectories with <code>_create_trajectories</code> and then adds given noise to them.</p>
+<p>Create a dataset of noisy trajectories. This function creates trajectories with _create_trajectories and then adds given noise to them.<br>
+All parameters are the same as _create_trajectories but noise_func.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dataset</td>
+<td>bool</td>
+<td>False</td>
+<td>If False, creates a dataset with the given parameters.<br>If numpy array, dataset to which the function applies the noise.</td>
+</tr>
+<tr class="even">
+<td>T</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>N</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>exponents</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>models</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dimension</td>
+<td>int</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>noise_func</td>
+<td>bool</td>
+<td>False</td>
+<td>If False, the noise added to the trajectories will be Gaussian distributed, with <br>variance sigma and mean value mu.<br>If function, uses the given function to generate noise to be added to the trajectory.<br>The function must have as input two ints, N and M and the output must be a matrix of size NxM.</td>
+</tr>
+<tr class="even">
+<td>sigma</td>
+<td>int</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>mu</td>
+<td>int</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>save_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>load_trajectories</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>path</td>
+<td>str</td>
+<td>datasets/</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>N_save</td>
+<td>int</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>t_save</td>
+<td>int</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>numpy.array</strong></td>
+<td></td>
+<td><strong>Dataset of trajectories of lenght Nx(T+2), with the following structure:<br> o First column: model label <br> o Second column: value of the anomalous exponent<br> o 2:T columns: trajectories</strong></td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

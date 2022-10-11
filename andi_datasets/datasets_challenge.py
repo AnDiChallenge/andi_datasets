@@ -72,8 +72,8 @@ def challenge_2020_dataset(N:np.ndarray|int = 1000,
          Path from where to load trajectories.
         N_save :
          Number of trajectories to save for each exponents/model. Advise: save at the beggining
-                  a big dataset (i.e. with default t_save N_save) which allows you to load any other combiantion
-                  of T and N.
+                  a big dataset (i.e. with default t_save N_save) which allows you to load any 
+                  other combiantionof T and N.
         t_save :
          Length of the trajectories to be saved. See comments on N_save.   
         return_noise :
@@ -85,12 +85,7 @@ def challenge_2020_dataset(N:np.ndarray|int = 1000,
          Xn (lists): trajectories
          Yn (lists): labels
          loc_noise_tn (lists): localization noise amplitudes
-         diff_noise_tn (lists): variance of the diffusion noise
-    
-    Notes
-    -----
-    If return_noise = True, loc_noise_tn collects the amplitude of the localization noise for task n.
-    If return_noise = True, diff_noise_tn collects the amplitude of the diffusion noise for task n. 
+         diff_noise_tn (lists): variance of the diffusion noise    
     
     '''
     

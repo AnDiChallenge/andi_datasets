@@ -146,5 +146,6 @@ conda/
 dist/
 
 # hiding useless
+source_nbs/analysis_nbs
 testing/
 _proc/
