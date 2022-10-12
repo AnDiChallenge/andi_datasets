@@ -18,20 +18,25 @@ try:
 except:
     warnings.warn('Deeptrack is currently not installed. Install if needed using pip install deeptrack.')
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 5
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 4
 def play_video(video, figsize=(5, 5), fps=10):
-    """Visualizes the stack of images.
+    """
+    Displays a stack of images as a video inside jupyter notebooks.
 
     Parameters
     ----------
     video : ndarray
         Stack of images.
     figsize : tuple, optional
-        Size of the figure.
+        Canvas size of the video.
     fps : int, optional
-        Frames per second.
-    """
+        Video frame rate.
 
+    Returns
+    -------
+    Video object
+        Returns a video player with input stack of images.
+    """
     fig = plt.figure(figsize=figsize)
     images = []
     plt.axis("off")
@@ -47,9 +52,25 @@ def play_video(video, figsize=(5, 5), fps=10):
     display(html)
     plt.close()
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 6
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 5
 def convert_uint8(vid, with_vips = False):
-    '''Transform video to 8bit so it can be saved'''
+    """
+    Converts a stack of images in to 8bit pixel format.
+    
+    This is a helper function for  `transform_to_video`
+
+    Parameters
+    ----------
+    vid : ndarray
+        Stack of images.
+    with_vips: bool, optional
+        Appends a mask of vip particles in the first frame to the converted video.
+    
+    Returns
+    -------
+    ndarray
+        Image stack in 8bit.
+    """
     new_vid = []
     for idx_im, im in enumerate(vid):
         if idx_im == 0 and with_vips:
@@ -63,9 +84,12 @@ def convert_uint8(vid, with_vips = False):
             new_vid.append(im)
     return new_vid
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 7
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 6
 def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
-    """Computes the PSF width.
+    """
+    Computes the PSF width.
+
+    This is a helper function for `transform_to_video`
     
     Parameters
     ----------
@@ -73,6 +97,8 @@ def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
         Numerical aperture.
     wavelength : float
         Wavelength.
+    resolution : float
+        Resolution of the camera.
     
     Returns
     -------
@@ -82,8 +108,13 @@ def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
     _psf = 1.22 * wavelength / (2 * NA)
     return int(_psf / resolution)
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 8
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 7
 def func_poisson_noise():
+    """
+    Applies poisson noise to an image.
+
+    This is a custom DeepTrack feature, and a helper function for `transform_to_video`
+    """
     def inner(image):
         image[image<0] = 0
         rescale = 1
@@ -91,8 +122,19 @@ def func_poisson_noise():
         return noisy_image
     return inner
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 9
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 8
 def mask(circle_radius, particle_list=[]):
+    """
+    Computes binary masks for particles in microscopy videos.
+
+    This is a custom DeepTrack feature, and a helper function for `transform_to_video`.
+
+    Parameters
+    ----------
+    particle_list: list of int
+        List of particles whose masks need to be created
+
+    """
     def inner(image):
         X, Y = np.mgrid[:2*circle_radius, :2*circle_radius]
         CIRCLE = (X - circle_radius+0.5)**2 + (Y- circle_radius+0.5)**2 < circle_radius**2
@@ -108,7 +150,7 @@ def mask(circle_radius, particle_list=[]):
         return pix_val
     return inner
 
-# %% ../source_nbs/lib_nbs/utils_videos.ipynb 11
+# %% ../source_nbs/lib_nbs/utils_videos.ipynb 10
 def transform_to_video(
     trajectory_data,
     particle_props={},
@@ -119,18 +161,93 @@ def transform_to_video(
     save_video=False,
     path="",
 ):
-    """Generates a video from a trajectory data.
+    """
+    Transforms trajectory data into microscopy imagery data.
+
+    Trajectories generated through phenomenological models in andi-datasets are imaged under a Fluorescence microscope to generate 2D timelapse videos.
 
     Parameters
     ----------
-    trajectory_data : np.ndarray
-        Generated through models_phenom. Array of shape (T, N, 2) containing the trajectories.
+    trajectory_data : ndarray
+        Generated through models_phenom. Array of the shape (T, N, 2) containing the trajectories.
     particle_props : dict
-        Dictionary of properties for the particles.
+        Dictionary containing the properties of particles to be simulated as keyword arguments. Valid keys are:
+
+            '`particle_intensity`' : array_like[int, int]
+                Intensity distribution of particles within a frame given as mean and standard deviations.
+
+            '`intensity_variation`' : int
+                Intensity variation of particles in subsequent frames given as standard deviation.
+
+            '`z`' : float
+                Particle positions with respect to the focal plane in pixel units defined by the pixel size in **optics_props**. For example, particles will be at focus when `z=0`.
+
+            '`refractive_index`' : float
+                Refractive index of particle.
+
     optics_props : dict
-        Dictionary of properties for the optics.
+        Dictionary containing the properties of microscope as keyword arguments. Valid keys are:
+
+            '`NA`': float
+                Numerical aperture of the microscope.
+
+            '`wavelength`' : float
+                Wavelength of light in meters.
+
+            '`resolution`' : float
+                Effective pixel size of the camera in meters.
+
+            '`magnification`' : float
+                Magnification of the optical system.
+
+            '`refractive_index_medium`' : float
+                Refractive index of the medium sorrounding the particles.
+
+            '`output_region`': array_like[int, int, int, int]
+                ROI of the image to output.
+                Given in the format : [x, y, x + width, y + height].
+
     background_props : dict
-        Dictionary of properties for the background.
+        Dictionary containing properties related to background intensity as keyword arguments. Valid keys are:
+
+            '`background_mean`' : int
+                Mean background intensity.
+
+            '`backgound_std`' : int
+                Standard deviation of the background intesity with subsequent frames of a video.
+
+    get_vip_particles : list of int
+        List of particles for which the masks are needed in the output.
+
+    with_masks : bool
+        If True, particle masks are returned in the output along with the video.
+        If False (default), only the video is returned in the output.
+
+    save_video : bool
+        If True, the generated video will be saved at the given path.
+    path : str
+        File path for saving the video, the path should be given along the video format.
+        For example: 'path' = './video.mp4' will save the video in the current folder.
+
+    Returns
+    -------
+    tuple | ndarray
+
+        Output type I 
+
+        If `with_masks = True`,
+        The function returns a tuple containing:
+            masks : ndarray
+            video : ndarray
+        Note: If `get_vip_particles` is a non-empty list, the masks will contain only the vip particle masks.
+
+        Output type II
+
+        If `with_masks = False`,
+        The function returns:
+            video : ndarray
+        Note: `get_vip_particles` is a non-empty list, the first frame in the output will be the masks of the given vip particles in the first frame, else (default) the output will be a ndarray of just the video.
+
     """
 
     _particle_dict = {
@@ -141,7 +258,7 @@ def transform_to_video(
         "intensity": lambda particle_intensity: particle_intensity[0]
         + np.random.randn() * particle_intensity[1],
         "intensity_variation": 0,  # Intensity variation of particle (in standard deviation)
-        "z": 0,  # Particles are always at focus - this shouldn't be changed
+        "z": 0,  # Particles are always at focus
         "refractive_index": 1.45,  # Refractive index of the particle
         "position_unit": "pixel",
     }
@@ -263,7 +380,7 @@ def transform_to_video(
             video_8bit = convert_uint8(final_output[0])
         else:
             video_8bit = convert_uint8(final_output, with_vips=get_vip_particles)
-          
+
         imageio.mimwrite(path, video_8bit)
 
     return final_output
