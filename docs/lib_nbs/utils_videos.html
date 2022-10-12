@@ -349,10 +349,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#transform_to_video" id="toc-transform_to_video" class="nav-link" data-scroll-target="#transform_to_video"><code>transform_to_video</code></a>
   <ul class="collapse">
   <li><a href="#transform_to_video-1" id="toc-transform_to_video-1" class="nav-link" data-scroll-target="#transform_to_video-1">transform_to_video</a></li>
-  <li><a href="#testing-psf-size" id="toc-testing-psf-size" class="nav-link" data-scroll-target="#testing-psf-size">Testing PSF size</a></li>
-  <li><a href="#testing-generation" id="toc-testing-generation" class="nav-link" data-scroll-target="#testing-generation">Testing generation</a></li>
+  <li><a href="#usage-example" id="toc-usage-example" class="nav-link" data-scroll-target="#usage-example">Usage example</a></li>
   </ul></li>
-  <li><a href="#nbdev" id="toc-nbdev" class="nav-link" data-scroll-target="#nbdev">Nbdev</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -379,14 +377,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="helpers-for-videos" class="level1">
 <h1>Helpers for videos</h1>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="play_video" class="level3">
 <h3 class="anchored" data-anchor-id="play_video">play_video</h3>
 <blockquote class="blockquote">
 <pre><code> play_video (video, figsize=(5, 5), fps=10)</code></pre>
 </blockquote>
-<p>Visualizes the stack of images.</p>
+<p>Displays a stack of images as a video inside jupyter notebooks.</p>
 <table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
@@ -406,27 +410,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>figsize</td>
 <td>tuple</td>
 <td>(5, 5)</td>
-<td>Size of the figure.</td>
+<td>Canvas size of the video.</td>
 </tr>
 <tr class="odd">
 <td>fps</td>
 <td>int</td>
 <td>10</td>
-<td>Frames per second.</td>
+<td>Video frame rate.</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>Video object</strong></td>
+<td></td>
+<td><strong>Returns a video player with input stack of images.</strong></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L51" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L56" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="convert_uint8" class="level3">
 <h3 class="anchored" data-anchor-id="convert_uint8">convert_uint8</h3>
 <blockquote class="blockquote">
 <pre><code> convert_uint8 (vid, with_vips=False)</code></pre>
 </blockquote>
-<p>Transform video to 8bit so it can be saved</p>
+<p>Converts a stack of images in to 8bit pixel format.</p>
+<p>This is a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>vid</td>
+<td>ndarray</td>
+<td></td>
+<td>Stack of images.</td>
+</tr>
+<tr class="even">
+<td>with_vips</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>ndarray</strong></td>
+<td></td>
+<td><strong>Image stack in 8bit.</strong></td>
+</tr>
+</tbody>
+</table>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L67" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L88" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="psf_width" class="level3">
 <h3 class="anchored" data-anchor-id="psf_width">psf_width</h3>
@@ -434,6 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code> psf_width (NA=1.46, wavelength=5e-07, resolution=1e-07)</code></pre>
 </blockquote>
 <p>Computes the PSF width.</p>
+<p>This is a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -460,7 +502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>resolution</td>
 <td>float</td>
 <td>1e-07</td>
-<td></td>
+<td>Resolution of the camera.</td>
 </tr>
 <tr class="even">
 <td><strong>Returns</strong></td>
@@ -471,27 +513,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L86" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L112" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="func_poisson_noise" class="level3">
 <h3 class="anchored" data-anchor-id="func_poisson_noise">func_poisson_noise</h3>
 <blockquote class="blockquote">
 <pre><code> func_poisson_noise ()</code></pre>
 </blockquote>
+<p>Applies poisson noise to an image.</p>
+<p>This is a custom DeepTrack feature, and a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L95" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L126" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="mask" class="level3">
 <h3 class="anchored" data-anchor-id="mask">mask</h3>
 <blockquote class="blockquote">
 <pre><code> mask (circle_radius, particle_list=[])</code></pre>
 </blockquote>
+<p>Computes binary masks for particles in microscopy videos.</p>
+<p>This is a custom DeepTrack feature, and a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a>.</p>
 </section>
 </section>
 <section id="transform_to_video" class="level1">
-<h1><a href="https://gorka.munoz.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></h1>
+<h1><a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></h1>
 <hr>
-<p><a href="https://github.com/gorka.munoz/andi_datasets/blob/master/andi_datasets/utils_videos.py#L112" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_videos.py#L154" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="transform_to_video-1" class="level3">
 <h3 class="anchored" data-anchor-id="transform_to_video-1">transform_to_video</h3>
 <blockquote class="blockquote">
@@ -499,7 +545,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                      background_props={}, get_vip_particles=[],
                      with_masks=False, save_video=False, path='')</code></pre>
 </blockquote>
-<p>Generates a video from a trajectory data.</p>
+<p>Transforms trajectory data into microscopy imagery data.</p>
+<p>Trajectories generated through phenomenological models in andi-datasets are imaged under a Fluorescence microscope to generate 2D timelapse videos.</p>
 <table class="table">
 <colgroup>
 <col style="width: 6%">
@@ -518,117 +565,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td>trajectory_data</td>
-<td>np.ndarray</td>
+<td>ndarray</td>
 <td></td>
-<td>Generated through models_phenom. Array of shape (T, N, 2) containing the trajectories.</td>
+<td>Generated through models_phenom. Array of the shape (T, N, 2) containing the trajectories.</td>
 </tr>
 <tr class="even">
 <td>particle_props</td>
 <td>dict</td>
 <td>{}</td>
-<td>Dictionary of properties for the particles.</td>
+<td>Dictionary containing the properties of particles to be simulated as keyword arguments. Valid keys are:<br><br> ‘<code>particle_intensity</code>’ : array_like[int, int]<br> Intensity distribution of particles within a frame given as mean and standard deviations.<br><br> ‘<code>intensity_variation</code>’ : int<br> Intensity variation of particles in subsequent frames given as standard deviation.<br><br> ‘<code>z</code>’ : float<br> Particle positions with respect to the focal plane in pixel units defined by the pixel size in <strong>optics_props</strong>. For example, particles will be at focus when <code>z=0</code>.<br><br> ‘<code>refractive_index</code>’ : float<br> Refractive index of particle.</td>
 </tr>
 <tr class="odd">
 <td>optics_props</td>
 <td>dict</td>
 <td>{}</td>
-<td>Dictionary of properties for the optics.</td>
+<td>Dictionary containing the properties of microscope as keyword arguments. Valid keys are:<br><br> ‘<code>NA</code>’: float<br> Numerical aperture of the microscope.<br><br> ‘<code>wavelength</code>’ : float<br> Wavelength of light in meters.<br><br> ‘<code>resolution</code>’ : float<br> Effective pixel size of the camera in meters.<br><br> ‘<code>magnification</code>’ : float<br> Magnification of the optical system.<br><br> ‘<code>refractive_index_medium</code>’ : float<br> Refractive index of the medium sorrounding the particles.<br><br> ‘<code>output_region</code>’: array_like[int, int, int, int]<br> ROI of the image to output.<br> Given in the format : [x, y, x + width, y + height].</td>
 </tr>
 <tr class="even">
 <td>background_props</td>
 <td>dict</td>
 <td>{}</td>
-<td>Dictionary of properties for the background.</td>
+<td>Dictionary containing properties related to background intensity as keyword arguments. Valid keys are:<br><br> ‘<code>background_mean</code>’ : int<br> Mean background intensity.<br><br> ‘<code>backgound_std</code>’ : int<br> Standard deviation of the background intesity with subsequent frames of a video.</td>
 </tr>
 <tr class="odd">
 <td>get_vip_particles</td>
 <td>list</td>
 <td>[]</td>
-<td></td>
+<td>List of particles for which the masks are needed in the output.</td>
 </tr>
 <tr class="even">
 <td>with_masks</td>
 <td>bool</td>
 <td>False</td>
-<td></td>
+<td>If True, particle masks are returned in the output along with the video.<br>If False (default), only the video is returned in the output.</td>
 </tr>
 <tr class="odd">
 <td>save_video</td>
 <td>bool</td>
 <td>False</td>
-<td></td>
+<td>If True, the generated video will be saved at the given path.</td>
 </tr>
 <tr class="even">
 <td>path</td>
 <td>str</td>
 <td></td>
+<td>File path for saving the video, the path should be given along the video format.<br>For example: ‘path’ = ‘./video.mp4’ will save the video in the current folder.</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>tuple | ndarray</strong></td>
 <td></td>
+<td><strong>Output type I <br><br>If <code>with_masks = True</code>,<br>The function returns a tuple containing:<br> masks : ndarray<br> video : ndarray<br>Note: If <code>get_vip_particles</code> is a non-empty list, the masks will contain only the vip particle masks.<br><br>Output type II<br><br>If <code>with_masks = False</code>,<br>The function returns:<br> video : ndarray<br>Note: <code>get_vip_particles</code> is a non-empty list, the first frame in the output will be the masks of the given vip particles in the first frame, else (default) the output will be a ndarray of just the video.</strong></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="testing-psf-size" class="level3">
-<h3 class="anchored" data-anchor-id="testing-psf-size">Testing PSF size</h3>
+<section id="usage-example" class="level2">
+<h2 class="anchored" data-anchor-id="usage-example">Usage example</h2>
+<p>Please check tutorials for more detailed examples</p>
+<p>Import packages</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span> <span class="co"># number of time steps (frames)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span> <span class="co"># number of particles (trajectories)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">1</span><span class="op">*</span> <span class="dv">128</span> <span class="co"># length of the box (pixels) -&gt; exteneding fov by 1.5 times</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># diffusion coefficient (pixels^2/frame)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>trajs_test, labels <span class="op">=</span> models_phenom().single_state(N<span class="op">=</span>N, L<span class="op">=</span>L, T<span class="op">=</span>T, Ds<span class="op">=</span>D, alphas<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_phenom <span class="im">import</span> models_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Generating trajectories and passing them through <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> to generate videos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>video <span class="op">=</span> transform_to_video(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    trajs_test,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    optics_props<span class="op">=</span>{<span class="st">"NA"</span>: <span class="fl">1.46</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"wavelength"</span>:<span class="fl">500e-9</span>},</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    particle_props<span class="op">=</span>{<span class="st">"particle_intensity"</span>: [<span class="dv">100</span>, <span class="dv">0</span>], <span class="st">"z"</span>:<span class="dv">0</span>},</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    get_vip_particles<span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    background_props<span class="op">=</span>{<span class="st">"background_mean"</span>:<span class="dv">0</span>, <span class="st">"background_std"</span>:<span class="dv">0</span>},</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    save_video<span class="op">=</span><span class="va">True</span>, path <span class="op">=</span> <span class="st">'video_test.tiff'</span>, with_masks <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>trajs_test, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">50</span>, T <span class="op">=</span> <span class="dv">100</span>, L <span class="op">=</span> <span class="dv">128</span>, Ds <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>video, masks <span class="op">=</span> transform_to_video(trajs_test,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                  with_masks<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                  get_vip_particles<span class="op">=</span>np.arange(<span class="dv">55</span>).tolist(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                  particle_props <span class="op">=</span> {<span class="st">"z"</span>: <span class="kw">lambda</span>: <span class="dv">0</span> <span class="op">+</span> np.random.rand() <span class="op">*</span> <span class="dv">1</span>},</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                  background_props <span class="op">=</span> {<span class="st">"background_mean"</span>: <span class="dv">0</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">"background_std"</span>: <span class="dv">0</span>}, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                 optics_props <span class="op">=</span> {<span class="st">'origin'</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">20</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Play generated video in jupyter notebook</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>detections <span class="op">=</span> np.array(video[<span class="dv">1</span>].get_property(<span class="st">"position"</span>, get_one<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">7</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(video[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.scatter(detections[:,<span class="dv">1</span>], detections[:,<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">500</span>, facecolors<span class="op">=</span><span class="st">"none"</span>, edgecolors<span class="op">=</span><span class="st">"orange"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>[plt.text(y<span class="op">+</span><span class="dv">2</span>, x, <span class="bu">str</span>(i), color<span class="op">=</span><span class="st">"orange"</span>) <span class="cf">for</span> i, (x, y) <span class="kw">in</span> <span class="bu">enumerate</span>(detections)]</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>crop <span class="op">=</span> croppedimage(video[<span class="dv">0</span>], <span class="bu">list</span>(<span class="bu">reversed</span>(detections[<span class="dv">46</span>])), window<span class="op">=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.imshow(crop, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;matplotlib.colorbar.Colorbar&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-</section>
-<section id="testing-generation" class="level3">
-<h3 class="anchored" data-anchor-id="testing-generation">Testing generation</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_phenom <span class="im">import</span> models_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>trajs_test, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> <span class="dv">50</span>, T <span class="op">=</span> <span class="dv">100</span>, L <span class="op">=</span> <span class="dv">128</span>, Ds <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>video, masks <span class="op">=</span> transform_to_video(trajs_test,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                  with_masks<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                                  get_vip_particles<span class="op">=</span>np.arange(<span class="dv">55</span>).tolist(),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                                  particle_props <span class="op">=</span> {<span class="st">"z"</span>: <span class="kw">lambda</span>: <span class="dv">0</span> <span class="op">+</span> np.random.rand() <span class="op">*</span> <span class="dv">1</span>},</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                                  background_props <span class="op">=</span> {<span class="st">"background_mean"</span>: <span class="dv">0</span>,      <span class="co"># Mean background intensity</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">"background_std"</span>: <span class="dv">0</span>}, </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                                 optics_props <span class="op">=</span> {<span class="st">'origin'</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">20</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>play_video(video)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>play_video(video)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -14010,39 +14022,35 @@ AJCAhg4ACfwfpI76eLmLxowAAAAASUVORK5CYII=\
 </script>
 </div>
 </div>
+<p>Plot the first frames of the video and the masks</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>img2 <span class="op">=</span> ax1.imshow(video[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Frame 0"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ax2.imshow(masks[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Mask 0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>img2 <span class="op">=</span> ax1.imshow(video[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Frame 0"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ax2.imshow(masks[<span class="dv">1</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Mask 0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>Text(0.5, 1.0, 'Mask 0')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Overlay trajectories on the first frame of the video</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj <span class="kw">in</span> np.moveaxis(trajs_test, <span class="dv">0</span>, <span class="dv">1</span>):</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(traj[:,<span class="dv">1</span>], traj[:,<span class="dv">0</span>], alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>,L)<span class="op">;</span> plt.ylim(<span class="dv">0</span>,L)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>, zorder <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj <span class="kw">in</span> np.moveaxis(trajs_test, <span class="dv">0</span>, <span class="dv">1</span>):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(traj[:,<span class="dv">1</span>], traj[:,<span class="dv">0</span>], alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>,L)<span class="op">;</span> plt.ylim(<span class="dv">0</span>,L)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_videos_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+<p><img src="utils_videos_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
-</div>
-</section>
-</section>
-<section id="nbdev" class="level1">
-<h1>Nbdev</h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nbdev<span class="op">;</span> nbdev.nbdev_export()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
