@@ -323,7 +323,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="accessing-diffusion-models" class="level3">
 <h3 class="anchored" data-anchor-id="accessing-diffusion-models">Accessing diffusion models</h3>
-<p>To be fair, accessing directly the diffusion models in the last version was a bit messy. That’s what new versions are here for! Let’s focus first on the theoretical models. Now they can simply be from the <a href="https://gorka.munoz.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a> class. Their inputs stay the same as before (<code>alpha</code> for anomalous exponent and <code>T</code> for the length of the trajectory). We have added an extra variable to set the dimension of the diffusion easily. To give an example, a 3D trajectory of ATTM can now be easily created using:</p>
+<p>To be fair, accessing directly the diffusion models in the last version was a bit messy. That’s what new versions are here for! Let’s focus first on the theoretical models. Now they can simply be from the <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a> class. Their inputs stay the same as before (<code>alpha</code> for anomalous exponent and <code>T</code> for the length of the trajectory). We have added an extra variable to set the dimension of the diffusion easily. To give an example, a 3D trajectory of ATTM can now be easily created using:</p>
 <pre><code> from andi_dataset.models_theory import models_theory
 
  trajectory = models_theory().attm(alpha = 0.8, T = 10, dimension = 3)</code></pre>
