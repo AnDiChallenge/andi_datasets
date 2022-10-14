@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>andi_datasets - utils_trajectories</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta property="og:title" content="andi_datasets - utils_trajectories">
+<meta property="og:description" content="Needed for the correct calculation of confined diffusion in circular compartments.">
+<meta property="og:site-name" content="andi_datasets">
+<meta name="twitter:title" content="andi_datasets - utils_trajectories">
+<meta name="twitter:description" content="Needed for the correct calculation of confined diffusion in circular compartments.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../figures/logo_noname.svg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">andi_datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">Documentation</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tutorials/index_tutorials.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">ANDI interactive tool</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/andichallenge/andi_datasets"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/AndiChallenge"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">utils_trajectories</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../lib_nbs/index_docs.html" class="sidebar-item-text sidebar-link">Documentation</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Theory datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/models_theory.html" class="sidebar-item-text sidebar-link"><code>models_theory</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_theory.html" class="sidebar-item-text sidebar-link"><code>datasets_theory</code></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Phenomenological datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/models_phenom.html" class="sidebar-item-text sidebar-link"><code>models_phenom</code></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_phenom.html" class="sidebar-item-text sidebar-link"><code>datasets_phenom</code></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">ANDI challenge datasets</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/datasets_challenge.html" class="sidebar-item-text sidebar-link">datasets_challenge</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_challenge.html" class="sidebar-item-text sidebar-link">Help functions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Trajectory analysis</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/analysis.html" class="sidebar-item-text sidebar-link">analysis</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Helpers</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_trajectories.html" class="sidebar-item-text sidebar-link active">utils_trajectories</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lib_nbs/utils_videos.html" class="sidebar-item-text sidebar-link">utils_videos</a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../tutorials/index_tutorials.html" class="sidebar-item-text sidebar-link">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">Theory models and AnDi 2020</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">ANDI 2020 submission: from trajectories to predictions</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">Phenom models and ANDI 2022</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link">Creating videos tutorial</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link active" data-scroll-target="#helper-functions">Helper functions</a>
+  <ul class="collapse">
+  <li><a href="#pert-distribution" id="toc-pert-distribution" class="nav-link" data-scroll-target="#pert-distribution">Pert distribution</a></li>
+  <li><a href="#pert" id="toc-pert" class="nav-link" data-scroll-target="#pert">pert</a></li>
+  <li><a href="#gaussian-distribution" id="toc-gaussian-distribution" class="nav-link" data-scroll-target="#gaussian-distribution">Gaussian distribution</a></li>
+  <li><a href="#gaussian" id="toc-gaussian" class="nav-link" data-scroll-target="#gaussian">gaussian</a></li>
+  <li><a href="#d-brownian-motion" id="toc-d-brownian-motion" class="nav-link" data-scroll-target="#d-brownian-motion">1D Brownian motion</a>
+  <ul class="collapse">
+  <li><a href="#bm1d" id="toc-bm1d" class="nav-link" data-scroll-target="#bm1d">bm1D</a></li>
+  </ul></li>
+  <li><a href="#regularize-trajectory-with-irregular-sampling-times" id="toc-regularize-trajectory-with-irregular-sampling-times" class="nav-link" data-scroll-target="#regularize-trajectory-with-irregular-sampling-times">Regularize trajectory with irregular sampling times</a>
+  <ul class="collapse">
+  <li><a href="#regularize" id="toc-regularize" class="nav-link" data-scroll-target="#regularize">regularize</a></li>
+  </ul></li>
+  <li><a href="#sampler-random-points-in-the-surface-of-a-sphere" id="toc-sampler-random-points-in-the-surface-of-a-sphere" class="nav-link" data-scroll-target="#sampler-random-points-in-the-surface-of-a-sphere">Sampler random points in the surface of a sphere</a>
+  <ul class="collapse">
+  <li><a href="#sample_sphere" id="toc-sample_sphere" class="nav-link" data-scroll-target="#sample_sphere">sample_sphere</a></li>
+  </ul></li>
+  <li><a href="#normalize-displacements-of-a-trajectory" id="toc-normalize-displacements-of-a-trajectory" class="nav-link" data-scroll-target="#normalize-displacements-of-a-trajectory">Normalize displacements of a trajectory</a>
+  <ul class="collapse">
+  <li><a href="#normalize" id="toc-normalize" class="nav-link" data-scroll-target="#normalize">normalize</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#trigonometry-functions" id="toc-trigonometry-functions" class="nav-link" data-scroll-target="#trigonometry-functions">Trigonometry functions</a>
+  <ul class="collapse">
+  <li><a href="#trigo" id="toc-trigo" class="nav-link" data-scroll-target="#trigo">trigo</a></li>
+  <li><a href="#circle_line_segment_intersection" id="toc-circle_line_segment_intersection" class="nav-link" data-scroll-target="#circle_line_segment_intersection">circle_line_segment_intersection</a></li>
+  </ul></li>
+  <li><a href="#adding-field-of-view-fov" id="toc-adding-field-of-view-fov" class="nav-link" data-scroll-target="#adding-field-of-view-fov">Adding field of view (FOV)</a>
+  <ul class="collapse">
+  <li><a href="#find_nan_segments" id="toc-find_nan_segments" class="nav-link" data-scroll-target="#find_nan_segments">find_nan_segments</a></li>
+  <li><a href="#segs_inside_fov" id="toc-segs_inside_fov" class="nav-link" data-scroll-target="#segs_inside_fov">segs_inside_fov</a></li>
+  <li><a href="#inside_fov_dataset" id="toc-inside_fov_dataset" class="nav-link" data-scroll-target="#inside_fov_dataset">inside_fov_dataset</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
+  </ul></li>
+  <li><a href="#plotting-trajectories" id="toc-plotting-trajectories" class="nav-link" data-scroll-target="#plotting-trajectories">Plotting trajectories</a>
+  <ul class="collapse">
+  <li><a href="#plot_trajs" id="toc-plot_trajs" class="nav-link" data-scroll-target="#plot_trajs">plot_trajs</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">utils_trajectories</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="helper-functions" class="level1">
+<h1>Helper functions</h1>
+<section id="pert-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="pert-distribution">Pert distribution</h3>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L11" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="pert" class="level3">
+<h3 class="anchored" data-anchor-id="pert">pert</h3>
+<blockquote class="blockquote">
+<pre><code> pert (params:list, size:int=1, lamb=4)</code></pre>
+</blockquote>
+<p>Samples from a Pert distribution of given parameters</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>params</td>
+<td>list</td>
+<td></td>
+<td>Pert parameters a, b, c</td>
+</tr>
+<tr class="even">
+<td>size</td>
+<td>int</td>
+<td>1</td>
+<td>number of samples to get</td>
+</tr>
+<tr class="odd">
+<td>lamb</td>
+<td>int</td>
+<td>4</td>
+<td>lambda pert parameters</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td></td>
+<td><strong>samples from the given Pert distribution</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gaussian-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="gaussian-distribution">Gaussian distribution</h3>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L35" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="gaussian" class="level3">
+<h3 class="anchored" data-anchor-id="gaussian">gaussian</h3>
+<blockquote class="blockquote">
+<pre><code> gaussian (params:list|int, size=1, bound=None)</code></pre>
+</blockquote>
+<p>Samples from a Gaussian distribution of given parameters.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>params</td>
+<td>list | int</td>
+<td></td>
+<td>If list, mu and sigma of the gaussian. If int, we consider sigma = 0</td>
+</tr>
+<tr class="even">
+<td>size</td>
+<td>int</td>
+<td>1</td>
+<td>Number of samples to get.</td>
+</tr>
+<tr class="odd">
+<td>bound</td>
+<td>NoneType</td>
+<td>None</td>
+<td>Bound of the Gaussian, if any.</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td></td>
+<td><strong>Samples from the given Gaussian distribution</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> gaussian([<span class="dv">2</span>, <span class="fl">0.1</span>], size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>), bound <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.hist(k, bins <span class="op">=</span> <span class="dv">200</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="utils_trajectories_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="d-brownian-motion" class="level2">
+<h2 class="anchored" data-anchor-id="d-brownian-motion">1D Brownian motion</h2>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L70" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="bm1d" class="level3">
+<h3 class="anchored" data-anchor-id="bm1d">bm1D</h3>
+<blockquote class="blockquote">
+<pre><code> bm1D (T:int, D:float, deltaT=False)</code></pre>
+</blockquote>
+<p>Creates a 1D Brownian motion trajectory</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>int</td>
+<td></td>
+<td>Length of the trajecgory</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>float</td>
+<td></td>
+<td>Diffusion coefficient</td>
+</tr>
+<tr class="odd">
+<td>deltaT</td>
+<td>bool</td>
+<td>False</td>
+<td>Sampling time</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td></td>
+<td><strong>Brownian motion trajectory</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="regularize-trajectory-with-irregular-sampling-times" class="level2">
+<h2 class="anchored" data-anchor-id="regularize-trajectory-with-irregular-sampling-times">Regularize trajectory with irregular sampling times</h2>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L83" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="regularize" class="level3">
+<h3 class="anchored" data-anchor-id="regularize">regularize</h3>
+<blockquote class="blockquote">
+<pre><code> regularize (positions:&lt;built-infunctionarray&gt;, times:&lt;built-
+             infunctionarray&gt;, T:int)</code></pre>
+</blockquote>
+<p>Regularizes a trajectory with irregular sampling times.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>positions</td>
+<td>array</td>
+<td>Positions of the trajectory to regularize</td>
+</tr>
+<tr class="even">
+<td>times</td>
+<td>array</td>
+<td>Times at which previous positions were recorded</td>
+</tr>
+<tr class="odd">
+<td>T</td>
+<td>int</td>
+<td>Length of the output trajectory</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td><strong>Regularized trajectory.</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sampler-random-points-in-the-surface-of-a-sphere" class="level2">
+<h2 class="anchored" data-anchor-id="sampler-random-points-in-the-surface-of-a-sphere">Sampler random points in the surface of a sphere</h2>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L98" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="sample_sphere" class="level3">
+<h3 class="anchored" data-anchor-id="sample_sphere">sample_sphere</h3>
+<blockquote class="blockquote">
+<pre><code> sample_sphere (N:int, R:int|list)</code></pre>
+</blockquote>
+<p>Samples random number that lay in the surface of a 3D sphere centered in zero and with radius R.</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N</td>
+<td>int</td>
+<td>Number of points to generate.</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>int | list</td>
+<td>Radius of the sphere. If int, all points have<br>the same radius, if numpy.array, each number has different radius.</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td><strong>Sampled numbers</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="normalize-displacements-of-a-trajectory" class="level2">
+<h2 class="anchored" data-anchor-id="normalize-displacements-of-a-trajectory">Normalize displacements of a trajectory</h2>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L112" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="normalize" class="level3">
+<h3 class="anchored" data-anchor-id="normalize">normalize</h3>
+<blockquote class="blockquote">
+<pre><code> normalize (trajs)</code></pre>
+</blockquote>
+<p>Normalizes trajectories by substracting average and dividing by SQRT of their standard deviation.</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trajs</td>
+<td>np.array</td>
+<td>Array of length N x T or just T containing the ensemble or single trajectory to normalize.</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>np.random.randn(N<span class="op">*</span>T<span class="op">*</span><span class="dv">2</span>).reshape(N,T,<span class="dv">2</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> np.cumsum(trajs, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>norm_trajs <span class="op">=</span> normalize(trajs)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.plot(trajs[idx,:,<span class="dv">0</span>]<span class="op">-</span>trajs[idx,<span class="dv">0</span>,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.plot(norm_trajs[idx,:,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Normalized'</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.xlabel(<span class="st">'Time'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Position'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Text(0, 0.5, 'Position')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="utils_trajectories_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="trigonometry-functions" class="level1">
+<h1>Trigonometry functions</h1>
+<p>Needed for the correct calculation of confined diffusion in circular compartments.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L140" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="trigo" class="level3">
+<h3 class="anchored" data-anchor-id="trigo">trigo</h3>
+<blockquote class="blockquote">
+<pre><code> trigo ()</code></pre>
+</blockquote>
+<p>This class gathers multiple useful trigonometric relations.</p>
+<p>Inspired from: https://stackoverflow.com/questions/30844482/what-is-most-efficient-way-to-find-the-intersection-of-a-line-and-a-circle-in-py and http://mathworld.wolfram.com/Circle-LineIntersection.html</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L149" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="circle_line_segment_intersection" class="level3">
+<h3 class="anchored" data-anchor-id="circle_line_segment_intersection">circle_line_segment_intersection</h3>
+<blockquote class="blockquote">
+<pre><code> circle_line_segment_intersection (circle_center, circle_radius, pt1, pt2,
+                                   full_line=False, tangent_tol=1e-09)</code></pre>
+</blockquote>
+<p>Find the points at which a circle intersects a line-segment. This can happen at 0, 1, or 2 points.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>circle_center</td>
+<td>tuple</td>
+<td></td>
+<td>The (x, y) location of the circle center</td>
+</tr>
+<tr class="even">
+<td>circle_radius</td>
+<td>float</td>
+<td></td>
+<td>The radius of the circle</td>
+</tr>
+<tr class="odd">
+<td>pt1</td>
+<td>tuple</td>
+<td></td>
+<td>The (x, y) location of the first point of the segment</td>
+</tr>
+<tr class="even">
+<td>pt2</td>
+<td>tuple</td>
+<td></td>
+<td>The (x, y) location of the second point of the segment</td>
+</tr>
+<tr class="odd">
+<td>full_line</td>
+<td>bool</td>
+<td>False</td>
+<td>True to find intersections along full line - not just in the segment. <br>False will just return intersections within the segment.</td>
+</tr>
+<tr class="even">
+<td>tangent_tol</td>
+<td>float</td>
+<td>1e-09</td>
+<td>Numerical tolerance at which we decide the intersections are close enough to consider it a tangent</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>Sequence[Tuple[float, float]]</strong></td>
+<td></td>
+<td><strong>A list of length 0, 1, or 2, where each element is a point at which the circle intercepts a line segment.</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="adding-field-of-view-fov" class="level1">
+<h1>Adding field of view (FOV)</h1>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L228" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="find_nan_segments" class="level3">
+<h3 class="anchored" data-anchor-id="find_nan_segments">find_nan_segments</h3>
+<blockquote class="blockquote">
+<pre><code> find_nan_segments (a, cutoff_length)</code></pre>
+</blockquote>
+<p>Extract all segments of nans bigger than the set cutoff_length. If no segments are found, returns None. For each segments, returns the begining and end index of it.</p>
+<p>Output: array of size (number of segments) x 2.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L247" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="segs_inside_fov" class="level3">
+<h3 class="anchored" data-anchor-id="segs_inside_fov">segs_inside_fov</h3>
+<blockquote class="blockquote">
+<pre><code> segs_inside_fov (traj, fov_origin, fov_length, cutoff_length)</code></pre>
+</blockquote>
+<p>Given a trajectory, finds the segments inside the field of view (FOV).</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>traj</td>
+<td>array</td>
+<td>Set of trajectories of size N x T (N: number trajectories, T: length).</td>
+</tr>
+<tr class="even">
+<td>fov_origin</td>
+<td>tuple</td>
+<td>Bottom right point of the square defining the FOV.</td>
+</tr>
+<tr class="odd">
+<td>fov_length</td>
+<td>float</td>
+<td>Size of the box defining the FOV.</td>
+</tr>
+<tr class="even">
+<td>cutoff_length</td>
+<td>float</td>
+<td>Minimum length of a trajectory inside the FOV to be considered in the output dataset.</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td><strong>Set of segments inside the FOV.</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L293" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="inside_fov_dataset" class="level3">
+<h3 class="anchored" data-anchor-id="inside_fov_dataset">inside_fov_dataset</h3>
+<blockquote class="blockquote">
+<pre><code> inside_fov_dataset (trajs, labels, fov_origin, fov_length,
+                     cutoff_length=10, func_labels=None,
+                     return_frames=False)</code></pre>
+</blockquote>
+<p>Given a dataset of trajectories with labels and a FOV parameters, returns a list of trajectories with the corresponding labels inside the FOV</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trajs</td>
+<td>array</td>
+<td></td>
+<td>Set of trajectories with shape T x N x 2.</td>
+</tr>
+<tr class="even">
+<td>labels</td>
+<td>array</td>
+<td></td>
+<td>Set of labels with shape T x N x 2.</td>
+</tr>
+<tr class="odd">
+<td>fov_origin</td>
+<td>tuple</td>
+<td></td>
+<td>Bottom left point of the square defining the FOV.</td>
+</tr>
+<tr class="even">
+<td>fov_length</td>
+<td>float</td>
+<td></td>
+<td>Size of the box defining the FOV.</td>
+</tr>
+<tr class="odd">
+<td>cutoff_length</td>
+<td>int</td>
+<td>10</td>
+<td>Minimum length of a trajectory inside the FOV to be considered in the output dataset.</td>
+</tr>
+<tr class="even">
+<td>func_labels</td>
+<td>NoneType</td>
+<td>None</td>
+<td>(optional) Function to be applied to the labels to take advantage of the loop.</td>
+</tr>
+<tr class="odd">
+<td>return_frames</td>
+<td>bool</td>
+<td>False</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>tuple</strong></td>
+<td></td>
+<td><strong>- trajs_fov (list): list 2D arrays containing the trajectories inside the field of view.<br>- labels_fov (list): corresponding labels of the trajectories.</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="test" class="level3">
+<h3 class="anchored" data-anchor-id="test">Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">200</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Ns <span class="op">=</span> [<span class="dv">20</span>,<span class="dv">10</span>,<span class="dv">10</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="dv">1</span>,<span class="fl">1.5</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="dv">1</span>   </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> <span class="dv">500</span>, L <span class="op">=</span> L, T <span class="op">=</span> <span class="dv">50</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>fov_origin <span class="op">=</span> [<span class="dv">50</span>,<span class="dv">50</span>]<span class="op">;</span> fov_length <span class="op">=</span> L<span class="op">*</span><span class="fl">0.1</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>trajs_fov, labels_fov <span class="op">=</span> inside_fov_dataset(trajs, labels, fov_origin, fov_length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, (ax, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">14</span>,<span class="dv">7</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> plt.cm.RdYlGn(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(trajs_fov)))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, og_traj <span class="kw">in</span> <span class="bu">enumerate</span>(trajs[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, c <span class="kw">in</span> <span class="bu">zip</span>(trajs_fov, colors[::<span class="op">-</span><span class="dv">1</span>, :]):</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(t[<span class="dv">0</span>], t[<span class="dv">1</span>], c<span class="op">=</span> c)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    ax2.scatter(t[<span class="dv">0</span>], t[<span class="dv">1</span>], facecolor <span class="op">=</span> c, s <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>fov_min_x, fov_min_y <span class="op">=</span> fov_origin</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>fov_max_x, fov_max_y <span class="op">=</span> np.array(fov_origin)<span class="op">+</span>fov_length</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># currentAxis = ax.gca()</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>ax.add_patch(Rectangle((fov_min_x, fov_min_y), fov_length, fov_length, fill<span class="op">=</span><span class="va">None</span>, alpha<span class="op">=</span><span class="dv">1</span>, lw <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'FOV'</span>))</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Boundary</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="st">'boundary'</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>ax.axhline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>ax.axvline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV origin</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>ax.scatter(fov_origin[<span class="dv">0</span>], fov_origin[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'FOV origin'</span>, s <span class="op">=</span> <span class="dv">40</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.legend()</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>legend.get_frame().set_alpha(<span class="va">None</span>)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>plt.setp(ax2, xlim <span class="op">=</span> (<span class="dv">0</span>,L), ylim <span class="op">=</span> (<span class="dv">0</span>,L))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="utils_trajectories_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="plotting-trajectories" class="level1">
+<h1>Plotting trajectories</h1>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L359" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="plot_trajs" class="level3">
+<h3 class="anchored" data-anchor-id="plot_trajs">plot_trajs</h3>
+<blockquote class="blockquote">
+<pre><code> plot_trajs (trajs, L, N, num_to_plot=3, labels=None, plot_labels=False,
+             traps_positions=None, comp_center=None, r_cercle=None)</code></pre>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> L <span class="op">=</span> <span class="fl">1.2</span><span class="op">*</span><span class="dv">128</span><span class="op">;</span> D <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>trajs_model1, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                            L <span class="op">=</span> L,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                            T <span class="op">=</span> T,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> D,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                                            )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model1, L, N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="utils_trajectories_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
