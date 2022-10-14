@@ -484,7 +484,7 @@ Generating dataset for dimension 3.</code></pre>
 </div>
 <section id="saving-and-loading-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
-<p><code>datasets_theory</code> allows also to save and load datasets, avoiding the need of generate new trajectories each time we want to create a dataset. There exist two optional inputs to the function <code>create_datasets</code>: <code>save_trajectories</code> and <code>load_trajectories</code>, which if <code>True</code>, save and load datasets, respectively. A dataset for each exponent and model considered are saved in a .h5py file whose name is the model considered. Each file contains datasets for each exponent.</p>
+<p><a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> allows also to save and load datasets, avoiding the need of generate new trajectories each time we want to create a dataset. There exist two optional inputs to the function <code>create_datasets</code>: <code>save_trajectories</code> and <code>load_trajectories</code>, which if <code>True</code>, save and load datasets, respectively. A dataset for each exponent and model considered are saved in a .h5py file whose name is the model considered. Each file contains datasets for each exponent.</p>
 <p>In these cases, two important variables take also into play, <code>t_save</code> and <code>N_save</code>. These set the lenght and number of trajectories to save for each exponent and model. They are set as default to <code>t_save</code><span class="math inline">\(=10^3\)</span> and <code>N_save</code><span class="math inline">\(=10^4\)</span> as this allows to create any other combinantion of dataset. See that in the ANDI challenge we will never consider trajectories longer than <span class="math inline">\(T=10^3\)</span>.</p>
 <p>The name of the datasets inside the .h5py file is then <code>(exponent)_(t_save)_(N_save)</code>.</p>
 <p>Using the default values for this two variables, let’s save datasets for the previous examples:</p>
@@ -606,7 +606,7 @@ Generating dataset for dimension 3.</code></pre>
 </section>
 <section id="creating-segmented-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="creating-segmented-datasets">Creating segmented datasets</h3>
-<p>The class <code>datasets_theory</code> also allows to create trajectories which are made of two different diffusion models or anomalous exponent, at a given changing point. Such function has the name <code>create_segmented_dataset</code>. Following the ANDI challenge guidelines, the output trajectories will have length 200. However, you can choose an arbitrary length with the variable <code>final_length</code>. The input datasets must have at least the same size as <code>final_length</code>. There is also the option to randomly shuffle the input datasets from which the segmented output dataset will be generate, throught the variable <code>random_shuffle</code>.</p>
+<p>The class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> also allows to create trajectories which are made of two different diffusion models or anomalous exponent, at a given changing point. Such function has the name <code>create_segmented_dataset</code>. Following the ANDI challenge guidelines, the output trajectories will have length 200. However, you can choose an arbitrary length with the variable <code>final_length</code>. The input datasets must have at least the same size as <code>final_length</code>. There is also the option to randomly shuffle the input datasets from which the segmented output dataset will be generate, throught the variable <code>random_shuffle</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we define two datasets. Let's take same anomalous exponent but various models</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>dataset1 <span class="op">=</span> AD.create_dataset(T <span class="op">=</span> <span class="dv">200</span>, N_models <span class="op">=</span> <span class="dv">2</span>, exponents <span class="op">=</span> [<span class="fl">0.7</span>], models <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span>
@@ -654,7 +654,7 @@ Generating dataset for dimension 3.</code></pre>
 </section>
 </section>
 <section id="accesing-the-diffusion-models-from-models_theory" class="level2">
-<h2 class="anchored" data-anchor-id="accesing-the-diffusion-models-from-models_theory">Accesing the diffusion models from <code>models_theory</code></h2>
+<h2 class="anchored" data-anchor-id="accesing-the-diffusion-models-from-models_theory">Accesing the diffusion models from <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a></h2>
 <p>All the theoretical diffusion models available in <code>andi</code> are collected in the class <code>models_theory()</code>. We can access them with a simple import :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_theory <span class="im">import</span> models_theory</span>
@@ -718,7 +718,7 @@ The availailabe models for dimension 3 are:
 <pre><code>(2, 13)</code></pre>
 </div>
 </div>
-<p>If <code>regulare_time = True</code> (default value), the trajectory is fed to the function <code>regularize</code> from <code>utils_trajectories</code>, which transforms the trajectory to regular sampling times. Below is an example with the previously defined trajectory. The offset is due to the need of rounding the times coming from the variable <code>traj_nonR[1]</code>.</p>
+<p>If <code>regulare_time = True</code> (default value), the trajectory is fed to the function <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_trajectories.html#regularize"><code>regularize</code></a> from <code>utils_trajectories</code>, which transforms the trajectory to regular sampling times. Below is an example with the previously defined trajectory. The offset is due to the need of rounding the times coming from the variable <code>traj_nonR[1]</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> regularize</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
