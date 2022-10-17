@@ -460,9 +460,9 @@ class datasets_theory():
         if isinstance(noise_func, np.ndarray):
             noise_matrix = noise_func 
         elif not noise_func:
-            noise_matrix = sigma*np.random.randn(trajs.shape[0], trajs.shape[1])+mu
+            noise_matrix = sigma*np.random.randn(trajs.shape)+mu
         elif hasattr(noise_func, '__call__'):
-            noise_matrix = noise_func(trajs.shape[0], trajs.shape[1])             
+            noise_matrix = noise_func(trajs)             
         else:
             raise ValueError('noise_func has to be either False for Gaussian noise, a Python function or numpy array.')
         

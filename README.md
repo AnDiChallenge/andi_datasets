@@ -8,7 +8,8 @@
   <a href="https://badge.fury.io/py/andi-datasets"><img src="https://img.shields.io/badge/python-3.10-red" alt="Python version"></a>
 </p>
 <p align="center">
-  <a href="https://andichallenge.github.io/andi_datasets/">Documentation</a> |
+  <a href="https://andichallenge.github.io/andi_datasets/">Get started</a> |
+  <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/index_docs.html">Documentation</a> |
   <a href="https://andichallenge.github.io/andi_datasets/tutorials/index_tutorials.html">Tutorials</a> |
   <a href="#cite-us">Cite us</a> |
   <a href="/LICENSE">License</a> 

@@ -502,8 +502,6 @@ def challenge_2022_dataset(
     various diffusion models have been set such as to be in the same ranges as the ones expected for the
     challenge. For details, check the ANDI 2022 challenge webpage.
     
-    Notes
-    -------
     This function will generate as many experiments (associated to one the diffusion models) as demanded.
     There are two ways of defining that:
         - Give number of experiments (and optional parameters such as repeat_exp) to create. The diffusion
@@ -534,15 +532,9 @@ def challenge_2022_dataset(
     path : str
         Path where to store the data.
     prefix : str
-        Extra prefix that can be added in front of the files' names.
-        
-    Video Inputs
-    ----------
-    (see utils_videos for details)
-    
+        Extra prefix that can be added in front of the files' names.    
     get_video : bool
-        If true, get as output the videos generated with Deeptrack for the generated
-        datasets.
+        If true, get as output the videos generated with Deeptrack for the generated datasets (see utils_videos for details).
     num_vip : int
         Number of VIP highlighted in the videos.
     get_video_masks : bool

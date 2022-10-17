@@ -30,7 +30,7 @@ def pert(params:list, # Pert parameters a, b, c
     beta = 1 + lamb * (c - b) / r
     return a + np.random.beta(alpha, beta, size=size) * r
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 7
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 8
 import scipy.stats
 def gaussian(params:list|int, # If list, mu and sigma of the gaussian. If int, we consider sigma = 0
              size = 1,  # Number of samples to get.
@@ -66,7 +66,7 @@ def gaussian(params:list|int, # If list, mu and sigma of the gaussian. If int, w
         else:
             return val
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 11
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 12
 def bm1D(T:int, # Length of the trajecgory
          D:float, # Diffusion coefficient
          deltaT = False # Sampling time
@@ -79,7 +79,7 @@ def bm1D(T:int, # Length of the trajecgory
     return np.cumsum(np.sqrt(2*D*deltaT)*np.random.randn(int(T)))        
      
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 13
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 14
 def regularize(positions:np.array, # Positions of the trajectory to regularize
                times:np.array, # Times at which previous positions were recorded
                T:int # Length of the output trajectory
@@ -94,7 +94,7 @@ def regularize(positions:np.array, # Positions of the trajectory to regularize
     pos_r -= pos_r[0]
     return pos_r
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 15
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 16
 def sample_sphere(N:int, # Number of points to generate.
                   # Radius of the sphere. If int, all points have
                   # the same radius, if numpy.array, each number has different radius.
@@ -108,7 +108,7 @@ def sample_sphere(N:int, # Number of points to generate.
     vecs /= np.linalg.norm(vecs, axis=0)
     return R*vecs
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 17
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 18
 def normalize(trajs):    
     '''
     Normalizes trajectories by substracting average and dividing by
@@ -134,7 +134,7 @@ def normalize(trajs):
     initial_zeros = np.expand_dims(np.zeros((new_trajs.shape[0], new_trajs.shape[-1])), axis = 1)
     return np.concatenate((initial_zeros, new_trajs), axis = 1).reshape(initial_shape)
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 21
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 22
 import math
 
 class trigo():
@@ -224,7 +224,7 @@ class trigo():
         return (vec[0]*np.cos(angle) + vec[1]*np.sin(angle), -vec[0]*np.sin(angle) + vec[1]*np.cos(angle))
     
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 24
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 25
 def find_nan_segments(a, cutoff_length):    
     ''' Extract all segments of nans bigger than the set cutoff_length. If no segments are found, returns None. 
     For each segments, returns the begining and end index of it.
@@ -243,7 +243,7 @@ def find_nan_segments(a, cutoff_length):
         else:
             return np.array([idx[::2][idx_seg_long], idx[1::2][idx_seg_long]]).transpose()
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 25
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 26
 def segs_inside_fov(traj, fov_origin, fov_length, cutoff_length):
     ''' 
     Given a trajectory, finds the segments inside the field of view (FOV).
@@ -289,7 +289,7 @@ def segs_inside_fov(traj, fov_origin, fov_length, cutoff_length):
     return nan_segms
     
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 26
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 27
 def inside_fov_dataset(trajs, labels, 
                        fov_origin, fov_length, 
                        cutoff_length = 10, 
@@ -353,7 +353,7 @@ def inside_fov_dataset(trajs, labels,
     
     
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 32
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 33
 import matplotlib.pyplot as plt
 
 def plot_trajs(trajs, L , N, 
@@ -402,7 +402,7 @@ def plot_trajs(trajs, L , N,
     axs[0, 0].legend()
     axs[1, 0].legend()
     plt.setp(axs[1, 0], ylabel = 'Position')
-    plt.setp(axs[1, :], xticklabels = '')
+    plt.setp(axs[1:-1, :], xticklabels = '')
    
     if plot_labels:
         axs[2, 0].legend()
