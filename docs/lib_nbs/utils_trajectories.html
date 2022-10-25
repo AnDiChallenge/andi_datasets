@@ -455,6 +455,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="gaussian-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="gaussian-distribution">Gaussian distribution</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gaussian(typing.Union[<span class="bu">list</span>, <span class="bu">int</span>]):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>SyntaxError: invalid syntax (2623577045.py, line 1)</code></pre>
+</div>
+</div>
 <hr>
 <p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/utils_trajectories.py#L35" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
@@ -507,10 +514,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> gaussian([<span class="dv">2</span>, <span class="fl">0.1</span>], size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>), bound <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>])</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.hist(k, bins <span class="op">=</span> <span class="dv">200</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> gaussian([<span class="dv">2</span>, <span class="fl">0.1</span>], size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>), bound <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">2</span>])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.hist(k, bins <span class="op">=</span> <span class="dv">200</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_trajectories_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+<p><img src="utils_trajectories_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -681,24 +688,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>np.random.randn(N<span class="op">*</span>T<span class="op">*</span><span class="dv">2</span>).reshape(N,T,<span class="dv">2</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> np.cumsum(trajs, axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>norm_trajs <span class="op">=</span> normalize(trajs)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">3</span>,<span class="dv">3</span>))</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.plot(trajs[idx,:,<span class="dv">0</span>]<span class="op">-</span>trajs[idx,<span class="dv">0</span>,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.plot(norm_trajs[idx,:,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Normalized'</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.xlabel(<span class="st">'Time'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Position'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>np.random.randn(N<span class="op">*</span>T<span class="op">*</span><span class="dv">2</span>).reshape(N,T,<span class="dv">2</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>trajs <span class="op">=</span> np.cumsum(trajs, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>norm_trajs <span class="op">=</span> normalize(trajs)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.plot(trajs[idx,:,<span class="dv">0</span>]<span class="op">-</span>trajs[idx,<span class="dv">0</span>,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Original trajectory'</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.plot(norm_trajs[idx,:,<span class="dv">0</span>], <span class="st">'-o'</span>, label <span class="op">=</span> <span class="st">'Normalized'</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.xlabel(<span class="st">'Time'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Position'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>Text(0, 0.5, 'Position')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_trajectories_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+<p><img src="utils_trajectories_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -930,49 +937,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="test" class="level3">
 <h3 class="anchored" data-anchor-id="test">Test</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">200</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Ns <span class="op">=</span> [<span class="dv">20</span>,<span class="dv">10</span>,<span class="dv">10</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="dv">1</span>,<span class="fl">1.5</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="dv">1</span>   </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> <span class="dv">500</span>, L <span class="op">=</span> L, T <span class="op">=</span> <span class="dv">50</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>fov_origin <span class="op">=</span> [<span class="dv">50</span>,<span class="dv">50</span>]<span class="op">;</span> fov_length <span class="op">=</span> L<span class="op">*</span><span class="fl">0.1</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>trajs_fov, labels_fov <span class="op">=</span> inside_fov_dataset(trajs, labels, fov_origin, fov_length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">200</span><span class="op">;</span> T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Ns <span class="op">=</span> [<span class="dv">20</span>,<span class="dv">10</span>,<span class="dv">10</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="dv">1</span>,<span class="fl">1.5</span>]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="dv">1</span>   </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> <span class="dv">500</span>, L <span class="op">=</span> L, T <span class="op">=</span> <span class="dv">50</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>fov_origin <span class="op">=</span> [<span class="dv">50</span>,<span class="dv">50</span>]<span class="op">;</span> fov_length <span class="op">=</span> L<span class="op">*</span><span class="fl">0.1</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>trajs_fov, labels_fov <span class="op">=</span> inside_fov_dataset(trajs, labels, fov_origin, fov_length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, (ax, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">14</span>,<span class="dv">7</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> plt.cm.RdYlGn(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(trajs_fov)))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, og_traj <span class="kw">in</span> <span class="bu">enumerate</span>(trajs[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, c <span class="kw">in</span> <span class="bu">zip</span>(trajs_fov, colors[::<span class="op">-</span><span class="dv">1</span>, :]):</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(t[<span class="dv">0</span>], t[<span class="dv">1</span>], c<span class="op">=</span> c)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    ax2.scatter(t[<span class="dv">0</span>], t[<span class="dv">1</span>], facecolor <span class="op">=</span> c, s <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>fov_min_x, fov_min_y <span class="op">=</span> fov_origin</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>fov_max_x, fov_max_y <span class="op">=</span> np.array(fov_origin)<span class="op">+</span>fov_length</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># currentAxis = ax.gca()</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>ax.add_patch(Rectangle((fov_min_x, fov_min_y), fov_length, fov_length, fill<span class="op">=</span><span class="va">None</span>, alpha<span class="op">=</span><span class="dv">1</span>, lw <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'FOV'</span>))</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Boundary</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="st">'boundary'</span>)</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>ax.axhline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>ax.axvline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV origin</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>ax.scatter(fov_origin[<span class="dv">0</span>], fov_origin[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'FOV origin'</span>, s <span class="op">=</span> <span class="dv">40</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.legend()</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>legend.get_frame().set_alpha(<span class="va">None</span>)</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)</span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>plt.setp(ax2, xlim <span class="op">=</span> (<span class="dv">0</span>,L), ylim <span class="op">=</span> (<span class="dv">0</span>,L))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, (ax, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">14</span>,<span class="dv">7</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> plt.cm.RdYlGn(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(trajs_fov)))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, og_traj <span class="kw">in</span> <span class="bu">enumerate</span>(trajs[:, :, :].transpose(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">2</span>)):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(og_traj[:, <span class="dv">0</span>], og_traj[:, <span class="dv">1</span>], c <span class="op">=</span> <span class="st">'k'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, lw <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, c <span class="kw">in</span> <span class="bu">zip</span>(trajs_fov, colors[::<span class="op">-</span><span class="dv">1</span>, :]):</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(t[<span class="dv">0</span>], t[<span class="dv">1</span>], c<span class="op">=</span> c)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    ax2.scatter(t[<span class="dv">0</span>], t[<span class="dv">1</span>], facecolor <span class="op">=</span> c, s <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fov_min_x, fov_min_y <span class="op">=</span> fov_origin</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fov_max_x, fov_max_y <span class="op">=</span> np.array(fov_origin)<span class="op">+</span>fov_length</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># currentAxis = ax.gca()</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>ax.add_patch(Rectangle((fov_min_x, fov_min_y), fov_length, fov_length, fill<span class="op">=</span><span class="va">None</span>, alpha<span class="op">=</span><span class="dv">1</span>, lw <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">'FOV'</span>))</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Boundary</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>, label <span class="op">=</span> <span class="st">'boundary'</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>ax.axhline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">0</span>,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>ax.axvline(L,  alpha <span class="op">=</span> <span class="fl">0.5</span>, ls <span class="op">=</span> <span class="st">'--'</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># FOV origin</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>ax.scatter(fov_origin[<span class="dv">0</span>], fov_origin[<span class="dv">1</span>], label <span class="op">=</span> <span class="st">'FOV origin'</span>, s <span class="op">=</span> <span class="dv">40</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>legend <span class="op">=</span> ax.legend()</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>legend.get_frame().set_alpha(<span class="va">None</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlabel <span class="op">=</span> <span class="st">'X (px)'</span>, ylabel <span class="op">=</span> <span class="st">'Y (px)'</span>)</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>plt.setp(ax2, xlim <span class="op">=</span> (<span class="dv">0</span>,L), ylim <span class="op">=</span> (<span class="dv">0</span>,L))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_trajectories_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<p><img src="utils_trajectories_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -988,18 +995,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
              traps_positions=None, comp_center=None, r_cercle=None)</code></pre>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> L <span class="op">=</span> <span class="fl">1.2</span><span class="op">*</span><span class="dv">128</span><span class="op">;</span> D <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>trajs_model1, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                            L <span class="op">=</span> L,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                            T <span class="op">=</span> T,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> D,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                                            )</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model1, L, N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> N <span class="op">=</span> <span class="dv">50</span><span class="op">;</span> L <span class="op">=</span> <span class="fl">1.2</span><span class="op">*</span><span class="dv">128</span><span class="op">;</span> D <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>trajs_model1, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                            L <span class="op">=</span> L,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                                            T <span class="op">=</span> T,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                            Ds <span class="op">=</span> D,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                                            alphas <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model1, L, N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="utils_trajectories_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+<p><img src="utils_trajectories_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
