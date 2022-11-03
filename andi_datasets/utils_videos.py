@@ -246,13 +246,13 @@ def transform_to_video(
         If `with_masks = False`,
         The function returns:
             video : ndarray
-        Note: `get_vip_particles` is a non-empty list, the first frame in the output will be the masks of the given vip particles in the first frame, else (default) the output will be a ndarray of just the video.
+        Note: If `get_vip_particles` is a non-empty list, the first frame in the output will be the masks of the given vip particles in the first frame, else (default) the output will be a ndarray of just the video.
 
     """
 
     _particle_dict = {
         "particle_intensity": [
-            100,
+            500,
             20,
         ],  # Mean and standard deviation of the particle intensity
         "intensity": lambda particle_intensity: particle_intensity[0]
