@@ -102,7 +102,7 @@ class models_phenom(models_phenom):
         
         
         Parameters
-        ------------
+        ----------
         alphas : list
         List containing the parameters to sample anomalous exponent in state (adapt to sampling function).
         Ds : list
@@ -123,7 +123,7 @@ class models_phenom(models_phenom):
                     for gamma > 1: val[i] > val[i-1]*gamma
                     for gamma = 1: no check
         Returns
-        ------------
+        -------
             :alphas_traj (list): list of anomalous exponents
             :Ds_traj (list): list of diffusion coefficients
                       
@@ -185,7 +185,7 @@ class models_phenom(models_phenom):
         Generates a single state trajectory with given parameters. 
         
         Parameters
-        -----------
+        ----------
         T : int
             Length of the trajectory
         D : float
@@ -198,7 +198,7 @@ class models_phenom(models_phenom):
             Sampling time
             
         Returns
-        ----------
+        -------
         tuple
             - pos: position of the particle
             - labels:  anomalous exponent, D and state at each timestep. State is always free here.
@@ -252,7 +252,7 @@ class models_phenom(models_phenom):
         Generates a dataset made of single state trajectories with given parameters.
         
         Parameters
-        -----------
+        ----------
         N : int, list
             Number of trajectories in the dataset
         T : int
@@ -267,7 +267,7 @@ class models_phenom(models_phenom):
             Sampling time
             
         Returns
-        ----------
+        -------
         tuple
             - positions: position of the N trajectories.
             - labels:  anomalous exponent, D and state at each timestep. State is always free here.         
