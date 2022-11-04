@@ -305,26 +305,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">AnDi 1 - Theory</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">Theory models and AnDi 2020</a>
+  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">1. Explore the models</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">ANDI 2020 submission: from trajectories to predictions</a>
+  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">2. Create submissions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">AnDi 2 - Phenom</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">1. Explore the models</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">Phenom models and ANDI 2022</a>
+  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link">2. Create videos</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link">Creating videos tutorial</a>
-  </div>
-</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
@@ -741,7 +761,7 @@ Computes the changes points a multistate trajectory based on the Convex Hull app
 <section id="ch_changepoints" class="level3">
 <h3 class="anchored" data-anchor-id="ch_changepoints">CH_changepoints</h3>
 <blockquote class="blockquote">
-<pre><code> CH_changepoints (trajs, tau:int=10, metric:{'area','volume'}='volume')</code></pre>
+<pre><code> CH_changepoints (trajs, tau:int=10, metric:{'volume','area'}='volume')</code></pre>
 </blockquote>
 <p>Computes the changes points a multistate trajectory based on the Convex Hull approach proposed in PRE 96 (022144), 2017.</p>
 <table class="table">
@@ -774,7 +794,7 @@ Computes the changes points a multistate trajectory based on the Convex Hull app
 </tr>
 <tr class="odd">
 <td>metric</td>
-<td>{‘area’, ‘volume’}</td>
+<td>{‘volume’, ‘area’}</td>
 <td>volume</td>
 <td>Calculate change points w.r.t. area or volume of CH.</td>
 </tr>
