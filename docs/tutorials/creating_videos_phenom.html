@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>andi_datasets - Creating videos tutorial</title>
+<title>andi_datasets - 2. Create videos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,11 +126,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<meta property="og:title" content="andi_datasets - Creating videos tutorial">
-<meta property="og:description" content="Importing the dependencies needed to run this tutorial.">
+<meta property="og:title" content="andi_datasets - 2. Create videos">
+<meta property="og:description" content="This tutorial demonstrates how to generate fluorescence microscopy videos of the AnDi trajectories using the function transform_to_video">
 <meta property="og:site-name" content="andi_datasets">
-<meta name="twitter:title" content="andi_datasets - Creating videos tutorial">
-<meta name="twitter:description" content="Importing the dependencies needed to run this tutorial.">
+<meta name="twitter:title" content="andi_datasets - 2. Create videos">
+<meta name="twitter:description" content="This tutorial demonstrates how to generate fluorescence microscopy videos of the AnDi trajectories using the function transform_to_video">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -181,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Creating videos tutorial</h1>
+      <h1 class="quarto-secondary-nav-title">2. Create videos</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -307,26 +307,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </a> 
       </div>
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">AnDi 1 - Theory</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">Theory models and AnDi 2020</a>
+  <a href="../tutorials/challenge_one_datasets.html" class="sidebar-item-text sidebar-link">1. Explore the models</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">ANDI 2020 submission: from trajectories to predictions</a>
+  <a href="../tutorials/challenge_one_submission.html" class="sidebar-item-text sidebar-link">2. Create submissions</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">AnDi 2 - Phenom</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">1. Explore the models</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/challenge_two_datasets.html" class="sidebar-item-text sidebar-link">Phenom models and ANDI 2022</a>
+  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link active">2. Create videos</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link active">Creating videos tutorial</a>
-  </div>
-</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
@@ -362,7 +382,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Creating videos tutorial</h1>
+<h1 class="title d-none d-lg-block">2. Create videos</h1>
 </div>
 
 
@@ -377,6 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>This tutorial demonstrates how to generate fluorescence microscopy videos of the AnDi trajectories using the function <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">1. Setup</h2>
 <p>Importing the dependencies needed to run this tutorial.</p>
@@ -428,14 +449,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="generating-videos">3. Generating videos</h2>
 <section id="import-functions" class="level3">
 <h3 class="anchored" data-anchor-id="import-functions">3.1. Import functions</h3>
-<p>For generating videos we import <code>[</code>transform_to_video<code>](https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</code> function from <code>andi_datasets</code> package. Additionally we import <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#play_video"><code>play_video</code></a> function to display the videos within the jupyter notebook.</p>
+<p>For generating videos we import <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> function from <code>andi_datasets</code> package. Additionally we import <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#play_video"><code>play_video</code></a> function to display the videos within the jupyter notebook.</p>
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_videos <span class="im">import</span> transform_to_video, play_video</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">3.2. Usage</h3>
-<p>The trajectory data generated can be directly passed through <code>[</code>transform_to_video<code>](https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</code> to generate fluorescence videos of the particles.</p>
+<p>The trajectory data generated can be directly passed through <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> to generate fluorescence videos of the particles.</p>
 <section id="generating-a-sample-video" class="level4">
 <h4 class="anchored" data-anchor-id="generating-a-sample-video">3.2.1. Generating a sample video</h4>
 <div class="cell" data-execution_count="17">
@@ -30314,7 +30335,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 </script>
 </div>
 </div>
-<p>By default, <code>[</code>transform_to_video<code>](https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</code> function generates video like above. However, the features of the video can be easily controlled with the help of the dictionaries: <code>particle_props</code>, <code>optics_props</code>, and <code>background_props</code>. For detailed information about the dictionaries and the inputs they can take, please refer to the documentation of <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video">[<code>transform_to_video</code>](https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video)</a>.</p>
+<p>By default, <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> function generates video like above. However, the features of the video can be easily controlled with the help of the dictionaries: <code>particle_props</code>, <code>optics_props</code>, and <code>background_props</code>. For detailed information about the dictionaries and the inputs they can take, please refer to the documentation of <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a>.</p>
 <p>We will some example use cases of dictionaries below.</p>
 </section>
 <section id="controlling-the-noise" class="level4">

@@ -2,17 +2,17 @@ website:
   sidebar:
     style: "docked"
     collapse-level: 1
-    contents:      
+    contents:
       - section: Documentation
         href: lib_nbs/index_docs.ipynb
-        contents:  
+        contents:
           - section: "Theory datasets"
-            contents:        
-                  - lib_nbs/models_theory.ipynb  
-                  - lib_nbs/datasets_theory.ipynb 
+            contents:
+                  - lib_nbs/models_theory.ipynb
+                  - lib_nbs/datasets_theory.ipynb
           - section: "Phenomenological datasets"
             contents:
-                - lib_nbs/models_phenom.ipynb 
+                - lib_nbs/models_phenom.ipynb
                 - lib_nbs/datasets_phenom.ipynb
           - section: "ANDI challenge datasets"
             contents:
@@ -22,13 +22,17 @@ website:
             contents:
                 - lib_nbs/analysis.ipynb
           - section: "Helpers"
-            contents:        
-                - lib_nbs/utils_trajectories.ipynb            
+            contents:
+                - lib_nbs/utils_trajectories.ipynb
                 - lib_nbs/utils_videos.ipynb
-      - section: Tutorials 
+      - section: Tutorials
         href: tutorials/index_tutorials.ipynb
-        contents: 
-            - tutorials/challenge_one_datasets.ipynb
-            - tutorials/challenge_one_submission.ipynb
-            - tutorials/challenge_two_datasets.ipynb
-            - tutorials/creating_videos_phenom.ipynb
+        contents:
+            - section: "AnDi 1 - Theory"
+              contents:
+                - tutorials/challenge_one_datasets.ipynb
+                - tutorials/challenge_one_submission.ipynb
+            - section: "AnDi 2 - Phenom"
+              contents:
+                - tutorials/challenge_two_datasets.ipynb
+                - tutorials/creating_videos_phenom.ipynb
