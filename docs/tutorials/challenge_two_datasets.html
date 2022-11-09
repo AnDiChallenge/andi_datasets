@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="model-1---single-state-diffusion" class="level3">
 <h3 class="anchored" data-anchor-id="model-1---single-state-diffusion">Model 1 - Single state diffusion</h3>
-<p>This is the most <em>boring</em> model of all… It simulates a particle with a single diffusive state, with an associated <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>. This kind of trajectories can also be generated with the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a>, check <a href="../tutorials/challenge_one_datasets.html">its associated tutorial</a> to know more.</p>
+<p>This is the most <em>boring</em> model of all… It simulates a particle with a single diffusive state, with an associated <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>. This kind of trajectories can also be generated with the class <code>models_theory</code>, check <a href="../tutorials/challenge_one_datasets.html">its associated tutorial</a> to know more.</p>
 <p>All models have similar inputs, with some changing to accomodate the particularities of each model. In general, we input the number of trajectories to be generated <code>N</code>, the number of time steps <code>T</code>, and then length of the box acting as environment <code>L</code>. Let’s us define these and keep them for the rest of the notebook. We will also define here the diffusion coefficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of time steps per trajectory (frames)</span></span>
@@ -617,7 +617,7 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
 </section>
 <section id="creating-datasets-with-multiple-models" class="level1">
 <h1>Creating datasets with multiple models</h1>
-<p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_phenom.html#datasets_phenom"><code>datasets_phenom</code></a>. Let’s import it and see some of its properties:</p>
+<p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <code>datasets_phenom</code>. Let’s import it and see some of its properties:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -683,7 +683,7 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
 </div>
 <section id="saving-and-loading-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
-<p>Just as with the <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
+<p>Just as with the <code>datasets_theory</code> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>

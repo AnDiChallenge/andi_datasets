@@ -128,10 +128,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta property="og:title" content="andi_datasets - datasets_challenge">
-<meta property="og:description" content="source">
 <meta property="og:site-name" content="andi_datasets">
 <meta name="twitter:title" content="andi_datasets - datasets_challenge">
-<meta name="twitter:description" content="source">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -400,22 +398,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-challenge-2020" class="level1">
 <h1>ANDI challenge 2020</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/datasets_challenge.py#L20" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="challenge_2020_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_2020_dataset">challenge_2020_dataset</h3>
 <blockquote class="blockquote">
 <pre><code> challenge_2020_dataset (N:numpy.ndarray|int=1000, max_T:int=1000,
                          min_T:int=10, tasks:list|int=[1, 2, 3],
                          dimensions:list|int=[1, 2, 3],
-                         load_dataset:{'False','True'}=False,
-                         save_dataset:{'False','True'}=False,
+                         load_dataset:{'True','False'}=False,
+                         save_dataset:{'True','False'}=False,
                          path_datasets:str='',
-                         load_labels:{'False','True'}=True,
-                         load_trajectories:{'False','True'}=False,
-                         save_trajectories:{'False','True'}=False,
+                         load_labels:{'True','False'}=True,
+                         load_trajectories:{'True','False'}=False,
+                         save_trajectories:{'True','False'}=False,
                          path_trajectories:str='datasets/',
                          N_save:int=1000, t_save:int=1000,
-                         return_noise:{'False','True'}=False)</code></pre>
+                         return_noise:{'True','False'}=False)</code></pre>
 </blockquote>
 <p>Creates a dataset similar to the one given by in the ANDI challenge. Check the webpage of the challenge for more details. The default values are similar to the ones used to generate the available dataset.</p>
 <p>The function returns 6 variables, three variables for the trajectories and three for the corresponding labels. Each variable is a list of three lists. Each of the three lists corresponds to a given dimension, in ascending order. If one of the tasks/dimensions was not calculated, the given list will be empty.</p>
@@ -468,13 +465,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>load_dataset</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>False</td>
 <td>If True, the module loads existing datasets from the files task{}.txt and ref{}.txt.</td>
 </tr>
 <tr class="odd">
 <td>save_dataset</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>False</td>
 <td>If True, the module saves the datasets in a .txt following the competition format.</td>
 </tr>
@@ -486,19 +483,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>load_labels</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>True</td>
 <td>If False, only loads trajectories and avoids the files refX.txt.</td>
 </tr>
 <tr class="even">
 <td>load_trajectories</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>False</td>
 <td>If True, the module loads the trajectories of an .h5 file.</td>
 </tr>
 <tr class="odd">
 <td>save_trajectories</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>False</td>
 <td>If True, the module saves a .h5 file for each model considered, with N_save trajectories and T = T_save.</td>
 </tr>
@@ -522,7 +519,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>return_noise</td>
-<td>{‘False’, ‘True’}</td>
+<td>{‘True’, ‘False’}</td>
 <td>False</td>
 <td>If True, returns the amplitudes of the noises added to the trajectories.</td>
 </tr>
@@ -539,7 +536,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-challenge-2022" class="level1">
 <h1>ANDI challenge 2022</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/datasets_challenge.py#L389" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="defaults_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="defaults_andi2">_defaults_andi2</h3>
 <blockquote class="blockquote">
@@ -547,7 +543,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>This class defines the default values set for the ANDI 2022 challenge.</p>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/datasets_challenge.py#L408" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="get_dic_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="get_dic_andi2">_get_dic_andi2</h3>
@@ -582,7 +577,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/develop/andi_datasets/datasets_challenge.py#L489" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="challenge_2022_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_2022_dataset">challenge_2022_dataset</h3>
