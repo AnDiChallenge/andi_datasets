@@ -47,7 +47,7 @@ class msd_analysis():
             Time lags used for the TA-MSD
         
         Returns       
-        ----------
+        -------
         np.array
             TA-MSD of the given trayectory
             
@@ -75,7 +75,7 @@ class msd_analysis():
             Time lags used for the TA-MSD.
         
         Returns       
-        ----------
+        -------
         np.array
             Diffusion coefficient of the given trajectory.          
         
@@ -103,7 +103,7 @@ class msd_analysis():
             Time lags used for the TA-MSD.
         
         Returns       
-        ----------
+        -------
         np.array
             Anomalous exponent of the given trajectory.          
         
@@ -138,7 +138,7 @@ def vacf(trajs,
      Time windows at wich the vacf is calculated. 
     
     Returns
-    ----------
+    -------
     np.array
         VACF of the given trajectories and the given time windows.        
     '''
@@ -183,7 +183,7 @@ def CH_changepoints(trajs,
      Calculate change points w.r.t. area or volume of CH.
     
     Returns
-    ----------
+    -------
     list
         Change points of the given trajectory.
     '''
