@@ -1,10 +1,10 @@
 <p align="center">
-  <img width="150" src="source_nbs/figures/logo.png">
+  <img width="150" src="https://raw.githubusercontent.com/AnDiChallenge/andi_datasets/master/source_nbs/figures/logo.png">
 </p>
 <h3 align="center">Generate, manage and analyze anomalous diffusion trajectories</h3>
 <p align="center">
   <a href="https://doi.org/10.5281/zenodo.4775311"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4775311.svg" alt="PyPI version"></a>
-  <a href="https://badge.fury.io/py/andi-datasetsl"><img src="https://badge.fury.io/py/andi-datasets.svg" alt="PyPI version"></a>
+  <a href="https://badge.fury.io/py/andi-datasets"><img src="https://badge.fury.io/py/andi-datasets.svg" alt="PyPI version"></a>
   <a href="https://badge.fury.io/py/andi-datasets"><img src="https://img.shields.io/badge/python-3.10-red" alt="Python version"></a>
 </p>
 <p align="center">
