@@ -1,0 +1,37 @@
+project:
+  type: website
+
+format:
+  html:
+    theme: yeti
+    toc: true
+
+website:
+  twitter-card: true
+  open-graph: true
+  repo-actions: [issue]
+  site-url: ''
+  navbar:    
+    logo: figures/logo_noname.svg
+    background: primary
+    search: true    
+    collapse-below: lg
+    left:
+      - text: "Documentation"
+        href: lib_nbs/index_docs.ipynb
+      - text: "Tutorials"
+        href: tutorials/index_tutorials.ipynb
+      - text: "ANDI interactive tool"
+        href: https://andi-app.herokuapp.com/andi_app
+    right:
+      - icon: github
+        href: "https://github.com/andichallenge/andi_datasets"
+      - icon: twitter
+        href: https://twitter.com/AndiChallenge
+          
+  sidebar:
+    style: floating
+    
+    
+
+metadata-files: [nbdev.yml, sidebar.yml]

@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "andi_datasets"
+  site-url: "https://andichallenge.github.io/andi_datasets"
+  description: "Generate, manage and analyze anomalous diffusion trajectories."
+  repo-branch: master
+  repo-url: "https://github.com/andichallenge/andi_datasets"
