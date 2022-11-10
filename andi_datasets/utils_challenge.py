@@ -286,7 +286,7 @@ def array_to_df(trajs,
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 29
 def df_to_array(df, pad = -1):
     '''
-    Transform a dataframe as the ones given in the ANDI challenge 2 (i.e. 4 columns:
+    Transform a dataframe as the ones given in the ANDI 2 challenge (i.e. 4 columns:
     traj_idx, frame, x, y) into a numpy array. To deal with irregular temporal supports,
     we pad the array whenever the trajectory is not present.
     The output array has the typical shape of ANDI datasets: TxNx2
@@ -1030,7 +1030,7 @@ from .models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
     ''' 
-    Calculates the ensemble metrics for the ANDI 2022 challenge. The input are matrices of shape:
+    Calculates the ensemble metrics for the ANDI 2 challenge. The input are matrices of shape:
     
     | col1 (state 1) | col2 (state 2) | col3 (state 3) | ... |
     |:--------------:|:--------------:|:--------------:|:---:|
@@ -1116,7 +1116,7 @@ def load_file_to_df(path_file,
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
     '''
     Given the path of a .txt file, extract the segmentation predictions based on 
-    the rules of the ANDI Challenge 2022
+    the rules of the ANDI 2 challenge022
     '''
 
     with open(path_file) as f:
@@ -1164,7 +1164,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
                              ):
     '''
     Given two dataframes, corresponding to the predictions and true labels of a set
-    of trajectories from the ANDI challenge 2022, calculates the corresponding metrics
+    of trajectories from the ANDI 2 challenge022, calculates the corresponding metrics
     Columns must be for both (no order needed):
     traj_idx | alphas | Ds | changepoints | states
     df_true must also contain a column 'T'.

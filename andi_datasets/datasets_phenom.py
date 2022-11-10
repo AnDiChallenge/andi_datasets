@@ -45,7 +45,7 @@ class datasets_phenom():
             return params
         
     def _get_states(self):
-        ''' Definition of the possible states found in the ANDI 2022 challenge and their 
+        ''' Definition of the possible states found in the ANDI 2 challenge (phenom) and their 
         assigned label:
         0: immobile; 1: confined; 2: brownian; 3: anomalous '''
         
@@ -74,7 +74,7 @@ class datasets_phenom(datasets_phenom):
         ----------
         dics : list, dictionary, bool
             - if list or dictionary: the function generates trajectories with the properties stated in each dictionary.
-            - if bool: the function generates trajectories with default parameters set for the ANDI2022 challenge for every available diffusion model.
+            - if bool: the function generates trajectories with default parameters set for the ANDI 2 challenge (phenom) for every available diffusion model.
         T : int, None
             - if int: overrides the values of trajectory length in the dictionaries.
             - if None: uses the trajectory length values in the dictionaries. 
