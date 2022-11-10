@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#get_vip" id="toc-get_vip" class="nav-link" data-scroll-target="#get_vip">get_VIP</a></li>
   </ul></li>
-  <li><a href="#challenge-2022-metrics" id="toc-challenge-2022-metrics" class="nav-link" data-scroll-target="#challenge-2022-metrics">Challenge 2022 metrics</a>
+  <li><a href="#andi-2-challenge-metrics" id="toc-andi-2-challenge-metrics" class="nav-link" data-scroll-target="#andi-2-challenge-metrics">ANDI 2 challenge metrics</a>
   <ul class="collapse">
   <li><a href="#changepoint-pairing" id="toc-changepoint-pairing" class="nav-link" data-scroll-target="#changepoint-pairing">Changepoint pairing</a>
   <ul class="collapse">
@@ -669,7 +669,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="list-of-features-to-continuous-labels" class="level2">
 <h2 class="anchored" data-anchor-id="list-of-features-to-continuous-labels">List of features to continuous labels</h2>
-<p>This function does the opposite from than <code>label_continuous _to_list</code>. From a list of properties as the one used in ANDI 2022, creates continuous labels</p>
+<p>This function does the opposite from than <code>label_continuous _to_list</code>. From a list of properties as the one used in ANDI 2 challenge, creates continuous labels.</p>
 <hr>
 <section id="label_list_to_continuous" class="level3">
 <h3 class="anchored" data-anchor-id="label_list_to_continuous">label_list_to_continuous</h3>
@@ -874,7 +874,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote class="blockquote">
 <pre><code> df_to_array (df, pad=-1)</code></pre>
 </blockquote>
-<p>Transform a dataframe as the ones given in the ANDI challenge 2 (i.e.&nbsp;4 columns: traj_idx, frame, x, y) into a numpy array. To deal with irregular temporal supports, we pad the array whenever the trajectory is not present. The output array has the typical shape of ANDI datasets: TxNx2</p>
+<p>Transform a dataframe as the ones given in the ANDI 2 challenge (i.e.&nbsp;4 columns: traj_idx, frame, x, y) into a numpy array. To deal with irregular temporal supports, we pad the array whenever the trajectory is not present. The output array has the typical shape of ANDI datasets: TxNx2</p>
 <table class="table">
 <colgroup>
 <col style="width: 6%">
@@ -974,8 +974,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </section>
 </section>
-<section id="challenge-2022-metrics" class="level1">
-<h1>Challenge 2022 metrics</h1>
+<section id="andi-2-challenge-metrics" class="level1">
+<h1>ANDI 2 challenge metrics</h1>
 <section id="changepoint-pairing" class="level2">
 <h2 class="anchored" data-anchor-id="changepoint-pairing">Changepoint pairing</h2>
 <p>We use an assignment algorithm to pair predicted and groundtruth changepoints. From there, we will calculate the various metrics of the challenge.</p>
@@ -2034,7 +2034,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <blockquote class="blockquote">
 <pre><code> error_Ensemble_dataset (true_data, pred_data, return_distributions=False)</code></pre>
 </blockquote>
-<p>Calculates the ensemble metrics for the ANDI 2022 challenge. The input are matrices of shape:</p>
+<p>Calculates the ensemble metrics for the ANDI 2 challenge. The input are matrices of shape:</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2151,7 +2151,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
 <pre><code> load_file_to_df (path_file, columns=['traj_idx', 'Ds', 'alphas',
                   'states', 'changepoints'])</code></pre>
 </blockquote>
-<p>Given the path of a .txt file, extract the segmentation predictions based on the rules of the ANDI Challenge 2022</p>
+<p>Given the path of a .txt file, extract the segmentation predictions based on the rules of the ANDI 2 challenge022</p>
 <p>Saving fake data for test</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>file_gt, file_p <span class="op">=</span> [], []</span>
@@ -2201,7 +2201,7 @@ Pred: [ 8 11 16 30 36 47]</code></pre>
                            threshold_error_s=-1, threshold_cp=10,
                            prints=True, disable_tqdm=False)</code></pre>
 </blockquote>
-<p>Given two dataframes, corresponding to the predictions and true labels of a set of trajectories from the ANDI challenge 2022, calculates the corresponding metrics Columns must be for both (no order needed): traj_idx | alphas | Ds | changepoints | states df_true must also contain a column ‘T’.</p>
+<p>Given two dataframes, corresponding to the predictions and true labels of a set of trajectories from the ANDI 2 challenge022, calculates the corresponding metrics Columns must be for both (no order needed): traj_idx | alphas | Ds | changepoints | states df_true must also contain a column ‘T’.</p>
 <table class="table">
 <colgroup>
 <col style="width: 6%">
