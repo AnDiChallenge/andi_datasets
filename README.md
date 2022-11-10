@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="150" src="source_nbs/figures/logo.svg">
+  <img width="150" src="source_nbs/figures/logo.png">
 </p>
 <h3 align="center">Generate, manage and analyze anomalous diffusion trajectories</h3>
 <p align="center">
