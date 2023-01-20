@@ -324,14 +324,16 @@ def df_to_array(df, pad = -1):
 from scipy.spatial import distance
 
 
-def get_VIP(array_trajs, num_vip = 5, min_distance = 2, pad = -1):
+def get_VIP(array_trajs, num_vip = 5, min_distance_part = 2, pad = -1, 
+            boundary = False, boundary_origin = (0,0), min_distance_bound = 0,
+            sort_length = True):
     '''
     Given an array of trajectories, finds the particles VIP particles that participants will
     need to characterize in the video trakcl.
     
     The function first finds the particles that exist at frame 0 (i.e. that their first value 
     is different from pad). Then, iterates over this particles to find num_vip that are at 
-    distance > than min_distance in the first frame.
+    distance > than min_distance_part in the first frame.
     
     Parameters
     ----------
@@ -339,10 +341,19 @@ def get_VIP(array_trajs, num_vip = 5, min_distance = 2, pad = -1):
         Position of the trajectories that will be considered for the VIP search.
     num_vip : int
         Number of VIP particles to flag.
-    min_distance : float
+    min_distance_part : float
         Minimum distance between two VIP particles.
     pad : int
         Number used to indicate in the temporal support that the particle is outside of the FOV.
+    boundary : bool, float
+        If float, defines the length of the box acting as boundary
+    boundary_origin : tuple
+        X and Y coords of the boundary
+    min_distance_bound : float
+        Minimum distance a particles has to be from the boundary in ordered to be considered a VIP particle
+    sort_length : bool
+        If True, candidates for VIP particles are choosen in descending trajectory length. This ensures
+        that the longest ones are chosen.
         
     Returns
     -------
@@ -350,16 +361,40 @@ def get_VIP(array_trajs, num_vip = 5, min_distance = 2, pad = -1):
         List of indices of the chosen VIP particles
     
     '''
-    
-    candidates_vip = np.argwhere(array_trajs[0,:,0] != pad).flatten()
+    if not boundary:
+        candidates_vip = np.argwhere(array_trajs[0,:,0] != pad).flatten()
+    else:
+        # Define masks
+        boundary_x0 = array_trajs[0,:,0] > (boundary_origin[0] + min_distance_bound)
+        boundary_xL = array_trajs[0,:,0] < (boundary_origin[0] + boundary - min_distance_bound)
+        boundary_y0 = array_trajs[0,:,1] > (boundary_origin[1] + min_distance_bound)
+        boundary_yL = array_trajs[0,:,1] < (boundary_origin[1] + boundary - min_distance_bound)
+        padding = array_trajs[0,:,0] != pad
+        
+        candidates_vip = np.argwhere(boundary_x0 & boundary_xL & boundary_y0 & boundary_yL & padding).flatten()        
+        
     if len(candidates_vip) < num_vip:
         raise ValueError('Number of VIP demanded is bigger than available particles.')
 
     elected = []
-    count_while = 0
+    count_while = 0    
+    
+    if sort_length:
+        lengths = np.ones(array_trajs.shape[1])*array_trajs.shape[0]
+        where_pad = np.argwhere(array_trajs[:,:,0] == pad)
+        lengths[where_pad[:,1]] = where_pad[:,0]
+        # We sort the particle by their lenghts (note the minus for descending order)
+        candidates_vip = candidates_vip[np.argsort(-lengths)]
+        
     while len(elected) < num_vip:
-
-        elected = [np.random.choice(candidates_vip)]
+        
+        if sort_length and count_while == 0: 
+            # if we already did a while loop, we start with a random candidate even
+            # when sorting
+            elected = [candidates_vip[0]]
+        else:
+            print('yep')
+            elected = [np.random.choice(candidates_vip)]
 
         for c_idx in candidates_vip:
             if c_idx == elected[0]:
@@ -371,7 +406,7 @@ def get_VIP(array_trajs, num_vip = 5, min_distance = 2, pad = -1):
 
             dist = distance.cdist(np.expand_dims(array_trajs[0,c_idx,:], 0), all_rest, metric='euclidean').transpose()
 
-            if dist.min() > 2:
+            if dist.min() > min_distance_part:
                 elected.append(c_idx)
 
             if len(elected) == num_vip:
@@ -385,7 +420,7 @@ def get_VIP(array_trajs, num_vip = 5, min_distance = 2, pad = -1):
     return elected
 
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 34
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 35
 def changepoint_assignment(GT, preds):
     ''' 
     Given a list of groundtruth and predicted changepoints, solves the assignment problem via
@@ -417,7 +452,7 @@ def changepoint_assignment(GT, preds):
             
     return linear_sum_assignment(cost_matrix), cost_matrix
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 36
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 37
 def changepoint_alpha_beta(GT, preds, threshold = 10):
     '''
     Calculate the alpha and beta measure of paired changepoints.
@@ -455,7 +490,7 @@ def changepoint_alpha_beta(GT, preds, threshold = 10):
 
     return alpha, beta
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 38
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 39
 def jaccard_index(TP: int, # true positive
                   FP: int, # false positive
                   FN: int # false negative
@@ -465,7 +500,7 @@ def jaccard_index(TP: int, # true positive
     '''
     return TP/(TP+FP+FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 39
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 40
 def single_changepoint_error(GT, preds, threshold = 5):
     '''
     Given the groundtruth and predicted changepoints for a single trajectory, first solves the assignment problem between changepoints,
@@ -512,7 +547,7 @@ def single_changepoint_error(GT, preds, threshold = 5):
     
     return TP_rmse, jaccard_index(TP, FP, FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 40
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 41
 def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):    
     ''' 
     Given an ensemble of groundtruth and predicted change points, iterates
@@ -573,7 +608,7 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
         
     return TP_rmse, jaccard_index(TP, FP, FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 43
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 44
 def create_binary_segment(CP: list, # list of changepoints
                           T: int # length of the trajectory
                          )-> list: # list of arrays with value 1 in the temporal support of the current segment.
@@ -589,7 +624,7 @@ def create_binary_segment(CP: list, # list of changepoints
     segments[0, 0] = 1
     return segments
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 45
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 46
 def jaccard_between_segments(gt, pred):
     '''
     Given two segments, calculates the Jaccard index between them by considering TP as correct labeling,
@@ -622,7 +657,7 @@ def jaccard_between_segments(gt, pred):
     if tp+fp+fn == 0: return 0    
     else: return jaccard_index(tp, fp, fn)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 46
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 47
 def segment_assignment(GT, preds, T:int = None):
     ''' 
     Given a list of groundtruth and predicted changepoints, generates a set of segments. Then constructs 
@@ -680,7 +715,7 @@ def segment_assignment(GT, preds, T:int = None):
 
     return linear_sum_assignment(cost_matrix), cost_matrix
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 56
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 57
 from sklearn.metrics import mean_squared_log_error as msle, f1_score
 from .models_phenom import models_phenom
 
@@ -724,7 +759,7 @@ def metric_diffusive_state(gt = None, pred = None, max_error = False):
     ''' 
     return f1_score(gt.astype(int), pred.astype(int), average = 'micro')
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 60
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 61
 def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
                           preds_cp, preds_alpha, preds_D, preds_s,
                           T:bool|int = None):
@@ -800,7 +835,7 @@ def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
 
         return True, paired_alpha, paired_D, paired_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 61
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 62
 def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
                             preds_cp, preds_alpha, preds_D, preds_s,
                             return_pairs = False,
@@ -880,7 +915,23 @@ def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
         error_s = metric_diffusive_state(paired_s[:,0], paired_s[:,1])
         return error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 69
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 71
+def _visualize_ensemble(ens):
+    '''
+    Given input ens:
+    
+    |mu_alpha1      mu_alpha2     ... |
+    |sigma_alpha1   sigma_alpha2  ... |
+    |mu_D1          mu_D1         ... | 
+    |sigma_D1       sigma_D2      ... |
+    |counts_state1  counts_state2 ... |
+    
+    creates a dataframe to visualize parameters.
+    '''  
+
+    return pd.DataFrame(data = ens.transpose(), columns = [r'mean $\alpha$', r'var $\alpha$', r'mean $D$', r'var $D$', '% residence time'])
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 72
 from .models_phenom import models_phenom
 def extract_ensemble(state_label, dic):
         ''' 
@@ -967,9 +1018,9 @@ def extract_ensemble(state_label, dic):
                                    ))
         return ensemble
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 70
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 74
 import scipy.stats
-def multimode_dist(params, weights, bound, x, normalized = False):
+def multimode_dist(params, weights, bound, x, normalized = False, min_var = 1e-9):
     '''
     Generates a multimodal distribution with given parameters.
     Also accounts for single mode if weight is float or int.
@@ -985,8 +1036,7 @@ def multimode_dist(params, weights, bound, x, normalized = False):
     x : array
         Support upon which the distribution is created.
     normalize : bool
-        If True, returns the normalized distribution.
-    
+        If True, returns the normalized distribution.    
     Returns
     -------
     array
@@ -1006,7 +1056,7 @@ def multimode_dist(params, weights, bound, x, normalized = False):
     for param, w in zip(params, weights):
         mean, var  = param  
         # introduce a cutoff to avoid nan when var = 0
-        if var == 0: var = 1e-9
+        if var < min_var: var = min_var
         unimodal = func.pdf(x,
                             (lower-mean)/np.sqrt(var),
                             (upper-mean)/np.sqrt(var),
@@ -1017,18 +1067,28 @@ def multimode_dist(params, weights, bound, x, normalized = False):
         dist /= np.sum(dist)
     return dist
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 71
-def distribution_distance(p:np.array, # distribution 1
-                          q:np.array # distribution 2
-                         )-> float:  # distance between distributions
-    ''' Calculates mean absolute error between two distributions. '''
-#     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
-    return np.abs(p-q).mean()
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 76
+from scipy.stats import wasserstein_distance
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 74
+def distribution_distance(p:np.array, # distribution 1
+                          q:np.array, # distribution 2
+                          x:np.array = None, # support of the distributions (not needed for MAE)
+                          metric = 'wasserstein' # distance metric (either 'wasserstein' or 'mae')
+                         )-> float:  # distance between distributions
+    ''' Calculates distance between two distributions. '''
+#     return np.sum(np.where(p != 0, p * np.log(p / q), 0))
+    if metric == 'mae':
+        return np.abs(p-q).mean()
+    elif metric == 'wasserstein':
+        return wasserstein_distance(x, x, p, q)
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 88
 from .models_phenom import models_phenom
 
-def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
+def error_Ensemble_dataset(true_data, pred_data,
+                           size_support = 1000,
+                           metric = 'wasserstein',
+                           return_distributions = False):
     ''' 
     Calculates the ensemble metrics for the ANDI 2 challenge. The input are matrices of shape:
     
@@ -1046,6 +1106,10 @@ def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
         Matrix containing the groundtruth data.
     pred_data : array
         Matrix containing the predicted data.
+    size_support : int
+        size of the support of the distributions 
+    metric : str
+        metric used to calculate distance between distributions
     return_distributions : bool
         If True, the function also outputs the generated distributions.
     
@@ -1054,9 +1118,15 @@ def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
     tuple
         - distance_alpha: distance between anomalous exponents
         - distance_D: distance between diffusion coefficients
-        - dists (if asked): distributions of both groundtruth and predicted data.        
+        - dists (if asked): distributions of both groundtruth and predicted data. Order: true_a, true_D, pred_a, pred_D        
     
     '''
+    # Define the support for the distributions
+    x_alpha = np.linspace(models_phenom().bound_alpha[0], 
+                          models_phenom().bound_alpha[1], size_support)
+    x_D = np.logspace(np.log10(models_phenom().bound_D[0]), 
+                      np.log10(models_phenom().bound_D[1]), size_support)  
+    
     
     dists = []
     for data in [true_data, pred_data]:
@@ -1071,22 +1141,23 @@ def error_Ensemble_dataset(true_data, pred_data, return_distributions = False):
             d_info = data[2:-1]
             weights = 1
             
-        for idx, (var, bound) in enumerate(zip([alpha_info, d_info], 
-                                               [models_phenom().bound_alpha, models_phenom().bound_D])):
-            if idx == 0: x = np.linspace(bound[0], bound[1], 1000)
-            else: x = np.logspace(np.log10(bound[0]), np.log10(bound[1]), 1000)
-            dists.append(multimode_dist(var.T, weights, bound, x))
+        for idx, var in enumerate([alpha_info, d_info]):                                                
+            dists.append(multimode_dist(var.T, weights, 
+                                        bound  = models_phenom().bound_alpha if idx == 0 else models_phenom().bound_D, 
+                                        x = x_alpha if idx == 0 else x_D))
             
     # Distance between alpha dists
-    distance_alpha = distribution_distance(dists[0], dists[2])
-    distance_D = distribution_distance(dists[1], dists[3])
+    distance_alpha = distribution_distance(p = dists[0], q = dists[2],
+                                           x = x_alpha, metric = metric)
+    distance_D = distribution_distance(p = dists[1], q = dists[3],
+                                       x = x_D, metric = metric)
     
     if return_distributions:
         return distance_alpha, distance_D, dists
     else:
         return distance_alpha, distance_D
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 76
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 97
 def check_prediction_length(pred):
     '''
     Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values.
@@ -1099,7 +1170,7 @@ def check_prediction_length(pred):
     else: 
         return False
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 77
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 98
 def separate_prediction_values(pred):
     '''
     Given a prediction over trjaectory segments, extracts the predictions for each segment property
@@ -1111,7 +1182,7 @@ def separate_prediction_values(pred):
     cp = pred[4::4]    
     return Ds, alphas, states, cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 78
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 99
 def load_file_to_df(path_file, 
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
     '''
@@ -1142,7 +1213,7 @@ def load_file_to_df(path_file,
                 
     return df
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 83
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 104
 def _get_error_bounds():
     '''
     Sets the current maximum errors we can do in the different diffusive properties.
@@ -1154,7 +1225,7 @@ def _get_error_bounds():
     threshold_cp = 10
     return threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 84
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 105
 def error_SingleTraj_dataset(df_pred, df_true, 
                               threshold_error_alpha = 2, max_val_alpha = 2, min_val_alpha = 0, 
                               threshold_error_D = 1e5, max_val_D = 1e6, min_val_D = 1e-6, 
@@ -1293,18 +1364,18 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 96
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 97
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 118
 def listdir_nohidden(path):
     for f in os.listdir(path):
         if not f.startswith(('.','_')):
             yield f
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 98
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
 def codalab_scoring(input_dir , output_dir):
     '''
     Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found,

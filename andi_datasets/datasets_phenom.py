@@ -35,6 +35,7 @@ class datasets_phenom():
         self.avail_models_func = [x[1] for x in available_models]
         
     def _get_inputs_models(self, model, get_default_values = False):
+        ''' Given the name of a phenom model, returns the inputs to that model '''
         
         model_f = self.avail_models_func[self.avail_models_name.index(model)] 
         defaults = inspect.getfullargspec(model_f).defaults
@@ -43,14 +44,6 @@ class datasets_phenom():
             return params, defaults
         else:
             return params
-        
-    def _get_states(self):
-        ''' Definition of the possible states found in the ANDI 2 challenge (phenom) and their 
-        assigned label:
-        0: immobile; 1: confined; 2: brownian; 3: anomalous '''
-        
-        self._states = ['immobile', 'confined', 'brownian', 'anomalous']
-        
 
 # %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 7
 class datasets_phenom(datasets_phenom):

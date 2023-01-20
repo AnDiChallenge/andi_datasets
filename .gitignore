@@ -147,6 +147,5 @@ dist/
 
 # hiding useless
 source_nbs/analysis_nbs
-testing/data/test_first_round
-testing/data/test_second_round
+testing/data/
 _proc/

@@ -64,9 +64,9 @@ class models_phenom(models_phenom):
         # Generate displacements
         disp = FGN(hurst = alpha/2).sample(n = T)
         # Normalization factor
-        disp *= np.sqrt(T)**(alpha)
+        disp *= np.sqrt(T*deltaT)**(alpha)
         # Add D
-        disp *= np.sqrt(2*D*deltaT)        
+        disp *= np.sqrt(2*D)        
         
         return disp
 
