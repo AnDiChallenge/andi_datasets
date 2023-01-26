@@ -421,8 +421,8 @@ class models_phenom(models_phenom):
                     M: np.array = [[0.9 , 0.1],[0.1 ,0.9]],
                     Ds: np.array = [[1, 0], [0.1, 0]], 
                     alphas: np.array = [[1, 0], [1, 0]], 
-                    gamma_d = [1], 
-                    epsilon_a = [0], 
+                    gamma_d = None, 
+                    epsilon_a = None, 
                     L = None,
                     return_state_num = False,
                     init_state = None): 
@@ -461,7 +461,7 @@ class models_phenom(models_phenom):
             - trajs (array TxNx2): particles' position
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)           
         
-        '''
+        '''        
         
         # transform lists to numpy if needed
         if isinstance(M, list):
@@ -471,6 +471,12 @@ class models_phenom(models_phenom):
         if isinstance(alphas, list):
             alphas = np.array(alphas)
         
+        
+        # Get epsilon and gamma
+        if gamma_d is None:
+            gamma_d = [1]*(M.shape[0]-1)
+        if epsilon_a is None:
+            epsilon_a = [0]*(M.shape[0]-1)
         
 
         trajs = np.zeros((T, N, 2))
@@ -506,7 +512,7 @@ class models_phenom(models_phenom):
             
         return trajs, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 46
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 51
 class models_phenom(models_phenom):
     @staticmethod
     def _get_distance(x):
@@ -531,7 +537,7 @@ class models_phenom(models_phenom):
                          + np.square(M[:,:, 1]-Mtrans[:,:, 1]))  
         return distance
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 49
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 54
 class models_phenom(models_phenom):
     @staticmethod
     def _make_escape(Pu, label, diff_state):
@@ -574,7 +580,7 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 52
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 57
 class models_phenom(models_phenom):
     @staticmethod
     def _make_condensates(Pb, label, diff_state, r, distance, max_label):
@@ -646,7 +652,7 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 57
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 62
 class models_phenom(models_phenom):
     @staticmethod
     def _stokes(D):
@@ -667,7 +673,7 @@ class models_phenom(models_phenom):
         D1 = D[0]; D2 = D[1]
         return 1/((1/D1)+(1/D2))
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 60
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 65
 class models_phenom(models_phenom):
     def dimerization(self,
                      N = 10,
@@ -846,7 +852,7 @@ class models_phenom(models_phenom):
                                  )).transpose(1,2,0)
     
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 67
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 72
 class models_phenom(models_phenom):
     @staticmethod
     def _update_bound(mask, # Current binding array
@@ -906,7 +912,7 @@ class models_phenom(models_phenom):
 
         return mask
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 69
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 74
 class models_phenom(models_phenom):
 
     def immobile_traps(self,
@@ -1040,7 +1046,7 @@ class models_phenom(models_phenom):
 
         return pos, output_label
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 76
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 81
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1083,7 +1089,7 @@ class models_phenom(models_phenom):
         
         return comp_center
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 80
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 85
 from .utils_trajectories import trigo
 
 class models_phenom(models_phenom):
@@ -1149,7 +1155,7 @@ class models_phenom(models_phenom):
         # Final point is the previous vector times the distance starting at the intersect point  
         return np.array(intersect)+dist_int_end*np.array(vec_bounce), intersect
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 84
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 89
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1315,7 +1321,7 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 88
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 93
 class models_phenom(models_phenom):
     def confinement(self,
                     N = 10,
