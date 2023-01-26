@@ -698,8 +698,16 @@ def challenge_phenom_dataset(
                           # of particles does not enter in the videos
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
                 min_distance = psf_width()
-                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = min_distance, pad = pad)  
-                
+                try:
+                    idx_vip = get_VIP(array_traj_fov, num_vip = num_vip,
+                                  min_distance_part = min_distance, 
+                                  min_distance_bound = min_distance,
+                                  boundary_origin = fov_origin,
+                                  boundary = _defaults_andi2().FOV_L,                    
+                                  pad = pad)  
+                except: 
+                    print('fail')
+                    return array_traj_fov
                 if not save_data:
                     pf_videos = ''                
                 
