@@ -471,7 +471,7 @@ class datasets_theory():
         return trajs
     
     @staticmethod
-    def _add_noisy_diffusion(trajs, diffusion_coefficients = False):
+    def _add_noisy_diffusion(trajs, diffusion_coefficients = False, sigma = 1, mu = 0):
         
         # First normalize the trajectories
         trajs = normalize(trajs)
@@ -480,7 +480,7 @@ class datasets_theory():
             pass
         # If no new diffusion coefficients given, create new ones randonmly
         elif not diffusion_coefficients:
-            diffusion_coefficients = np.random.randn(trajs.shape[0])
+            diffusion_coefficients = sigma*np.random.randn(trajs.shape[0])+mu
         # Apply new diffusion coefficients
         trajs = (trajs.transpose()*diffusion_coefficients).transpose()
         
