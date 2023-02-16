@@ -1364,18 +1364,18 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 118
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 126
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
 def listdir_nohidden(path):
     for f in os.listdir(path):
         if not f.startswith(('.','_')):
             yield f
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 120
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 128
 def codalab_scoring(input_dir , output_dir):
     '''
     Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found,

@@ -597,6 +597,8 @@ def challenge_phenom_dataset(
     # Output lists
     trajs_out, labels_traj_out, labels_ens_out = [], [], []
     for idx_experiment, model in enumerate(tqdm(model_exp)):
+        
+        
 
         ''' Generate the trajectories '''
         if dics is None:
@@ -604,7 +606,9 @@ def challenge_phenom_dataset(
         else:
             dic = dics[idx_experiment]
             # Overide the info about model
-            model = datasets_phenom().avail_models_name.index(dic['model'])+1        
+            model = datasets_phenom().avail_models_name.index(dic['model'])+1      
+            
+        print(f'Creating dataset for Exp_{idx_experiment} ('+dic['model']+').')
         
         trajs, labels = datasets_phenom().create_dataset(dics = dic)     
 
