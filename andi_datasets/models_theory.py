@@ -145,8 +145,6 @@ class models_theory(models_theory):
             dx = np.sqrt(msd[1:]-msd[:-1])
             dx = np.sqrt(2)*dx*erfcinv(2-2*np.random.rand(len(dx)))
             return np.cumsum(dx)-dx[0]
-        
-    
 
 # %% ../source_nbs/lib_nbs/models_theory.ipynb 9
 class models_theory(models_theory):  

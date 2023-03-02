@@ -490,7 +490,7 @@ def challenge_phenom_dataset(
                               experiments = 5,
                               dics = None,
                               repeat_exp = True,
-                              num_fovs = 20,
+                              num_fovs = 1,
                               return_timestep_labs = False,
                               save_data = False,
                               path = 'data/',
@@ -606,15 +606,12 @@ def challenge_phenom_dataset(
         else:
             dic = dics[idx_experiment]
             # Overide the info about model
-            model = datasets_phenom().avail_models_name.index(dic['model'])+1      
-            
+            model = datasets_phenom().avail_models_name.index(dic['model'])+1    
         print(f'Creating dataset for Exp_{idx_experiment} ('+dic['model']+').')
-        
         trajs, labels = datasets_phenom().create_dataset(dics = dic)     
 
         ''' Apply the FOV '''
         for fov in range(num_fovs):
-
             # Checking if file exist and creating an error
             if save_data:
                 if os.path.exists(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt') or os.path.exists(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt'):

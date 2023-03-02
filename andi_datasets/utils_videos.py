@@ -14,6 +14,9 @@ import imageio
 # due to its load. 
 import warnings
 try:
+    # First, avoid unnecessary warnings from tf
+    import os
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
     import deeptrack as dt
 except:
     warnings.warn('Deeptrack is currently not installed. Install if needed using pip install deeptrack.')
