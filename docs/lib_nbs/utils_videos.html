@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -154,25 +154,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">Documentation</a>
+    <a class="nav-link active" href="../lib_nbs/index_docs.html" aria-current="page">
+ <span class="menu-text">Documentation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index_tutorials.html">Tutorials</a>
+    <a class="nav-link" href="../tutorials/index_tutorials.html">
+ <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">ANDI interactive tool</a>
+    <a class="nav-link" href="https://andi-app.herokuapp.com/andi_app">
+ <span class="menu-text">ANDI interactive tool</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/andichallenge/andi_datasets"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/AndiChallenge"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -387,6 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -397,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="helpers-for-videos" class="level1">
 <h1>Helpers for videos</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L25" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="play_video" class="level3">
 <h3 class="anchored" data-anchor-id="play_video">play_video</h3>
 <blockquote class="blockquote">
@@ -447,7 +451,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L56" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L59" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="convert_uint8" class="level3">
 <h3 class="anchored" data-anchor-id="convert_uint8">convert_uint8</h3>
@@ -487,14 +491,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L88" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L91" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="psf_width" class="level3">
 <h3 class="anchored" data-anchor-id="psf_width">psf_width</h3>
 <blockquote class="blockquote">
 <pre><code> psf_width (NA=1.46, wavelength=5e-07, resolution=1e-07)</code></pre>
 </blockquote>
-<p>Computes the PSF width.</p>
+<p>Computes the PSF full width at half maximum (FWHM).</p>
 <p>This is a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
 <table class="table">
 <thead>
@@ -533,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L112" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L115" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="func_poisson_noise" class="level3">
 <h3 class="anchored" data-anchor-id="func_poisson_noise">func_poisson_noise</h3>
@@ -543,7 +547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Applies poisson noise to an image.</p>
 <p>This is a custom DeepTrack feature, and a helper function for <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></p>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L126" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L129" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="mask" class="level3">
 <h3 class="anchored" data-anchor-id="mask">mask</h3>
@@ -557,7 +561,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="transform_to_video" class="level1">
 <h1><a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a></h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L154" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L157" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="transform_to_video-1" class="level3">
 <h3 class="anchored" data-anchor-id="transform_to_video-1">transform_to_video</h3>
 <blockquote class="blockquote">
@@ -14115,7 +14119,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -14151,24 +14172,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
