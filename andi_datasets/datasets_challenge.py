@@ -447,8 +447,8 @@ def _get_dic_andi2(model):
         # outside [0,2]        
         alpha2 = alpha1 - (np.random.rand()*(0.6-0.2)+0.2)
 
-        dic.update({'Ds': np.array([[fast_D, 0.01],
-                                    [slow_D, 0.01]]),
+        dic.update({'Ds': np.array([[fast_D, fast_D*0.01],
+                                    [slow_D, slow_D*0.01]]),
                     'alphas': np.array([[alpha1, 0.01],
                                         [alpha2, 0.01]])})
 
@@ -699,16 +699,13 @@ def challenge_phenom_dataset(
                           # of particles does not enter in the videos
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
                 min_distance = psf_width()
-                try:
-                    idx_vip = get_VIP(array_traj_fov, num_vip = num_vip,
-                                  min_distance_part = min_distance, 
-                                  min_distance_bound = min_distance,
-                                  boundary_origin = fov_origin,
-                                  boundary = _defaults_andi2().FOV_L,                    
-                                  pad = pad)  
-                except: 
-                    print('fail')
-                    return array_traj_fov
+                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip,
+                              min_distance_part = min_distance, 
+                              min_distance_bound = min_distance,
+                              boundary_origin = fov_origin,
+                              boundary = _defaults_andi2().FOV_L,                    
+                              pad = pad)  
+                
                 if not save_data:
                     pf_videos = ''                
                 
