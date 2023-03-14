@@ -352,11 +352,11 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
     model_exp, num_states = info_exp[1][:-1], info_exp[-1].astype(int)
     percentage_exp = np.zeros((num_fovs, num_states))
 
-    for k in range(num_fovs*len(experiments)):
-
-        # Check when we are done with one experiment and go to next
-        if k % num_fovs == 0 and k != 0:
-
+    for k in range(num_fovs*len(experiments)):        
+        
+        # ----- Check when we are done with one experiment and go to next -----
+        if (k % num_fovs == 0 and k != 0):
+            
             # First save the ensemble information of the current experiment
             if num_states > 1:
                 percentage_exp = np.sum(percentage_exp, axis = 0)
@@ -378,8 +378,10 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
             ensemble_info = []
             info_exp = np.loadtxt(raw_folder + f'ens_labs_exp_{k}_fov_0.txt', max_rows=1, dtype = str)
             model_exp, num_states = info_exp[1][:-1], info_exp[-1].astype(int)
-            percentage_exp = np.zeros((num_fovs, num_states))
+            percentage_exp = np.zeros((num_fovs, num_states))   
+            
         
+        # ----- Move the folders -----
         for track in tracks:
             Path(target_folder+f'track_{track}/'+f'exp_{exp}').mkdir(parents=True, exist_ok=True)
 
@@ -390,12 +392,29 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
 
                 shutil.copyfile(src = raw_folder + name + f'exp_{k}_fov_0'+ext, 
                                 dst = target_folder + f'track_{track}/exp_{exp}/' + name + f'fov_{k%num_fovs}' + ext)
+        
 
-        ### Collect ensemble information
+        ### ----- Collect ensemble information -----
         ensemble_fov = np.loadtxt(raw_folder + f'ens_labs_exp_{k}_fov_0.txt', 
                                   skiprows = 1, delimiter = ';')
         if num_states > 1:
             percentage_exp[k%num_fovs] = ensemble_fov[-1, :].copy()
+            
+    # Save the ensemble information of the LAST experiment
+    if num_states > 1:
+        percentage_exp = np.sum(percentage_exp, axis = 0)
+        percentage_exp /= percentage_exp.sum()                                  
+        ensemble_fov[-1,:] =  percentage_exp                  
+    if num_states == 1:
+        ensemble_fov[-1] = 1
+    if print_percentage:
+            print(f'Experiment {exp}: {np.round(ensemble_fov[-1], 2)}')
+
+    for track in tracks:
+        with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+            f.truncate(0)
+            f.write(f'model: {model_exp}; num_state: {num_states} \n')
+            np.savetxt(f, ensemble_fov, delimiter = ';')
 
                     
 
@@ -1236,7 +1255,7 @@ def error_Ensemble_dataset(true_data, pred_data,
     else:
         return distance_alpha, distance_D
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 100
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 99
 def check_prediction_length(pred):
     '''
     Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values.
@@ -1249,7 +1268,7 @@ def check_prediction_length(pred):
     else: 
         return False
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 101
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 100
 def separate_prediction_values(pred):
     '''
     Given a prediction over trjaectory segments, extracts the predictions for each segment property
@@ -1261,7 +1280,7 @@ def separate_prediction_values(pred):
     cp = pred[4::4]    
     return Ds, alphas, states, cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 102
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 101
 def load_file_to_df(path_file, 
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
     '''
@@ -1292,7 +1311,7 @@ def load_file_to_df(path_file,
                 
     return df
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 107
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 106
 def _get_error_bounds():
     '''
     Sets the current maximum errors we can do in the different diffusive properties.
@@ -1304,7 +1323,7 @@ def _get_error_bounds():
     threshold_cp = 10
     return threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 108
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 107
 def error_SingleTraj_dataset(df_pred, df_true, 
                               threshold_error_alpha = 2, max_val_alpha = 2, min_val_alpha = 0, 
                               threshold_error_D = 1e5, max_val_D = 1e6, min_val_D = 1e-6, 
@@ -1443,18 +1462,18 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 128
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 129
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 120
 def listdir_nohidden(path):
     for f in os.listdir(path):
         if not f.startswith(('.','_')):
             yield f
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 130
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 121
 def codalab_scoring(input_dir , output_dir):
     '''
     Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found,
