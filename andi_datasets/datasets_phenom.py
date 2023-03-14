@@ -57,9 +57,9 @@ class datasets_phenom(datasets_phenom):
                        load: bool = False):
         ''' 
         Given a list of dictionaries, generates trajectories of the demanded properties.
-        The only compulsory input for every dictionary is 'model', i.e. the model from which 
+        The only compulsory input for every dictionary is `model`, i.e. the model from which 
         trajectories must be generated. The rest of inputs are optional.
-        You can see the input parameters of the different models in andi_datasets.models_phenom,
+        You can see the input parameters of the different models in `andi_datasets.models_phenom`,
         This function checks and handles the input dataset and the manages both the creation,
         loading and saving of trajectories.
         
@@ -94,14 +94,14 @@ class datasets_phenom(datasets_phenom):
         self.path = path
         self.dics = dics
         
-        '''Managing dictionaries'''
+        'Managing dictionaries'
         # If the input is a single dictionary, transform it to list
         if isinstance(self.dics, dict): self.dics = [self.dics]
         # if dics is False, we select trajectories from all models with default values
         if self.dics is False: self.dics = [{'model': model} for model in self.avail_models_name]
 
                     
-        '''Managing folders of the datasets'''  
+        'Managing folders of the datasets'
         self.save = save
         self.load = load
         if self.save or self.load:                
@@ -113,7 +113,7 @@ class datasets_phenom(datasets_phenom):
                 os.makedirs(self.path) 
                 
                 
-        '''Create trajectories'''
+        'Create trajectories'
         trajs, labels = self._create_trajectories()
         
         return trajs, labels                        

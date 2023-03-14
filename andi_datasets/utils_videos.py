@@ -90,7 +90,7 @@ def convert_uint8(vid, with_vips = False):
 # %% ../source_nbs/lib_nbs/utils_videos.ipynb 6
 def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
     """
-    Computes the PSF width.
+    Computes the PSF full width at half maximum (FWHM).
 
     This is a helper function for `transform_to_video`
     
