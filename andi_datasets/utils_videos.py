@@ -19,7 +19,7 @@ try:
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
     import deeptrack as dt
 except:
-    warnings.warn('Deeptrack is currently not installed. Install if needed using pip install deeptrack.')
+    warnings.warn('From your imports it seems that you will need Deeptrack. Install if needed using pip install deeptrack.')
 
 # %% ../source_nbs/lib_nbs/utils_videos.ipynb 4
 def play_video(video, figsize=(5, 5), fps=10):
@@ -109,7 +109,7 @@ def psf_width(NA = 1.46, wavelength = 500e-9, resolution = 100e-9):
         PSF width in pixels.
     """
     _psf = 1.22 * wavelength / (2 * NA)
-    return int(_psf / resolution)
+    return _psf / resolution
 
 # %% ../source_nbs/lib_nbs/utils_videos.ipynb 7
 def func_poisson_noise():

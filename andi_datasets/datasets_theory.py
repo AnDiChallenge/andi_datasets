@@ -441,7 +441,7 @@ class datasets_theory():
                 - If numpy array, multiply the displacements by them.
                 
         Returns
-        --------
+        -------
         data_models : numpy.array
                 Dataset of trajectories of lenght Nx(T+2), with the following structure:
                     o First column: model label 

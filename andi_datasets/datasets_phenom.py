@@ -128,7 +128,7 @@ class datasets_phenom(datasets_phenom):
         If it does, it loads it from the corresponding file.       
         
         Returns
-        ----------
+        -------
         tuple
             data_t  array containing the generated trajectories
             data_l  array containing the corresponding labels.
