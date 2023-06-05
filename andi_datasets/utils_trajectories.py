@@ -7,7 +7,7 @@ __all__ = ['pert', 'gaussian', 'bm1D', 'regularize', 'sample_sphere', 'normalize
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 2
 import numpy as np    
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 5
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 6
 def pert(params:list, # Pert parameters a, b, c
          size:int = 1, # number of samples to get
          lamb = 4 # lambda pert parameters
@@ -30,7 +30,7 @@ def pert(params:list, # Pert parameters a, b, c
     beta = 1 + lamb * (c - b) / r
     return a + np.random.beta(alpha, beta, size=size) * r
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 7
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 8
 import scipy.stats
 def gaussian(params:list|int, # If list, mu and sigma of the gaussian. If int, we consider sigma = 0
              size = 1,  # Number of samples to get.

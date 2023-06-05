@@ -852,7 +852,7 @@ class models_phenom(models_phenom):
                                  )).transpose(1,2,0)
     
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 75
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 74
 class models_phenom(models_phenom):
     @staticmethod
     def _update_bound(mask, # Current binding array
@@ -912,7 +912,7 @@ class models_phenom(models_phenom):
 
         return mask
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 77
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 76
 class models_phenom(models_phenom):
 
     def immobile_traps(self,
@@ -1046,7 +1046,7 @@ class models_phenom(models_phenom):
 
         return pos, output_label
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 84
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 83
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1089,7 +1089,7 @@ class models_phenom(models_phenom):
         
         return comp_center
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 88
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 87
 from .utils_trajectories import trigo
 
 class models_phenom(models_phenom):
@@ -1155,7 +1155,7 @@ class models_phenom(models_phenom):
         # Final point is the previous vector times the distance starting at the intersect point  
         return np.array(intersect)+dist_int_end*np.array(vec_bounce), intersect
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 92
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 91
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1321,7 +1321,7 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 96
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 95
 class models_phenom(models_phenom):
     def confinement(self,
                     N = 10,

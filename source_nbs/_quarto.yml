@@ -3,20 +3,29 @@ project:
 
 format:
   html:
-    theme: yeti
+    theme: cosmo
     toc: true
 
+
 website:
+  title: "ANDI" 
+  site-url: "https://andichallenge.github.io/andi_datasets"
+  description: "Generate, manage and analyze anomalous diffusion trajectories."
+  repo-branch: master
+  repo-url: "https://github.com/andichallenge/andi_datasets"
   twitter-card: true
   open-graph: true
   repo-actions: [issue]
-  site-url: ''
+  
+  # Top Navigation
   navbar:    
     logo: figures/logo_noname.svg
     background: primary
     search: true    
     collapse-below: lg
     left:
+      - text: "Get Started"
+        href: index.ipynb
       - text: "Documentation"
         href: lib_nbs/index_docs.ipynb
       - text: "Tutorials"
@@ -28,10 +37,41 @@ website:
         href: "https://github.com/andichallenge/andi_datasets"
       - icon: twitter
         href: https://twitter.com/AndiChallenge
-          
-  sidebar:
-    style: floating
-    
-    
-
-metadata-files: [nbdev.yml, sidebar.yml]
+        
+  # Side Navigation
+  sidebar:    
+    - title: "Documentation"
+      style: floating
+      contents:
+        - lib_nbs/index_docs.ipynb
+        - section: "Theory datasets"
+          contents:
+            - lib_nbs/models_theory.ipynb
+            - lib_nbs/datasets_theory.ipynb
+        - section: "Phenomenological datasets"
+          contents:
+            - lib_nbs/models_phenom.ipynb
+            - lib_nbs/datasets_phenom.ipynb
+        - section: "ANDI challenge datasets"
+          contents:
+            - lib_nbs/datasets_challenge.ipynb
+            - lib_nbs/utils_challenge.ipynb
+        - section: "Trajectory analysis"
+          contents:
+            - lib_nbs/analysis.ipynb
+        - section: "Helpers"
+          contents:
+            - lib_nbs/utils_trajectories.ipynb
+            - lib_nbs/utils_videos.ipynb
+    - title: "Tutorials"
+      style: floating
+      contents:
+        - tutorials/index_tutorials.ipynb
+        - section: "AnDi 1 - Theory"
+          contents:
+            - tutorials/challenge_one_datasets.ipynb
+            - tutorials/challenge_one_submission.ipynb
+        - section: "AnDi 2 - Phenom"
+          contents:
+            - tutorials/challenge_two_datasets.ipynb
+            - tutorials/creating_videos_phenom.ipynb 

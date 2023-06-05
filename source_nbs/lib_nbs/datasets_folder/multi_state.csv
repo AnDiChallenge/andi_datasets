@@ -1,0 +1,2 @@
+,N,T,M,Ds,alphas,gamma_d,epsilon_a,L,return_state_num,init_state,model
+0,10,20,"[[0.9, 0.1], [0.1, 0.9]]","[[1, 0], [0.1, 0]]","[[1, 0], [1, 0]]",,,20,False,,multi_state

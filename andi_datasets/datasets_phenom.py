@@ -118,7 +118,7 @@ class datasets_phenom(datasets_phenom):
         
         return trajs, labels                        
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 12
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 13
 class datasets_phenom(datasets_phenom):   
     
     def _create_trajectories(self): 
@@ -201,7 +201,7 @@ class datasets_phenom(datasets_phenom):
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 21
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 22
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
@@ -284,7 +284,7 @@ class datasets_phenom(datasets_phenom):
                 
         return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 34
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 28
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
         ''' 
