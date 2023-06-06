@@ -45,7 +45,7 @@ class datasets_theory():
                        dimension = 1,
                        save_trajectories = False, load_trajectories = False, 
                        path = 'datasets/',
-                       N_save = 1000, t_save = 1000):        
+                       N_save = 1000, T_save = 1000):        
         ''' 
         Creates a dataset of trajectories via the theoretical models defined in `.models_theory`. Check our tutorials for use cases of this function.
         
