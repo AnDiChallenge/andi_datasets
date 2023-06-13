@@ -3,7 +3,7 @@ project:
 
 format:
   html:
-    theme: cosmo
+    theme: cosmo  
     toc: true
 
 
@@ -18,9 +18,10 @@ website:
   repo-actions: [issue]
   
   # Top Navigation
-  navbar:    
-    logo: figures/logo_noname.svg
-    background: primary
+  navbar:      
+    logo: figures/logo_noname.svg    
+    background: "#d7e7fdff"
+    foreground: "#154c64ff"
     search: true    
     collapse-below: lg
     left:
@@ -31,7 +32,8 @@ website:
       - text: "Tutorials"
         href: tutorials/index_tutorials.ipynb
       - text: "ANDI interactive tool"
-        href: https://andi-app.herokuapp.com/andi_app
+        href: andi_app.ipynb
+        #href: https://andi-app.herokuapp.com/andi_app
     right:
       - icon: github
         href: "https://github.com/andichallenge/andi_datasets"
@@ -39,9 +41,12 @@ website:
         href: https://twitter.com/AndiChallenge
         
   # Side Navigation
-  sidebar:    
+  sidebar:     
     - title: "Documentation"
-      style: floating
+      style: docked        
+      background: "#d7e7fdff"
+      foreground: "#154c64ff"
+      collapse-level: 1
       contents:
         - lib_nbs/index_docs.ipynb
         - section: "Theory datasets"
@@ -64,7 +69,8 @@ website:
             - lib_nbs/utils_trajectories.ipynb
             - lib_nbs/utils_videos.ipynb
     - title: "Tutorials"
-      style: floating
+      style: docked      
+      collapse-level: 1
       contents:
         - tutorials/index_tutorials.ipynb
         - section: "AnDi 1 - Theory"
