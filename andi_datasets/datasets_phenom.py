@@ -201,7 +201,7 @@ class datasets_phenom(datasets_phenom):
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 22
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 23
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
@@ -284,7 +284,7 @@ class datasets_phenom(datasets_phenom):
                 
         return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 28
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 29
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
         ''' 
