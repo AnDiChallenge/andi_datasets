@@ -42,6 +42,7 @@ website:
   sidebar:    
     - title: "Documentation"
       style: floating
+      collapse-level: 1
       contents:
         - lib_nbs/index_docs.ipynb
         - section: "Theory datasets"
