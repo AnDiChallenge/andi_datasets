@@ -85,8 +85,7 @@ class datasets_phenom(datasets_phenom):
         Returns
         -------
         tuple
-            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. Note: if the
-            dimensions of all trajectories are not equal, then trajs is a list.
+            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. Note: if the dimensions of all trajectories are not equal, then trajs is a list.
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels) 
         '''
         

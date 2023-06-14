@@ -1,5 +1,7 @@
 project:
   type: website
+  preview:
+    port: 4201
 
 format:
   html:
@@ -32,8 +34,7 @@ website:
       - text: "Tutorials"
         href: tutorials/index_tutorials.ipynb
       - text: "ANDI interactive tool"
-        href: andi_app.ipynb
-        #href: https://andi-app.herokuapp.com/andi_app
+        href: https://andi-app.onrender.com/andi_app
     right:
       - icon: github
         href: "https://github.com/andichallenge/andi_datasets"
