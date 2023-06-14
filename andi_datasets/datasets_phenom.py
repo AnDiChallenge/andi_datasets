@@ -49,7 +49,7 @@ class datasets_phenom():
 class datasets_phenom(datasets_phenom):
                 
     def create_dataset(self,
-                       dics: list|dict|bool = False,
+                       dics: list|dict|bool = None,
                        T: None|int = None,
                        N_model: None|int = None,  
                        path: str = '',
@@ -85,7 +85,8 @@ class datasets_phenom(datasets_phenom):
         Returns
         -------
         tuple
-            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. 
+            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. Note: if the
+            dimensions of all trajectories are not equal, then trajs is a list.
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels) 
         '''
         
@@ -98,7 +99,20 @@ class datasets_phenom(datasets_phenom):
         # If the input is a single dictionary, transform it to list
         if isinstance(self.dics, dict): self.dics = [self.dics]
         # if dics is False, we select trajectories from all models with default values
-        if self.dics is False: self.dics = [{'model': model} for model in self.avail_models_name]
+        if self.dics is None: 
+            self.dics = [{'model': model} for model in self.avail_models_name]
+        # Checking and saving the dimension of the models to be generated
+        else:
+            diff_dims = []
+            for dic in dics:
+                try:
+                    diff_dims.append(dic['dim'])
+                except: # dim may not be input as it is not used for some models. In this case, dim = 2
+                    diff_dims.append(2)
+            # Saving the info in internal variable
+            self.diff_dims = True if np.unique(diff_dims).shape[0] > 1 else False
+                
+            
 
                     
         'Managing folders of the datasets'
@@ -134,7 +148,7 @@ class datasets_phenom(datasets_phenom):
             data_l  array containing the corresponding labels.
         '''
 
-        for dic in copy.deepcopy(self.dics):
+        for idx_dic, dic in enumerate(copy.deepcopy(self.dics)):
             
             df, dataset_idx = self._inspect_dic(dic)
             
@@ -161,12 +175,16 @@ class datasets_phenom(datasets_phenom):
                                                         path = self.path)
                 
             # Stack dataset
-            try:
-                data_t = np.hstack((data_t, trajs))                    
-                data_l = np.hstack((data_l, labels))
-            except:
+            if idx_dic == 0: # first loop
                 data_t = trajs
                 data_l = labels
+            else:
+                if self.diff_dims: # Do when having different dimensions 
+                    if not isinstance(data_t, list): data_t = [data_t]
+                    data_t.append(trajs)
+                else:                    
+                    data_t = np.hstack((data_t, trajs))                    
+                    data_l = np.hstack((data_l, labels))
                     
         return data_t, data_l  
     
@@ -201,7 +219,7 @@ class datasets_phenom(datasets_phenom):
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 23
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 22
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
@@ -284,7 +302,7 @@ class datasets_phenom(datasets_phenom):
                 
         return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 29
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 28
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
         ''' 
