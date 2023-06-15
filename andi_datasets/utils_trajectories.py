@@ -415,7 +415,7 @@ class motion_blur():
         
         return np.mean(trajs_reshape[:, :self.exposure_time], axis=1)
 
-# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 39
+# %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 40
 import matplotlib.pyplot as plt
 
 def plot_trajs(trajs, L , N, 

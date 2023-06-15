@@ -163,6 +163,7 @@ def transform_to_video(
     with_masks=False,
     save_video=False,
     path="",
+    motion_blur_generator = None
 ):
     """
     Transforms trajectory data into microscopy imagery data.
