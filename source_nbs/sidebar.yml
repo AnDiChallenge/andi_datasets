@@ -36,3 +36,6 @@ website:
               contents:
                 - tutorials/challenge_two_datasets.ipynb
                 - tutorials/creating_videos_phenom.ipynb
+            - section: "Others"
+              contents:
+                - tutorials/andi_and_ergodicity.ipynb
