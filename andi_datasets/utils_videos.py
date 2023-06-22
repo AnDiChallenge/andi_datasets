@@ -262,7 +262,7 @@ def transform_to_video(
         "intensity": lambda particle_intensity: particle_intensity[0]
         + np.random.randn() * particle_intensity[1],
         "intensity_variation": 0,  # Intensity variation of particle (in standard deviation)
-        "z": 0,  # Particles are always at focus
+        # "z": 0,  # Particles are always at focus
         "refractive_index": 1.45,  # Refractive index of the particle
         "position_unit": "pixel",
     }
@@ -298,7 +298,8 @@ def transform_to_video(
         * trajectories[replicate_index[-1]],
         number_of_particles=trajectory_data.shape[0],
         traj_length=trajectory_data.shape[1],
-        position=lambda trajectory: trajectory[0],
+        position=lambda trajectory: trajectory[0, :2],
+        z=lambda trajectory: trajectory[0, -1] if trajectory.shape[-1] == 3 else 0,
         **_particle_dict,
     )
 
@@ -311,7 +312,8 @@ def transform_to_video(
     # Make it sequential
     sequential_particle = dt.Sequential(
         particle,
-        position=lambda trajectory, sequence_step: trajectory[sequence_step],
+        position=lambda trajectory, sequence_step: trajectory[sequence_step, :2],
+        z=lambda trajectory, sequence_step: trajectory[sequence_step, -1] if trajectory.shape[-1] == 3 else 0,
         intensity=intensity_noise,
     )
 
@@ -341,6 +343,7 @@ def transform_to_video(
         )
         ** 2
     ) * (1 / np.pi)
+    scale_factor = 4 * np.sqrt(scale_factor) # Scaling to the peak value
 
     # Poisson noise
     poisson_noise = dt.Lambda(func_poisson_noise)
@@ -348,9 +351,9 @@ def transform_to_video(
     # Sample
     sample = (
         optics(sequential_particle ^ sequential_particle.number_of_particles)
-        >> dt.Multiply(scale_factor)
+        >> (dt.Multiply(scale_factor) if not motion_blur_generator else dt.Multiply(1)) # Scaling is done later for motion blur
         >> sequential_background
-        >> poisson_noise
+        >> (poisson_noise if not motion_blur_generator else dt.Multiply(1)) # Noise is added later for motion blur
     )
 
     # Masks
@@ -370,14 +373,33 @@ def transform_to_video(
     )
 
     # Resolve the sample
-    _video, _masks = sequential_sample.update().resolve()
+    video, masks = sequential_sample.update().resolve()
+    video = np.array(video.to_numpy())
+    masks = np.array(masks.to_numpy())
 
-    if with_masks == True:
-        final_output = (_video, _masks)
-    elif get_vip_particles:
-        final_output = (_masks[0], *_video)
+    # Motion blur
+    if motion_blur_generator:
+
+        output_length = motion_blur_generator.output_length
+        oversamp_factor = motion_blur_generator.oversamp_factor
+        exposure_time = motion_blur_generator.exposure_time
+
+        video_reshaped = video.reshape(output_length, oversamp_factor, video.shape[1], video.shape[2], video.shape[3])
+        frames_to_select = int(exposure_time * oversamp_factor)
+        video = np.sum(video_reshaped[:, :frames_to_select], axis=1)
+
+        # Add poisson noise for each frame
+        noise = func_poisson_noise()
+        for i in range(video.shape[0]):
+            video[i] = noise(video[i] * scale_factor)
+
+
+    if with_masks == True and not motion_blur_generator:
+        final_output = (video, masks)
+    elif get_vip_particles and not motion_blur_generator:
+        final_output = (masks[0], *video)
     else:
-        final_output = _video
+        final_output = video
 
     if save_video:
         if len(final_output) == 2:
@@ -387,5 +409,5 @@ def transform_to_video(
 
         imageio.mimwrite(path, video_8bit)
 
-    return final_output
+    return np.array(final_output)
 
