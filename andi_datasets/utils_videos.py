@@ -262,7 +262,7 @@ def transform_to_video(
         "intensity": lambda particle_intensity: particle_intensity[0]
         + np.random.randn() * particle_intensity[1],
         "intensity_variation": 0,  # Intensity variation of particle (in standard deviation)
-        "z": 0,  # Particles are always at focus
+        # "z": 0,  # Particles are always at focus
         "refractive_index": 1.45,  # Refractive index of the particle
         "position_unit": "pixel",
     }
@@ -298,7 +298,8 @@ def transform_to_video(
         * trajectories[replicate_index[-1]],
         number_of_particles=trajectory_data.shape[0],
         traj_length=trajectory_data.shape[1],
-        position=lambda trajectory: trajectory[0],
+        position=lambda trajectory: trajectory[0, :2],
+        z=lambda trajectory: trajectory[0, -1] if trajectory.shape[-1] == 3 else 0,
         **_particle_dict,
     )
 
@@ -311,7 +312,8 @@ def transform_to_video(
     # Make it sequential
     sequential_particle = dt.Sequential(
         particle,
-        position=lambda trajectory, sequence_step: trajectory[sequence_step],
+        position=lambda trajectory, sequence_step: trajectory[sequence_step, :2],
+        z=lambda trajectory, sequence_step: trajectory[sequence_step, -1] if trajectory.shape[-1] == 3 else 0,
         intensity=intensity_noise,
     )
 
@@ -341,6 +343,7 @@ def transform_to_video(
         )
         ** 2
     ) * (1 / np.pi)
+    scale_factor = 4 * np.sqrt(scale_factor) # Scaling to the peak value
 
     # Poisson noise
     poisson_noise = dt.Lambda(func_poisson_noise)
