@@ -523,8 +523,8 @@ This function creates trajectories with `_create_trajectories` and then adds giv
 <pre><code> create_noisy_diffusion_dataset (dataset=False, T=False, N=False,
                                  exponents=False, models=False,
                                  dimension=1,
-                                 diffusion_coefficients=False, sigma=1,
-                                 mu=0, save_trajectories=False,
+                                 diffusion_coefficients=False,
+                                 save_trajectories=False,
                                  load_trajectories=False,
                                  path='datasets/', N_save=1000,
                                  t_save=1000)</code></pre>
@@ -587,18 +587,6 @@ All arguments are the same as <code>_create_trajectories</code> but dataset and 
 <td>diffusion_coefficients</td>
 <td>bool</td>
 <td>False</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>sigma</td>
-<td>int</td>
-<td>1</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>mu</td>
-<td>int</td>
-<td>0</td>
 <td></td>
 </tr>
 <tr class="even">

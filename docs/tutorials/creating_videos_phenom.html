@@ -421,7 +421,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">1. Setup</h2>
 <p>Importing the dependencies needed to run this tutorial.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> imageio</span>
@@ -436,13 +436,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="dimerization" class="level3">
 <h3 class="anchored" data-anchor-id="dimerization">2.1. Dimerization</h3>
 <p>Defining simulation parameters.</p>
-<div class="cell" data-execution_count="12">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">50</span> <span class="co"># number of time steps (frames)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">50</span> <span class="co"># number of particles (trajectories)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="dv">128</span> <span class="co"># length of the box (pixels) -&gt; extending fov by 1.5 times</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fl">0.1</span> <span class="co"># diffusion coefficient (pixels^2/frame)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="13">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> models_phenom().dimerization(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    N<span class="op">=</span>N,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    L<span class="op">=</span>L,</span>
@@ -455,7 +455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plotting trajectories.</p>
-<div class="cell" data-execution_count="15">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj <span class="kw">in</span> np.moveaxis(trajs, <span class="dv">0</span>, <span class="dv">1</span>):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(traj[:,<span class="dv">0</span>], traj[:,<span class="dv">1</span>])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -470,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="import-functions" class="level3">
 <h3 class="anchored" data-anchor-id="import-functions">3.1. Import functions</h3>
 <p>For generating videos we import <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> function from <code>andi_datasets</code> package. Additionally we import <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#play_video"><code>play_video</code></a> function to display the videos within the jupyter notebook.</p>
-<div class="cell" data-execution_count="16">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_videos <span class="im">import</span> transform_to_video, play_video</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -479,12 +479,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The trajectory data generated can be directly passed through <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html#transform_to_video"><code>transform_to_video</code></a> to generate fluorescence videos of the particles.</p>
 <section id="generating-a-sample-video" class="level4">
 <h4 class="anchored" data-anchor-id="generating-a-sample-video">3.2.1. Generating a sample video</h4>
-<div class="cell" data-execution_count="17">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>video <span class="op">=</span> transform_to_video(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>play_video(video)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
@@ -30361,7 +30361,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <section id="controlling-the-noise" class="level4">
 <h4 class="anchored" data-anchor-id="controlling-the-noise">3.2.2. Controlling the noise</h4>
 <p>The noise in the videos can be controlled by adjusting the particle intensities in <code>particle_props</code>, and background intensity in <code>background_props</code>. We generate two videos in the following cell with low noise and high noise by controlling the particle intensity, for a fixed background intensity.</p>
-<div class="cell" data-execution_count="19">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># low noise video</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>low_noise_video <span class="op">=</span> transform_to_video(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
@@ -30384,7 +30384,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    },</span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(low_noise_video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ax0.set_title(<span class="st">"Low noise"</span>)</span>
@@ -30400,7 +30400,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <h4 class="anchored" data-anchor-id="controlling-the-output-region">3.2.3. Controlling the output region</h4>
 <p>If you notice, the size of the video is always restricted to 128 x 128 px by default, while the trajectories are spread out in a larger area as per our definition of the length of the box above (Defined by simulation parameter, L). In this case, L was defined to be 1.5 * 128.</p>
 <p>The output region of the video can be controlled in the <code>optics_props</code>. In the following cell, we generate the same low noise video as above but with a different region of interest (ROI). We shift the origin from <code>[0, 0]</code> to <code>[30, 30]</code>, while maintaining the width and height to 128 px as before.</p>
-<div class="cell" data-execution_count="21">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>video_ROI <span class="op">=</span> transform_to_video(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    particle_props<span class="op">=</span>{</span>
@@ -30414,7 +30414,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="22">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(low_noise_video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax0.set_title(<span class="st">"Origin set to [0, 0]"</span>)</span>
@@ -30434,13 +30434,13 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <section id="all-particle-masks" class="level3">
 <h3 class="anchored" data-anchor-id="all-particle-masks">4.1. All particle masks</h3>
 <p>By setting the parameter <code>with_masks = True</code>, one can generate videos and masks simultaneously. The pixel values in the masks indicate the particle numbers.</p>
-<div class="cell" data-execution_count="23">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>video, masks <span class="op">=</span> transform_to_video(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    with_masks<span class="op">=</span><span class="va">True</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="25">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax0.set_title(<span class="st">"Frame"</span>)</span>
@@ -30455,7 +30455,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <section id="vip-particle-masks" class="level3">
 <h3 class="anchored" data-anchor-id="vip-particle-masks">4.2. VIP particle masks</h3>
 <p>By giving a list of particle numbers to <code>get_vip_particles</code>, one can restrict the masks to contain the only the vip particles.</p>
-<div class="cell" data-execution_count="26">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>vip_particles <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">50</span>), <span class="dv">10</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>video, masks <span class="op">=</span> transform_to_video(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
@@ -30466,7 +30466,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    with_masks<span class="op">=</span><span class="va">True</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="27">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ax0.set_title(<span class="st">"Frame"</span>)</span>
@@ -30481,7 +30481,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <section id="special-case" class="level3">
 <h3 class="anchored" data-anchor-id="special-case">4.3. Special case</h3>
 <p>If <code>get_vip_particles</code> is a non-empty list, and <code>with_masks</code> is set to <code>False</code> (Default), then the output will still be a video, However, the first frame of the video now contains the masks of vip particles in the first frame.</p>
-<div class="cell" data-execution_count="28">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>vip_particles <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">50</span>), <span class="dv">10</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>video <span class="op">=</span> transform_to_video(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
@@ -30492,7 +30492,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    with_masks<span class="op">=</span><span class="va">False</span> <span class="co"># Default</span></span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="29">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(video[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ax0.set_title(<span class="st">"VIP particle masks (Frame 1)"</span>)</span>
@@ -30508,7 +30508,7 @@ VVVV1QTqD3pVVVVVTaD+oFdVVVXVBOoPelVVVVVNoP6gV1VVVdUE6g96VVVVVU2g/wfG/s5ufPON\
 <section id="saving-the-videos" class="level2">
 <h2 class="anchored" data-anchor-id="saving-the-videos">5. Saving the videos</h2>
 <p>Videos can be saved by setting <code>save_video</code> to <code>True</code>, and providing a <code>path</code>. Alternatively, the videos can be directly saved as numpy arrays using <code>np.save(...)</code>.</p>
-<div class="cell" data-execution_count="30">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>video <span class="op">=</span> transform_to_video(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    trajs,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    save_video<span class="op">=</span><span class="va">True</span>,</span>
