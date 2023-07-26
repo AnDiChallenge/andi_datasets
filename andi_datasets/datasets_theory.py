@@ -414,7 +414,7 @@ class datasets_theory():
     def create_noisy_diffusion_dataset(self, 
                                        dataset = False,
                                        T = False, N = False, exponents = False, models = False, dimension = 1,
-                                       diffusion_coefficients = False, sigma = 1, mu = 0,
+                                       diffusion_coefficients = False,
                                        save_trajectories = False, load_trajectories = False, 
                                        path = 'datasets/',
                                        N_save = 1000, t_save = 1000): 
@@ -448,7 +448,7 @@ class datasets_theory():
                                                      N_save, t_save)
         # Add the noise to the trajectories 
         trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
-        trajs = self._add_noisy_diffusion(trajs, diffusion_coefficients, sigma = sigma, mu = mu)
+        trajs = self._add_noisy_diffusion(trajs, diffusion_coefficients)
         
         dataset[:, 2:] = trajs.reshape(dataset.shape[0], T*dimension)
         
@@ -460,7 +460,7 @@ class datasets_theory():
         if isinstance(noise_func, np.ndarray):
             noise_matrix = noise_func 
         elif not noise_func:
-            noise_matrix = sigma*np.random.randn(trajs.shape)+mu
+            noise_matrix = sigma*np.random.randn(*trajs.shape)+mu
         elif hasattr(noise_func, '__call__'):
             noise_matrix = noise_func(trajs)             
         else:
