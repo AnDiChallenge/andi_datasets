@@ -447,8 +447,8 @@ def _get_dic_andi2(model):
         # outside [0,2]        
         alpha2 = alpha1 - (np.random.rand()*(0.6-0.2)+0.2)
 
-        dic.update({'Ds': np.array([[fast_D, 0.01],
-                                    [slow_D, 0.01]]),
+        dic.update({'Ds': np.array([[fast_D, fast_D*0.01],
+                                    [slow_D, slow_D*0.01]]),
                     'alphas': np.array([[alpha1, 0.01],
                                         [alpha2, 0.01]])})
 
@@ -456,9 +456,10 @@ def _get_dic_andi2(model):
     if model == 3 or model == 4:
         dic.update({'Pu': 0.01,                           # Unbinding probability
                     'Pb': 1})                             # Binding probabilitiy
-
+        
     if model == 1:
-        dic.update({'model': datasets_phenom().avail_models_name[0]})
+        dic.update({'model': datasets_phenom().avail_models_name[0],
+                    'dim': 2})
 
     if model == 2:
         dic.update({'model': datasets_phenom().avail_models_name[1],
@@ -490,7 +491,7 @@ def challenge_phenom_dataset(
                               experiments = 5,
                               dics = None,
                               repeat_exp = True,
-                              num_fovs = 20,
+                              num_fovs = 1,
                               return_timestep_labs = False,
                               save_data = False,
                               path = 'data/',
@@ -596,7 +597,7 @@ def challenge_phenom_dataset(
 
     # Output lists
     trajs_out, labels_traj_out, labels_ens_out = [], [], []
-    for idx_experiment, model in enumerate(tqdm(model_exp)):
+    for idx_experiment, model in enumerate(tqdm(model_exp)):       
 
         ''' Generate the trajectories '''
         if dics is None:
@@ -604,18 +605,17 @@ def challenge_phenom_dataset(
         else:
             dic = dics[idx_experiment]
             # Overide the info about model
-            model = datasets_phenom().avail_models_name.index(dic['model'])+1        
+            model = datasets_phenom().avail_models_name.index(dic['model'])+1    
+        print(f'Creating dataset for Exp_{idx_experiment} ('+dic['model']+').')
+        trajs, labels = datasets_phenom().create_dataset(dics = dic)            
         
-        trajs, labels = datasets_phenom().create_dataset(dics = dic)     
-
+        
         ''' Apply the FOV '''
         for fov in range(num_fovs):
-
             # Checking if file exist and creating an error
             if save_data:
                 if os.path.exists(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt') or os.path.exists(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt'):
                     raise FileExistsError(f'Target files for experiment {idx_experiment} and FOV {fov}. Delete the file or change path/prefix.')            
-
 
 
             # We take as min/max for the fovs a 5 % distance of L
@@ -634,21 +634,17 @@ def challenge_phenom_dataset(
             # We save the correspondance between idx in FOV and idx in trajs dataset
             for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
                                                     labels[:, :, :].transpose(1,0,2))):
-                nan_segms = segs_inside_fov(traj, 
+                                
+                nan_segms = segs_inside_fov(traj[:,:2], # take only the 2D projection of the traj
                                             fov_origin = fov_origin,
                                             fov_length = _defaults_andi2().FOV_L,
                                             cutoff_length = _defaults_andi2()._min_T)
 
                 if nan_segms is not None:
                     for idx_nan in nan_segms:  
-                        idx_seg+= 1
+                        idx_seg+= 1  
                         
-
-                        seg_x = traj[idx_nan[0]:idx_nan[1], 0]
-                        seg_y = traj[idx_nan[0]:idx_nan[1], 1]
-
-
-                        trajs_fov.append(np.vstack((seg_x, seg_y)).transpose())
+                        trajs_fov.append(traj[idx_nan[0]:idx_nan[1]])
                         frames_fov.append(frames[idx_nan[0]:idx_nan[1]])
 
                         lab_seg = []
@@ -679,16 +675,20 @@ def challenge_phenom_dataset(
                                 writer = csv.writer(f, delimiter=',', lineterminator='\n',)
                                 writer.writerow(list_gt)
 
-                        # Save index of segment with its length to latter append in the dataframe    
-                        idx_segs_fov.append(np.ones_like(seg_x)*idx_seg)             
+                        # Save index of segment with its length to latter append in the dataframe              
+                        idx_segs_fov.append(np.ones(trajs_fov[-1].shape[0])*idx_seg)             
             
             '''Extract ensemble trajectories''' 
             ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
 
             df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1),
                                  np.expand_dims(np.concatenate(frames_fov), axis=1).astype(int),
-                                 np.concatenate(trajs_fov)))
-            df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y']) 
+                                 np.concatenate(trajs_fov)))            
+            
+            if 'dim' in dic.keys() and dic['dim'] == 3:
+                df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y','z'])
+            else:                
+                df_traj = pd.DataFrame(df_data, columns = ['traj_idx', 'frame', 'x', 'y'])
             
             
             if get_video:
@@ -698,10 +698,15 @@ def challenge_phenom_dataset(
                           # of particles does not enter in the videos
                 array_traj_fov = df_to_array(df_traj.copy(), pad = pad)
                 min_distance = psf_width()
-                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip, min_distance = min_distance, pad = pad)  
+                idx_vip = get_VIP(array_traj_fov, num_vip = num_vip,
+                              min_distance_part = min_distance, 
+                              min_distance_bound = min_distance,
+                              boundary_origin = fov_origin,
+                              boundary = _defaults_andi2().FOV_L,                    
+                              pad = pad)  
                 
                 if not save_data:
-                    pf_videos = ''                
+                    pf_videos = ''                                
                 
                 video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
                                                optics_props={
@@ -710,16 +715,23 @@ def challenge_phenom_dataset(
                                                 },
                                                get_vip_particles=idx_vip,
                                                with_masks = get_video_masks,
-                                               save_video = save_data, path = pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff')
+                                               save_video = save_data,
+                                               path = pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff',
+                                              ) 
+                
                 try:
                     videos_out.append(video_fov)
                 except:
                     videos_out = [video_fov] 
-                    
+                                        
             # Add noise to the trajectories (see that this has to be done
             # after the videos, so these are not affected by the noise).
             df_traj.x += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
-            df_traj.y += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
+            df_traj.y += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise                         
+            if 'dim' in dic.keys() and dic['dim'] == 3:
+                df_traj.z += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
+                
+            
                     
             if return_timestep_labs:
                 array_labels_fov = np.concatenate(array_labels_fov)

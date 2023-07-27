@@ -45,7 +45,7 @@ class datasets_theory():
                        dimension = 1,
                        save_trajectories = False, load_trajectories = False, 
                        path = 'datasets/',
-                       N_save = 1000, t_save = 1000):        
+                       N_save = 1000, T_save = 1000):        
         ''' 
         Creates a dataset of trajectories via the theoretical models defined in `.models_theory`. Check our tutorials for use cases of this function.
         
@@ -300,8 +300,11 @@ class datasets_theory():
             
         
     def _create_trajectories(self, T, exponents, dimension, models_name, models_func, n_per_class):  
-        ''' create a dataset for the exponents and models considered. 
-        Arguments:  
+        ''' 
+        Create a dataset for the exponents and models considered. 
+        
+        Parameters
+        ---------- 
             :T (int):
                 - length of the trajectories.   
             :exponents (array):
@@ -314,7 +317,8 @@ class datasets_theory():
                 - function generating the models to include in the output dataset. 
             :n_per_class:
                 - number of trajectories to consider per exponent/model. 
-        Return:
+        Returns
+        -------
             :dataset (numpy.array):
                 - Dataset of trajectories of lenght (number of models)x(T+2), with the following structure:
                     o First column: model label.
@@ -344,16 +348,19 @@ class datasets_theory():
         ''' Labels given trajectories given the corresponding label for the model and exponent.
         For models, the label correspond to the position of the model in self.avail_models_name.
         For exponents, the label if the value of the exponent.
-        Arguments:
+        
+        Parameters
+        ----------
             :trajs (numpy array):
                 - trajectories to label
             :model_name (str):
                 - name of the model from which the trajectories are coming from.
             :exponent (float):
                 - Anomalous exponent of the trajectories. 
-        Return:
-            :trajs (numpy array):
-                - Labelled trajectoreis, with the following structure:
+        Returns
+        -------
+        numpy.array
+            Labelled trajectoreis, with the following structure:
                     o First column: model label
                     o Second columnd: exponent label
                     o Rest of the array: trajectory.   '''
@@ -434,7 +441,7 @@ class datasets_theory():
                 - If numpy array, multiply the displacements by them.
                 
         Returns
-        --------
+        -------
         data_models : numpy.array
                 Dataset of trajectories of lenght Nx(T+2), with the following structure:
                     o First column: model label 
@@ -471,7 +478,7 @@ class datasets_theory():
         return trajs
     
     @staticmethod
-    def _add_noisy_diffusion(trajs, diffusion_coefficients = False):
+    def _add_noisy_diffusion(trajs, diffusion_coefficients = False, sigma = 1, mu = 0):
         
         # First normalize the trajectories
         trajs = normalize(trajs)
@@ -480,7 +487,7 @@ class datasets_theory():
             pass
         # If no new diffusion coefficients given, create new ones randonmly
         elif not diffusion_coefficients:
-            diffusion_coefficients = np.random.randn(trajs.shape[0])
+            diffusion_coefficients = sigma*np.random.randn(trajs.shape[0])+mu
         # Apply new diffusion coefficients
         trajs = (trajs.transpose()*diffusion_coefficients).transpose()
         

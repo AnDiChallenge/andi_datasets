@@ -36,12 +36,14 @@ class models_phenom(models_phenom):
                  deltaT : int = 1):
         ''' Generates normalized Fractional Gaussian noise. This means that, in 
         general:
-        
-                            <x^2(t)> = 2Dt^alpha
+        $$
+        <x^2(t) > = 2Dt^{alpha}
+        $$
                             
         and in particular:
-        
-                            <x^2(t = 1)> = 2D 
+        $$
+        <x^2(t = 1)> = 2D 
+        $$
         
         Parameters
         ----------
@@ -70,7 +72,7 @@ class models_phenom(models_phenom):
         
         return disp
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 15
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 18
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -172,7 +174,7 @@ class models_phenom(models_phenom):
                 
         return alphas_traj, Ds_traj
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 23
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 26
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -180,7 +182,8 @@ class models_phenom(models_phenom):
                           D : float = 1, 
                           alpha : float = 1, 
                           L : float = None,
-                          deltaT : int = 1):
+                          deltaT : int = 1,
+                          dim : int = 2):
         '''
         Generates a single state trajectory with given parameters. 
         
@@ -196,6 +199,8 @@ class models_phenom(models_phenom):
             Length of the box acting as the environment
         deltaT : int, optional
             Sampling time
+        dim : int
+            Dimension of the walk (can be 2 or 3)
             
         Returns
         -------
@@ -207,7 +212,9 @@ class models_phenom(models_phenom):
         
         
         # Trajectory displacements
-        dispx, dispy = models_phenom().disp_fbm(alpha, D, T), models_phenom().disp_fbm(alpha, D, T)
+        disp_d = []
+        for d in range(dim):
+            disp_d.append(models_phenom().disp_fbm(alpha, D, T))
         # Labels
         lab_diff_state = np.ones(T)*models_phenom().lab_state.index('f') if alpha < models_phenom().alpha_directed else np.ones(T)*models_phenom().lab_state.index('d')
         labels = np.vstack((np.ones(T)*alpha, 
@@ -217,18 +224,25 @@ class models_phenom(models_phenom):
 
         # If there are no boundaries
         if not L:
-            posx, posy = np.cumsum(dispx) - dispx[0], np.cumsum(dispy) - dispy[0]
-
-            return np.vstack((posx, posy)).transpose(), labels
+            
+            pos = np.vstack([np.cumsum(disp)-disp[0] for disp in disp_d]).transpose()
+            
+            return pos, labels
 
         # If there are, apply reflecting boundary conditions
         else:
-            pos = np.zeros((T, 2))
+            pos = np.zeros((T, dim))
 
             # Initialize the particle in a random position of the box
-            pos[0, :] = np.random.rand(2)*L
+            pos[0, :] = np.random.rand(dim)*L
             for t in range(1, T):
-                pos[t, :] = [pos[t-1, 0]+dispx[t], pos[t-1, 1]+dispy[t]]            
+                if dim == 2:
+                    pos[t, :] = [pos[t-1, 0]+disp_d[0][t], 
+                                 pos[t-1, 1]+disp_d[1][t]]            
+                elif dim == 3:
+                    pos[t, :] = [pos[t-1, 0]+disp_d[0][t], 
+                                 pos[t-1, 1]+disp_d[1][t], 
+                                 pos[t-1, 2]+disp_d[2][t]]            
 
 
                 # Reflecting boundary conditions
@@ -238,7 +252,7 @@ class models_phenom(models_phenom):
 
             return pos, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 27
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 33
 class models_phenom(models_phenom):
     
     
@@ -247,7 +261,8 @@ class models_phenom(models_phenom):
                      T:int = 200, 
                      Ds:list = [1, 0], 
                      alphas:list = [1, 0], 
-                     L:float = None):
+                     L:float = None,
+                     dim:int = 2):
         '''
         Generates a dataset made of single state trajectories with given parameters.
         
@@ -264,7 +279,9 @@ class models_phenom(models_phenom):
         L : float
             Length of the box acting as the environment
         deltaT : int, optional
-            Sampling time
+            Sampling time            
+        dim : int
+            Dimension of the walk (can be 2 or 3)
             
         Returns
         -------
@@ -273,7 +290,7 @@ class models_phenom(models_phenom):
             - labels:  anomalous exponent, D and state at each timestep. State is always free here.         
         '''
 
-        positions = np.zeros((T, N, 2))
+        positions = np.zeros((T, N, dim))
         labels = np.zeros((T, N, 3))
 
         for n in range(N):
@@ -281,15 +298,17 @@ class models_phenom(models_phenom):
             D_traj = gaussian(Ds, bound = self.bound_D)
             # Get trajectory from single traj function
             pos, lab = self._single_state_traj(T = T, 
-                                   D = D_traj, 
-                                   alpha = alpha_traj, 
-                                   L = L)        
+                                               D = D_traj, 
+                                               alpha = alpha_traj, 
+                                               L = L,
+                                               dim = dim
+                                              )        
             positions[:, n, :] = pos
             labels[:, n, :] = lab
 
         return positions, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 33
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 44
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -413,7 +432,7 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 37
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 48
 class models_phenom(models_phenom):
     def multi_state(self,
                     N = 10,
@@ -421,8 +440,8 @@ class models_phenom(models_phenom):
                     M: np.array = [[0.9 , 0.1],[0.1 ,0.9]],
                     Ds: np.array = [[1, 0], [0.1, 0]], 
                     alphas: np.array = [[1, 0], [1, 0]], 
-                    gamma_d = [1], 
-                    epsilon_a = [0], 
+                    gamma_d = None, 
+                    epsilon_a = None, 
                     L = None,
                     return_state_num = False,
                     init_state = None): 
@@ -461,7 +480,7 @@ class models_phenom(models_phenom):
             - trajs (array TxNx2): particles' position
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels)           
         
-        '''
+        '''        
         
         # transform lists to numpy if needed
         if isinstance(M, list):
@@ -471,6 +490,12 @@ class models_phenom(models_phenom):
         if isinstance(alphas, list):
             alphas = np.array(alphas)
         
+        
+        # Get epsilon and gamma
+        if gamma_d is None:
+            gamma_d = [1]*(M.shape[0]-1)
+        if epsilon_a is None:
+            epsilon_a = [0]*(M.shape[0]-1)
         
 
         trajs = np.zeros((T, N, 2))
@@ -506,7 +531,7 @@ class models_phenom(models_phenom):
             
         return trajs, labels
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 46
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 62
 class models_phenom(models_phenom):
     @staticmethod
     def _get_distance(x):
@@ -531,7 +556,7 @@ class models_phenom(models_phenom):
                          + np.square(M[:,:, 1]-Mtrans[:,:, 1]))  
         return distance
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 49
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 65
 class models_phenom(models_phenom):
     @staticmethod
     def _make_escape(Pu, label, diff_state):
@@ -574,7 +599,7 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 52
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 68
 class models_phenom(models_phenom):
     @staticmethod
     def _make_condensates(Pb, label, diff_state, r, distance, max_label):
@@ -646,7 +671,7 @@ class models_phenom(models_phenom):
 
         return label, diff_state
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 57
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 73
 class models_phenom(models_phenom):
     @staticmethod
     def _stokes(D):
@@ -667,7 +692,7 @@ class models_phenom(models_phenom):
         D1 = D[0]; D2 = D[1]
         return 1/((1/D1)+(1/D2))
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 60
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 76
 class models_phenom(models_phenom):
     def dimerization(self,
                      N = 10,
@@ -846,7 +871,7 @@ class models_phenom(models_phenom):
                                  )).transpose(1,2,0)
     
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 67
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 82
 class models_phenom(models_phenom):
     @staticmethod
     def _update_bound(mask, # Current binding array
@@ -906,7 +931,7 @@ class models_phenom(models_phenom):
 
         return mask
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 69
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 84
 class models_phenom(models_phenom):
 
     def immobile_traps(self,
@@ -1040,7 +1065,7 @@ class models_phenom(models_phenom):
 
         return pos, output_label
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 76
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 91
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1083,7 +1108,7 @@ class models_phenom(models_phenom):
         
         return comp_center
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 80
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 95
 from .utils_trajectories import trigo
 
 class models_phenom(models_phenom):
@@ -1149,7 +1174,7 @@ class models_phenom(models_phenom):
         # Final point is the previous vector times the distance starting at the intersect point  
         return np.array(intersect)+dist_int_end*np.array(vec_bounce), intersect
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 84
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 99
 class models_phenom(models_phenom):
     
     @staticmethod
@@ -1315,7 +1340,7 @@ class models_phenom(models_phenom):
         
 
 
-# %% ../source_nbs/lib_nbs/models_phenom.ipynb 88
+# %% ../source_nbs/lib_nbs/models_phenom.ipynb 103
 class models_phenom(models_phenom):
     def confinement(self,
                     N = 10,

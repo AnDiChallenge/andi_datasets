@@ -35,6 +35,7 @@ class datasets_phenom():
         self.avail_models_func = [x[1] for x in available_models]
         
     def _get_inputs_models(self, model, get_default_values = False):
+        ''' Given the name of a phenom model, returns the inputs to that model '''
         
         model_f = self.avail_models_func[self.avail_models_name.index(model)] 
         defaults = inspect.getfullargspec(model_f).defaults
@@ -43,20 +44,12 @@ class datasets_phenom():
             return params, defaults
         else:
             return params
-        
-    def _get_states(self):
-        ''' Definition of the possible states found in the ANDI 2 challenge (phenom) and their 
-        assigned label:
-        0: immobile; 1: confined; 2: brownian; 3: anomalous '''
-        
-        self._states = ['immobile', 'confined', 'brownian', 'anomalous']
-        
 
 # %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 7
 class datasets_phenom(datasets_phenom):
                 
     def create_dataset(self,
-                       dics: list|dict|bool = False,
+                       dics: list|dict|bool = None,
                        T: None|int = None,
                        N_model: None|int = None,  
                        path: str = '',
@@ -64,9 +57,9 @@ class datasets_phenom(datasets_phenom):
                        load: bool = False):
         ''' 
         Given a list of dictionaries, generates trajectories of the demanded properties.
-        The only compulsory input for every dictionary is 'model', i.e. the model from which 
+        The only compulsory input for every dictionary is `model`, i.e. the model from which 
         trajectories must be generated. The rest of inputs are optional.
-        You can see the input parameters of the different models in andi_datasets.models_phenom,
+        You can see the input parameters of the different models in `andi_datasets.models_phenom`,
         This function checks and handles the input dataset and the manages both the creation,
         loading and saving of trajectories.
         
@@ -92,7 +85,7 @@ class datasets_phenom(datasets_phenom):
         Returns
         -------
         tuple
-            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. 
+            - trajs (array TxNx2): particles' position. N considers here the sum of all trajectories generated from the input dictionaries. Note: if the dimensions of all trajectories are not equal, then trajs is a list.
             - labels (array TxNx2): particles' labels (see ._multi_state for details on labels) 
         '''
         
@@ -101,14 +94,27 @@ class datasets_phenom(datasets_phenom):
         self.path = path
         self.dics = dics
         
-        '''Managing dictionaries'''
+        'Managing dictionaries'
         # If the input is a single dictionary, transform it to list
         if isinstance(self.dics, dict): self.dics = [self.dics]
         # if dics is False, we select trajectories from all models with default values
-        if self.dics is False: self.dics = [{'model': model} for model in self.avail_models_name]
+        if self.dics is None: 
+            self.dics = [{'model': model} for model in self.avail_models_name]
+        # Checking and saving the dimension of the models to be generated
+        else:
+            diff_dims = []
+            for dic in dics:
+                try:
+                    diff_dims.append(dic['dim'])
+                except: # dim may not be input as it is not used for some models. In this case, dim = 2
+                    diff_dims.append(2)
+            # Saving the info in internal variable
+            self.diff_dims = True if np.unique(diff_dims).shape[0] > 1 else False
+                
+            
 
                     
-        '''Managing folders of the datasets'''  
+        'Managing folders of the datasets'
         self.save = save
         self.load = load
         if self.save or self.load:                
@@ -120,12 +126,12 @@ class datasets_phenom(datasets_phenom):
                 os.makedirs(self.path) 
                 
                 
-        '''Create trajectories'''
+        'Create trajectories'
         trajs, labels = self._create_trajectories()
         
         return trajs, labels                        
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 12
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 13
 class datasets_phenom(datasets_phenom):   
     
     def _create_trajectories(self): 
@@ -135,13 +141,13 @@ class datasets_phenom(datasets_phenom):
         If it does, it loads it from the corresponding file.       
         
         Returns
-        ----------
+        -------
         tuple
             data_t  array containing the generated trajectories
             data_l  array containing the corresponding labels.
         '''
 
-        for dic in copy.deepcopy(self.dics):
+        for idx_dic, dic in enumerate(copy.deepcopy(self.dics)):
             
             df, dataset_idx = self._inspect_dic(dic)
             
@@ -168,12 +174,16 @@ class datasets_phenom(datasets_phenom):
                                                         path = self.path)
                 
             # Stack dataset
-            try:
-                data_t = np.hstack((data_t, trajs))                    
-                data_l = np.hstack((data_l, labels))
-            except:
+            if idx_dic == 0: # first loop
                 data_t = trajs
                 data_l = labels
+            else:
+                if self.diff_dims: # Do when having different dimensions 
+                    if not isinstance(data_t, list): data_t = [data_t]
+                    data_t.append(trajs)
+                else:                    
+                    data_t = np.hstack((data_t, trajs))                    
+                    data_l = np.hstack((data_l, labels))
                     
         return data_t, data_l  
     
@@ -208,7 +218,7 @@ class datasets_phenom(datasets_phenom):
         return data[:, :, :2], data[:, :  , 2:]
     
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 21
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 22
 class datasets_phenom(datasets_phenom):   
 
     def _inspect_dic(self, dic):
@@ -291,7 +301,7 @@ class datasets_phenom(datasets_phenom):
                 
         return df, dataset_idx
 
-# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 34
+# %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 28
 class datasets_phenom(datasets_phenom):  
     def _get_args(self, model, return_defaults = False):
         ''' 
