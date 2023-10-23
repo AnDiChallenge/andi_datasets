@@ -26,41 +26,47 @@ def dataset_angles(trajs:list, # set of trajectories from which to calculate ang
             angles.append(get_angle(a, b, c))
     return angles
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 7
+# %% ../source_nbs/lib_nbs/analysis.ipynb 10
 class msd_analysis():
     def __init__(self):
         ''' Contains mean squared displacement (MSD) based methods to analyze trajectories.  '''
         
 
     def tamsd(self, 
-              traj:np.ndarray, 
-              t_lags:np.ndarray):
+              trajs:np.ndarray, 
+              t_lags:np.ndarray,
+              dim = 1
+             ):
         '''
         Calculates the time average mean squared displacement (TA-MSD) of a trajectory at various time lags,
         
         Parameters
         ----------
-        traj : np.array
-            Trajectory from whicto calculate TA-MSD.
+        trajs : np.array
+            Set of trajectories of dimenions NxTxD (N: number of trajectories, T: lenght, D: dimension)
         
         t_lags : list | np.array
             Time lags used for the TA-MSD
         
+        dim : int
+            Dimension of the trajectories (currently only 1 and 2 supported)
+        
         Returns       
         -------
         np.array
-            TA-MSD of the given trayectory
+            TA-MSD of each trayectory / t_lag
             
         '''
-        tamsd = np.zeros_like(t_lags, dtype= float)
-        for idx, t in enumerate(t_lags):        
-            for p in range(len(traj)-t):
-                tamsd[idx] += (traj[p]-traj[p+t])**2            
-            tamsd[idx] /= len(traj)-t    
-        return tamsd
+        tamsd = np.zeros((len(t_lags), trajs.shape[0]), dtype= float)
+        
+        for idx, tlag in enumerate(t_lags):                  
+            tamsd[idx, :] = ((trajs[:, tlag:, :]-trajs[:, :-tlag, :])**2).sum(-1).mean(1)
+                                   
+            
+        return tamsd    
 
     def get_diff_coeff(self, 
-                       traj:np.ndarray, 
+                       trajs:np.ndarray, 
                        t_lags:list = None):
         '''
         Calculates the diffusion coefficient of a trajectory by means of the linear
@@ -69,7 +75,7 @@ class msd_analysis():
         Parameters
         ----------
         traj : np.array
-            1D trajectory from whicto calculate TA-MSD.
+            Set of trajectories of dimenions NxTxD (N: number of trajectories, T: lenght, D: dimension)
         
         t_lags : bool | list
             Time lags used for the TA-MSD.
@@ -80,45 +86,56 @@ class msd_analysis():
             Diffusion coefficient of the given trajectory.          
         
         '''
+        
+        # To account for previous versions of this function, we correct if given a single 1D trajectory
+        if len(trajs.shape) == 1:
+            trajs = trajs[np.newaxis, :, np.newaxis]
+        
         if not t_lags:
-            N_t_lags = max(4, int(len(traj)*0.1))
+            N_t_lags = max(4, int(trajs.shape[1]*0.1))
             t_lags = np.arange(1, N_t_lags)
 
-        tasmd = self.tamsd(traj, t_lags)
-        return np.polyfit(t_lags, tasmd, deg = 1)[0]/2
+        tasmd = self.tamsd(trajs, t_lags)
+        
+        return np.polyfit(t_lags, tasmd, deg = 1)[0, :]/2/trajs.shape[-1]
 
     def get_exponent(self, 
-                     traj,
+                     trajs:np.ndarray, 
                      t_lags:list = None):
         '''
-        Calculates the anolaous of a trajectory by means of the linear
-        fitting of the logarithm of the TA-MSD.
+        Calculates the diffusion coefficient of a trajectory by means of the linear
+        fitting of the TA-MSD.
         
         Parameters
         ----------
         traj : np.array
-            1D trajectory from whicto calculate TA-MSD.
+            Set of trajectories of dimenions NxTxD (N: number of trajectories, T: lenght, D: dimension)
         
-        t_lags : bool, list 
+        t_lags : bool | list
             Time lags used for the TA-MSD.
         
         Returns       
         -------
         np.array
-            Anomalous exponent of the given trajectory.          
+            Diffusion coefficient of the given trajectory.          
         
         '''
         
+        # To account for previous versions of this function, we correct if given a single 1D trajectory
+        if len(trajs.shape) == 1:
+            trajs = trajs[np.newaxis, :, np.newaxis]
+        
         if not t_lags:
-            N_t_lags = max(4, int(len(traj)*0.1))
+            N_t_lags = max(4, int(trajs.shape[1]*0.1))
             t_lags = np.arange(1, N_t_lags)
 
-        tasmd = self.tamsd(traj, t_lags)
+        tasmd = self.tamsd(trajs, t_lags)
+        
         return np.polyfit(np.log(t_lags), np.log(tasmd), deg = 1)[0]
     
     
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 16
+# %% ../source_nbs/lib_nbs/analysis.ipynb 20
 def vacf(trajs, 
          delta_t:int | list | np.ndarray  = 1, 
          taus:bool | list | np.ndarray = None):
@@ -162,7 +179,7 @@ def vacf(trajs,
         
     return V
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 20
+# %% ../source_nbs/lib_nbs/analysis.ipynb 24
 from scipy.spatial import ConvexHull
 
 def CH_changepoints(trajs, 
@@ -205,7 +222,7 @@ def CH_changepoints(trajs,
 
     return CPs
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 24
+# %% ../source_nbs/lib_nbs/analysis.ipynb 28
 def CRLB_D(T:int, # Length of the trajectory
            dim:int = 1 # Dimension of the trajectoy
           ) ->float: # Cramér-Rao bound 
