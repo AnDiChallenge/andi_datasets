@@ -1695,13 +1695,13 @@ def codalab_scoring(input_dir , output_dir):
 
     output_file.close()
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 118
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
 def run_single_task(exp_nums, track, submit_dir, truth_dir):
     
     data_metrics = []
-    
+
     for exp in exp_nums:
-                
+
         try:
             del df_true_exp, df_pred_exp
         except:
@@ -1729,26 +1729,24 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
             trues_fov = load_file_to_df(path_true+prefix_true+f'fov_{fov}.txt')
 
             if track == 1:
-                # We only care about VIP particles here:
-                trues_fov = trues_fov[trues_fov['traj_idx'].isin(preds_fov.traj_idx.values.tolist())] 
+                vip_idx = np.loadtxt(path_true + f'vip_idx_exp_{exp}_fov_{fov}.txt').astype(int)
+                pred_vip_idx = preds_fov.traj_idx.values.astype(int)
+
+                if len(vip_idx) != len(pred_vip_idx) or (vip_idx != pred_vip_idx).any():
+                    raise ValueError('Index of predicted VIP particles does not correspond to true values. Be sure to correctly extract the correct index from the .tiff file')
+
+                # Take only VIP particles here (pred already contains only vip)
+                trues_fov = trues_fov[trues_fov['traj_idx'].isin(vip_idx)]
 
             # Sort dataframes by the traj idx (so that index and rows correspond)
             trues_fov = trues_fov.sort_values('traj_idx')
             preds_fov = preds_fov.sort_values('traj_idx')
 
-            # FOV dataframe
-            try:        
-                trues_fov.traj_idx += df_true.traj_idx.values[-1]+1
-                preds_fov.traj_idx += df_pred.traj_idx.values[-1]+1
-
-                df_pred = pandas.concat([df_pred, preds_fov])
-                df_true = pandas.concat([df_true, trues_fov])
-            except: 
-                df_pred = preds_fov
-                df_true = trues_fov 
-            
             # Full experiment dataframe
             try:
+                trues_fov.traj_idx += df_true_exp.traj_idx.values[-1]+1
+                preds_fov.traj_idx += df_pred_exp.traj_idx.values[-1]+1
+
                 df_pred_exp = pandas.concat([df_pred_exp, preds_fov])
                 df_true_exp = pandas.concat([df_true_exp, trues_fov]) 
             except:            
@@ -1757,6 +1755,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
 
         # Calculate error for each experiment
         print(f'\n\n------ Track {track} - Exp {exp} --------')
+
         rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp = error_SingleTraj_dataset(df_pred_exp, df_true_exp, prints = True, disable_tqdm=True);
 
         # Save errors and number of trajectories of later doing average
@@ -1772,7 +1771,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 120
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1794,7 +1793,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
         
     return (np.mean(avg_alpha), np.mean(avg_d))
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 121
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
 import os
 
 def listdir_nohidden(path):
@@ -1802,7 +1801,9 @@ def listdir_nohidden(path):
         if not f.startswith(('.','_')):
             yield f
 
-def codalab_scoring(INPUT_DIR = None, OUTPUT_DIR = None):
+def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference and predicted labes
+                    OUTPUT_DIR = None # directory where the scores will be saved (scores.txt)
+                   ):
     
     if INPUT_DIR is None:
         INPUT_DIR = sys.argv[1]
