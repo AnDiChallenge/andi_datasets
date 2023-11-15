@@ -8,7 +8,7 @@ __all__ = ['majority_filter', 'label_filter', 'label_continuous_to_list', 'label
            'metric_diffusion_coefficient', 'metric_diffusive_state', 'check_no_changepoints', 'segment_property_errors',
            'extract_ensemble', 'multimode_dist', 'distribution_distance', 'error_Ensemble_dataset',
            'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_SingleTraj_dataset',
-           'listdir_nohidden', 'codalab_scoring']
+           'listdir_nohidden', 'codalab_scoring', 'run_single_task', 'run_ensemble_task']
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 2
 import numpy as np
@@ -1027,7 +1027,7 @@ def _visualize_ensemble(ens):
     creates a dataframe to visualize parameters.
     '''  
 
-    return pd.DataFrame(data = ens.transpose(), columns = [r'mean $\alpha$', r'var $\alpha$', r'mean $D$', r'var $D$', '% residence time'])
+    return pandas.DataFrame(data = ens.transpose(), columns = [r'mean $\alpha$', r'var $\alpha$', r'mean $D$', r'var $D$', '% residence time'])
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 75
 from .models_phenom import models_phenom
@@ -1325,10 +1325,10 @@ def _get_error_bounds():
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 102
 def error_SingleTraj_dataset(df_pred, df_true, 
-                              threshold_error_alpha = 2, max_val_alpha = 2, min_val_alpha = 0, 
-                              threshold_error_D = 1e5, max_val_D = 1e6, min_val_D = 1e-6, 
-                              threshold_error_s = -1,
-                              threshold_cp = 10,
+                              threshold_error_alpha = None, max_val_alpha = 2, min_val_alpha = 0, 
+                              threshold_error_D = None, max_val_D = 1e6, min_val_D = 1e-6, 
+                              threshold_error_s = None,
+                              threshold_cp = None,
                               prints = True, disable_tqdm = False
                              ):
     '''
@@ -1365,6 +1365,13 @@ def error_SingleTraj_dataset(df_pred, df_true,
         - error_s: Jaccar index diffusive states
     
     '''
+    # Check error bounds
+    andi_bounds = _get_error_bounds()
+    if threshold_error_alpha is None: threshold_error_alpha = andi_bounds[0]
+    if threshold_error_D is None: threshold_error_D = andi_bounds[1]
+    if threshold_error_s is None: threshold_error_s = andi_bounds[2]
+    if threshold_cp is None: threshold_cp = andi_bounds[3]
+    
     # Initiate counting missing trajectories
     missing_traj = False
     
@@ -1687,3 +1694,160 @@ def codalab_scoring(input_dir , output_dir):
             output_file.write('T2_ens_'+ key +f' : {save_t2}\n')
 
     output_file.close()
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 118
+def run_single_task(exp_nums, track, submit_dir, truth_dir):
+    
+    data_metrics = []
+    
+    for exp in exp_nums:
+                
+        try:
+            del df_true_exp, df_pred_exp
+        except:
+            pass
+
+        path_pred = submit_dir+f'/track_{track}/exp_{exp}/'
+        path_true = truth_dir+f'/track_{track}/exp_{exp}/'
+        prefix_true = 'traj_labs_'
+
+        # Get the number of FOVs from the trues
+        fov_nums = 0
+        for filename in os.listdir(path_true):
+            if filename.startswith(prefix_true):
+                fov_nums += 1
+
+        for fov in range(fov_nums):
+            # Predictions
+            corresponding_submission_file = path_pred+f'fov_{fov}.txt'
+            if not os.path.isfile(corresponding_submission_file):
+                raise FileNotFoundError(f'Prediction file for: track {track}, task 1, experiment {exp} and FOV {fov} not found.')
+            else:
+                preds_fov = load_file_to_df(corresponding_submission_file)
+
+            # Groundtruths
+            trues_fov = load_file_to_df(path_true+prefix_true+f'fov_{fov}.txt')
+
+            if track == 1:
+                # We only care about VIP particles here:
+                trues_fov = trues_fov[trues_fov['traj_idx'].isin(preds_fov.traj_idx.values.tolist())] 
+
+            # Sort dataframes by the traj idx (so that index and rows correspond)
+            trues_fov = trues_fov.sort_values('traj_idx')
+            preds_fov = preds_fov.sort_values('traj_idx')
+
+            # FOV dataframe
+            try:        
+                trues_fov.traj_idx += df_true.traj_idx.values[-1]+1
+                preds_fov.traj_idx += df_pred.traj_idx.values[-1]+1
+
+                df_pred = pandas.concat([df_pred, preds_fov])
+                df_true = pandas.concat([df_true, trues_fov])
+            except: 
+                df_pred = preds_fov
+                df_true = trues_fov 
+            
+            # Full experiment dataframe
+            try:
+                df_pred_exp = pandas.concat([df_pred_exp, preds_fov])
+                df_true_exp = pandas.concat([df_true_exp, trues_fov]) 
+            except:            
+                df_pred_exp = preds_fov
+                df_true_exp = trues_fov
+
+        # Calculate error for each experiment
+        print(f'\n\n------ Track {track} - Exp {exp} --------')
+        rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp = error_SingleTraj_dataset(df_pred_exp, df_true_exp, prints = True, disable_tqdm=True);
+
+        # Save errors and number of trajectories of later doing average
+        data_metrics.append([df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
+
+    # Put all results in dataframe    
+    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['num_trajs', 'CP', 'JI', 'alpha', 'D', 'state'])
+    # Calculate weighted averages
+    avg_metrics = []
+    for key in data_metrics.keys()[1:]:
+        avg_metrics.append(np.average(data_metrics[key], weights=data_metrics.num_trajs))
+
+    return avg_metrics, data_metrics
+    
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 120
+def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
+    
+    avg_alpha, avg_d = [], []
+    
+    for exp in exp_nums:
+
+        path_pred = submit_dir+f'/track_{track}/exp_{exp}/'
+        path_true = truth_dir+f'/track_{track}/exp_{exp}/'
+        filename = 'ensemble_labels.txt' 
+
+
+        true = np.loadtxt(path_true+filename, skiprows = 1, delimiter = ';')
+        pred = np.loadtxt(path_pred+filename, skiprows = 1, delimiter = ';')
+
+        distance_a_exp, distance_d_exp, dists = error_Ensemble_dataset(true, pred, return_distributions = True)
+
+        avg_alpha.append(distance_a_exp)
+        avg_d.append(distance_d_exp)
+        
+    return (np.mean(avg_alpha), np.mean(avg_d))
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 121
+import os
+
+def listdir_nohidden(path):
+    for f in os.listdir(path):
+        if not f.startswith(('.','_')):
+            yield f
+
+def codalab_scoring(INPUT_DIR = None, OUTPUT_DIR = None):
+    
+    if INPUT_DIR is None:
+        INPUT_DIR = sys.argv[1]
+    if OUTPUT_DIR is None:
+        OUTPUT_DIR = sys.argv[2]
+        
+    submit_dir = os.path.join(INPUT_DIR, 'res')
+    truth_dir = os.path.join(INPUT_DIR, 'ref')
+
+    if not os.path.isdir(submit_dir):
+        print( "%s doesn't exist", submit_dir)
+        
+    if os.path.isdir(submit_dir) and os.path.isdir(truth_dir):
+        if not os.path.exists(OUTPUT_DIR):
+            os.makedirs(OUTPUT_DIR)
+
+    output_filename = os.path.join(OUTPUT_DIR, 'scores.txt')
+    output_file = open(output_filename, 'w')
+
+    # Track 1: videos
+    # Track 2: trajectories
+    for track in [1,2]:
+
+        for idx_task, task in enumerate(['single', 'ensemble']): # Task 1: single trajectory  |   Task 2: ensemble
+
+
+            # Get the number of experiments from the true directory
+            exp_folders = sorted(list(listdir_nohidden(truth_dir+f'/track_{track}')))
+            exp_nums = [int(name[-1]) for name in exp_folders]
+
+
+            if task == 'single':  
+
+                avg_metrics, _ = run_single_task(exp_nums, track, submit_dir, truth_dir )
+
+                for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
+                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
+
+            if task == 'ensemble':
+
+                avg_metrics = run_ensemble_task(exp_nums, track, submit_dir, truth_dir)
+
+                for name, res in zip(['alpha','D'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
+                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')            
+
+
+    output_file.close()  
+        
