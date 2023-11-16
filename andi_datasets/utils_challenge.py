@@ -1834,7 +1834,6 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             exp_folders = sorted(list(listdir_nohidden(truth_dir+f'/track_{track}')))
             exp_nums = [int(name[-1]) for name in exp_folders]
 
-
             if task == 'single':  
 
                 avg_metrics, _ = run_single_task(exp_nums, track, submit_dir, truth_dir )
