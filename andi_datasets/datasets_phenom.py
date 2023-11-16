@@ -197,11 +197,8 @@ class datasets_phenom(datasets_phenom):
         file_name = path+dic['model']+'_'+str(df.shape[0])+'.npy'
         
         # Save information in CSV handler
-        df = df.append(dic, ignore_index = True) 
-        #print(dic)
-        #df = pd.concat([df, 
-        #                pd.DataFrame(dic)], 
-        #               ignore_index=True)        
+        df = pd.concat([df, pd.DataFrame([dic])], ignore_index=True)
+        
         df.to_csv(path+dic['model']+'.csv')
         
         # Save trajectories and labels
