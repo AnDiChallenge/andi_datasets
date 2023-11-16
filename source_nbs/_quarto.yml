@@ -1,4 +1,5 @@
 project:
+  output-dir: docs
   type: website
   preview:
     port: 4201
@@ -7,7 +8,6 @@ format:
   html:
     theme: cosmo  
     toc: true
-
 
 website:
   title: "ANDI" 
