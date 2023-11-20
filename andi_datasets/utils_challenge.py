@@ -8,7 +8,7 @@ __all__ = ['majority_filter', 'label_filter', 'label_continuous_to_list', 'label
            'metric_diffusion_coefficient', 'metric_diffusive_state', 'check_no_changepoints', 'segment_property_errors',
            'extract_ensemble', 'multimode_dist', 'distribution_distance', 'error_Ensemble_dataset',
            'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_SingleTraj_dataset',
-           'listdir_nohidden', 'codalab_scoring', 'run_single_task', 'run_ensemble_task']
+           'run_single_task', 'run_ensemble_task', 'listdir_nohidden', 'codalab_scoring']
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 2
 import numpy as np
@@ -1474,228 +1474,7 @@ import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 115
-def listdir_nohidden(path):
-    for f in os.listdir(path):
-        if not f.startswith(('.','_')):
-            yield f
-
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 116
-def codalab_scoring(input_dir , output_dir):
-    '''
-    Given an input directoy where predictions and groundtruths for the ANDI 2 challenge can be found,
-    calculates metrics and outputs the results in a file in the given output directory.
-    This code is prepared to be run in Codalab.
-    '''
-    
-    # Error bounds
-    threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp = _get_error_bounds()
-    
-    ### Saving variables
-    # Track 1 - Videos
-    t1_ens = {'alpha': [],
-              'D': []}
-
-    t1_st = {'RMSE': [],
-             'JI': [],
-             'alpha': [],
-             'D': [],
-             'state': [],
-             'num_traj': [],
-             'num_traj_CP': []} # this last one takes into account no changepoint from single state
-
-    # Track 2 - Trajectories
-    t2_ens = {'alpha': [],
-              'D': []}
-
-    t2_st = {'RMSE': [],
-             'JI': [],
-             'alpha': [],
-             'D': [],
-             'state': [],
-             'num_traj': [],
-             'num_traj_CP': []} # this last one takes into account no changepoint from single state
-    
-    # Handling paths of input files
-    submit_dir = os.path.join(input_dir, 'pred')
-    truth_dir = os.path.join(input_dir, 'true')
-    if not os.path.isdir(submit_dir):
-        print( "%s doesn't exist", truth_dir)
-        
-    # Calculate metrics if directories exist
-    if os.path.isdir(submit_dir) and os.path.isdir(truth_dir):
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-
-        # Extracts all files in reference directory
-        true_files_list = sorted(list(listdir_nohidden(truth_dir)))#os.listdir(truth_dir)
-
-        # Run over all files        
-        missing_tracks = []
-        for filename in tqdm(true_files_list):
-            task = re.search('_(.+?)_labs', filename).group(1)
-            exp = re.search('exp_(.+?)_', filename).group(1)
-            fov = re.search('fov_(.+?).', filename).group(1)
-            # check track and save found tracks
-            track = int(filename[1]) 
-            
-
-            true_file = os.path.join(truth_dir, filename)
-            corresponding_submission_file = os.path.join(submit_dir, filename)
-            
-            if not os.path.isfile(corresponding_submission_file):
-                if track not in missing_tracks:
-                    missing_tracks.append(track)
-                if len(missing_tracks) == 2:
-                    raise FileNotFoundError(f'Failed to find prediction files.')
-                else:
-                    continue
-            
-            # if not os.path.isfile(corresponding_submission_file) and missing_tracks == 1:
-            #     raise FileNotFoundError(f'Failed to find prediction files.')
-                # raise FileNotFoundError(f'Prediction file for: track {track}, task {task}, experiment {exp} and FOV {fov} not found.')
-            
-            # extract model
-            if task == 'ens':
-                model = np.genfromtxt(true_file, dtype='str', skip_footer=5)[1][:-1]
-            else:
-                file_ens = os.path.join(truth_dir, f't{track}_ens_labs_exp_{exp}_fov_{fov}.txt')
-                model = np.genfromtxt(file_ens, dtype='str', skip_footer=5)[1][:-1]
-            
-            # Ensemble
-            if task == 'ens':
-
-                true = np.loadtxt(true_file, skiprows=1, delimiter = ';')
-                pred = np.loadtxt(corresponding_submission_file, skiprows=1, delimiter = ';')
-
-                mae_alpha, mae_D, = error_Ensemble_dataset(true_data = true,
-                                                           pred_data = pred)
-
-                if track == 1:
-                    t1_ens['alpha'].append(mae_alpha)
-                    t1_ens['D'].append(mae_D)
-                if track == 2:                
-                    t2_ens['alpha'].append(mae_alpha)
-                    t2_ens['D'].append(mae_D)
-
-            # Single trajectory
-            if task == 'traj':    
-                df_true = load_file_to_df(true_file)
-                df_pred = load_file_to_df(corresponding_submission_file)
-
-                rmse_CP, JI, error_alpha, error_D, error_s = error_SingleTraj_dataset(df_true = df_true, df_pred = df_pred, 
-                                                                                      threshold_error_alpha = threshold_error_alpha,
-                                                                                      threshold_error_D = threshold_error_D, 
-                                                                                      threshold_error_s = threshold_error_s,
-                                                                                      threshold_cp = threshold_cp,
-                                                                                      prints = False, disable_tqdm = True)
-
-                if track == 1:
-                    # to avoid single state entering in CP metrics
-                    if model != 'single_state': 
-                        t1_st['RMSE'].append(rmse_CP)
-                        t1_st['JI'].append(JI)
-                        t1_st['num_traj_CP'].append(df_true.shape[0])
-                        
-                    t1_st['alpha'].append(error_alpha)
-                    t1_st['D'].append(error_D)
-                    t1_st['state'].append(error_s)                    
-                    t1_st['num_traj'].append(df_true.shape[0])
-                if track == 2:
-                    # to avoid single state entering in CP metrics
-                    if model != 'single_state': 
-                        t2_st['RMSE'].append(rmse_CP)
-                        t2_st['JI'].append(JI)
-                        t2_st['num_traj_CP'].append(df_true.shape[0])
-                    
-                    t2_st['alpha'].append(error_alpha)
-                    t2_st['D'].append(error_D)
-                    t2_st['state'].append(error_s)        
-                    t2_st['num_traj'].append(df_true.shape[0])
-
-            # print(f'Track {track}, Task {task}, Exp {exp}, FOV {fov}: OK!')
-       
-    ### Saving data
-    '''CHECK HOW TO DO THE MEAN!'''    
-    # Define output file
-    output_filename = os.path.join(output_dir, 'scores.txt')
-    output_file = open(output_filename, 'w')
-
-    # Single trajectory data
-    # We define a variable that gives the worst values for each metric. This is applied
-    # separetedly for every FOV
-    worst_value_st = {'RMSE': threshold_cp,
-                      'JI': 0,
-                      'alpha': threshold_error_alpha,
-                      'D': threshold_error_D,
-                      'state': 0}
-    # Run over all keys
-    for key in t1_st: 
-        
-        # Compare results with 
-        if key in ['RMSE', 'alpha', 'D']:            
-            if key == 'RMSE': avg_against = 'num_traj_CP'
-            else: avg_against = 'num_traj'
-            
-            if 1 not in missing_tracks:
-                
-                save_t1 = np.nanmin(np.vstack([t1_st[key],
-                                               np.ones_like(t1_st[key])*worst_value_st[key]]),
-                                    axis = 0)
-                save_t1 = np.average(save_t1, axis = 0, weights = t1_st[avg_against])
-                
-            if 2 not in missing_tracks:                     
-                save_t2 = np.nanmin(np.vstack([t2_st[key],
-                                               np.ones_like(t2_st[key])*worst_value_st[key]]),
-                                    axis = 0)            
-                save_t2 = np.average(save_t2, axis = 0, weights = t2_st[avg_against])
-            
-        elif key in ['JI', 'state']:                        
-            if key == 'JI': avg_against = 'num_traj_CP'
-            else: avg_against = 'num_traj'
-            
-            if 1 not in missing_tracks:
-                save_t1 = np.nanmax(np.vstack([t1_st[key],
-                                               np.ones_like(t1_st[key])*worst_value_st[key]]),
-                                    axis = 0)
-                save_t1 = np.average(save_t1, axis = 0, weights = t1_st[avg_against])
-                    
-            if 2 not in missing_tracks: 
-                save_t2 = np.nanmax(np.vstack([t2_st[key],
-                                               np.ones_like(t2_st[key])*worst_value_st[key]]),
-                                    axis = 0)           
-                save_t2 = np.average(save_t2, axis = 0, weights = t2_st[avg_against])
-
-        if 1 not in missing_tracks: 
-            output_file.write('T1_st_'+ key +f' : {save_t1}\n')    
-        if 2 not in missing_tracks: 
-            output_file.write('T2_st_'+ key +f' : {save_t2}\n')
-
-    ### Saving ensemble data
-    '''WHAT ARE THE THRESHOLDS FOR THIS?'''
-    worst_value_ens = {'alpha': 100,
-                       'D': 100}
-
-    for key in t1_ens: 
-        if key == 'num_traj': continue
-        
-        if 1 not in missing_tracks: 
-            save_t1 = np.nanmin(np.vstack([t1_ens[key],
-                                               np.ones_like(t1_ens[key])*worst_value_ens[key]]),
-                                    axis = 0).mean()
-        if 2 not in missing_tracks: 
-            save_t2 = np.nanmin(np.vstack([t2_ens[key],
-                                               np.ones_like(t2_ens[key])*worst_value_ens[key]]),
-                                    axis = 0).mean()
-
-        if 1 not in missing_tracks: 
-            output_file.write('T1_ens_'+ key +f' : {save_t1}\n')    
-        if 2 not in missing_tracks: 
-            output_file.write('T2_ens_'+ key +f' : {save_t2}\n')
-
-    output_file.close()
-
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
 def run_single_task(exp_nums, track, submit_dir, truth_dir):
     
     data_metrics = []
@@ -1754,24 +1533,24 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
                 df_true_exp = trues_fov
 
         # Calculate error for each experiment
-        print(f'\n\n------ Track {track} - Exp {exp} --------')
+        # print(f'\n\n------ Track {track} - Exp {exp} --------')
 
-        rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp = error_SingleTraj_dataset(df_pred_exp, df_true_exp, prints = True, disable_tqdm=True);
+        rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp = error_SingleTraj_dataset(df_pred_exp, df_true_exp, prints = False, disable_tqdm=True);
 
         # Save errors and number of trajectories of later doing average
-        data_metrics.append([df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
+        data_metrics.append([exp, df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
 
     # Put all results in dataframe    
-    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['num_trajs', 'CP', 'JI', 'alpha', 'D', 'state'])
+    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
     # Calculate weighted averages
     avg_metrics = []
-    for key in data_metrics.keys()[1:]:
+    for key in data_metrics.keys()[2:]:
         avg_metrics.append(np.average(data_metrics[key], weights=data_metrics.num_trajs))
 
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 122
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1791,9 +1570,13 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
         avg_alpha.append(distance_a_exp)
         avg_d.append(distance_d_exp)
         
-    return (np.mean(avg_alpha), np.mean(avg_d))
+    # Put all results in dataframe    
+    data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
+                                    columns = ['Experiment', 'alpha', 'D']) 
+        
+    return (np.mean(avg_alpha), np.mean(avg_d)), data_metrics
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
 import os
 
 def listdir_nohidden(path):
@@ -1812,6 +1595,15 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
         
     submit_dir = os.path.join(INPUT_DIR, 'res')
     truth_dir = os.path.join(INPUT_DIR, 'ref')
+    
+    
+    # Starting the HMTL file
+    htmlOutputDir = os.path.join(outputDir, "html")
+    if not os.path.exists(htmlOutputDir):
+            os.makedirs(htmlOutputDir)
+    html_filename = os.path.join(htmlOutputDir, 'scores.html')
+    html_file = open(html_filename, 'a', encoding="utf-8")
+    html_file.write('<h1>Submission detailed results </h1>')
 
     if not os.path.isdir(submit_dir):
         print( "%s doesn't exist", submit_dir)
@@ -1825,9 +1617,13 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
     # Track 1: videos
     # Track 2: trajectories
-    for track in [1,2]:
+    for track, name_track in zip([1,2], ['videos', 'trajectories']):
+        
+        html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
 
         for idx_task, task in enumerate(['single', 'ensemble']): # Task 1: single trajectory  |   Task 2: ensemble
+            
+            html_file.write(f'<h3> Task {idx_task+1}: '+task+' </h3>')
 
 
             # Get the number of experiments from the true directory
@@ -1836,18 +1632,25 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
             if task == 'single':  
 
-                avg_metrics, _ = run_single_task(exp_nums, track, submit_dir, truth_dir )
+                avg_metrics, df = run_single_task(exp_nums, track, submit_dir, truth_dir )
 
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
+                    
+                
+                html_file.write(df.to_html(index = False).replace('\n',''))
+              
 
             if task == 'ensemble':
 
-                avg_metrics = run_ensemble_task(exp_nums, track, submit_dir, truth_dir)
+                avg_metrics, df = run_ensemble_task(exp_nums, track, submit_dir, truth_dir)
 
                 for name, res in zip(['alpha','D'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
-                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')            
+                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')      
+                    
+                html_file.write(df.to_html(index = False).replace('\n',''))
+   
 
-
+    html_file.close()
     output_file.close()  
         
