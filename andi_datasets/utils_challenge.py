@@ -1598,7 +1598,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     
     
     # Starting the HMTL file
-    htmlOutputDir = os.path.join(outputDir, "html")
+    htmlOutputDir = os.path.join(OUTPUT_DIR, "html")
     if not os.path.exists(htmlOutputDir):
             os.makedirs(htmlOutputDir)
     html_filename = os.path.join(htmlOutputDir, 'scores.html')
