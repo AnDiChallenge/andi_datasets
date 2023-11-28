@@ -26,7 +26,7 @@ def dataset_angles(trajs:list, # set of trajectories from which to calculate ang
             angles.append(get_angle(a, b, c))
     return angles
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 10
+# %% ../source_nbs/lib_nbs/analysis.ipynb 7
 class msd_analysis():
     def __init__(self):
         ''' Contains mean squared displacement (MSD) based methods to analyze trajectories.  '''
@@ -135,7 +135,7 @@ class msd_analysis():
     
     
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 20
+# %% ../source_nbs/lib_nbs/analysis.ipynb 16
 def vacf(trajs, 
          delta_t:int | list | np.ndarray  = 1, 
          taus:bool | list | np.ndarray = None):
@@ -179,7 +179,7 @@ def vacf(trajs,
         
     return V
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 24
+# %% ../source_nbs/lib_nbs/analysis.ipynb 20
 from scipy.spatial import ConvexHull
 
 def CH_changepoints(trajs, 
@@ -222,7 +222,7 @@ def CH_changepoints(trajs,
 
     return CPs
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 28
+# %% ../source_nbs/lib_nbs/analysis.ipynb 24
 def CRLB_D(T:int, # Length of the trajectory
            dim:int = 1 # Dimension of the trajectoy
           ) ->float: # Cramér-Rao bound 
