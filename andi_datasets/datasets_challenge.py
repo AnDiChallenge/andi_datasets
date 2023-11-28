@@ -704,7 +704,7 @@ def challenge_phenom_dataset(
                               boundary_origin = fov_origin,
                               boundary = _defaults_andi2().FOV_L,                    
                               pad = pad)  
-                np.savetxt(f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt', idx_vip)
+                np.savetxt(path+prefix+f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt', idx_vip)
                 
                 if not save_data:
                     pf_videos = ''                                

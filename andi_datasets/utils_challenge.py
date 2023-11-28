@@ -327,10 +327,10 @@ from .datasets_phenom import datasets_phenom
 
 def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by datasets_challenge.challenge_phenom_dataset
                           target_folder, 
-                          experiments,
+                          experiments, 
                           num_fovs,                          
                           tracks = [1,2],
-                          full_data = False,
+                          save_labels = False, # If True, moves all data (also labels,.. etc). Do True only if saving reference / groundtruth data
                           task = ['single', 'ensemble'],
                           print_percentage = True):
     ''' 
@@ -338,9 +338,9 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
     and organize them based on the challenge instructions
     '''
     
-    if full_data:
-        names_files = ['traj_labs_', 'trajs_', 'videos_', 'ens_labs_']
-        extensions = ['.txt', '.csv', '.tiff', '.txt']
+    if save_labels:
+        names_files = ['traj_labs_', 'trajs_', 'videos_', 'ens_labs_', 'vip_idx_']
+        extensions = ['.txt', '.csv', '.tiff', '.txt', '.txt']
     else:
         names_files = ['trajs_', 'videos_']
         extensions = ['.csv', '.tiff']
@@ -366,12 +366,13 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
                 ensemble_fov[-1] = 1
             if print_percentage:
                     print(f'Experiment {exp}: {np.round(ensemble_fov[-1], 2)}')
-                
-            for track in tracks:
-                with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
-                    f.truncate(0)
-                    f.write(f'model: {model_exp}; num_state: {num_states} \n')
-                    np.savetxt(f, ensemble_fov, delimiter = ';')
+            
+            if save_labels:
+                for track in tracks:
+                    with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+                        f.truncate(0)
+                        f.write(f'model: {model_exp}; num_state: {num_states} \n')
+                        np.savetxt(f, ensemble_fov, delimiter = ';')
 
             # Then restart for next experiment
             exp += 1
@@ -388,7 +389,7 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
             # Move single trajectory information
             for name, ext in zip(names_files, extensions):            
                 if track == 1 and name == 'trajs_': continue
-                if track == 2 and name == 'videos_': continue
+                if track == 2 and (name == 'videos_' or name == 'vip_idx_'): continue
 
                 shutil.copyfile(src = raw_folder + name + f'exp_{k}_fov_0'+ext, 
                                 dst = target_folder + f'track_{track}/exp_{exp}/' + name + f'fov_{k%num_fovs}' + ext)
@@ -409,12 +410,13 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
         ensemble_fov[-1] = 1
     if print_percentage:
             print(f'Experiment {exp}: {np.round(ensemble_fov[-1], 2)}')
-
-    for track in tracks:
-        with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
-            f.truncate(0)
-            f.write(f'model: {model_exp}; num_state: {num_states} \n')
-            np.savetxt(f, ensemble_fov, delimiter = ';')
+    
+    if save_labels:
+        for track in tracks:
+            with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+                f.truncate(0)
+                f.write(f'model: {model_exp}; num_state: {num_states} \n')
+                np.savetxt(f, ensemble_fov, delimiter = ';')
 
                     
 
@@ -1729,7 +1731,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
             trues_fov = load_file_to_df(path_true+prefix_true+f'fov_{fov}.txt')
 
             if track == 1:
-                vip_idx = np.loadtxt(path_true + f'vip_idx_exp_{exp}_fov_{fov}.txt').astype(int)
+                vip_idx = np.loadtxt(path_true + f'vip_idx_fov_{fov}.txt').astype(int)
                 pred_vip_idx = preds_fov.traj_idx.values.astype(int)
 
                 if len(vip_idx) != len(pred_vip_idx) or (vip_idx != pred_vip_idx).any():
@@ -1771,7 +1773,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 124
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1793,7 +1795,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
         
     return (np.mean(avg_alpha), np.mean(avg_d))
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 126
 import os
 
 def listdir_nohidden(path):
