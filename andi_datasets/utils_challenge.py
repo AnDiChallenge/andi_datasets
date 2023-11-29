@@ -1473,7 +1473,7 @@ import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 116
 def when_error_single(wrn_str):
     warnings.warn(wrn_str)                
     return [None]*5, pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
@@ -1559,7 +1559,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 122
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 121
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1598,7 +1598,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 124
 import os
 
 def listdir_nohidden(path):
@@ -1698,7 +1698,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     output_file.close()  
         
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 131
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 130
 import glob
 # Function to rename and delete files as required
 def reorganize_files(base_path : str, # path where to find the folder to reorganize
