@@ -8,7 +8,8 @@ __all__ = ['majority_filter', 'label_filter', 'label_continuous_to_list', 'label
            'metric_diffusion_coefficient', 'metric_diffusive_state', 'check_no_changepoints', 'segment_property_errors',
            'extract_ensemble', 'multimode_dist', 'distribution_distance', 'error_Ensemble_dataset',
            'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_SingleTraj_dataset',
-           'run_single_task', 'run_ensemble_task', 'listdir_nohidden', 'codalab_scoring']
+           'when_error_single', 'run_single_task', 'run_ensemble_task', 'listdir_nohidden', 'codalab_scoring',
+           'reorganize_files']
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 2
 import numpy as np
@@ -321,16 +322,12 @@ def df_to_array(df, pad = -1):
     return array_trajs
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 31
-from pathlib import Path
-import shutil
-from .datasets_phenom import datasets_phenom
-
 def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by datasets_challenge.challenge_phenom_dataset
                           target_folder, 
-                          experiments,
+                          experiments, 
                           num_fovs,                          
                           tracks = [1,2],
-                          full_data = False,
+                          save_labels = False, # If True, moves all data (also labels,.. etc). Do True only if saving reference / groundtruth data
                           task = ['single', 'ensemble'],
                           print_percentage = True):
     ''' 
@@ -338,9 +335,9 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
     and organize them based on the challenge instructions
     '''
     
-    if full_data:
-        names_files = ['traj_labs_', 'trajs_', 'videos_', 'ens_labs_']
-        extensions = ['.txt', '.csv', '.tiff', '.txt']
+    if save_labels:
+        names_files = ['traj_labs_', 'trajs_', 'videos_', 'ens_labs_', 'vip_idx_']
+        extensions = ['.txt', '.csv', '.tiff', '.txt', '.txt']
     else:
         names_files = ['trajs_', 'videos_']
         extensions = ['.csv', '.tiff']
@@ -366,12 +363,13 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
                 ensemble_fov[-1] = 1
             if print_percentage:
                     print(f'Experiment {exp}: {np.round(ensemble_fov[-1], 2)}')
-                
-            for track in tracks:
-                with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
-                    f.truncate(0)
-                    f.write(f'model: {model_exp}; num_state: {num_states} \n')
-                    np.savetxt(f, ensemble_fov, delimiter = ';')
+            
+            if save_labels:
+                for track in tracks:
+                    with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+                        f.truncate(0)
+                        f.write(f'model: {model_exp}; num_state: {num_states} \n')
+                        np.savetxt(f, ensemble_fov, delimiter = ';')
 
             # Then restart for next experiment
             exp += 1
@@ -388,7 +386,7 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
             # Move single trajectory information
             for name, ext in zip(names_files, extensions):            
                 if track == 1 and name == 'trajs_': continue
-                if track == 2 and name == 'videos_': continue
+                if track == 2 and (name == 'videos_' or name == 'vip_idx_'): continue
 
                 shutil.copyfile(src = raw_folder + name + f'exp_{k}_fov_0'+ext, 
                                 dst = target_folder + f'track_{track}/exp_{exp}/' + name + f'fov_{k%num_fovs}' + ext)
@@ -409,12 +407,13 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
         ensemble_fov[-1] = 1
     if print_percentage:
             print(f'Experiment {exp}: {np.round(ensemble_fov[-1], 2)}')
-
-    for track in tracks:
-        with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
-            f.truncate(0)
-            f.write(f'model: {model_exp}; num_state: {num_states} \n')
-            np.savetxt(f, ensemble_fov, delimiter = ';')
+    
+    if save_labels:
+        for track in tracks:
+            with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+                f.truncate(0)
+                f.write(f'model: {model_exp}; num_state: {num_states} \n')
+                np.savetxt(f, ensemble_fov, delimiter = ';')
 
                     
 
@@ -1475,6 +1474,12 @@ import sys
 import os
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
+def when_error_single(wrn_str):
+    warnings.warn(wrn_str)                
+    return [None]*5, pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
+                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
+
+
 def run_single_task(exp_nums, track, submit_dir, truth_dir):
     
     data_metrics = []
@@ -1499,8 +1504,13 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
         for fov in range(fov_nums):
             # Predictions
             corresponding_submission_file = path_pred+f'fov_{fov}.txt'
+            
+            ### If one file does not exists, abort a return Nones ###
             if not os.path.isfile(corresponding_submission_file):
-                raise FileNotFoundError(f'Prediction file for: track {track}, task 1, experiment {exp} and FOV {fov} not found.')
+                wrn_str = f'Prediction missing for: -- Task 1 | Track {track} | Experiment {exp} | FOV {fov} -- not found. Task 1 will not be computed.'
+                return when_error_single(wrn_str)
+                
+                
             else:
                 preds_fov = load_file_to_df(corresponding_submission_file)
 
@@ -1508,12 +1518,13 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
             trues_fov = load_file_to_df(path_true+prefix_true+f'fov_{fov}.txt')
 
             if track == 1:
-                vip_idx = np.loadtxt(path_true + f'vip_idx_exp_{exp}_fov_{fov}.txt').astype(int)
+                vip_idx = np.loadtxt(path_true + f'vip_idx_fov_{fov}.txt').astype(int)
                 pred_vip_idx = preds_fov.traj_idx.values.astype(int)
 
                 if len(vip_idx) != len(pred_vip_idx) or (vip_idx != pred_vip_idx).any():
-                    raise ValueError('Index of predicted VIP particles does not correspond to true values. Be sure to correctly extract the correct index from the .tiff file')
-
+                    wrn_str = f'Index of predicted VIP  particles does not correspond to true values (Track {track}, Exp {exp}, FOV {fov}). Be sure to correctly extract the correct index from the .tiff file'
+                    return when_error_single(wrn_str)
+                
                 # Take only VIP particles here (pred already contains only vip)
                 trues_fov = trues_fov[trues_fov['traj_idx'].isin(vip_idx)]
 
@@ -1533,8 +1544,6 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
                 df_true_exp = trues_fov
 
         # Calculate error for each experiment
-        # print(f'\n\n------ Track {track} - Exp {exp} --------')
-
         rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp = error_SingleTraj_dataset(df_pred_exp, df_true_exp, prints = False, disable_tqdm=True);
 
         # Save errors and number of trajectories of later doing average
@@ -1555,26 +1564,39 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
     
+    
+    # We keep track in case the file for one experiment is missing. If for at least one we can't find
+    # it, we give None as results
+    filename = 'ensemble_labels.txt'
+    
+    
     for exp in exp_nums:
+        
 
         path_pred = submit_dir+f'/track_{track}/exp_{exp}/'
         path_true = truth_dir+f'/track_{track}/exp_{exp}/'
-        filename = 'ensemble_labels.txt' 
+         
+        try:
 
+            true = np.loadtxt(path_true+filename, skiprows = 1, delimiter = ';')
+            pred = np.loadtxt(path_pred+filename, skiprows = 1, delimiter = ';')
 
-        true = np.loadtxt(path_true+filename, skiprows = 1, delimiter = ';')
-        pred = np.loadtxt(path_pred+filename, skiprows = 1, delimiter = ';')
+            distance_a_exp, distance_d_exp, dists = error_Ensemble_dataset(true, pred, return_distributions = True)
 
-        distance_a_exp, distance_d_exp, dists = error_Ensemble_dataset(true, pred, return_distributions = True)
-
-        avg_alpha.append(distance_a_exp)
-        avg_d.append(distance_d_exp)
+            avg_alpha.append(distance_a_exp)
+            avg_d.append(distance_d_exp)
+            
+        except:
+            wrn_str = f'Prediction missing for: -- Task 2 | Track {track} | Experiment {exp} -- not found. Task 2 will not be computed.'
+            warnings.warn(wrn_str)
+            
+            return (None, None), pandas.DataFrame(data = np.array([None, None, None]).reshape(1,3), 
+                                              columns = ['Experiment', 'alpha', 'D']) 
         
-    # Put all results in dataframe    
     data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
-                                    columns = ['Experiment', 'alpha', 'D']) 
-        
-    return (np.mean(avg_alpha), np.mean(avg_d)), data_metrics
+                                    columns = ['Experiment', 'alpha', 'D'])
+    
+    return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 125
 import os
@@ -1614,10 +1636,31 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
     output_filename = os.path.join(OUTPUT_DIR, 'scores.txt')
     output_file = open(output_filename, 'w')
+       
+    
 
     # Track 1: videos
     # Track 2: trajectories
     for track, name_track in zip([1,2], ['videos', 'trajectories']):
+        
+        ##### ----- In case the whole track is missing, give Nones to both tasks ----- #####
+        path_preds = os.path.join(INPUT_DIR, f'res/track_{track}')
+        
+        if not os.path.exists(path_preds):
+            wrn_str = f'No submission for track {track} found.'
+            warnings.warn(wrn_str)
+            
+            for idx_task, task in enumerate(['single', 'ensemble']):
+                
+                # single trajectories
+                if idx_task == 0:
+                    for name in ['cp','JI','alpha','D','state']: # This names must be the same as used in the yaml leaderboard                  
+                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(None) +'\n')
+                elif idx_task == 1:
+                    for name in ['alpha','D']: # This names must be the same as used in the yaml leaderboard
+                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(None) +'\n')
+            continue
+        ##### ------------------------------------------------------------------------ #####
         
         html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
 
@@ -1654,3 +1697,28 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     html_file.close()
     output_file.close()  
         
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 131
+import glob
+# Function to rename and delete files as required
+def reorganize_files(base_path : str, # path where to find the folder to reorganize
+                     track : str, # either 'track_1' or 'track_2'
+                     num_fovs : int
+                    ):
+    fov_range = range(num_fovs)
+    
+    # Iterate through each experiment directory
+    for exp_dir in os.listdir(os.path.join(base_path, track)):
+        exp_path = os.path.join(base_path, track, exp_dir)
+
+        # Rename traj_labs_fov_X.txt to fov_X.txt
+        for fov in fov_range:
+            old_name = os.path.join(exp_path, f'traj_labs_fov_{fov}.txt')
+            new_name = os.path.join(exp_path, f'fov_{fov}.txt')
+            if os.path.exists(old_name):
+                os.rename(old_name, new_name)
+
+        # Delete all files except ensemble_labels.txt
+        for file in glob.glob(os.path.join(exp_path, '*')):
+            if not (file.endswith('ensemble_labels.txt') or os.path.basename(file).startswith('fov_')):
+                os.remove(file)
