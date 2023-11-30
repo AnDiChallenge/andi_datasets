@@ -17,6 +17,7 @@ from scipy.optimize import linear_sum_assignment
 import pandas
 from tqdm.auto import tqdm
 import warnings
+from .models_phenom import models_phenom
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 6
 def majority_filter(seq, width):
@@ -521,6 +522,24 @@ def get_VIP(array_trajs, num_vip = 5, min_distance_part = 2, pad = -1,
 
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 38
+def _get_error_bounds():
+    '''
+    Sets the current maximum errors we can do in the different diffusive properties.
+    '''
+    
+    # For single trajectory
+    threshold_error_alpha = 2
+    threshold_error_D = 1e5
+    threshold_error_s = 0
+    threshold_cp = 10
+    
+    # For ensemble, it relates to the Wasserstein distance. Check test below distribution_distance function 
+    threshold_ensemble_alpha = np.abs(models_phenom().bound_alpha[0]-models_phenom().bound_alpha[1])
+    threshold_ensemble_D = np.abs(models_phenom().bound_D[0]-models_phenom().bound_D[1])
+    
+    return threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp, threshold_ensemble_alpha, threshold_ensemble_D
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 40
 def changepoint_assignment(GT, preds):
     ''' 
     Given a list of groundtruth and predicted changepoints, solves the assignment problem via
@@ -552,7 +571,7 @@ def changepoint_assignment(GT, preds):
             
     return linear_sum_assignment(cost_matrix), cost_matrix
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 40
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 42
 def changepoint_alpha_beta(GT, preds, threshold = 10):
     '''
     Calculate the alpha and beta measure of paired changepoints.
@@ -590,7 +609,7 @@ def changepoint_alpha_beta(GT, preds, threshold = 10):
 
     return alpha, beta
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 42
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 44
 def jaccard_index(TP: int, # true positive
                   FP: int, # false positive
                   FN: int # false negative
@@ -600,7 +619,7 @@ def jaccard_index(TP: int, # true positive
     '''
     return TP/(TP+FP+FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 43
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 45
 def single_changepoint_error(GT, preds, threshold = 5):
     '''
     Given the groundtruth and predicted changepoints for a single trajectory, first solves the assignment problem between changepoints,
@@ -647,7 +666,7 @@ def single_changepoint_error(GT, preds, threshold = 5):
     
     return TP_rmse, jaccard_index(TP, FP, FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 44
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 46
 def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):    
     ''' 
     Given an ensemble of groundtruth and predicted change points, iterates
@@ -713,7 +732,7 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
         
     return TP_rmse, jaccard_index(TP, FP, FN)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 47
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 49
 def create_binary_segment(CP: list, # list of changepoints
                           T: int # length of the trajectory
                          )-> list: # list of arrays with value 1 in the temporal support of the current segment.
@@ -729,7 +748,7 @@ def create_binary_segment(CP: list, # list of changepoints
     segments[0, 0] = 1
     return segments
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 49
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 51
 def jaccard_between_segments(gt, pred):
     '''
     Given two segments, calculates the Jaccard index between them by considering TP as correct labeling,
@@ -762,7 +781,7 @@ def jaccard_between_segments(gt, pred):
     if tp+fp+fn == 0: return 0    
     else: return jaccard_index(tp, fp, fn)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 50
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 52
 def segment_assignment(GT, preds, T:int = None):
     ''' 
     Given a list of groundtruth and predicted changepoints, generates a set of segments. Then constructs 
@@ -820,9 +839,8 @@ def segment_assignment(GT, preds, T:int = None):
 
     return linear_sum_assignment(cost_matrix), cost_matrix
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 60
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 62
 from sklearn.metrics import mean_squared_log_error as msle, f1_score
-from .models_phenom import models_phenom
 
 def metric_anomalous_exponent(gt = None,
                               pred = None,
@@ -858,13 +876,13 @@ def metric_diffusion_coefficient(gt = None, pred = None,
     else: 
         return error
 
-def metric_diffusive_state(gt = None, pred = None, max_error = False):
+def metric_diffusive_state(gt = None, pred = None):
     ''' 
     Compute the F1 score between diffusive states. 
     ''' 
     return f1_score(gt.astype(int), pred.astype(int), average = 'micro')
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 64
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 66
 def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
                           preds_cp, preds_alpha, preds_D, preds_s,
                           T:bool|int = None):
@@ -940,7 +958,7 @@ def check_no_changepoints(GT_cp, GT_alpha, GT_D, GT_s,
 
         return True, paired_alpha, paired_D, paired_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 65
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 67
 def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
                             preds_cp, preds_alpha, preds_D, preds_s,
                             return_pairs = False,
@@ -1020,7 +1038,7 @@ def segment_property_errors(GT_cp, GT_alpha, GT_D, GT_s,
         error_s = metric_diffusive_state(paired_s[:,0], paired_s[:,1])
         return error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 74
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 76
 def _visualize_ensemble(ens):
     '''
     Given input ens:
@@ -1036,7 +1054,7 @@ def _visualize_ensemble(ens):
 
     return pandas.DataFrame(data = ens.transpose(), columns = [r'mean $\alpha$', r'var $\alpha$', r'mean $D$', r'var $D$', '% residence time'])
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 75
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 77
 from .models_phenom import models_phenom
 def extract_ensemble(state_label, dic):
         ''' 
@@ -1123,7 +1141,7 @@ def extract_ensemble(state_label, dic):
                                    ))
         return ensemble
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 77
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 79
 import scipy.stats
 def multimode_dist(params, weights, bound, x, normalized = False, min_var = 1e-9):
     '''
@@ -1172,7 +1190,7 @@ def multimode_dist(params, weights, bound, x, normalized = False, min_var = 1e-9
         dist /= np.sum(dist)
     return dist
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 79
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 81
 from scipy.stats import wasserstein_distance
 
 def distribution_distance(p:np.array, # distribution 1
@@ -1187,7 +1205,7 @@ def distribution_distance(p:np.array, # distribution 1
     elif metric == 'wasserstein':
         return wasserstein_distance(x, x, p, q)
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 91
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 101
 from .models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data,
@@ -1262,7 +1280,7 @@ def error_Ensemble_dataset(true_data, pred_data,
     else:
         return distance_alpha, distance_D
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 94
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 104
 def check_prediction_length(pred):
     '''
     Given a trajectory segments prediction, checks whether it has C changepoints and C+1 segments properties values.
@@ -1275,7 +1293,7 @@ def check_prediction_length(pred):
     else: 
         return False
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 95
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 105
 def separate_prediction_values(pred):
     '''
     Given a prediction over trjaectory segments, extracts the predictions for each segment property
@@ -1287,7 +1305,7 @@ def separate_prediction_values(pred):
     cp = pred[4::4]    
     return Ds, alphas, states, cp
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 96
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 106
 def load_file_to_df(path_file, 
                     columns = ['traj_idx', 'Ds', 'alphas', 'states', 'changepoints']):
     '''
@@ -1318,19 +1336,7 @@ def load_file_to_df(path_file,
                 
     return df
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 101
-def _get_error_bounds():
-    '''
-    Sets the current maximum errors we can do in the different diffusive properties.
-    '''
-    
-    threshold_error_alpha = 2
-    threshold_error_D = 1e5
-    threshold_error_s = -1
-    threshold_cp = 10
-    return threshold_error_alpha, threshold_error_D, threshold_error_s, threshold_cp
-
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 102
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 111
 def error_SingleTraj_dataset(df_pred, df_true, 
                               threshold_error_alpha = None, max_val_alpha = 2, min_val_alpha = 0, 
                               threshold_error_D = None, max_val_D = 1e6, min_val_D = 1e-6, 
@@ -1475,16 +1481,26 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 126
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 128
 def when_error_single(wrn_str):
-    warnings.warn(wrn_str)                
-    return [None]*5, pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
-                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
+    # Giving back max_errors for all variables when encountered an error
+    # Order of variables is 'cp','JI','alpha','D','state' (as in the dataframe). See that this is not the same order as _get_error_bounds
+    warnings.warn(wrn_str)   
+    
+    
+    max_error_alpha = _get_error_bounds()[0]
+    max_error_D = _get_error_bounds()[1]
+    max_error_s = _get_error_bounds()[2]
+    max_error_cp = _get_error_bounds()[3]
+    max_error_JI = 0
+    
+    return (max_error_cp, max_error_JI, max_error_alpha, max_error_D, max_error_s) , pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
+                                                                                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
 
 
 def run_single_task(exp_nums, track, submit_dir, truth_dir):
@@ -1566,7 +1582,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 124
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 133
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1596,8 +1612,10 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
         except:
             wrn_str = f'Prediction missing for: -- Task 2 | Track {track} | Experiment {exp} -- not found. Task 2 will not be computed.'
             warnings.warn(wrn_str)
+            # Get the max error possible for the task
+            _,_,_,_, max_error_a, max_error_D = _get_error_bounds()
             
-            return (None, None), pandas.DataFrame(data = np.array([None, None, None]).reshape(1,3), 
+            return (max_error_a, max_error_D), pandas.DataFrame(data = np.array([None, None, None]).reshape(1,3), 
                                               columns = ['Experiment', 'alpha', 'D']) 
         
     data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
@@ -1605,7 +1623,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 136
 import os
 
 def listdir_nohidden(path):
@@ -1660,12 +1678,12 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             for idx_task, task in enumerate(['single', 'ensemble']):
                 
                 # single trajectories
-                if idx_task == 0:
-                    for name in ['cp','JI','alpha','D','state']: # This names must be the same as used in the yaml leaderboard                  
-                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(None) +'\n')
+                if idx_task == 0:                    
+                    for name, max_error in zip(['alpha','D','state', 'cp','JI'], list(_get_error_bounds()[:-2])+[0]): # This names must be the same as used in the yaml leaderboard                  
+                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(max_error) +'\n')
                 elif idx_task == 1:
-                    for name in ['alpha','D']: # This names must be the same as used in the yaml leaderboard
-                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(None) +'\n')
+                    for name, max_error in zip(['alpha','D'], _get_error_bounds()[-2:]): # This names must be the same as used in the yaml leaderboard
+                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(max_error) +'\n')
             continue
         ##### ------------------------------------------------------------------------ #####
         
@@ -1705,7 +1723,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     output_file.close()  
         
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 133
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 142
 import glob
 # Function to rename and delete files as required
 def transform_ref_to_res(base_path : str, # path where to find the folder to reorganize
