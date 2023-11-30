@@ -9,7 +9,7 @@ __all__ = ['majority_filter', 'label_filter', 'label_continuous_to_list', 'label
            'extract_ensemble', 'multimode_dist', 'distribution_distance', 'error_Ensemble_dataset',
            'check_prediction_length', 'separate_prediction_values', 'load_file_to_df', 'error_SingleTraj_dataset',
            'when_error_single', 'run_single_task', 'run_ensemble_task', 'listdir_nohidden', 'codalab_scoring',
-           'reorganize_files']
+           'transform_ref_to_res']
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 2
 import numpy as np
@@ -322,6 +322,9 @@ def df_to_array(df, pad = -1):
     return array_trajs
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 31
+from pathlib import Path
+import shutil
+
 def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by datasets_challenge.challenge_phenom_dataset
                           target_folder, 
                           experiments, 
@@ -672,8 +675,9 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
     
     TP, FP, FN = 0, 0, 0
     TP_rmse = []
-    
+    num_cp_GT = 0
     for gt_traj, pred_traj in zip(GT_ensemble, pred_ensemble):
+        num_cp_GT += len(gt_traj)
         
         assignment, _ = changepoint_assignment(gt_traj, pred_traj)
         assignment = np.array(assignment)
@@ -694,13 +698,17 @@ def ensemble_changepoint_error(GT_ensemble, pred_ensemble, threshold = 5):
             FN += len(gt_traj) - len(pred_traj)
                 
     if TP+FP+FN == 0:
-        wrn_str = f'No segments found in this dataset.'
+        if num_cp_GT == 0: # this means there where no CP both in GT and Pred
+            return 0, 1
+        wrn_str = f'No segments found in your predictions dataset.'
         warnings.warn(wrn_str)
         return threshold, 0
         
     # Calculating RMSE
-    TP_rmse = np.sqrt(np.mean(TP_rmse))
-
+    if len(TP_rmse) > 0:
+        TP_rmse = np.sqrt(np.mean(TP_rmse))
+    else:
+        TP_rmse = threshold
     
         
     return TP_rmse, jaccard_index(TP, FP, FN)
@@ -1449,7 +1457,7 @@ def error_SingleTraj_dataset(df_pred, df_true,
     
     # Changepoints
     rmse_CP, JI = ensemble_changepoint_error(ensemble_true_cp, ensemble_pred_cp, threshold = threshold_cp)
-
+        
     # Segment properties
     error_alpha = metric_anomalous_exponent(paired_alpha[:,0], paired_alpha[:,1])
     error_D = metric_diffusion_coefficient(paired_D[:,0], paired_D[:,1])
@@ -1458,9 +1466,8 @@ def error_SingleTraj_dataset(df_pred, df_true,
     if prints:        
         print(f'Summary of metrics assesments:')
         if missing_traj is not False:            
-            print(f'\n{missing_traj} missing trajectory/ies. ')           
-        if rmse_CP == threshold_cp:
-            print(f'No change points found. RMSE set to max ({threshold_cp})')
+            print(f'\n{missing_traj} missing trajectory/ies. ')
+            
         print(f'\nChangepoint Metrics \nRMSE: {round(rmse_CP, 3)} \nJaccard Index: {round(JI, 3)}',
               f'\n\nDiffusion property metrics \nMetric anomalous exponent: {error_alpha} \nMetric diffusion coefficient: {error_D} \nMetric diffusive state: {error_s}')
               
@@ -1468,12 +1475,12 @@ def error_SingleTraj_dataset(df_pred, df_true,
 
     return rmse_CP, JI, error_alpha, error_D, error_s
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 114
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 117
 import re
 import sys
 import os
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 116
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 119
 def when_error_single(wrn_str):
     warnings.warn(wrn_str)                
     return [None]*5, pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
@@ -1559,7 +1566,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
     return avg_metrics, data_metrics
     
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 121
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 124
 def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     avg_alpha, avg_d = [], []
@@ -1598,7 +1605,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
     
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 124
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 127
 import os
 
 def listdir_nohidden(path):
@@ -1698,13 +1705,18 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     output_file.close()  
         
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 130
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 133
 import glob
 # Function to rename and delete files as required
-def reorganize_files(base_path : str, # path where to find the folder to reorganize
-                     track : str, # either 'track_1' or 'track_2'
-                     num_fovs : int
-                    ):
+def transform_ref_to_res(base_path : str, # path where to find the folder to reorganize
+                         track : str, # either 'track_1' or 'track_2'
+                         num_fovs : int
+                        ):
+    
+    ''' Transforms an organized reference dataset into a valid submission dataset. Note that we 
+    do not account for VIP indices in track_1, so will later yield an error when scoring this track.'''
+    
+    
     fov_range = range(num_fovs)
     
     # Iterate through each experiment directory
