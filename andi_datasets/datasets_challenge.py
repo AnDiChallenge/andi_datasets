@@ -10,7 +10,7 @@ import pandas as pd
 import os
 import csv
 
-from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP
+from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
 from .utils_trajectories import normalize
@@ -487,17 +487,17 @@ def _get_dic_andi2(model):
     return dic
 
 # %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 11
-def challenge_phenom_dataset( 
-                              experiments = 5,
-                              dics = None,
-                              repeat_exp = True,
-                              num_fovs = 1,
-                              return_timestep_labs = False,
-                              save_data = False,
-                              path = 'data/',
-                              prefix = '',
-                              get_video = False, num_vip = None, get_video_masks = False
-                                ):
+def challenge_phenom_dataset(experiments = 5,
+                             dics = None,
+                             repeat_exp = True,
+                             num_fovs = 1,
+                             return_timestep_labs = False,
+                             save_data = False,
+                             path = 'data/',
+                             prefix = '',
+                             get_video = False, num_vip = None, get_video_masks = False,
+                             files_reorg = False, path_reorg = 'ref/', save_labels_reorg = False
+                            ):
     ''' 
     Creates a datasets with same structure as ones given in the ANDI 2 challenge. 
     Default values for the various diffusion models have been set such as to be in the same ranges as the ones expected for the
@@ -541,6 +541,13 @@ def challenge_phenom_dataset(
         Number of VIP highlighted in the videos.
     get_video_masks : bool
         If True, get masks of videos 
+    files_reorg : bool
+        If True, this function also creates a folder with nam path_reorg inside path with the same data but organized à la ANDI2 challenge
+    path_reorg : bool
+        Folder where the reorganized dataset will be created
+    save_labels_reorg : bool
+        If to save also the labels in the reorganized dataset. This is needed if you want to create a reference dataset for the Scoring program. 
+        No need if you are just creating data to predict.
 
     Returns
     -------
@@ -757,6 +764,17 @@ def challenge_phenom_dataset(
             trajs_out.append(df_traj)
             labels_traj_out.append(list_labels_fov)
             labels_ens_out.append(ensemble_fov)
+            
+    # If asked, create a reorganized version of the folders
+    if files_reorg:
+        file_nonOverlap_reOrg(raw_folder = path,
+                              target_folder = path+path_reorg,
+                              experiments = np.arange(len(model_exp)), # this only needs to be array, content does not matter
+                              num_fovs = num_fovs,
+                              save_labels = save_labels_reorg,
+                              tracks = [2] if not get_video else [1,2],
+                              print_percentage = False)
+    
     if get_video:
         return trajs_out, videos_out, labels_traj_out, labels_ens_out
     else:
