@@ -334,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="model-1---single-state-diffusion" class="level3">
 <h3 class="anchored" data-anchor-id="model-1---single-state-diffusion">Model 1 - Single state diffusion</h3>
-<p>This is the most <em>boring</em> model of all… It simulates a particle with a single diffusive state, with an associated <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>. This kind of trajectories can also be generated with the class <code>models_theory</code>, check <a href="../tutorials/challenge_one_datasets.html">its associated tutorial</a> to know more.</p>
+<p>This is the most <em>boring</em> model of all… It simulates a particle with a single diffusive state, with an associated <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>. This kind of trajectories can also be generated with the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a>, check <a href="../tutorials/challenge_one_datasets.html">its associated tutorial</a> to know more.</p>
 <p>All models have similar inputs, with some changing to accomodate the particularities of each model. In general, we input the number of trajectories to be generated <code>N</code>, the number of time steps <code>T</code>, and then length of the box acting as environment <code>L</code>. Let’s us define these and keep them for the rest of the notebook. We will also define here the diffusion coefficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of time steps per trajectory (frames)</span></span>
@@ -524,7 +524,7 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
 </section>
 <section id="creating-datasets-with-multiple-models" class="level1">
 <h1>Creating datasets with multiple models</h1>
-<p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <code>datasets_phenom</code>. Let’s import it and see some of its properties:</p>
+<p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_phenom.html#datasets_phenom"><code>datasets_phenom</code></a>. Let’s import it and see some of its properties:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -590,7 +590,7 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
 </div>
 <section id="saving-and-loading-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
-<p>Just as with the <code>datasets_theory</code> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
+<p>Just as with the <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
@@ -643,9 +643,9 @@ c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:189: Future
 </div>
 <section id="defining-the-dataset-properties" class="level3">
 <h3 class="anchored" data-anchor-id="defining-the-dataset-properties">Defining the dataset properties</h3>
-<p><strong>Setting a single FOV per experiment:</strong> In order to have the most heterogeneous dataset, we will avoid overlapping FOVs by generating various experiments for each condition and then a single FOV for each of this. Then, we will use the function <code>file_nonOverlap_reOrg</code> to reorganize the data in the form proposed in the challenge.</p>
+<p><strong>Setting a single FOV per experiment:</strong> In order to have the most heterogeneous dataset, we will avoid overlapping FOVs by generating various experiments for each condition and then a single FOV for each of this. Then, we will use the function <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_challenge.html#file_nonoverlap_reorg"><code>file_nonOverlap_reOrg</code></a> to reorganize the data in the form proposed in the challenge.</p>
 <p>Our goal is to have 10 experiments (2 per phenomenological model) with 30 FOVs each. This means that we will generate 300 independent experiments, but considering that batches of 30 have the exact same properties. After generating this data, we will reorganize the dataset to have the structure proposed in the challenge.</p>
-<p>We will follow a common pattern: - First experiment for each model will be sampled from the default parameters (given by <code>_get_dic_andi2</code> and defined in <code>_defaults_andi2</code>) - Second experiment will be an “easy” one, in which the different states will be clearly differentiated. We will also do some tweaks to make them interesting!</p>
+<p>We will follow a common pattern: - First experiment for each model will be sampled from the default parameters (given by <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_challenge.html#_get_dic_andi2"><code>_get_dic_andi2</code></a> and defined in <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_challenge.html#_defaults_andi2"><code>_defaults_andi2</code></a>) - Second experiment will be an “easy” one, in which the different states will be clearly differentiated. We will also do some tweaks to make them interesting!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can change this at will. The public dataset is made 10 Experiments of 30 FOVs each</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>EXPERIMENTS <span class="op">=</span> np.arange(<span class="dv">2</span>)</span>
