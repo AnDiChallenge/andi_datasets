@@ -496,7 +496,7 @@ def challenge_phenom_dataset(experiments = 5,
                              path = 'data/',
                              prefix = '',
                              get_video = False, num_vip = None, get_video_masks = False,
-                             files_reorg = False, path_reorg = 'ref/', save_labels_reorg = False
+                             files_reorg = False, path_reorg = 'ref/', save_labels_reorg = False, delete_raw = False
                             ):
     ''' 
     Creates a datasets with same structure as ones given in the ANDI 2 challenge. 
@@ -548,6 +548,8 @@ def challenge_phenom_dataset(experiments = 5,
     save_labels_reorg : bool
         If to save also the labels in the reorganized dataset. This is needed if you want to create a reference dataset for the Scoring program. 
         No need if you are just creating data to predict.
+    delete_raw : bool
+        If True, deletes the raw dataset so that only the reorganized one is maintained.
 
     Returns
     -------
@@ -774,6 +776,12 @@ def challenge_phenom_dataset(experiments = 5,
                               save_labels = save_labels_reorg,
                               tracks = [2] if not get_video else [1,2],
                               print_percentage = False)
+        
+        if delete_raw:
+            for item in os.listdir(path):
+                item_path = os.path.join(path, item)
+                if item != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
+                    os.remove(item_path)
     
     if get_video:
         return trajs_out, videos_out, labels_traj_out, labels_ens_out
