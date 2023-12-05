@@ -90,19 +90,14 @@ al., Nat Commun **12**, 6253
 
 If you want to reproduce the datasets used during the challenge, please
 check [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2021_submission.ipynb).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge_one_submission.ipynb).
 You can then test your predictions and compare them with the those of
 challenge participants in this [online interactive
 tool](http://andi-challenge.org/interactive-tool/).
 
 ### 2nd AnDi Challenge (2023)
 
-We are currently preparing the second edition of the AnDi Challenge.
-Stay tuned, more info will be announced soon in
-[Twitter](https://twitter.com/AndiChallenge). If you want to start
-playing with the new *phenomenological* diffusion models on which the
-challenge will be based, you can check [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2022_datasets.ipynb).
+The second AnDi challenge is [LIVE](https://andi-challenge.org/challenge-2024/). Follow the previous link to keep updated on all news. If you want to learn more about the data we will use, you can check [this tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
 
 ## Version control
 
