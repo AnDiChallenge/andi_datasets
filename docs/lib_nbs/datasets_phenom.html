@@ -349,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="datasets_phenom">datasets_phenom</h3>
 <blockquote class="blockquote">
 <pre><code> datasets_phenom (models_class=&lt;andi_datasets.models_phenom.models_phenom
-                  object at 0x7fa56e437910&gt;)</code></pre>
+                  object at 0x7f9cb91b7a30&gt;)</code></pre>
 </blockquote>
 <p>This class generates, saves and loads datasets of trajectories simulated from various phenomenological diffusion models (available at andi_datasets.models_phenom).</p>
 <hr>
@@ -500,14 +500,8 @@ False</code></pre>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                     save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                    )</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L , N <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\Gorka\AppData\Local\Temp\ipykernel_11608\369869117.py:64: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-  df = df.append(dic, ignore_index = True)
-C:\Users\Gorka\AppData\Local\Temp\ipykernel_11608\369869117.py:64: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-  df = df.append(dic, ignore_index = True)</code></pre>
-</div>
 <div class="cell-output cell-output-display">
-<p><img src="datasets_phenom_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+<p><img src="datasets_phenom_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <hr>
@@ -519,14 +513,14 @@ C:\Users\Gorka\AppData\Local\Temp\ipykernel_11608\369869117.py:64: FutureWarning
 </blockquote>
 <p>Given the path for a dataset, loads the trajectories and labels</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You must run to cells above for this one to work. Check that this are the </span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># exact same trajectories.</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> DP.create_dataset(N_model <span class="op">=</span> <span class="dv">10</span>, <span class="co"># number of trajectories per model</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> <span class="dv">20</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all[<span class="dv">0</span>],</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                                                )</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L , N <span class="op">=</span> <span class="dv">3</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You must run to cells above for this one to work. Check that this are the </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># exact same trajectories.</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> DP.create_dataset(N_model <span class="op">=</span> <span class="dv">10</span>, <span class="co"># number of trajectories per model</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> <span class="dv">20</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all[<span class="dv">0</span>],</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L , N <span class="op">=</span> <span class="dv">3</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="datasets_phenom_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
@@ -536,22 +530,22 @@ C:\Users\Gorka\AppData\Local\Temp\ipykernel_11608\369869117.py:64: FutureWarning
 <section id="managing-parameters-and-dictionaries" class="level1">
 <h1>Managing parameters and dictionaries</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dictm <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'immobile_traps'</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: <span class="dv">10</span>}</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>DP <span class="op">=</span> datasets_phenom()</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>DP.N_model <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>DP.T <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>DP.load <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>DP.save <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>DP.path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dictm <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'immobile_traps'</span>, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: <span class="dv">10</span>}</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>DP <span class="op">=</span> datasets_phenom()</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>DP.N_model <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>DP.T <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>DP.load <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>DP.save <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>DP.path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    DP._inspect_dic(copy.deepcopy(dictm))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e: </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    DP._inspect_dic(copy.deepcopy(dictm))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e: </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The dataset you want to load does not exist.</code></pre>
 </div>
