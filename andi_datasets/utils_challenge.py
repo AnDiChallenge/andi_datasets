@@ -1573,7 +1573,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
         data_metrics.append([exp, df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
 
     # Put all results in dataframe    
-    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
+    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JSC CP', 'alpha', 'D', 'state'])
     # Calculate weighted averages
     avg_metrics = []
     for key in data_metrics.keys()[2:]:
@@ -1620,7 +1620,8 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
         
     data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
                                     columns = ['Experiment', 'alpha', 'D'])
-    
+    data_metrics['Experiment'] = data_metrics['Experiment'].values.astype(int)
+        
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 136
@@ -1687,11 +1688,15 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             continue
         ##### ------------------------------------------------------------------------ #####
         
+        
         html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
 
         for idx_task, task in enumerate(['single', 'ensemble']): # Task 1: single trajectory  |   Task 2: ensemble
             
-            html_file.write(f'<h3> Task {idx_task+1}: '+task+' </h3>')
+            if task == 'single':
+                html_file.write(f'<h3> Single Trajectory Task </h3>')
+            elif task == 'ensemble':
+                html_file.write(f'<h3> Ensemble Task </h3>')
 
 
             # Get the number of experiments from the true directory
@@ -1705,7 +1710,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
                     
-                
+                # Changing the name of JI to JSC to match paper nomenclature
                 html_file.write(df.to_html(index = False).replace('\n',''))
               
 
