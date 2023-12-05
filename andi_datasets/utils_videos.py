@@ -262,7 +262,7 @@ def transform_to_video(
         "intensity": lambda particle_intensity: particle_intensity[0]
         + np.random.randn() * particle_intensity[1],
         "intensity_variation": 0,  # Intensity variation of particle (in standard deviation)
-        # "z": 0,  # Particles are always at focus
+        "z": None, # Placeholder for z
         "refractive_index": 1.45,  # Refractive index of the particle
         "position_unit": "pixel",
     }
@@ -299,8 +299,8 @@ def transform_to_video(
         number_of_particles=trajectory_data.shape[0],
         traj_length=trajectory_data.shape[1],
         position=lambda trajectory: trajectory[0, :2],
-        z=lambda trajectory: trajectory[0, -1] if trajectory.shape[-1] == 3 else 0,
-        **_particle_dict,
+        z=(_particle_dict['z'] if _particle_dict['z'] is not None else lambda trajectory: trajectory[0, -1] if trajectory.shape[-1] == 3 else 0),
+        **{k: v for k, v in _particle_dict.items() if k != 'z'},
     )
 
     # Intensity variation of particles - controlled by "intensity_variation"
