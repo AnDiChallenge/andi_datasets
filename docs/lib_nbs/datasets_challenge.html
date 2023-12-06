@@ -128,8 +128,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <meta property="og:title" content="ANDI - datasets_challenge">
+<meta property="og:description" content="source">
 <meta property="og:site-name" content="ANDI">
 <meta name="twitter:title" content="ANDI - datasets_challenge">
+<meta name="twitter:description" content="source">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -351,6 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-1-challenge-theory" class="level1">
 <h1>ANDI 1 challenge (theory)</h1>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L20" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="challenge_theory_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_theory_dataset">challenge_theory_dataset</h3>
 <blockquote class="blockquote">
@@ -489,6 +492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-2-challenge-phenom" class="level1">
 <h1>ANDI 2 challenge (phenom)</h1>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L389" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="defaults_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="defaults_andi2">_defaults_andi2</h3>
 <blockquote class="blockquote">
@@ -496,6 +500,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>This class defines the default values set for the ANDI 2 challenge.</p>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L408" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="get_dic_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="get_dic_andi2">_get_dic_andi2</h3>
@@ -530,6 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L490" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="challenge_phenom_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_phenom_dataset">challenge_phenom_dataset</h3>
@@ -538,7 +544,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                            num_fovs=1, return_timestep_labs=False,
                            save_data=False, path='data/', prefix='',
                            get_video=False, num_vip=None,
-                           get_video_masks=False)</code></pre>
+                           get_video_masks=False, files_reorg=False,
+                           path_reorg='ref/', save_labels_reorg=False,
+                           delete_raw=False)</code></pre>
 </blockquote>
 <p>Creates a datasets with same structure as ones given in the ANDI 2 challenge. Default values for the various diffusion models have been set such as to be in the same ranges as the ones expected for the challenge. For details, check the ANDI 2 challenge webpage (soon).</p>
 <p>This function will generate as many experiments (associated to one the diffusion models) as demanded. There are two ways of defining that: - Give number of experiments (and optional parameters such as repeat_exp) to create. The diffusion parameters are then taken from the default values are taken from datasets_phenom._defaults_andi2. - Feed a list of dictionaries (dics) from which data will be generated For each experiment, as many field of view as wanted can be generated</p>
@@ -625,6 +633,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>If True, get masks of videos</td>
 </tr>
 <tr class="even">
+<td>files_reorg</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, this function also creates a folder with nam path_reorg inside path with the same data but organized à la ANDI2 challenge</td>
+</tr>
+<tr class="odd">
+<td>path_reorg</td>
+<td>str</td>
+<td>ref/</td>
+<td>Folder where the reorganized dataset will be created</td>
+</tr>
+<tr class="even">
+<td>save_labels_reorg</td>
+<td>bool</td>
+<td>False</td>
+<td>If to save also the labels in the reorganized dataset. This is needed if you want to create a reference dataset for the Scoring program. <br>No need if you are just creating data to predict.</td>
+</tr>
+<tr class="odd">
+<td>delete_raw</td>
+<td>bool</td>
+<td>False</td>
+<td>If True, deletes the raw dataset so that only the reorganized one is maintained.</td>
+</tr>
+<tr class="even">
 <td><strong>Returns</strong></td>
 <td><strong>tuple</strong></td>
 <td></td>
@@ -657,23 +689,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dics <span class="op">=</span> []</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_experiments):    </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> _get_dic_andi2(i<span class="op">+</span><span class="dv">1</span>)    </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>: dic.update({<span class="st">'dim'</span>:<span class="dv">3</span>})</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>: dic.update({<span class="st">'dim'</span>:<span class="dv">2</span>})</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    dics.append(dic)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_list, _, _ <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> num_experiments, </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                       num_fovs <span class="op">=</span> num_fovs, </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                       dics <span class="op">=</span> dics,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                       return_timestep_labs <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_list, _, _, _ <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> num_experiments, </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                            num_fovs <span class="op">=</span> num_fovs, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                            dics <span class="op">=</span> dics,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                            return_timestep_labs <span class="op">=</span> <span class="va">False</span>, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                            get_video <span class="op">=</span> <span class="va">True</span>, num_vip <span class="op">=</span> <span class="dv">3</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                            save_data <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'dataset/'</span>,                                 </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                            files_reorg <span class="op">=</span> <span class="va">True</span>, path_reorg <span class="op">=</span> <span class="st">'reorg/'</span>, save_labels_reorg <span class="op">=</span> <span class="va">False</span>, delete_raw <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"1aeb9b58414e4e2394378188d08becea","version_major":2,"version_minor":0}
+{"model_id":"dd1f94775a724976b9838a9d7e9acdd5","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Creating dataset for Exp_0 (single_state).
-Creating dataset for Exp_1 (multi_state).</code></pre>
+Generating video for EXP 0 FOV 0
+Creating dataset for Exp_1 (multi_state).
+Generating video for EXP 1 FOV 0</code></pre>
 </div>
 </div>
 <section id="distributions-parameters" class="level3">

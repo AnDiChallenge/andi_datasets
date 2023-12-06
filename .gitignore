@@ -149,3 +149,7 @@ dist/
 source_nbs/analysis_nbs
 testing/data/
 _proc/
+source_nbs/tutorials/andi2_dataset
+source_nbs/tutorials/public_dat
+source_nbs/tutorials/ref
+source_nbs/tutorials/res
