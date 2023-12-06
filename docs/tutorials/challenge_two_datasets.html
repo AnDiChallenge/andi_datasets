@@ -303,14 +303,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="frame-rate" class="level5">
 <h5 class="anchored" data-anchor-id="frame-rate">Frame rate</h5>
-<p>In the same spirit, we consider a tracking device working at a frame rate of <span class="math inline">\(= 0.1 Hz\)</span>. This means that each time step of the particle <span class="math inline">\(\Delta t = 100 \ ms = 0.1 \ s\)</span>.</p>
+<p>In the same spirit, we consider a tracking device working at a frame rate of <span class="math inline">\(0.1 Hz\)</span>. This means that each time step of the particle <span class="math inline">\(\Delta t = 100 \ ms = 0.1 \ s\)</span>.</p>
 </section>
 <section id="diffusion-coefficient-d" class="level5">
 <h5 class="anchored" data-anchor-id="diffusion-coefficient-d">Diffusion coefficient <code>D</code></h5>
-<p>Typically, microparticles in biological environments diffuse with coefficient of the order of <span class="math inline">\(0.01 \ \mu m^2/s\)</span>. In order to get a meaningful value to input the diffusion model generators, we need to consider the following:</p>
+<p>Typically, microparticles in biological environments diffuse with coefficients of the order of <span class="math inline">\(0.01 \ \mu m^2/s\)</span>. In order to get a meaningful input value for the diffusion model generators, we need to consider the following:</p>
 <ul>
-<li><p>As a working definition of <span class="math inline">\(D\)</span>, valid also for anomalous diffusion, we consider it as proporcional to the variance of the displacements along one dimension at the shortest time lag, i.e.&nbsp;<span class="math inline">\(\sigma_{\Delta x}^2= 2 D \Delta t\)</span>.</p></li>
-<li><p>Given the values of pixel size and frame rate, in adimensional units <span class="math inline">\(D\)</span> is given by: <span class="math inline">\(D= 0.01 \ \frac{\mu m^2}{s} \ \frac{0.1 s/ \Delta t }{ 0.01 \mu m^2/px^2} = 0.1 \ px^2/\Delta t\)</span>.</p></li>
+<li><p>As a working definition of <span class="math inline">\(D\)</span>, valid also for anomalous diffusion, we consider it as proportional to the variance of the displacements along one dimension at the shortest time lag, i.e.&nbsp;<span class="math inline">\(\sigma_{\Delta x}^2= 2 D \Delta t\)</span>.</p></li>
+<li><p>Given the values of pixel size and frame rate, in adimensional units, <span class="math inline">\(D\)</span> is given by: <span class="math inline">\(D= 0.01 \ \frac{\mu m^2}{s} \ \frac{0.1 s/ \Delta t }{ 0.01 \mu m^2/px^2} = 0.1 \ px^2/\Delta t\)</span>.</p></li>
 </ul>
 </section>
 <section id="localization-precision-sigma_x" class="level5">
@@ -325,40 +325,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.models_phenom <span class="im">import</span> models_phenom</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># auxiliaries</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stochastic</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>stochastic.random.seed(<span class="dv">3</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="model-1---single-state-diffusion" class="level3">
 <h3 class="anchored" data-anchor-id="model-1---single-state-diffusion">Model 1 - Single state diffusion</h3>
 <p>This is the most <em>boring</em> model of all… It simulates a particle with a single diffusive state, with an associated <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>. This kind of trajectories can also be generated with the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html#models_theory"><code>models_theory</code></a>, check <a href="../tutorials/challenge_one_datasets.html">its associated tutorial</a> to know more.</p>
-<p>All models have similar inputs, with some changing to accomodate the particularities of each model. In general, we input the number of trajectories to be generated <code>N</code>, the number of time steps <code>T</code>, and then length of the box acting as environment <code>L</code>. Let’s us define these and keep them for the rest of the notebook. We will also define here the diffusion coefficient.</p>
+<p>All models have similar inputs, with some changing to accomodate the particularities of each model. In general, we input the number of trajectories to be generated <code>N</code>, the number of time steps <code>T</code>, and then length of the box acting as environment <code>L</code>. Let us define these and keep them for the rest of the notebook. We will also define here the diffusion coefficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of time steps per trajectory (frames)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number of trajectories</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Length of box (pixels)</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">1.5</span><span class="op">*</span><span class="dv">128</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># diffusion coefficient (pixels^2 / frame)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s us generate some trajectories with anomalous exponent <code>alpha = 0.5</code>. Remember that all trajectories follow FBM! The output of all the functions is the same: a tuple whose first elements are the trajectories and second are its labels. Let’s focus on the first now:</p>
+<p>To generate the trajectories, we can choose to either provide a fixed value for <span class="math inline">\(D\)</span> and <span class="math inline">\(\alpha\)</span>, or a list containing a mean and a variance. In the second case, the property is sampled from a normal distribution for every trajectory. Let’s generate some trajectories with fixed anomalous exponent <code>alpha = 0.5</code>, and random diffusion coefficients with a fixed mean. Remember that all trajectories follow FBM!</p>
+<p>The output of all the phenomenological models is always the same: a tuple containing the trajectories and their labels. Let’s focus on the first now:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trajs_model1, labels <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, </span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trajs_model1, _ <span class="op">=</span> models_phenom().single_state(N <span class="op">=</span> N, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                                L <span class="op">=</span> L,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                T <span class="op">=</span> T,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                Ds <span class="op">=</span> D,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                Ds <span class="op">=</span> [D, <span class="fl">0.1</span>], <span class="co"># Mean and variance</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                                alphas <span class="op">=</span> <span class="fl">0.5</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The trajectories will have always the same shape: time, number of trajectories and number of dimensions (two for this challenge).</p>
+<p>The trajectories will have always the same shape: (time, number of trajectories, number of dimensions). In this challenge, we always consider two dimensions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trajs_model1.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>(500, 50, 2)</code></pre>
+<pre><code>(500, 100, 2)</code></pre>
 </div>
 </div>
-<p>Let’s take a look at some of the trajectories with a built-in functions from the library:</p>
+<p>Let’s take a look at some of the trajectories with a built-in function from the library:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -372,161 +377,192 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="model-2---multiple-state-diffusion">Model 2 - Multiple state diffusion</h3>
 <p>Now we consider the motion of a particle that changes between different diffusive state. We are free to choose the number of states. The probability of jumping from one state to another is given by the transition matrix <span class="math inline">\(M\)</span>. Let’s consider a two-state diffusion process. It’s transition matrix is</p>
 <p><span class="math inline">\(M = \begin{pmatrix} P_{11} &amp; P_{12} \\ P_{21} &amp; P_{22} \end{pmatrix} = \begin{pmatrix} 0.98 &amp; 0.02 \\ 0.02 &amp; 0.98 \end{pmatrix},\)</span></p>
-<p>where <span class="math inline">\(P_{ij}\)</span> is the probability of changing from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> at every time step. Each diffusive state can have its own diffusion coefficient and anomalous exponent. For instance, we consider a fast state with <span class="math inline">\(D_f = 10 D\)</span> and <span class="math inline">\(\alpha_f = 1.2\)</span> and a slow state with <span class="math inline">\(D_s = 0.1 D\)</span> and <span class="math inline">\(\alpha_s = 0.7\)</span>. Given this, let’s create some trajectories!</p>
+<p>where <span class="math inline">\(P_{ij}\)</span> is the probability of changing from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> at every time step. Each diffusive state can have its own diffusion coefficient and anomalous exponent. For instance, we consider a fast state with <span class="math inline">\(D_f = 10 D\)</span> and <span class="math inline">\(\alpha_f = 1.2\)</span> and a slow state with <span class="math inline">\(D_s = 0.1 D\)</span> and <span class="math inline">\(\alpha_s = 0.7\)</span>. Let’s create some trajectories!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>trajs_model2, labels_model2 <span class="op">=</span> models_phenom().multi_state(N <span class="op">=</span> N, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                                          L <span class="op">=</span> L,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                                          T <span class="op">=</span> T,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                          alphas <span class="op">=</span> [<span class="fl">1.2</span>, <span class="fl">0.7</span>],</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">10</span><span class="op">*</span>D, <span class="fl">0.1</span><span class="op">*</span>D],</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                          alphas <span class="op">=</span> [<span class="fl">1.2</span>, <span class="fl">0.7</span>], <span class="co"># Fixed alpha for each state</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [[<span class="dv">10</span><span class="op">*</span>D, <span class="fl">0.1</span>], [<span class="fl">0.1</span><span class="op">*</span>D, <span class="fl">0.0</span>]], <span class="co"># Mean and variance of each state</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                                          M <span class="op">=</span> [[<span class="fl">0.98</span>, <span class="fl">0.02</span>], [<span class="fl">0.02</span>, <span class="fl">0.98</span>]]</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>See that now we have define the labels of the trajectories. This contain very important information: the value of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> at each time step. For instance, let’s check the values of the labels for the first particle:</p>
+<p>See that now we do care about the trajectory labels. They contain very important information: the value of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(D\)</span> and the state of the particle at every time step.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="vs">r'alphas:'</span>, np.unique(labels_model2[:, <span class="dv">0</span>, <span class="dv">0</span>]), <span class="st">'D:'</span>, np.unique(labels_model2[:, <span class="dv">0</span>, <span class="dv">1</span>]) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>alphas: [0.7 1.2] D: [0.01 1.  ]</code></pre>
-</div>
-</div>
-<p>Now, let’s plot them to see how they change over time. You can see them in third row of the next plot:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model2, L, N, labels <span class="op">=</span> labels_model2, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>labels_model2.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="challenge_two_datasets_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<pre><code>(500, 100, 3)</code></pre>
 </div>
 </div>
-<p>As you can see, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> change over time randomly, following the transition matrix <span class="math inline">\(M\)</span>. If you prefer to work with changepoints and physical properties in the different systems, you can use the following function for it:</p>
+<p>For instance, let’s check the values of the labels for the first particle:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> label_continuous_to_list</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>changepoints, alphas, Ds, state_num <span class="op">=</span> label_continuous_to_list(labels_model2[:, <span class="dv">0</span>, :])</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'changepoints:'</span>, changepoints,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">alphas:'</span>, alphas,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">Ds:'</span>, Ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="vs">r'alphas:'</span>, np.unique(labels_model2[:, <span class="dv">0</span>, <span class="dv">0</span>]), <span class="st">'D:'</span>, np.unique(labels_model2[:, <span class="dv">0</span>, <span class="dv">1</span>]) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>changepoints: [ 14  73  88 106 155 170 290 351 394 407 445 500] 
-alphas: [0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7 1.2] 
-Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
+<pre><code>alphas: [0.7 1.2] D: [0.01       0.77367364]</code></pre>
 </div>
 </div>
-<p>The previous gives <span class="math inline">\(C\)</span> changepoints, which creates <span class="math inline">\(C+1\)</span> segments, and hence <span class="math inline">\(C+1\)</span> <span class="math inline">\(\alpha\)</span>s and <span class="math inline">\(D\)</span>s.</p>
-</section>
-<section id="model-3---dimerization" class="level3">
-<h3 class="anchored" data-anchor-id="model-3---dimerization">Model 3 - Dimerization</h3>
-<p>The third model considers a set of trajectories moving all in the same environment. They have all the same properties: diffusion coefficient, anomalous exponent and radius. If two particles get closer than a distance <span class="math inline">\(2r\)</span>, they bind with probability <span class="math inline">\(P_b\)</span> creating a dimer. Similarly, two dimerized particles may unbind with probability <span class="math inline">\(P_u\)</span>. The latter defines two diffusive states. Just as before, we can define the diffusion coefficients and exponents of both states. Here is an example of such process:</p>
+<p>The state of the particle does not correspond to the actual diffusive state. Even though there are two diffusive states in these trajectories, the label is always <code>2</code>, which corresponds to a free particle.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>trajs_model3, labels_model3 <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                                           L <span class="op">=</span> L,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                                           T <span class="op">=</span> T,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                                                           alphas <span class="op">=</span> [<span class="fl">1.2</span>, <span class="fl">0.7</span>],</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                                           Ds <span class="op">=</span> [<span class="dv">10</span><span class="op">*</span>D, <span class="fl">0.1</span><span class="op">*</span>D],</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                                           r <span class="op">=</span> <span class="dv">1</span>, <span class="co"># radius of the particles</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                                           Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># binding probability</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                                                           Pu <span class="op">=</span> <span class="dv">0</span> <span class="co"># unbinding probability</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.unique(labels_model2[..., <span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([2.])</code></pre>
 </div>
-<p>Now, let’s plot them to see how they change over time. You can see them in third row of the next plot:</p>
+</div>
+<p>The different states are:</p>
+<pre><code>- `0`: immobile
+- `1`: confined
+- `2`: free
+- `3`: directed</code></pre>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model3, L, N, labels <span class="op">=</span> labels_model3, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>models_phenom().lab_state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['i', 'c', 'f', 'd']</code></pre>
+</div>
+</div>
+<p>Now, let’s plot some trajectories to see their changes over time. In the third row of the next plot, we see the value of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> over time with vertical lines marking the changepoints.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model2, L, N, labels <span class="op">=</span> labels_model2, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="challenge_two_datasets_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>As you can see, particle 2 and 3 met and change their diffusive state!</p>
+<p>W can see, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span> change over time randomly, following the transition matrix <span class="math inline">\(M\)</span>. We can also work with changepoints and physical properties in the different systems with the following function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> label_continuous_to_list</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>changepoints, alphas, Ds, state_num <span class="op">=</span> label_continuous_to_list(labels_model2[:, <span class="dv">0</span>, :])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'changepoints:'</span>, changepoints,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">alphas:'</span>, alphas,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">'</span><span class="ch">\n</span><span class="st">Ds:'</span>, Ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>changepoints: [ 83 199 218 244 348 385 408 500] 
+alphas: [1.2 0.7 1.2 0.7 1.2 0.7 1.2 0.7] 
+Ds: [0.77367364 0.01       0.77367364 0.01       0.77367364 0.01
+ 0.77367364 0.01      ]</code></pre>
+</div>
+</div>
+<p>This results in <span class="math inline">\(C\)</span> changepoints, which create <span class="math inline">\(C+1\)</span> segments, and hence <span class="math inline">\(C+1\)</span> values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span>.</p>
 </section>
-<section id="model-4---immobile-traps" class="level3">
-<h3 class="anchored" data-anchor-id="model-4---immobile-traps">Model 4 - Immobile traps</h3>
-<p>The forth model consider the presence of immobile traps of radius <span class="math inline">\(r\)</span> which completely immobilize the particles. Similar to the dimerization model, the particles have a probability <span class="math inline">\(P_b\)</span> of getting trapped if closer to the trap than a distance <span class="math inline">\(r\)</span> and a probability <span class="math inline">\(P_u\)</span> of escaping from it. The generator of this trajectories allows us (optional) to set the position of the traps. Let’s throw them randomly over the box:</p>
+<section id="model-3---dimerization" class="level3">
+<h3 class="anchored" data-anchor-id="model-3---dimerization">Model 3 - Dimerization</h3>
+<p>The third model considers a set of trajectories moving all in the same environment. They have all the same properties: <span class="math inline">\(D\)</span>, <span class="math inline">\(\alpha\)</span> and radius <span class="math inline">\(r\)</span>. If two particles get closer than a distance <span class="math inline">\(2r\)</span>, they bind with probability <span class="math inline">\(P_b\)</span> creating a dimer. Similarly, two dimerized particles may unbind with probability <span class="math inline">\(P_u\)</span>. This results in two diffusive states. Just as before, we can define the diffusion coefficients and exponents of both states. Let’s see an example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>number_traps <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>traps_positions <span class="op">=</span> np.random.rand(number_traps, <span class="dv">2</span>)<span class="op">*</span>L</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>trajs_model3, labels_model3 <span class="op">=</span> models_phenom().dimerization(N <span class="op">=</span> N, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                                                           L <span class="op">=</span> L,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                                           T <span class="op">=</span> T,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                                           alphas <span class="op">=</span> [<span class="fl">1.2</span>, <span class="fl">0.7</span>], <span class="co"># Fixed alpha for each state</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                                           Ds <span class="op">=</span> [<span class="dv">10</span><span class="op">*</span>D, <span class="fl">0.1</span><span class="op">*</span>D], <span class="co"># Fixed D for each state</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                                                           r <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Radius of the particles</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                                                           Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Binding probability</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                                                           Pu <span class="op">=</span> <span class="dv">0</span> <span class="co"># Unbinding probability</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, let’s put some particles in the system, with usual diffusion coefficient <span class="math inline">\(D\)</span> and an <span class="math inline">\(\alpha = 1.6\)</span>.</p>
+<p>Now, let’s plot the trajectories to see how particles dimerize.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trajs_model4, labels_model4 <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                                                             T <span class="op">=</span> T,                </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                                                             L <span class="op">=</span> L,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                                             r <span class="op">=</span> <span class="dv">1</span>, <span class="co"># radius of the traps</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                                             Pu <span class="op">=</span> <span class="fl">0.01</span>, <span class="co"># Unbinding probability</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                                                             Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Binding probability</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                                                             Ds <span class="op">=</span> D, <span class="co"># Diffusion coefficients of moving state</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                                                             alphas <span class="op">=</span> <span class="fl">1.6</span>, <span class="co"># Anomalous exponents of moving state</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                                                             Nt <span class="op">=</span> number_traps, <span class="co"># number of traps</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                                                             traps_pos <span class="op">=</span> traps_positions</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                                                             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model4, L, N, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>           labels <span class="op">=</span> labels_model4, plot_labels <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>           traps_positions <span class="op">=</span> traps_positions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model3, L, N, labels <span class="op">=</span> labels_model3, plot_labels <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="challenge_two_datasets_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>As you can see, in this case the particles superdiffuse until the hit a trap, moment in which they get immobilized!</p>
+<p>In the third row of the plot, we can see how the diffusve state changes when the particles dimerize! Since we have set <span class="math inline">\(P_u=0\)</span>, once the particles dimerize, they remain bound for the rest of the experiment.</p>
 </section>
-<section id="model-5---confinement" class="level3">
-<h3 class="anchored" data-anchor-id="model-5---confinement">Model 5 - Confinement</h3>
-<p>Last but not least, we have one of the most relevant models of the challenge: the presence of compartments, whose boundaries can prevent particles to exit them. Note that we consider here the case of <em>osmotic</em> boundaries, which means that the particles will always enter the compartment. Once inside, the boundaries have a certain transmittance <code>trans</code>, i.e.&nbsp;the probability of the particle exiting the compartment. Just as the case of immobile traps, we can define (optionally) a priori the compartments’ distribution. Note that we always consider here circular compartment of given radius <code>r</code>. You can use the following built-in function to distribute cercles over the environment, without overlap. If the algorithm does manage to place them all, a warning is printed, and only the circles states are placed.</p>
+<section id="model-4---immobile-traps" class="level3">
+<h3 class="anchored" data-anchor-id="model-4---immobile-traps">Model 4 - Immobile traps</h3>
+<p>The fourth model considers the presence of fixed traps of radius <span class="math inline">\(r\)</span> which completely immobilize the particles. Similar to the dimerization model, the particles have a probability <span class="math inline">\(P_b\)</span> of getting trapped and <span class="math inline">\(P_u\)</span> of getting released whenever they are within the area of the trap. The generator of this trajectories allows us (optional) to set the position of the traps beforehand. Let’s throw them randomly over the box:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>number_compartments <span class="op">=</span> <span class="dv">50</span><span class="op">;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>radius_compartments <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>compartments_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> number_compartments, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                                                      r <span class="op">=</span> radius_compartments,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                                                      L <span class="op">=</span> L <span class="co"># size of the environment</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                                                                      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>number_traps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>traps_positions <span class="op">=</span> np.random.rand(number_traps, <span class="dv">2</span>)<span class="op">*</span>L</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can check the distribution of the compartments like below. As you can see, the environment is quite dense!</p>
+<p>Now, let’s put some particles in the system with the usual diffusion coefficient <span class="math inline">\(D\)</span> and an <span class="math inline">\(\alpha = 1.6\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">4</span>,<span class="dv">4</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> compartments_center:</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), radius_compartments, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C1'</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle) </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlim <span class="op">=</span> (<span class="dv">0</span>, L), ylim <span class="op">=</span> (<span class="dv">0</span>, L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>trajs_model4, labels_model4 <span class="op">=</span> models_phenom().immobile_traps(N <span class="op">=</span> N,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                                                             T <span class="op">=</span> T,                </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                                                             L <span class="op">=</span> L,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                                                             r <span class="op">=</span> <span class="dv">2</span>, <span class="co"># Radius of the traps</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                                                             Pu <span class="op">=</span> <span class="fl">0.01</span>, <span class="co"># Unbinding probability</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                                                             Pb <span class="op">=</span> <span class="dv">1</span>, <span class="co"># Binding probability</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                                                             Ds <span class="op">=</span> D, <span class="co"># Diffusion coefficients of moving state</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                                                             alphas <span class="op">=</span> <span class="fl">1.6</span>, <span class="co"># Anomalous exponents of moving state</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                                                             Nt <span class="op">=</span> number_traps, <span class="co"># Number of traps</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                                                             traps_pos <span class="op">=</span> traps_positions</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                                                             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case, besides <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(D\)</span>, the labels also tell us when the particle is trapped with the label <code>0</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>np.unique(labels_model4[..., <span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code>[0.0, 192.0, 0.0, 192.0]</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="challenge_two_datasets_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+<pre><code>array([0., 2.])</code></pre>
 </div>
 </div>
-<p>Now, let’s introduce some diffusive particles in this environment. We will consider a quite extreme case, to nicely show the effect of the compartments. Outside the comparments, the particles will move very, very fast, at <span class="math inline">\(D_f = 1500D\)</span>. Replicating what we see in many biological scenarios, inside the compartments the particles will move much slower, <span class="math inline">\(D_s = 50 D\)</span>. Let’s keep the both diffusive with same anomalous exponent, <span class="math inline">\(\alpha = 1\)</span>.</p>
-<p><strong>Comment on default values:</strong> the default values for <code>alpha</code> are always 1 for all methods. Hence, if no exponents are given, all diffusive states are normally diffusing. Most of the variables of the functions presented here have default values, with similar values as the ones used in this notebook. If you want to know more, you can check their <a href="../lib_nbs/models_phenom.html">source code</a>.</p>
-<p>For the boundaries of the compartments, let’s consider a transmittance <code>trans</code> = 0.2:</p>
+<p>Let’s see some trajectory examples.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>trajs_model5, labels_model5 <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                                          L <span class="op">=</span> L,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">1500</span><span class="op">*</span>D, <span class="dv">50</span><span class="op">*</span>D],</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                                                          comp_center <span class="op">=</span> compartments_center,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                                                          r <span class="op">=</span> radius_compartments,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                                          trans <span class="op">=</span> <span class="fl">0.2</span> <span class="co"># boundary transmittance</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s see the resulting trajectories, superimposed to the cercles we create just before.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model5, L, N, </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>           comp_center <span class="op">=</span> compartments_center,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           r_cercle <span class="op">=</span> radius_compartments,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels_model5</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model4, L, N, </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>           labels <span class="op">=</span> labels_model4, plot_labels <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           traps_positions <span class="op">=</span> traps_positions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="challenge_two_datasets_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>With these extreme diffusion coefficient, he make it such that the particles move very fast from one compartment to the other. Once inside, the low transmittance of the boundaries make it such that they stay quite some time inside!</p>
+<p>The particles superdiffuse until they hit a trap, moment in which they get immobilized. In some cases, the particles may avoid the traps entirely and never be bound! (The size of the dot is not the size of the trap)</p>
+</section>
+<section id="model-5---confinement" class="level3">
+<h3 class="anchored" data-anchor-id="model-5---confinement">Model 5 - Confinement</h3>
+<p>Last but not least, we have one of the most relevant models of the challenge: the presence of compartments, whose boundaries can prevent particles from escaping them. Note that we consider here the case of <em>osmotic</em> boundaries, which means that particles will always enter the compartment. Once inside, the boundaries have a certain transmittance <code>trans</code>, i.e., the probability of the particle exiting the compartment. Just as the case of immobile traps, we can define (optionally) the compartments’ distribution a priori. Note that we always consider here circular compartments of fixed radius <code>r</code>. We can use the following built-in function to distribute cercles over the environment without overlap. If the algorithm does not manage to place them all, it raises a warning, and only the circles that fit are placed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>number_compartments <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>radius_compartments <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>compartments_center <span class="op">=</span> models_phenom._distribute_circular_compartments(Nc <span class="op">=</span> number_compartments, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                                                                      r <span class="op">=</span> radius_compartments,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                                                                      L <span class="op">=</span> L <span class="co"># size of the environment</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                                                                      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s check the distribution of the compartments. The environment is quite dense!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> compartments_center:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> plt.Circle((c[<span class="dv">0</span>], c[<span class="dv">1</span>]), radius_compartments, facecolor <span class="op">=</span> <span class="st">'None'</span>, edgecolor <span class="op">=</span> <span class="st">'C1'</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    ax.add_patch(circle) </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlim <span class="op">=</span> (<span class="dv">0</span>, L), ylim <span class="op">=</span> (<span class="dv">0</span>, L))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_two_datasets_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now, let’s introduce some diffusive particles in this environment. We will consider a rather extreme case to nicely show the effect of the compartments. Outside the comparments, the particles will move very, very fast, at <span class="math inline">\(D_f = 1500D\)</span>. Replicating what we see in many biological scenarios, the particles will move much slower, <span class="math inline">\(D_s = 50 D\)</span>, inside the compartments. Let’s keep the same <span class="math inline">\(\alpha = 1\)</span> for both diffusive states.</p>
+<p><strong>Comment on default values:</strong> the default values for <code>alpha</code> are always 1 for all methods. Hence, if no exponents are given, all diffusive states are normally diffusing. Most of the arguments of the functions presented in this tutorial have default values similar to the ones used in this notebook. If you want to know more, you can check their <a href="../lib_nbs/models_phenom.html">source code</a>.</p>
+<p>Let’s consider a transmittance <code>trans</code> = 0.2 for the compartment boundaries:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>trajs_model5, labels_model5 <span class="op">=</span> models_phenom().confinement(N <span class="op">=</span> N,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                                          L <span class="op">=</span> L,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                                          Ds <span class="op">=</span> [<span class="dv">1500</span><span class="op">*</span>D, <span class="dv">50</span><span class="op">*</span>D],</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                                                          comp_center <span class="op">=</span> compartments_center,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                                                          r <span class="op">=</span> radius_compartments,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                                                          trans <span class="op">=</span> <span class="fl">0.2</span> <span class="co"># Boundary transmittance</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                                                           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s see the resulting trajectories, superimposed to the cercles we created just before.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs_model5, L, N, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>           comp_center <span class="op">=</span> compartments_center,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>           r_cercle <span class="op">=</span> radius_compartments,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels_model5</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="challenge_two_datasets_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>With these extreme diffusion coefficients, the particles move very fast from one compartment to the other. Once inside, the low transmittance of the boundaries make it such that they stay for some time before they exit!</p>
 </section>
 </section>
 <section id="creating-datasets-with-multiple-models" class="level1">
 <h1>Creating datasets with multiple models</h1>
-<p>The library allows to generate simultaneously trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_phenom.html#datasets_phenom"><code>datasets_phenom</code></a>. Let’s import it and see some of its properties:</p>
+<p>The library allows to simultaneously generate trajectories from all the previous models, and gather them in a single dataset. To do so, we have created the the class <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_phenom.html#datasets_phenom"><code>datasets_phenom</code></a>. Let’s import it and see some of its properties:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>One of the first things we can check is the models that we can access with this class. Spoiler: they are the same we just reviewed above!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>datasets_phenom().avail_models_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>datasets_phenom().avail_models_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>['single_state',
  'multi_state',
@@ -535,10 +571,10 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
  'confinement']</code></pre>
 </div>
 </div>
-<p>As we have seen previously, each model has its own parameters. As we commented, most of them have some meaningful default values, so we can skip them when generating trajectories. Nonetheless, if you want to know the parameters for a given model, you can use:</p>
+<p>As we have seen previously, each model has its own parameters. Most of them have some sensible default values, so we can generally skip them when generating trajectories. Nonetheless, we can always easily see what are the parameters for a given model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">'confinement'</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>datasets_phenom()._get_inputs_models(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">'confinement'</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>datasets_phenom()._get_inputs_models(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>['N',
  'T',
@@ -554,51 +590,45 @@ Ds: [0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.   0.01 1.  ]</code></pre>
  'deltaT']</code></pre>
 </div>
 </div>
-<p>Of course, you can also check the <a href="https://andichallenge.github.io/andi_datasets/">Documentation</a> and inspect all the details about the models.</p>
-<p>In order to generate trajectories, we first need to set: 1) the models we want to generate trajectories from; 2) the properties of each of the models. For that, we need to create a <em>dictionary</em> that stores all the needed information. For each model, a dictionary is needed. Hence, for multiple models, we will need to input a list of dictionaries. For example, let’s create a dataset with trajectories from the dimerization (model 3) and confinement (model 5) models. We will make use of the default values of the previous models, and only input the binding/unbinding probability for the former and the transmittance for the latter.</p>
+<p>Of course, we encourage you to also check the <a href="https://andichallenge.github.io/andi_datasets/">documentation</a> and inspect all the details about the models.</p>
+<p>In order to generate trajectories, we first need to set: 1. the models we want to generate trajectories from 2. the properties of each of the models.</p>
+<p>To do so, we need to create a <em>dictionary</em> that stores all the needed information for each model. Hence, for multiple models, we will need to input a list of dictionaries. For example, let’s create a dataset with trajectories from the dimerization (model 3) and confinement (model 5) models. We will make use of the default values of the previous models, and only input the binding/unbinding probability for the former and the transmittance for the latter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dict_model3 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'dimerization'</span>, </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Pu'</span>: <span class="fl">0.1</span>, <span class="st">'Pb'</span>: <span class="dv">1</span>}</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>dict_model5 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'confinement'</span>, </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">'trans'</span>: <span class="fl">0.2</span>}</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>dict_all <span class="op">=</span> [dict_model3, dict_model5]</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>                                            </span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>dict_model3 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'dimerization'</span>, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">'Pu'</span>: <span class="fl">0.1</span>, <span class="st">'Pb'</span>: <span class="dv">1</span>}</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>dict_model5 <span class="op">=</span> {<span class="st">'model'</span>: <span class="st">'confinement'</span>, </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">'L'</span>: L,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">'trans'</span>: <span class="fl">0.2</span>}</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>dict_all <span class="op">=</span> [dict_model3, dict_model5]</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The trajectories arising from the previous function are ordered following the order of the input list of dictionaries. We requested <code>N_model = N = 50</code> trajectories per model, hence the dataset will have a total of 100 trajectories. The first 50 will come from the dimerization model and the last 50 from the confinement model.</p>
+<p>The trajectories arising from the previous function are ordered following the order of the input list of dictionaries. We requested <code>N_model = N = 100</code> trajectories per model, hence the dataset will have a total of 200 trajectories. The first 100 will come from the dimerization model and the last 100 from the confinement model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_trajectories <span class="im">import</span> plot_trajs</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plot_trajs(trajs, L, N, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>           plot_labels <span class="op">=</span> <span class="va">True</span>, labels <span class="op">=</span> labels</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="challenge_two_datasets_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+<p><img src="challenge_two_datasets_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <section id="saving-and-loading-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="saving-and-loading-datasets">Saving and loading datasets</h3>
 <p>Just as with the <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html#datasets_theory"><code>datasets_theory</code></a> class (check here the details), you can save and load datasets, so that you avoid creating trajectories every time you need them. The same function presented above has such options:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                                                 save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:268: UserWarning: The dataset you want to save already exists (file: dimerization_0.npy). Switching to Load mode.
-  warnings.warn(wrn_str)
-c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:189: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
-  df = df.append(dic, ignore_index = True)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                                                 save <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Saving creates two files per model:</p>
 <ul>
@@ -607,14 +637,11 @@ c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:189: Future
 </ul>
 <p>After saving, we can just load the dataset with the same function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_phenom <span class="im">import</span> datasets_phenom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>trajs, labels <span class="op">=</span> datasets_phenom().create_dataset(N_model <span class="op">=</span> N, <span class="co"># number of trajectories per model</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>                                                 T <span class="op">=</span> T,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                                                 dics <span class="op">=</span> dict_all,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

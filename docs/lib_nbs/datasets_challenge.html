@@ -360,15 +360,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code> challenge_theory_dataset (N:numpy.ndarray|int=1000, max_T:int=1000,
                            min_T:int=10, tasks:list|int=[1, 2, 3],
                            dimensions:list|int=[1, 2, 3],
-                           load_dataset:{'True','False'}=False,
-                           save_dataset:{'True','False'}=False,
+                           load_dataset:{'False','True'}=False,
+                           save_dataset:{'False','True'}=False,
                            path_datasets:str='',
-                           load_labels:{'True','False'}=True,
-                           load_trajectories:{'True','False'}=False,
-                           save_trajectories:{'True','False'}=False,
+                           load_labels:{'False','True'}=True,
+                           load_trajectories:{'False','True'}=False,
+                           save_trajectories:{'False','True'}=False,
                            path_trajectories:str='datasets/',
                            N_save:int=1000, t_save:int=1000,
-                           return_noise:{'True','False'}=False)</code></pre>
+                           return_noise:{'False','True'}=False)</code></pre>
 </blockquote>
 <p>Creates a dataset similar to the one given by in the ANDI 1 challenge. Check the webpage of the challenge for more details. The default values are similar to the ones used to generate the available dataset.</p>
 <p>The function returns 6 variables, three variables for the trajectories and three for the corresponding labels. Each variable is a list of three lists. Each of the three lists corresponds to a given dimension, in ascending order. If one of the tasks/dimensions was not calculated, the given list will be empty.</p>
@@ -421,13 +421,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>load_dataset</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module loads existing datasets from the files task{}.txt and ref{}.txt.</td>
 </tr>
 <tr class="odd">
 <td>save_dataset</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module saves the datasets in a .txt following the competition format.</td>
 </tr>
@@ -439,19 +439,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>load_labels</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>True</td>
 <td>If False, only loads trajectories and avoids the files refX.txt.</td>
 </tr>
 <tr class="even">
 <td>load_trajectories</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module loads the trajectories of an .h5 file.</td>
 </tr>
 <tr class="odd">
 <td>save_trajectories</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module saves a .h5 file for each model considered, with N_save trajectories and T = T_save.</td>
 </tr>
@@ -475,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>return_noise</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, returns the amplitudes of the noises added to the trajectories.</td>
 </tr>
