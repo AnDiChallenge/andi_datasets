@@ -121,10 +121,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -246,6 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../tutorials/creating_videos_phenom.html" class="sidebar-item-text sidebar-link">2. Create videos</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/challenge_two_submission.html" class="sidebar-item-text sidebar-link">3. Create submissions</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -269,11 +270,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#saving-and-loading-datasets" id="toc-saving-and-loading-datasets" class="nav-link" data-scroll-target="#saving-and-loading-datasets">Saving and loading datasets</a></li>
   </ul></li>
-  <li><a href="#generating-the-andi-2-challenge-dataset" id="toc-generating-the-andi-2-challenge-dataset" class="nav-link" data-scroll-target="#generating-the-andi-2-challenge-dataset">Generating the ANDI 2 challenge dataset</a>
-  <ul class="collapse">
-  <li><a href="#defining-the-dataset-properties" id="toc-defining-the-dataset-properties" class="nav-link" data-scroll-target="#defining-the-dataset-properties">Defining the dataset properties</a></li>
-  </ul></li>
-  <li><a href="#scoring-your-predictions" id="toc-scoring-your-predictions" class="nav-link" data-scroll-target="#scoring-your-predictions">Scoring your predictions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -620,317 +616,12 @@ c:\users\gorka\github\andi_datasets\andi_datasets\datasets_phenom.py:189: Future
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                                 load <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'datasets_folder/'</span></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                                                )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+
+
 </section>
 </section>
-<section id="generating-the-andi-2-challenge-dataset" class="level1">
-<h1>Generating the ANDI 2 challenge dataset</h1>
-<p>Here we showcase how to generate the exact same dataset used as training / public dataset in the Codalab competition.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generic libraries</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions needed from andi_datasets</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.datasets_challenge <span class="im">import</span> challenge_phenom_dataset, _get_dic_andi2, _defaults_andi2</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> load_file_to_df, error_SingleTraj_dataset, file_nonOverlap_reOrg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/gorka/miniconda3/envs/andi/lib/python3.10/site-packages/deeptrack/backend/_config.py:11: UserWarning: cupy not installed. GPU-accelerated simulations will not be possible
-  warnings.warn(
-/home/gorka/miniconda3/envs/andi/lib/python3.10/site-packages/deeptrack/backend/_config.py:25: UserWarning: cupy not installed, CPU acceleration not enabled
-  warnings.warn("cupy not installed, CPU acceleration not enabled")</code></pre>
-</div>
-</div>
-<section id="defining-the-dataset-properties" class="level3">
-<h3 class="anchored" data-anchor-id="defining-the-dataset-properties">Defining the dataset properties</h3>
-<p><strong>Setting a single FOV per experiment:</strong> In order to have the most heterogeneous dataset, we will avoid overlapping FOVs by generating various experiments for each condition and then a single FOV for each of this. Then, we will use the function <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/utils_challenge.html#file_nonoverlap_reorg"><code>file_nonOverlap_reOrg</code></a> to reorganize the data in the form proposed in the challenge.</p>
-<p>Our goal is to have 10 experiments (2 per phenomenological model) with 30 FOVs each. This means that we will generate 300 independent experiments, but considering that batches of 30 have the exact same properties. After generating this data, we will reorganize the dataset to have the structure proposed in the challenge.</p>
-<p>We will follow a common pattern: - First experiment for each model will be sampled from the default parameters (given by <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_challenge.html#_get_dic_andi2"><code>_get_dic_andi2</code></a> and defined in <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_challenge.html#_defaults_andi2"><code>_defaults_andi2</code></a>) - Second experiment will be an “easy” one, in which the different states will be clearly differentiated. We will also do some tweaks to make them interesting!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can change this at will. The public dataset is made 10 Experiments of 30 FOVs each</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>EXPERIMENTS <span class="op">=</span> np.arange(<span class="dv">2</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>NUM_FOVS <span class="op">=</span> <span class="dv">2</span> </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>PATH <span class="op">=</span> <span class="st">'andi2_dataset/'</span> <span class="co"># Chose your path!</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># import stochastic</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># stochastic.random.seed(1)</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>dics <span class="op">=</span> []</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>current_idx_model <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, i <span class="kw">in</span> <span class="bu">enumerate</span>(EXPERIMENTS):  </span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We use the default values to generate an initial dictionary</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> _get_dic_andi2(i<span class="op">+</span><span class="dv">1</span>) </span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    dic[<span class="st">'T'</span>] <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    dic[<span class="st">'N'</span>] <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Now we set the parameters different experiments:</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#### SINGLE STATE ####</span></span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>: <span class="cf">pass</span> <span class="co"># default values    </span></span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([<span class="fl">1.5</span>, <span class="fl">0.01</span>])</span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'Ds'</span>] <span class="op">=</span> np.array([<span class="fl">0.01</span>, <span class="fl">0.01</span>])</span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">#### MULTI STATE ####</span></span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>: <span class="cf">pass</span> <span class="co"># default values </span></span>
-<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: <span class="co"># 3-state model with various alphas            </span></span>
-<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'Ds'</span>] <span class="op">=</span> np.array([[<span class="fl">0.99818417</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a>                                  [<span class="fl">0.08012007</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>                                  [<span class="fl">1.00012007</span>, <span class="fl">0.01</span>      ]])</span>
-<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([[<span class="fl">0.84730977</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a>                                      [<span class="fl">0.39134136</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a>                                      [<span class="fl">1.51354654</span>, <span class="fl">0.01</span>]])</span>
-<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'M'</span>] <span class="op">=</span> np.array([[<span class="fl">0.98</span>, <span class="fl">0.01</span>, <span class="fl">0.01</span>],</span>
-<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a>                                 [<span class="fl">0.01</span>, <span class="fl">0.98</span>, <span class="fl">0.01</span>],</span>
-<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a>                                 [<span class="fl">0.01</span>, <span class="fl">0.01</span>, <span class="fl">0.98</span>]])  </span>
-<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">#### IMMOBILE TRAPS ####</span></span>
-<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">2</span>:</span>
-<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>: </span>
-<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Because the next one will be easy, we set this one to a difficult alpha (subdiffusive)</span></span>
-<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We pump D to ensure exploration</span></span>
-<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([<span class="fl">0.2</span>, <span class="fl">0.01</span>      ])</span>
-<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'Ds'</span>] <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="fl">0.01</span>      ])</span>
-<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([<span class="fl">1.9</span>, <span class="fl">0.01</span>      ])</span>
-<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a>    <span class="co">#### DIMERIZATION ####</span></span>
-<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>: <span class="cf">pass</span> <span class="co"># default values    </span></span>
-<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'Ds'</span>] <span class="op">=</span> np.array([[<span class="fl">1.2</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a>                                  [<span class="fl">0.02</span>, <span class="fl">0.01</span>      ]])</span>
-<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([[<span class="fl">1.5</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a>                                      [<span class="fl">0.5</span>, <span class="fl">0.01</span>      ]])</span>
-<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">#### CONFINEMENT ####</span></span>
-<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">4</span>:</span>
-<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> idx <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>: <span class="cf">pass</span> <span class="co"># default values    </span></span>
-<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb37-73"><a href="#cb37-73" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'Ds'</span>] <span class="op">=</span> np.array([[<span class="fl">1.02</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-74"><a href="#cb37-74" aria-hidden="true" tabindex="-1"></a>                                  [<span class="fl">0.01</span>, <span class="fl">0.01</span>      ]])</span>
-<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a>            dic[<span class="st">'alphas'</span>] <span class="op">=</span> np.array([[<span class="fl">1.8</span>, <span class="fl">0.01</span>      ],</span>
-<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a>                                      [<span class="fl">0.9</span>, <span class="fl">0.01</span>      ]])</span>
-<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(NUM_FOVS):</span>
-<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a>        dics.append(dic)</span>
-<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a>    current_idx_model <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>challenge_phenom_dataset(save_data <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                         dics <span class="op">=</span> dics,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                         path <span class="op">=</span> PATH, return_timestep_labs<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                         num_fovs <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                         get_video <span class="op">=</span> <span class="va">True</span>, num_vip<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"9bb30f9cb36244baba47ce18ec58fd1c","version_major":2,"version_minor":0}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Creating dataset for Exp_0 (single_state).
-Generating video for EXP 0 FOV 0
-Creating dataset for Exp_1 (single_state).
-Generating video for EXP 1 FOV 0
-Creating dataset for Exp_2 (multi_state).
-Generating video for EXP 2 FOV 0
-Creating dataset for Exp_3 (multi_state).
-Generating video for EXP 3 FOV 0</code></pre>
-</div>
-</div>
-<section id="organizing-in-challenge-form" class="level4">
-<h4 class="anchored" data-anchor-id="organizing-in-challenge-form">Organizing in challenge form</h4>
-<p>Merging and reorganizing the dataset generated in the challenge form. Considering that you want to <strong>also save the labels</strong>, the structure is as follows:</p>
-<pre><code>PATH
-│
-└─── track_1 (videos)
-|   │
-|   └─── exp_Y
-│        │
-│        └─── videos_fov_X.tiff (video for each fov)
-│        │
-│        └─── ensemble_labels.txt (information at the ensemble level for the whole experiment)
-│        │
-│        └─── traj_labs_fov_X.txt (information for each trajectory for the whole experiment)
-│        │
-│        └─── ens_labs_fov_X.txt (information at the ensemble level for each FOV)
-│        │
-│        └─── vip_idx_fov_X.txt (index of VIP particles)
-│ 
-│
-└─── track_2 (trajectories)
-    │
-    └─── exp_Y
-        │
-        └─── traj_fov_X.txt (trajectories for each FOV) 
-        │
-        └─── ensemble_labels.txt (information at the ensemble level for the whole experiment)
-        │
-        └─── traj_labs_fov_X.txt (information for each trajectory for the whole experiment)
-        │
-        └─── ens_labs_fov_X.txt (information at the ensemble level for each FOV)</code></pre>
-<p>For <strong>unlabelled</strong> datasets like the one provided in the challenge, the structure is as follows:</p>
-<pre><code>PATH
-│
-└─── track_1 (videos)
-|   │
-|   └─── exp_Y
-│        │
-│        └─── videos_fov_X.tiff (video for each fov)
-│ 
-│
-└─── track_2 (trajectories)
-    │
-    └─── exp_Y
-        │
-        └─── traj_fov_X.txt (trajectories for each FOV) </code></pre>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>target_folder <span class="op">=</span> PATH <span class="op">+</span> <span class="st">'ref/'</span> <span class="co"># this name is important for later stages.</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>raw_folder <span class="op">=</span> PATH</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to save all data, including labels, the following must be True</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If you only want to save trajectories / videos in the challenge structure,</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># change to False</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>save_labels <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>file_nonOverlap_reOrg(raw_folder <span class="op">=</span> raw_folder,</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>                      target_folder <span class="op">=</span> target_folder, </span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>                      experiments <span class="op">=</span> EXPERIMENTS,</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>                      num_fovs <span class="op">=</span> NUM_FOVS,</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>                      save_labels<span class="op">=</span> save_labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Experiment 0: 1.0
-Experiment 1: [0.28 0.39 0.33]</code></pre>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="scoring-your-predictions" class="level1">
-<h1>Scoring your predictions</h1>
-<p>All the scoring programs used in codalab are also available in the library. Here is an example with the dataset we just generated.</p>
-<p>To simplify, we will use the same dataset we just generated as submission. <strong>We will consider here only Track 2 too</strong>. As groundtruth and predictions are the same, the metrics will always be perfect!</p>
-<p>The structure for a prediction follows the same pattern as the reference. For the program to work, the groundtruth /reference must be in a folder called <code>ref</code> and the predictions / results in a folder called <code>res</code>, both placed in the <code>PATH</code>. The whole structure should be as following:</p>
-<pre><code>PATH
-│
-└─── ref (the one you created and reorganized above. Should contain labels, i.e. save_labels = True)
-|
-└─── res (the one containing your predictions)
-    │
-    └─── track_1 
-    |   │
-    |   └─── exp_Y
-    │        │
-    │        └─── fov_X.txt (predictions for VIP particles for each FOV)
-    │        │
-    │        └─── ensemble_labels.txt (predictions at the ensemble level for the whole experiment)
-    │ 
-    │
-    └─── track_2 
-        │
-        └─── exp_Y
-            │
-            └─── fov_X.txt (predictions for single trajectories for each FOV)
-            │
-            └─── ensemble_labels.txt (predictions at the ensemble level for the whole experiment)</code></pre>
-<p>Note that you can choose to participate just in one of the tracks (video or trajectories) or tasks (ensemble or single trajectory). This will not rise an error in the scoring program, just None predictions to the rest. As we are here participating just in Track 2, all scores for Track 1 will be set to their maximum possible values (these can be found in the challenge description or in <code>utils_challenge._get_error_bounds</code>.</p>
-<p><strong>Note:</strong> You can skip the following if you have created your own predictions.</p>
-<p>To proceed, we copy the <code>ref</code> folder, name the new copy <code>res</code>, and delete the <code>track_1</code> folder. Then, we use the following function to transform the reference dataset into a submission dataset (mostly changes the names of the files <code>traj_labs_fov_X.txt</code> into <code>fov_X.txt</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> transform_ref_to_res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>transform_ref_to_res(base_path <span class="op">=</span> PATH <span class="op">+</span> <span class="st">'res/'</span>,</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                     track <span class="op">=</span> <span class="st">'track_2'</span>,</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                     num_fovs <span class="op">=</span> NUM_FOVS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>To score your predictions, you just need to run:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> andi_datasets.utils_challenge <span class="im">import</span> codalab_scoring</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>PATH <span class="op">=</span> <span class="st">'andi2_dataset/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>codalab_scoring(INPUT_DIR <span class="op">=</span> PATH,</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                OUTPUT_DIR <span class="op">=</span> <span class="st">'.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/gorka/github/andi_datasets/andi_datasets/utils_challenge.py:1676: UserWarning: No submission for track 1 found.
-  warnings.warn(wrn_str)</code></pre>
-</div>
-</div>
-<p>The warnings give you important information about missing tracks, tasks and others. The results are then give in two formats:</p>
-<ul>
-<li><code>scores.txt</code>: this file contains the average values over all experiments for the different Tracks and Tasks. If you followed this example and didn’t include you own predictions, it should look like this:</li>
-</ul>
-<pre><code>tr1.ta1.alpha: 2
-tr1.ta1.D: 100000.0
-tr1.ta1.state: 0
-tr1.ta1.cp: 10
-tr1.ta1.JI: 0
-tr1.ta2.alpha: 1.999
-tr1.ta2.D: 1000000.0
-tr2.ta1.cp: 0.0
-tr2.ta1.JI: 1.0
-tr2.ta1.alpha: 0.0
-tr2.ta1.D: 0.0
-tr2.ta1.state: 1.0
-tr2.ta2.alpha: 0.0
-tr2.ta2.D: 0.0</code></pre>
-<p><code>trX.taY.ZZ</code> refer to the track X, task Y and property ZZ. As you can see, because in our example we only considered Track 2, all results for Track 1 are set the their maximum possible values. The rest are the best score that can be achieved in each task (as reference = submissions).</p>
-<ul>
-<li><code>html/scores.html</code>: contains a summary of the results for each track / task. It contains the following tables:</li>
-</ul>
-<center>
-<h3 class="anchored" data-anchor-id="scoring-your-predictions">
-Task 1: single
-</h3>
-</center>
 
-<pre><code>  &lt;th&gt;num_trajs&lt;/th&gt;      &lt;th&gt;RMSE CP&lt;/th&gt;      &lt;th&gt;JI CP&lt;/th&gt;      &lt;th&gt;alpha&lt;/th&gt;      &lt;th&gt;D&lt;/th&gt;      &lt;th&gt;state&lt;/th&gt;    &lt;/tr&gt;  &lt;/thead&gt;  &lt;tbody&gt;    &lt;tr&gt;      &lt;td&gt;0&lt;/td&gt;      &lt;td&gt;129&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;1.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;1.0&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;      &lt;td&gt;1&lt;/td&gt;      &lt;td&gt;95&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;1.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;1.0&lt;/td&gt;    &lt;/tr&gt;  &lt;/tbody&gt;&lt;/table&gt;</code></pre><center>
-<h3 class="anchored">
-Task 2: ensemble
-</h3>
-</center><table class="dataframe table table-sm table-striped">
-<thead>
-<tr>
-<th>
-Experiment
-</th>
-
-
-
-</tr></thead></table><pre><code>  &lt;th&gt;alpha&lt;/th&gt;      &lt;th&gt;D&lt;/th&gt;    &lt;/tr&gt;  &lt;/thead&gt;  &lt;tbody&gt;    &lt;tr&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;      &lt;td&gt;1.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;      &lt;td&gt;0.0&lt;/td&gt;    &lt;/tr&gt;  &lt;/tbody&gt;&lt;/table&gt;</code></pre><p>Now you can adapt this code to locally test your submissions. We also encourage you to check the documentation of <code>utils_challenge.run_single_task</code> and <code>utils_challenge.run_ensemble_task</code> to know more of what is going on in the scoring program!</p><table class="dataframe table table-sm table-striped">
-<thead>
-<tr>
-<th>
-Experiment
-</th>
-
-
-
-
-
-
- <!-- /main -->
-<script type="application/vnd.jupyter.widget-state+json">
-{"state":{},"version_major":2,"version_minor":0}
-</script>
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1064,8 +755,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
- <!-- /content -->
+</div> <!-- /content -->
 
 
 
-</tr></thead></table></section></main></div></body></html>
+</body></html>
