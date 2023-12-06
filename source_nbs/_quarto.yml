@@ -82,3 +82,4 @@ website:
           contents:
             - tutorials/challenge_two_datasets.ipynb
             - tutorials/creating_videos_phenom.ipynb 
+            - tutorials/challenge_two_submission.ipynb

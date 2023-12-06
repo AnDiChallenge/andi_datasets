@@ -139,5 +139,5 @@ https://doi.org/10.1038/s41467-021-26320-w
 G. Muñoz-Gil, H. Bachimanchi ...  C. Manzo
 In-principle accepted at Nature Communications (Registered Report Phase 1)
 arXiv:2311.18100
-https://doi.org/10.48550/arXiv.2310.14395
+https://doi.org/10.48550/arXiv.2311.18100
 ```
