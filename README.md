@@ -15,11 +15,11 @@ Generate, manage and analyze anomalous diffusion trajectories
 </p>
 <p align="center">
 <a href="https://andichallenge.github.io/andi_datasets/">Get started</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/index_docs.html">Documentation</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/tutorials/index_tutorials.html">Tutorials</a>
-\| <a href="#cite-us">Cite us</a>
+| <a href="#cite-us">Cite us</a>
 </p>
 
 This library has been created in the framework of the [**Anomalous
