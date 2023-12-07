@@ -617,9 +617,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>video, masks <span class="op">=</span> transform_to_video(trajs_test,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                  with_masks<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                  get_vip_particles<span class="op">=</span>np.arange(<span class="dv">55</span>).tolist(),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                  background_props <span class="op">=</span> {<span class="st">"background_mean"</span>: <span class="dv">0</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">"background_std"</span>: <span class="dv">0</span>}, </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                 optics_props <span class="op">=</span> {<span class="st">'origin'</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">20</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                  particle_props <span class="op">=</span> {<span class="st">"z"</span>: <span class="dv">0</span>},</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                  background_props <span class="op">=</span> {<span class="st">"background_mean"</span>: <span class="dv">0</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                                      <span class="st">"background_std"</span>: <span class="dv">0</span>}, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                 optics_props <span class="op">=</span> {<span class="st">'origin'</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">20</span>,<span class="dv">20</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Play generated video in jupyter notebook</p>
 <div class="cell">
