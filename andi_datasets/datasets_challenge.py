@@ -9,6 +9,7 @@ from tqdm.auto import tqdm
 import pandas as pd
 import os
 import csv
+import shutil
 
 from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
@@ -781,7 +782,10 @@ def challenge_phenom_dataset(experiments = 5,
             for item in os.listdir(path):
                 item_path = os.path.join(path, item)
                 if item != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
-                    os.remove(item_path)
+                    if os.path.isdir(item_path):
+                        shutil.rmtree(item_path)  # Remove directories
+                    else:
+                        os.remove(item_path)  # Remove files
     
     if get_video:
         return trajs_out, videos_out, labels_traj_out, labels_ens_out
