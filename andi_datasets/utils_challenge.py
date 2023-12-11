@@ -1500,7 +1500,8 @@ def when_error_single(wrn_str):
     max_error_JI = 0
     
     return (max_error_cp, max_error_JI, max_error_alpha, max_error_D, max_error_s) , pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
-                                                                                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JI CP', 'alpha', 'D', 'state'])
+                                                                                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 
+                                                                                                                 'JSC CP', 'alpha', 'K', 'state'])
 
 
 def run_single_task(exp_nums, track, submit_dir, truth_dir):
@@ -1530,7 +1531,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
             
             ### If one file does not exists, abort a return Nones ###
             if not os.path.isfile(corresponding_submission_file):
-                wrn_str = f'Prediction missing for: -- Task 1 | Track {track} | Experiment {exp} | FOV {fov} -- not found. Task 1 will not be computed.'
+                wrn_str = f'Prediction missing for: -- Track {track} | Task SingleTraj  | Experiment {exp} | FOV {fov} -- not found and will not be computed.'
                 return when_error_single(wrn_str)
                 
                 
@@ -1573,7 +1574,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
         data_metrics.append([exp, df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
 
     # Put all results in dataframe    
-    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JSC CP', 'alpha', 'D', 'state'])
+    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JSC CP', 'alpha', 'K', 'state'])
     # Calculate weighted averages
     avg_metrics = []
     for key in data_metrics.keys()[2:]:
@@ -1610,16 +1611,16 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
             avg_d.append(distance_d_exp)
             
         except:
-            wrn_str = f'Prediction missing for: -- Task 2 | Track {track} | Experiment {exp} -- not found. Task 2 will not be computed.'
+            wrn_str = f'Prediction missing for: -- Track {track} | Task Ensemble | Experiment {exp} -- not found and will not be computed.'
             warnings.warn(wrn_str)
             # Get the max error possible for the task
             _,_,_,_, max_error_a, max_error_D = _get_error_bounds()
             
             return (max_error_a, max_error_D), pandas.DataFrame(data = np.array([None, None, None]).reshape(1,3), 
-                                              columns = ['Experiment', 'alpha', 'D']) 
+                                              columns = ['Experiment', 'alpha', 'K']) 
         
     data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
-                                    columns = ['Experiment', 'alpha', 'D'])
+                                    columns = ['Experiment', 'alpha', 'K'])
     data_metrics['Experiment'] = data_metrics['Experiment'].values.astype(int)
         
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
@@ -1711,7 +1712,6 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
                     
                 # Changing the name of JI to JSC to match paper nomenclature
-                df = df.rename(columns={'JI': 'JSC', 'D': 'K'})
                 html_file.write(df.to_html(index = False).replace('\n',''))
               
 
@@ -1721,7 +1721,6 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
                 for name, res in zip(['alpha','D'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')      
-                df = df.rename(columns={'D': 'K'})    
                 html_file.write(df.to_html(index = False).replace('\n',''))
    
 
