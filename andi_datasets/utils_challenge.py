@@ -1711,6 +1711,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
                     
                 # Changing the name of JI to JSC to match paper nomenclature
+                df = df.rename(columns={'JI': 'JSC'})
                 html_file.write(df.to_html(index = False).replace('\n',''))
               
 
