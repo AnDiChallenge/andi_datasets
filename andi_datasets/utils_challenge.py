@@ -1711,7 +1711,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
                     
                 # Changing the name of JI to JSC to match paper nomenclature
-                df = df.rename(columns={'JI': 'JSC'})
+                df = df.rename(columns={'JI': 'JSC', 'D': 'K'})
                 html_file.write(df.to_html(index = False).replace('\n',''))
               
 
@@ -1721,7 +1721,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
                 for name, res in zip(['alpha','D'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')      
-                    
+                df = df.rename(columns={'D': 'K'})    
                 html_file.write(df.to_html(index = False).replace('\n',''))
    
 
