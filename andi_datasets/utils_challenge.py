@@ -326,17 +326,27 @@ def df_to_array(df, pad = -1):
 from pathlib import Path
 import shutil
 
-def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by datasets_challenge.challenge_phenom_dataset
-                          target_folder, 
-                          experiments, 
-                          num_fovs,                          
+def file_nonOverlap_reOrg(# Original folder with data produced by datasets_challenge.challenge_phenom_dataset
+                          raw_folder: str, 
+                          # Folder where to put reorganized files
+                          target_folder: str, 
+                          # Number of experiments
+                          experiments: int, 
+                          # Number of FOVS
+                          num_fovs: int,                          
+                          # Track to consider
                           tracks = [1,2],
-                          save_labels = False, # If True, moves all data (also labels,.. etc). Do True only if saving reference / groundtruth data
+                          # If True, moves all data (also labels,.. etc). Do True only if saving reference / groundtruth data.
+                          # Moreover, if True also save the trajectories for the video track
+                          save_labels = False, 
+                          # Which task to consider
                           task = ['single', 'ensemble'],
+                          # If True prints, the percentage of states for each experiment
                           print_percentage = True):
     ''' 
     This considers that you have n_fovs*n_experiments 'fake' experiments 
     and organize them based on the challenge instructions
+    
     '''
     
     if save_labels:
@@ -389,7 +399,7 @@ def file_nonOverlap_reOrg(raw_folder, # original folder with data produced by da
 
             # Move single trajectory information
             for name, ext in zip(names_files, extensions):            
-                if track == 1 and name == 'trajs_': continue
+                if track == 1 and name == 'trajs_' and save_labels == False: continue
                 if track == 2 and (name == 'videos_' or name == 'vip_idx_'): continue
 
                 shutil.copyfile(src = raw_folder + name + f'exp_{k}_fov_0'+ext, 
