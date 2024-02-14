@@ -1728,8 +1728,11 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             if task == 'ensemble':
 
                 avg_metrics, df = run_ensemble_task(exp_nums, track, submit_dir, truth_dir)
-
-                for name, res in zip(['alpha','D'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
+                
+                ''' There was a problem with the leaderboard labels and we had to SWAP alpha and D in the 
+                first element of the zip, i.e. the list is now ['D', 'alpha'] but avg_metrics is [alpha, D] '''
+                for name, res in zip(['D','alpha'], avg_metrics):
+                
                     output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')      
                 html_file.write(df.to_html(index = False).replace('\n',''))
    
