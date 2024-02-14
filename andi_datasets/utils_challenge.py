@@ -1545,7 +1545,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
                 vip_idx = np.loadtxt(path_true + f'vip_idx_fov_{fov}.txt').astype(int)
                 pred_vip_idx = preds_fov.traj_idx.values.astype(int)
 
-                if len(vip_idx) != len(pred_vip_idx) or (vip_idx != pred_vip_idx).any():
+                if len(vip_idx) != len(pred_vip_idx) or (np.sort(vip_idx) != np.sort(pred_vip_idx)).any():
                     wrn_str = f'Index of predicted VIP  particles does not correspond to true values (Track {track}, Exp {exp}, FOV {fov}). Be sure to correctly extract the correct index from the .tiff file'
                     return when_error_single(wrn_str)
                 
