@@ -1510,7 +1510,7 @@ def when_error_single(wrn_str):
     max_error_JI = 0
     
     return (max_error_cp, max_error_JI, max_error_alpha, max_error_D, max_error_s) , pandas.DataFrame(data = np.array([None]*7).reshape(1,7), 
-                                                                                                      columns = ['Experiment', 'num_trajs', 'RMSE CP', 
+                                                                                                      columns = ['Exp', 'num_trajs', 'RMSE CP', 
                                                                                                                  'JSC CP', 'alpha', 'K', 'state'])
 
 
@@ -1584,7 +1584,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
         data_metrics.append([exp, df_true_exp.shape[0], rmse_CP_exp, JI, error_alpha_exp, error_D_exp, error_s_exp])
 
     # Put all results in dataframe    
-    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Experiment', 'num_trajs', 'RMSE CP', 'JSC CP', 'alpha', 'K', 'state'])
+    data_metrics = pandas.DataFrame(data = data_metrics, columns = ['Exp', 'num_trajs', 'RMSE CP', 'JSC CP', 'alpha', 'K', 'state'])
     # Calculate weighted averages
     avg_metrics = []
     for key in data_metrics.keys()[2:]:
@@ -1627,11 +1627,11 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
             _,_,_,_, max_error_a, max_error_D = _get_error_bounds()
             
             return (max_error_a, max_error_D), pandas.DataFrame(data = np.array([None, None, None]).reshape(1,3), 
-                                              columns = ['Experiment', 'alpha', 'K']) 
+                                              columns = ['Exp', 'alpha', 'K']) 
         
     data_metrics = pandas.DataFrame(data = np.vstack((np.arange(len(avg_alpha)),avg_alpha, avg_d)).transpose(),
-                                    columns = ['Experiment', 'alpha', 'K'])
-    data_metrics['Experiment'] = data_metrics['Experiment'].values.astype(int)
+                                    columns = ['Exp', 'alpha', 'K'])
+    data_metrics['Exp'] = data_metrics['Exp'].values.astype(int)
         
     return (np.mean(avg_alpha), np.mean(avg_d)),  data_metrics
 
@@ -1687,22 +1687,31 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             wrn_str = f'No submission for track {track} found.'
             warnings.warn(wrn_str)
             
-            for idx_task, task in enumerate(['single', 'ensemble']):
+            for task in enumerate(['single', 'ensemble']): 
+                # Codalab naming:
+                # task 1 : single traj
+                # task 2: ensemble
+                idx_task = 1 if task == 'single' else 2
                 
                 # single trajectories
-                if idx_task == 0:                    
+                if task == 'single':                    
                     for name, max_error in zip(['alpha','D','state', 'cp','JI'], list(_get_error_bounds()[:-2])+[0]): # This names must be the same as used in the yaml leaderboard                  
-                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(max_error) +'\n')
-                elif idx_task == 1:
+                        output_file.write(f'tr{track}.ta1{idx_task}.'+name+': '+str(max_error) +'\n')
+                elif task == 'ensemble':
                     for name, max_error in zip(['alpha','D'], _get_error_bounds()[-2:]): # This names must be the same as used in the yaml leaderboard
-                        output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(max_error) +'\n')
+                        output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(max_error) +'\n')
             continue
         ##### ------------------------------------------------------------------------ #####
         
         
         html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
 
-        for idx_task, task in enumerate(['single', 'ensemble']): # Task 1: single trajectory  |   Task 2: ensemble
+        for task in ['ensemble', 'single']: 
+
+            # Codalab naming:
+            # task 1 : single traj
+            # task 2: ensemble
+            idx_task = 1 if task == 'single' else 2
             
             if task == 'single':
                 html_file.write(f'<h3> Single Trajectory Task </h3>')
@@ -1719,10 +1728,17 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 avg_metrics, df = run_single_task(exp_nums, track, submit_dir, truth_dir )
 
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
-                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')
-                    
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
+
+                ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
+                get printed in the detailed results.
+                Moreover, we change the names to match leaderboard. '''
+                df_swapped = df.iloc[:,[0,1,2,3,5,4,6]]
+                df_swapped = df_swapped.rename(columns = {'alpha': 'MAE (alpha)', 'K': 'MSLE (K)',
+                                                          'RMSE CP': 'RMSE (CP)', 'JSC CP': 'JSC (CP)',
+                                                          'state': 'F1 (diff. type)'})
                 # Changing the name of JI to JSC to match paper nomenclature
-                html_file.write(df.to_html(index = False).replace('\n',''))
+                html_file.write(df_swapped.to_html(index = False).replace('\n',''))
               
 
             if task == 'ensemble':
@@ -1731,10 +1747,16 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 
                 ''' There was a problem with the leaderboard labels and we had to SWAP alpha and D in the 
                 first element of the zip, i.e. the list is now ['D', 'alpha'] but avg_metrics is [alpha, D] '''
-                for name, res in zip(['D','alpha'], avg_metrics):
+                for name, res in zip(['D','alpha'], avg_metrics):                
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')      
+
+                ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
+                get printed in the detailed results.
+                Moreover, we change the names to match leaderboard. '''
+                df_swapped = df.iloc[:,[0,2,1]]                
+                df_swapped = df_swapped.rename(columns = {'alpha': r'W1 (alpha)', 'K': 'W1 (K)'})
                 
-                    output_file.write(f'tr{track}.ta{idx_task+1}.'+name+': '+str(res) +'\n')      
-                html_file.write(df.to_html(index = False).replace('\n',''))
+                html_file.write(df_swapped.to_html(index = False).replace('\n',''))
    
 
     html_file.close()
