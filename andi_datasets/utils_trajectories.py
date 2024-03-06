@@ -158,23 +158,21 @@ def normalize_fGN(disp, alpha, D, T: int, deltaT : int = 1):
     return disp*np.sqrt(T)**(alpha)*np.sqrt(2*D*deltaT)
 
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 23
-import math
-
 class trigo():
-    
+
     '''
     This class gathers multiple useful trigonometric relations.
-    
+
     Inspired from:
     https://stackoverflow.com/questions/30844482/what-is-most-efficient-way-to-find-the-intersection-of-a-line-and-a-circle-in-py 
     and http://mathworld.wolfram.com/Circle-LineIntersection.html'''
 
     def circle_line_segment_intersection(circle_center, circle_radius, 
-                                         pt1, pt2, 
+                                         pt1, pt2,
                                          full_line=False, tangent_tol=1e-9):
-        """ 
+        """
         Find the points at which a circle intersects a line-segment. This can happen at 0, 1, or 2 points.
-        
+
         Parameters
         ----------
         circle_center : tuple
@@ -190,7 +188,7 @@ class trigo():
             False will just return intersections within the segment.
         tangent_tol : float
             Numerical tolerance at which we decide the intersections are close enough to consider it a tangent
-        
+
         Returns
         -------
         Sequence[Tuple[float, float]]
@@ -219,7 +217,7 @@ class trigo():
                 return [intersections[0]]
             else:
                 return intersections
-            
+
     def seg_to_vec(seg):
         ''' Find the vector given a segment created by two 2D points'''
         return [(seg[0][0]-seg[1][0]), (seg[0][1]-seg[1][1])]
@@ -242,10 +240,9 @@ class trigo():
         cos_ = dot_prod/magA/magB
         # Get angle in radians and then convert to degrees
         return np.arccos(np.clip(dot_prod/magB/magA, -1, 1))
-    
+
     def rotate_vec(vec, angle):
         return (vec[0]*np.cos(angle) + vec[1]*np.sin(angle), -vec[0]*np.sin(angle) + vec[1]*np.cos(angle))
-    
 
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 26
 def find_nan_segments(a, cutoff_length):    
