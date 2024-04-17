@@ -7,9 +7,9 @@ __all__ = ['challenge_theory_dataset', 'challenge_phenom_dataset']
 import numpy as np
 from tqdm.auto import tqdm
 import pandas as pd
-import os
 import csv
 import shutil
+from pathlib import Path
 
 from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
@@ -109,10 +109,12 @@ def challenge_theory_dataset(N:np.ndarray|int = 1000,
         diff_noise_t1 = [[],[],[]]; diff_noise_t2 = [[],[],[]]; diff_noise_t3 = [[],[],[]]
 
     if load_dataset or save_dataset:
+        path_datasets = Path(path_datasets)
+        path_trajectories = Path(path_trajectories)
         # Define name of result files, if needed
-        task1 = path_datasets+'task1.txt'; ref1 = path_datasets+'ref1.txt'
-        task2 = path_datasets+'task2.txt'; ref2 = path_datasets+'ref2.txt'
-        task3 = path_datasets+'task3.txt'; ref3 = path_datasets+'ref3.txt'
+        task1 = path_datasets/'task1.txt'; ref1 = path_datasets/'ref1.txt'
+        task2 = path_datasets/'task2.txt'; ref2 = path_datasets/'ref2.txt'
+        task3 = path_datasets/'task3.txt'; ref3 = path_datasets/'ref3.txt'
 
     # Loading the datasets if chosen.
     if load_dataset:            
@@ -543,7 +545,7 @@ def challenge_phenom_dataset(experiments = 5,
     get_video_masks : bool
         If True, get masks of videos 
     files_reorg : bool
-        If True, this function also creates a folder with nam path_reorg inside path with the same data but organized à la ANDI2 challenge
+        If True, this function also creates a folder with name path_reorg inside path with the same data but organized à la ANDI2 challenge
     path_reorg : bool
         Folder where the reorganized dataset will be created
     save_labels_reorg : bool
@@ -576,12 +578,12 @@ def challenge_phenom_dataset(experiments = 5,
 
     # Set prefixes for saved files
     if save_data:
-        if not os.path.exists(path):
-            os.makedirs(path)
-        pf_labs_traj = path+prefix+'traj_labs'
-        pf_labs_ens = path+prefix+'ens_labs'
-        pf_trajs = path+prefix+'trajs'
-        pf_videos = path+prefix+'videos'
+        path = Path(path)
+        path.mkdir(parents=True, exist_ok=True)
+        pf_labs_traj = prefix+'traj_labs'
+        pf_labs_ens = prefix+'ens_labs'
+        pf_trajs = prefix+'trajs'
+        pf_videos = prefix+'videos'
 
     if return_timestep_labs:
         df_list = []
@@ -624,7 +626,9 @@ def challenge_phenom_dataset(experiments = 5,
         for fov in range(num_fovs):
             # Checking if file exist and creating an error
             if save_data:
-                if os.path.exists(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt') or os.path.exists(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt'):
+                path_labs_traj = path/(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt')
+                path_labs_ens = path/(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt')
+                if path_labs_traj.exists() or path_labs_ens.exists():
                     raise FileExistsError(f'Target files for experiment {idx_experiment} and FOV {fov}. Delete the file or change path/prefix.')            
 
 
@@ -681,7 +685,7 @@ def challenge_phenom_dataset(experiments = 5,
                         list_labels_fov.append(list_gt)     
 
                         if save_data:
-                            with open(pf_labs_traj+f'_exp_{idx_experiment}_fov_{fov}.txt', 'a') as f:
+                            with open(path_labs_traj, 'a') as f:
                                 writer = csv.writer(f, delimiter=',', lineterminator='\n',)
                                 writer.writerow(list_gt)
 
@@ -714,7 +718,7 @@ def challenge_phenom_dataset(experiments = 5,
                               boundary_origin = fov_origin,
                               boundary = _defaults_andi2().FOV_L,                    
                               pad = pad)  
-                np.savetxt(path+prefix+f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt', idx_vip)
+                np.savetxt(path/(prefix+f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt'), idx_vip)
                 
                 if not save_data:
                     pf_videos = ''                                
@@ -727,7 +731,7 @@ def challenge_phenom_dataset(experiments = 5,
                                                get_vip_particles=idx_vip,
                                                with_masks = get_video_masks,
                                                save_video = save_data,
-                                               path = pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff',
+                                               path = path/(pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff'),
                                               ) 
                 
                 try:
@@ -752,9 +756,9 @@ def challenge_phenom_dataset(experiments = 5,
 
             if save_data:
                 # Trajectories                    
-                df_traj.to_csv(pf_trajs+f'_exp_{idx_experiment}_fov_{fov}.csv', index = False)
+                df_traj.to_csv(path/(pf_trajs+f'_exp_{idx_experiment}_fov_{fov}.csv'), index = False)
                 # Ensemble labels
-                with open(pf_labs_ens+f'_exp_{idx_experiment}_fov_{fov}.txt', 'a') as f:
+                with open(path_labs_ens, 'a') as f:
                     if model == 2: num_states = dic['alphas'].shape[0]
                     elif model == 1: num_states = 1
                     else: num_states = 2
@@ -771,7 +775,7 @@ def challenge_phenom_dataset(experiments = 5,
     # If asked, create a reorganized version of the folders
     if files_reorg:
         file_nonOverlap_reOrg(raw_folder = path,
-                              target_folder = path+path_reorg,
+                              target_folder = path/path_reorg,
                               experiments = np.arange(len(model_exp)), # this only needs to be array, content does not matter
                               num_fovs = num_fovs,
                               save_labels = save_labels_reorg,
@@ -779,13 +783,12 @@ def challenge_phenom_dataset(experiments = 5,
                               print_percentage = False)
         
         if delete_raw:
-            for item in os.listdir(path):
-                item_path = os.path.join(path, item)
-                if item != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
-                    if os.path.isdir(item_path):
+            for item_path in path.iterdir():
+                if item_path.name != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
+                    if item_path.isdir():
                         shutil.rmtree(item_path)  # Remove directories
                     else:
-                        os.remove(item_path)  # Remove files
+                        item_path.unlink()  # Remove files
     
     if get_video:
         return trajs_out, videos_out, labels_traj_out, labels_ens_out
