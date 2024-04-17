@@ -5,7 +5,7 @@ __all__ = ['datasets_theory']
 
 # %% ../source_nbs/lib_nbs/datasets_theory.ipynb 3
 import numpy as np
-import os
+from pathlib import Path
 import inspect
 import h5py
 from tqdm.auto import trange
@@ -93,14 +93,15 @@ class datasets_theory():
         if isinstance(exponents, int) or isinstance(exponents, float):
             exponents = [exponents]
         
-        '''Managing folders of the datasets'''       
-        if save_trajectories or load_trajectories:                
+        '''Managing folders of the datasets'''    
+        if save_trajectories or load_trajectories:
+            path = Path(path)
             if load_trajectories:
                 save_trajectories = False            
-            if not os.path.exists(path) and load_trajectories:
+            if not path.exists() and load_trajectories:
                 raise FileNotFoundError('The directory from where you want to load the dataset does not exist')                
-            if not os.path.exists(path) and save_trajectories:
-                os.makedirs(path)  
+            if save_trajectories:
+                path.mkdir(parents=True, exist_ok=True)
                 
         '''Establish dimensions and corresponding models'''
         self._dimension = dimension
@@ -219,7 +220,7 @@ class datasets_theory():
             models_name = [models_name]
                
         for idx_m, name in enumerate(models_name):        
-            hf = h5py.File(path+name+'.h5', 'r+')
+            hf = h5py.File(path/(name+'.h5'), 'r+')
             
             for idx_e, exp  in enumerate(exponents):
                 
@@ -269,12 +270,12 @@ class datasets_theory():
         self._get_models()        
         
         for idx_m, (name, func) in enumerate(zip(models_name, models_func)):
-            
-            if os.path.isfile(path+name+'.h5'):
+            path_file = (path/name).with_suffix(".h5")
+            if path_file.is_file():
                 action = 'r+'
             else:
                 action = 'w'
-            with h5py.File(path+name+'.h5', action) as hf:
+            with h5py.File(path_file, action) as hf:
                 
                 for idx_e, exp in enumerate(exponents): 
                     if n_per_class[idx_m, idx_e] == 0:
