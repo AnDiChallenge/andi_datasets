@@ -1219,7 +1219,7 @@ def distribution_distance(p:np.array, # distribution 1
 from .models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data,
-                           size_support = 1000,
+                           size_support = int(1e7),
                            metric = 'wasserstein',
                            return_distributions = False):
     ''' 
@@ -1541,7 +1541,7 @@ def run_single_task(exp_nums, track, submit_dir, truth_dir):
             
             ### If one file does not exists, abort a return Nones ###
             if not os.path.isfile(corresponding_submission_file):
-                wrn_str = f'Prediction missing for: -- Track {track} | Task SingleTraj  | Experiment {exp} | FOV {fov} -- not found and will not be computed.'
+                wrn_str = f'Failed to compute metrics at: -- Track {track} | Task SingleTraj  | Experiment {exp} | FOV {fov} -- this is probably caused by missing files.'
                 return when_error_single(wrn_str)
                 
                 
@@ -1621,7 +1621,7 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
             avg_d.append(distance_d_exp)
             
         except:
-            wrn_str = f'Prediction missing for: -- Track {track} | Task Ensemble | Experiment {exp} -- not found and will not be computed.'
+            wrn_str = f'Failed to compute metrics at: -- Track {track} | Task Ensemble | Experiment {exp} -- this is probably caused by missing file.'
             warnings.warn(wrn_str)
             # Get the max error possible for the task
             _,_,_,_, max_error_a, max_error_D = _get_error_bounds()
