@@ -1219,7 +1219,7 @@ def distribution_distance(p:np.array, # distribution 1
 from .models_phenom import models_phenom
 
 def error_Ensemble_dataset(true_data, pred_data,
-                           size_support = int(1e7),
+                           size_support = int(1e6),
                            metric = 'wasserstein',
                            return_distributions = False):
     ''' 
