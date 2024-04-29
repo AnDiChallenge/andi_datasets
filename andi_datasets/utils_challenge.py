@@ -1637,6 +1637,8 @@ def run_ensemble_task(exp_nums, track, submit_dir, truth_dir):
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 136
 import os
+import re
+
 
 def listdir_nohidden(path):
     for f in os.listdir(path):
@@ -1721,7 +1723,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
             # Get the number of experiments from the true directory
             exp_folders = sorted(list(listdir_nohidden(truth_dir+f'/track_{track}')))
-            exp_nums = [int(name[-1]) for name in exp_folders]
+            exp_nums = [int(re.findall(r'\d+', name)[0]) for name in exp_folders]
 
             if task == 'single':  
 
