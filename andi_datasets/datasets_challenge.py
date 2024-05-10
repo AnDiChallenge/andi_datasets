@@ -780,7 +780,8 @@ def challenge_phenom_dataset(experiments = 5,
                               num_fovs = num_fovs,
                               save_labels = save_labels_reorg,
                               tracks = [2] if not get_video else [1,2],
-                              print_percentage = False)
+                              print_percentage = False,
+                              prefix=prefix)
         
         if delete_raw:
             for item_path in path.iterdir():
