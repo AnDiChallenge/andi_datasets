@@ -785,11 +785,12 @@ def challenge_phenom_dataset(experiments = 5,
         
         if delete_raw:
             for item_path in path.iterdir():
-                if item_path.name != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
-                    if item_path.isdir():
-                        shutil.rmtree(item_path)  # Remove directories
-                    else:
-                        item_path.unlink()  # Remove files
+                if item.split("_")[0] == prefix[:-1]:
+                    if item_path.name != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
+                        if item_path.isdir():
+                            shutil.rmtree(item_path)  # Remove directories
+                        else:
+                            item_path.unlink()  # Remove files
     
     if get_video:
         return trajs_out, videos_out, labels_traj_out, labels_ens_out
