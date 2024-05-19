@@ -9,11 +9,10 @@ from .models_phenom import models_phenom
 import inspect
 import numpy as np
 import pandas as pd
-import csv
 from tqdm.auto import tqdm
 import copy
 
-import os
+from pathlib import Path
 import warnings
 
 # %% ../source_nbs/lib_nbs/datasets_phenom.ipynb 5
@@ -91,7 +90,7 @@ class datasets_phenom(datasets_phenom):
         
         self.T = T
         self.N_model = N_model
-        self.path = path
+        self.path = Path(path)
         self.dics = dics
         
         'Managing dictionaries'
@@ -111,19 +110,17 @@ class datasets_phenom(datasets_phenom):
             # Saving the info in internal variable
             self.diff_dims = True if np.unique(diff_dims).shape[0] > 1 else False
                 
-            
 
-                    
         'Managing folders of the datasets'
         self.save = save
         self.load = load
         if self.save or self.load:                
             if self.load:
                 self.save = False            
-            if not os.path.exists(self.path) and self.load:
+            if not self.path.exists() and self.load:
                 raise FileNotFoundError('The directory from where you want to load the dataset does not exist')                
-            if not os.path.exists(self.path) and self.save:
-                os.makedirs(self.path) 
+            if self.save:
+                self.path.mkdir(parents=True, exist_ok=True)
                 
                 
         'Create trajectories'
@@ -194,12 +191,12 @@ class datasets_phenom(datasets_phenom):
             - In a .npy file, the trajectories and labels generated.
         '''
         
-        file_name = path+dic['model']+'_'+str(df.shape[0])+'.npy'
+        file_name = (path/(dic['model']+'_'+str(df.shape[0]))).with_suffix('.npy')
         
         # Save information in CSV handler
         df = pd.concat([df, pd.DataFrame([dic])], ignore_index=True)
         
-        df.to_csv(path+dic['model']+'.csv')
+        df.to_csv((path/dic['model']).with_suffix('.csv'))
         
         # Save trajectories and labels
         data = np.dstack((trajs, labels))
@@ -210,7 +207,7 @@ class datasets_phenom(datasets_phenom):
         Given the path for a dataset, loads the trajectories and labels
         '''
         
-        file_name = path+model_name+'_'+str(dataset_idx)+'.npy'
+        file_name = (path/(model_name+'_'+str(dataset_idx))).with_suffix('.npy')
         data = np.load(file_name)
         return data[:, :, :2], data[:, :  , 2:]
     
@@ -249,7 +246,7 @@ class datasets_phenom(datasets_phenom):
         args = inspect.getfullargspec(model_f).args[1:]
         defaults = inspect.getfullargspec(model_f).defaults
         try:
-            df = pd.read_csv(self.path+model_m+'.csv', index_col=0)
+            df = pd.read_csv(self.path/(model_m+'.csv'), index_col=0)
         except:                
             # convert to dataframe and add model
             df = pd.DataFrame(columns = args+['model'])   
