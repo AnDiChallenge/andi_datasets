@@ -434,8 +434,19 @@ def plot_trajs(trajs, L , N,
 
     for ax in axs.transpose():
         
+        margin = L / 20
+        ax[0].set_xlim([-margin, L + margin])
+        ax[0].set_ylim([-margin, L + margin])
+
         if traps_positions is not None:
-            ax[0].scatter(traps_positions[:,0], traps_positions[:,1], c = 'C1', s = traps_r)
+            if traps_r is not None:
+                transform = ax[0].transData.transform
+                display_radius = transform((traps_r, 0)) - transform((0, 0))  # Radius in points
+                scaling_factor = fig.dpi * 0.008
+                area_points = np.pi * (display_radius[0] * scaling_factor) ** 2  # Area in points^2
+                ax[0].scatter(traps_positions[:,0], traps_positions[:,1], c = 'C1', s = area_points)
+            else: 
+                ax[0].scatter(traps_positions[:,0], traps_positions[:,1], c = 'C1')
             
         if comp_center is not None:
             for c in comp_center:
