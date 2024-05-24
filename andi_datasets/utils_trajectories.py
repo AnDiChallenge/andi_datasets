@@ -423,6 +423,7 @@ def plot_trajs(trajs, L , N,
                labels = None,
                plot_labels = False,
                traps_positions = None,
+               traps_r = None,
                comp_center = None, r_cercle = None
               ):
     
@@ -434,7 +435,7 @@ def plot_trajs(trajs, L , N,
     for ax in axs.transpose():
         
         if traps_positions is not None:
-            ax[0].scatter(traps_positions[:,0], traps_positions[:,1], c = 'C1')
+            ax[0].scatter(traps_positions[:,0], traps_positions[:,1], c = 'C1', s = traps_r)
             
         if comp_center is not None:
             for c in comp_center:
