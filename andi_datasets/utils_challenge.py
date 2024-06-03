@@ -44,7 +44,7 @@ def majority_filter(seq, width):
     seq_filtered = []
     for i in range(len(seq) - offset):
         a = seq[i:i+width]
-        seq_filtered.append(mode(a)[0])        
+        seq_filtered.append(mode(a, keepdims = False)[0])        
     return seq_filtered
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 8
@@ -106,7 +106,6 @@ def label_filter(label,
     cp = np.append(0, cp)
     
     current_min = (cp[1:]-cp[:-1]).flatten().min()
-    
     while (current_min < min_seg):
 
         filt = majority_filter(dummy.tolist(), width = window_size)
@@ -117,6 +116,7 @@ def label_filter(label,
         
         # If all changepoints were eliminated
         if cp.size == 0:
+            dummy = filt
             break
             
         cp = np.append(0, cp)
@@ -137,9 +137,8 @@ def label_filter(label,
             
             dummy = filt
             break         
-        dummy = filt
-        
-        
+        dummy = filt    
+         
     # Check boundaries
     if dummy[0] != dummy[1] or dummy[1] != dummy[2]:
         dummy[:2] = dummy[2]
