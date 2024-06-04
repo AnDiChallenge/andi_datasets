@@ -21,7 +21,7 @@ website:
   
   # Top Navigation
   navbar:      
-    logo: figures/logo_noname.svg    
+    logo: figures/logos_banners/logo_noname.svg    
     background: "#d7e7fdff"
     foreground: "#154c64ff"
     search: true    
