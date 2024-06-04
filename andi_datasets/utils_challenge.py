@@ -18,6 +18,7 @@ from scipy.stats import mode
 import pandas
 from tqdm.auto import tqdm
 import warnings
+from pathlib import Path
 from .models_phenom import models_phenom
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 6
@@ -355,9 +356,9 @@ from pathlib import Path
 import shutil
 
 def file_nonOverlap_reOrg(# Original folder with data produced by datasets_challenge.challenge_phenom_dataset
-                          raw_folder: str, 
+                          raw_folder: Path,
                           # Folder where to put reorganized files
-                          target_folder: str, 
+                          target_folder: Path, 
                           # Number of experiments
                           experiments: int, 
                           # Number of FOVS
@@ -387,7 +388,7 @@ def file_nonOverlap_reOrg(# Original folder with data produced by datasets_chall
     exp = 0
     ensemble_info = []
     # Get model and num_states
-    info_exp = np.loadtxt(raw_folder + f'ens_labs_exp_0_fov_0.txt', max_rows=1, dtype = str)
+    info_exp = np.loadtxt(raw_folder/f'ens_labs_exp_0_fov_0.txt', max_rows=1, dtype = str)
     model_exp, num_states = info_exp[1][:-1], info_exp[-1].astype(int)
     percentage_exp = np.zeros((num_fovs, num_states))
 
@@ -408,7 +409,7 @@ def file_nonOverlap_reOrg(# Original folder with data produced by datasets_chall
             
             if save_labels:
                 for track in tracks:
-                    with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+                    with open(target_folder/f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
                         f.truncate(0)
                         f.write(f'model: {model_exp}; num_state: {num_states} \n')
                         np.savetxt(f, ensemble_fov, delimiter = ';')
@@ -416,26 +417,26 @@ def file_nonOverlap_reOrg(# Original folder with data produced by datasets_chall
             # Then restart for next experiment
             exp += 1
             ensemble_info = []
-            info_exp = np.loadtxt(raw_folder + f'ens_labs_exp_{k}_fov_0.txt', max_rows=1, dtype = str)
+            info_exp = np.loadtxt(raw_folder/f'ens_labs_exp_{k}_fov_0.txt', max_rows=1, dtype = str)
             model_exp, num_states = info_exp[1][:-1], info_exp[-1].astype(int)
             percentage_exp = np.zeros((num_fovs, num_states))   
             
         
         # ----- Move the folders -----
         for track in tracks:
-            Path(target_folder+f'track_{track}/'+f'exp_{exp}').mkdir(parents=True, exist_ok=True)
+            (target_folder/(f'track_{track}/'+f'exp_{exp}')).mkdir(parents=True, exist_ok=True)
 
             # Move single trajectory information
             for name, ext in zip(names_files, extensions):            
                 if track == 1 and name == 'trajs_' and save_labels == False: continue
                 if track == 2 and (name == 'videos_' or name == 'vip_idx_'): continue
 
-                shutil.copyfile(src = raw_folder + name + f'exp_{k}_fov_0'+ext, 
-                                dst = target_folder + f'track_{track}/exp_{exp}/' + name + f'fov_{k%num_fovs}' + ext)
+                shutil.copyfile(src = raw_folder/(name + f'exp_{k}_fov_0'+ext), 
+                                dst = target_folder/(f'track_{track}/exp_{exp}/' + name + f'fov_{k%num_fovs}' + ext))
         
 
         ### ----- Collect ensemble information -----
-        ensemble_fov = np.loadtxt(raw_folder + f'ens_labs_exp_{k}_fov_0.txt', 
+        ensemble_fov = np.loadtxt(raw_folder/f'ens_labs_exp_{k}_fov_0.txt', 
                                   skiprows = 1, delimiter = ';')
         if num_states > 1:
             percentage_exp[k%num_fovs] = ensemble_fov[-1, :].copy()
@@ -452,7 +453,7 @@ def file_nonOverlap_reOrg(# Original folder with data produced by datasets_chall
     
     if save_labels:
         for track in tracks:
-            with open(target_folder + f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
+            with open(target_folder/f'track_{track}/exp_{exp}/ensemble_labels.txt', 'w') as f:
                 f.truncate(0)
                 f.write(f'model: {model_exp}; num_state: {num_states} \n')
                 np.savetxt(f, ensemble_fov, delimiter = ';')
