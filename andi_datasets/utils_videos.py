@@ -416,30 +416,19 @@ def transform_to_video(
 from PIL import Image
 import numpy as np
 
-def import_tiff_video(tiff_file_path):
+def import_tiff_video(# File path of the TIFF video file.
+                      tiff_file_path : str 
+                        # A NumPy array containing the video frames stacked along a new axis. 
+                        # The shape of the array is (N, M, O, ...) where N is the number of frames, 
+                        # and M, O, ... are the dimensions of each frame.
+                      )-> np.ndarray : 
+    
     """
     Import a TIFF video file as a NumPy array.
 
     This function reads a multi-frame TIFF file and converts each frame into a NumPy array. 
     All frames are stacked along a new axis, resulting in a 3D array if the frames are 2D 
     (or a 4D array if the frames are 3D).
-
-    Parameters
-    ----------
-    tiff_file_path : str
-        The file path of the TIFF video file.
-
-    Returns
-    -------
-    numpy.ndarray
-        A NumPy array containing the video frames stacked along a new axis. 
-        The shape of the array is (N, M, O, ...) where N is the number of frames, 
-        and M, O, ... are the dimensions of each frame.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the TIFF file specified by `tiff_file_path` does not exist.
     """
                       
                       
