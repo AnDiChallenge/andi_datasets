@@ -690,7 +690,11 @@ def challenge_phenom_dataset(experiments = 5,
                         idx_segs_fov.append(np.ones(trajs_fov[-1].shape[0])*idx_seg)             
             
             '''Extract ensemble trajectories''' 
-            ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
+            if len(array_labels_fov):
+                ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
+            else:
+                raise Exception("No sufficiently long trajectory could be found inside the FOV. "
+                                "Try adjusting the experimental parameters to match the FOV's scale.")
 
             df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1),
                                  np.expand_dims(np.concatenate(frames_fov), axis=1).astype(int),
