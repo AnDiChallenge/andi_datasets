@@ -11,10 +11,10 @@ import csv
 import shutil
 from pathlib import Path
 
-from .utils_challenge import segs_inside_fov, label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
+from .utils_challenge import label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
 from .datasets_theory import datasets_theory
-from .utils_trajectories import normalize
+from .utils_trajectories import normalize, segs_inside_fov
 from .utils_videos import transform_to_video, psf_width
 
 # %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 5
@@ -585,9 +585,6 @@ def challenge_phenom_dataset(experiments = 5,
         pf_trajs = prefix+'trajs'
         pf_videos = prefix+'videos'
 
-    if return_timestep_labs:
-        df_list = []
-
     # Sets the models of the experiments that will be output by the function
     if dics is None:
         if isinstance(experiments, int):
@@ -646,8 +643,8 @@ def challenge_phenom_dataset(experiments = 5,
             # Total frames
             frames = np.arange(trajs.shape[0])
             # We save the correspondance between idx in FOV and idx in trajs dataset
-            for idx, (traj, label) in enumerate(zip(trajs[:, :, :].transpose(1,0,2),
-                                                    labels[:, :, :].transpose(1,0,2))):
+            for traj, label in zip(trajs[:, :, :].transpose(1,0,2),
+                                   labels[:, :, :].transpose(1,0,2)):
                                 
                 nan_segms = segs_inside_fov(traj[:,:2], # take only the 2D projection of the traj
                                             fov_origin = fov_origin,
