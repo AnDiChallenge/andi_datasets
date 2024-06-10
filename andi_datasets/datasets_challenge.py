@@ -784,7 +784,7 @@ def challenge_phenom_dataset(experiments = 5,
         
         if delete_raw:
             for item_path in path.iterdir():
-                if item_path.name != path_reorg[:-1]: # The -1 deletes the compulsory / of the path
+                if item_path != path_reorg:  # The -1 deletes the compulsory / of the path
                     if item_path.is_dir():
                         shutil.rmtree(item_path)  # Remove directories
                     else:
