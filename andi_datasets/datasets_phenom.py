@@ -102,7 +102,7 @@ class datasets_phenom(datasets_phenom):
         # Checking and saving the dimension of the models to be generated
         else:
             diff_dims = []
-            for dic in dics:
+            for dic in self.dics:
                 try:
                     diff_dims.append(dic['dim'])
                 except: # dim may not be input as it is not used for some models. In this case, dim = 2
