@@ -694,7 +694,11 @@ def challenge_phenom_dataset(experiments = 5,
                 ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
             else:
                 raise Exception("No sufficiently long trajectory could be found inside the FOV. "
-                                "Try adjusting the experimental parameters to match the FOV's scale.")
+                                "This can be due to having too few particles or these moving too "
+                                "fast and exiting the FOV before the minimal trajectory length is "
+                                "reached, for instance. Try adjusting the experimental parameters "
+                                "to match the FOV's scale. This can also be the result of a (very) "
+                                "unlucky run, which can be alleviated with more and longer trajectories.")
 
             df_data = np.hstack((np.expand_dims(np.concatenate(idx_segs_fov), axis=1),
                                  np.expand_dims(np.concatenate(frames_fov), axis=1).astype(int),
