@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.5 (unreleased)
+
+### Bugs Squashed
+- Improved `utils_challenge.label_filter` and added few extra tests to ensure that there are never trajectories with segments shorter than `min_seg`.
+
 ## 2.1.4
 
 ### New Features
