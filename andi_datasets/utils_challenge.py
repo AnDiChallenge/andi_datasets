@@ -1459,6 +1459,11 @@ def error_SingleTraj_dataset(df_pred, df_true,
                                                        [threshold_error_alpha],
                                                        [1+threshold_error_D],
                                                        [10]]
+
+            # Collecting changepoints for metric
+            ensemble_pred_cp.append(preds_cp)
+            ensemble_true_cp.append(trues_cp) 
+            
         
         else:      
 
@@ -1471,12 +1476,13 @@ def error_SingleTraj_dataset(df_pred, df_true,
                                                        traj_trues.alphas.values[0],
                                                        traj_trues.Ds.values[0],
                                                        traj_trues.states.values[0]]
+            
 
-
-        # Collecting changepoints for metric
-        # In this metric, we don't want to enter the final point of the trajectory
-        ensemble_pred_cp.append(preds_cp[:-1])
-        ensemble_true_cp.append(trues_cp[:-1])   
+        
+            # Collecting changepoints for metric
+            # In this "else", the trajectory contains also as final point the trajectory lenght. We get rid of it for the CP metrics.
+            ensemble_pred_cp.append(preds_cp[:-1])
+            ensemble_true_cp.append(trues_cp[:-1])   
 
         
         
