@@ -19421,14 +19421,12 @@ KMCADgAFGNABoAADOgAU8P+B5VYqokBrfwAAAABJRU5ErkJggg==\
 </section>
 <section id="import-tiff-video" class="level1">
 <h1>Import TIFF video</h1>
-<pre><code>/home/gorka/miniconda3/envs/andi/lib/python3.10/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Raises
-  else: warn(msg)</code></pre>
 <hr>
 <p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_videos.py#L419" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="import_tiff_video" class="level3">
 <h3 class="anchored" data-anchor-id="import_tiff_video">import_tiff_video</h3>
 <blockquote class="blockquote">
-<pre><code> import_tiff_video (tiff_file_path)</code></pre>
+<pre><code> import_tiff_video (tiff_file_path:str)</code></pre>
 </blockquote>
 <p>Import a TIFF video file as a NumPy array.</p>
 <p>This function reads a multi-frame TIFF file and converts each frame into a NumPy array. All frames are stacked along a new axis, resulting in a 3D array if the frames are 2D (or a 4D array if the frames are 3D).</p>
@@ -19449,11 +19447,11 @@ KMCADgAFGNABoAADOgAU8P+B5VYqokBrfwAAAABJRU5ErkJggg==\
 <tr class="odd">
 <td>tiff_file_path</td>
 <td>str</td>
-<td>The file path of the TIFF video file.</td>
+<td>File path of the TIFF video file.</td>
 </tr>
 <tr class="even">
 <td><strong>Returns</strong></td>
-<td><strong>numpy.ndarray</strong></td>
+<td><strong>ndarray</strong></td>
 <td><strong>A NumPy array containing the video frames stacked along a new axis. <br>The shape of the array is (N, M, O, …) where N is the number of frames, <br>and M, O, … are the dimensions of each frame.</strong></td>
 </tr>
 </tbody>
