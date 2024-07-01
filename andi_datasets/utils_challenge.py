@@ -1710,7 +1710,8 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             os.makedirs(htmlOutputDir)
     html_filename = os.path.join(htmlOutputDir, 'scores.html')
     html_file = open(html_filename, 'a', encoding="utf-8")
-    html_file.write('<h1>Submission detailed results </h1>')
+    # html_file.write('<h1>Submission detailed results </h1>')
+    html_file.write('<h3>Challenge phase results </h3>')
 
     if not os.path.isdir(submit_dir):
         print( "%s doesn't exist", submit_dir)
@@ -1752,7 +1753,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
         ##### ------------------------------------------------------------------------ #####
         
         
-        html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
+        # html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
 
         for task in ['ensemble', 'single']: 
 
@@ -1761,24 +1762,25 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             # task 2: ensemble
             idx_task = 1 if task == 'single' else 2
             
-            if task == 'single':
-                html_file.write(f'<h3> Single Trajectory Task </h3>')
-            elif task == 'ensemble':
-                html_file.write(f'<h3> Ensemble Task </h3>')
+            # if task == 'single':
+            #     html_file.write(f'<h3> Single Trajectory Task </h3>')
+            # elif task == 'ensemble':
+            #     html_file.write(f'<h3> Ensemble Task </h3>')
 
 
             # Get the number of experiments from the true directory
             exp_folders = sorted(list(listdir_nohidden(truth_dir+f'/track_{track}')))
             exp_nums = [int(re.findall(r'\d+', name)[0]) for name in exp_folders]
-
+            
             if task == 'single':  
 
                 avg_metrics, df = run_single_task(exp_nums, track, submit_dir, truth_dir )
 
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
-                    # Patch for Challenge phase
-                    print(f'tr{track}.ta{idx_task}.'+name+': '+str(res))
+                    # Patch challenge phase
+                    html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
+                    
 
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
@@ -1788,7 +1790,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                                                           'RMSE CP': 'RMSE (CP)', 'JSC CP': 'JSC (CP)',
                                                           'state': 'F1 (diff. type)'})
                 # Changing the name of JI to JSC to match paper nomenclature
-                html_file.write(df_swapped.to_html(index = False).replace('\n',''))
+                # html_file.write(df_swapped.to_html(index = False).replace('\n',''))
               
 
             if task == 'ensemble':
@@ -1798,9 +1800,9 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 ''' There was a problem with the leaderboard labels and we had to SWAP alpha and D in the 
                 first element of the zip, i.e. the list is now ['D', 'alpha'] but avg_metrics is [alpha, D] '''
                 for name, res in zip(['D','alpha'], avg_metrics):                
-                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')   
-                    # Patch for Challenge phase
-                    print(f'tr{track}.ta{idx_task}.'+name+': '+str(res))
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
+                    # Patch challenge phase
+                    html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
 
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
@@ -1808,7 +1810,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 df_swapped = df.iloc[:,[0,2,1]]                
                 df_swapped = df_swapped.rename(columns = {'alpha': r'W1 (alpha)', 'K': 'W1 (K)'})
                 
-                html_file.write(df_swapped.to_html(index = False).replace('\n',''))
+                # html_file.write(df_swapped.to_html(index = False).replace('\n',''))
    
 
     html_file.close()
