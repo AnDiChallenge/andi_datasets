@@ -396,7 +396,7 @@ class _defaults_andi2:
     def __init__(self):        
         # General parameters
 
-        self.T = 500                   # Length of simulated trajectories
+        self.T = 200                   # Length of simulated trajectories
         self._min_T = 20               # Minimal length of output trajectories
         self.FOV_L = 128               # Length side of the FOV (px)
         self.L = 1.8*self.FOV_L          # Length of the simulated environment

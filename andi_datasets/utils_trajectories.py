@@ -32,7 +32,7 @@ def pert(params:list, # Pert parameters a, b, c
 
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 8
 import scipy.stats
-def gaussian(params:list|int, # If list, mu and sigma of the gaussian. If int, we consider sigma = 0
+def gaussian(params:list|int, # If list, mu and sigma^2 of the gaussian. If int, we consider sigma = 0
              size = 1,  # Number of samples to get.
              bound = None # Bound of the Gaussian, if any.
             )-> np.array: # Samples from the given Gaussian distribution
