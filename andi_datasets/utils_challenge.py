@@ -1777,6 +1777,8 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
 
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
+                    # Patch for Challenge phase
+                    print(f'tr{track}.ta{idx_task}.'+name+': '+str(res))
 
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
@@ -1796,7 +1798,9 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 ''' There was a problem with the leaderboard labels and we had to SWAP alpha and D in the 
                 first element of the zip, i.e. the list is now ['D', 'alpha'] but avg_metrics is [alpha, D] '''
                 for name, res in zip(['D','alpha'], avg_metrics):                
-                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')      
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')   
+                    # Patch for Challenge phase
+                    print(f'tr{track}.ta{idx_task}.'+name+': '+str(res))
 
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
