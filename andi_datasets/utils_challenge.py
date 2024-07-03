@@ -1705,13 +1705,15 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     
     
     # Starting the HMTL file
-    htmlOutputDir = os.path.join(OUTPUT_DIR, "html")
-    if not os.path.exists(htmlOutputDir):
-            os.makedirs(htmlOutputDir)
-    html_filename = os.path.join(htmlOutputDir, 'scores.html')
-    html_file = open(html_filename, 'a', encoding="utf-8")
-    # html_file.write('<h1>Submission detailed results </h1>')
-    html_file.write('<h3>Challenge phase results </h3>')
+    # htmlOutputDir = os.path.join(OUTPUT_DIR, "html")
+    # if not os.path.exists(htmlOutputDir):
+    #         os.makedirs(htmlOutputDir)
+    # html_filename = os.path.join(htmlOutputDir, 'scores.html')
+    # html_file = open(html_filename, 'a', encoding="utf-8")
+    # html_file.write('<h1>Submission detailed results </h1>')    
+    results_wrn_str = '\n\n------------------------'
+    results_wrn_str += '\nResults challenge phase '
+    results_wrn_str += '\n------------------------'
 
     if not os.path.isdir(submit_dir):
         print( "%s doesn't exist", submit_dir)
@@ -1729,32 +1731,56 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     # Track 2: trajectories
     for track, name_track in zip([1,2], ['videos', 'trajectories']):
         
+        # Patch challenge phase
+        results_wrn_str += f'\n\nTrack {track} ({name_track})'
+        results_wrn_str += '\n-----------------------'
+        
         ##### ----- In case the whole track is missing, give Nones to both tasks ----- #####
         path_preds = os.path.join(INPUT_DIR, f'res/track_{track}')
         
         if not os.path.exists(path_preds):
             wrn_str = f'No submission for track {track} found.'
-            warnings.warn(wrn_str)
+            warnings.warn(wrn_str)            
             
-            for task in enumerate(['single', 'ensemble']): 
+            for task in ['single', 'ensemble']: 
                 # Codalab naming:
                 # task 1 : single traj
                 # task 2: ensemble
                 idx_task = 1 if task == 'single' else 2
+
+                # Patch challenge phase
+                if task == 'single':
+                    results_wrn_str += f'\n\nSingle Trajectory Task'
+                elif task == 'ensemble':
+                    results_wrn_str += f'\n\nEnsemble Task'
                 
                 # single trajectories
-                if task == 'single':                    
+                if task == 'single':  
                     for name, max_error in zip(['alpha','D','state', 'cp','JI'], list(_get_error_bounds()[:-2])+[0]): # This names must be the same as used in the yaml leaderboard                  
                         output_file.write(f'tr{track}.ta1{idx_task}.'+name+': '+str(max_error) +'\n')
+                        
+                        # Patch Challenge phase
+                        if name == 'cp': name_r = 'RMSE (CP): '
+                        elif name == 'JI': name_r = 'JSC (CP): '
+                        elif name == 'D': name_r = 'MSLE (K): '
+                        elif name == 'alpha': name_r = 'MAE (alpha): '
+                        elif name == 'state': name_r = 'F1 (diffusion type): '                        
+                        results_wrn_str += '\n'+name_r+'-'
+                        
                 elif task == 'ensemble':
                     for name, max_error in zip(['alpha','D'], _get_error_bounds()[-2:]): # This names must be the same as used in the yaml leaderboard
                         output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(max_error) +'\n')
+
+                        if name == 'D': name_r = 'W1 (alpha): '
+                        elif name == 'alpha': name_r = 'W1 (K): '                         
+                        results_wrn_str += '\n'+name_r+'-'
             continue
         ##### ------------------------------------------------------------------------ #####
         
         
-        # html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
-
+        # html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')       
+        
+        
         for task in ['ensemble', 'single']: 
 
             # Codalab naming:
@@ -1762,10 +1788,10 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
             # task 2: ensemble
             idx_task = 1 if task == 'single' else 2
             
-            # if task == 'single':
-            #     html_file.write(f'<h3> Single Trajectory Task </h3>')
-            # elif task == 'ensemble':
-            #     html_file.write(f'<h3> Ensemble Task </h3>')
+            if task == 'single':
+                results_wrn_str += f'\n\nSingle Trajectory Task'
+            elif task == 'ensemble':
+                results_wrn_str += f'\n\nEnsemble Task'
 
 
             # Get the number of experiments from the true directory
@@ -1779,9 +1805,15 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
                     output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
                     # Patch challenge phase
-                    html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
-                    
+                    # html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
 
+                    if name == 'cp': name_r = 'RMSE (CP): '
+                    elif name == 'JI': name_r = 'JSC (CP): '
+                    elif name == 'D': name_r = 'MSLE (K): '
+                    elif name == 'alpha': name_r = 'MAE (alpha): '
+                    elif name == 'state': name_r = 'F1 (diffusion type): '                        
+                    results_wrn_str += '\n'+name_r+str(res)
+                    
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
                 Moreover, we change the names to match leaderboard. '''
@@ -1802,8 +1834,12 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 for name, res in zip(['D','alpha'], avg_metrics):                
                     output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
                     # Patch challenge phase
-                    html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
+                    # html_file.write(f'<br> tr{track}.ta{idx_task}.'+name+': '+str(res))
+                    if name == 'D': name_r = 'W1 (alpha): '
+                    elif name == 'alpha': name_r = 'W1 (K): ' 
+                    results_wrn_str += '\n'+name_r+str(res)
 
+                
                 ''' To keep consistency with leaderboard display, we swap the K and alpha columns that
                 get printed in the detailed results.
                 Moreover, we change the names to match leaderboard. '''
@@ -1811,9 +1847,11 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 df_swapped = df_swapped.rename(columns = {'alpha': r'W1 (alpha)', 'K': 'W1 (K)'})
                 
                 # html_file.write(df_swapped.to_html(index = False).replace('\n',''))
-   
-
-    html_file.close()
+    
+    # Patch challenge phase
+    results_wrn_str += '\n'
+    warnings.warn(results_wrn_str)
+    # html_file.close()
     output_file.close()  
         
 
