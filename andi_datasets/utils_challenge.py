@@ -1757,7 +1757,7 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
                 # single trajectories
                 if task == 'single':  
                     for name, max_error in zip(['alpha','D','state', 'cp','JI'], list(_get_error_bounds()[:-2])+[0]): # This names must be the same as used in the yaml leaderboard                  
-                        output_file.write(f'tr{track}.ta1{idx_task}.'+name+': '+str(max_error) +'\n')
+                        output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(max_error) +'\n')
                         
                         # Patch Challenge phase
                         if name == 'cp': name_r = 'RMSE (CP): '
