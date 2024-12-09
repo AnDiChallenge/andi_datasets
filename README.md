@@ -99,7 +99,7 @@ The second AnDi challenge is
 [LIVE](https://andi-challenge.org/challenge-2024/). Follow the previous
 link to keep updated on all news. If you want to learn more about the
 data we will use, you can check [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
 
 ## Version control
 
