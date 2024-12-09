@@ -355,6 +355,7 @@ def transform_to_video(
         >> sequential_background
         >> (poisson_noise if not motion_blur_generator else dt.Multiply(1)) # Noise is added later for motion blur
     )
+    sample.store_properties()
 
     # Masks
     get_masks = dt.SampleToMasks(
@@ -374,8 +375,8 @@ def transform_to_video(
 
     # Resolve the sample
     video, masks = sequential_sample.update().resolve()
-    video = np.array(video.to_numpy())
-    masks = np.array(masks.to_numpy())
+    video = np.array(video)
+    masks = np.array(masks)
 
     # Motion blur
     if motion_blur_generator:
