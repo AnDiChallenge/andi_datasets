@@ -115,7 +115,8 @@ issues with any feedback or comments you may have.
 
 ## Cite us
 
-If you found this package useful and used it in your projects, you can
+If you found this package useful and used it in your projects, you can start us (
+<a class="github-button" href="https://github.com/AnDiChallenge/andi_datasets" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" aria-label="Star AnDiChallenge/andi_datasets on GitHub">Star</a>) and
 use the following to directly cite the package:
 
 ``` python
