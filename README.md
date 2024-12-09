@@ -60,7 +60,7 @@ Brownian motion (SBM)](https://doi.org/10.1103%2FPhysRevE.66.021114).
 You can generate trajectories with the desired anomalous exponent in
 either one, two or three dimensions.
 
-Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_datasets.ipynb)).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_datasets.ipynb).
 
 ### Phenomenological models
 
