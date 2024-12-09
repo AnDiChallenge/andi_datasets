@@ -45,7 +45,7 @@ experimental generated with various diffusion models. The library is
 structured in two main blocks, containing either theoretical or
 phenomenological models. Here is a scheme of the library’s content:
 
-![](figures/scheme_v1.svg)
+![](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/figures/scheme_v1.svg)
 
 ### Theoretical models
 
@@ -60,8 +60,7 @@ Brownian motion (SBM)](https://doi.org/10.1103%2FPhysRevE.66.021114).
 You can generate trajectories with the desired anomalous exponent in
 either one, two or three dimensions.
 
-Examples of their use and properties can be found in [this
-tutorial](tutorials/challenge_one_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_datasets.ipynb)).
 
 ### Phenomenological models
 
@@ -73,7 +72,7 @@ possibility of creating dimers and condensates or the presence of
 immobile traps in the environment.
 
 Examples of their use and properties can be found in [this
-tutorial](tutorials/challenge_two_datasets.ipynb).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
 
 ## The AnDi Challenges
 
@@ -89,7 +88,7 @@ al., Nat Commun **12**, 6253
 (2021)](https://doi.org/10.1038/s41467-021-26320-w).
 
 If you want to reproduce the datasets used during the challenge, please
-check [this tutorial](tutorials/challenge_one_submission.ipynb). You can
+check [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_submission.ipynb). You can
 then test your predictions and compare them with the those of challenge
 participants in this [online interactive
 tool](http://andi-challenge.org/interactive-tool/).
@@ -100,11 +99,11 @@ The second AnDi challenge is
 [LIVE](https://andi-challenge.org/challenge-2024/). Follow the previous
 link to keep updated on all news. If you want to learn more about the
 data we will use, you can check [this
-tutorial](tutorials/challenge_two_datasets).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets).
 
 ## Version control
 
-Details on each release are presented [here](changes_andi_v2.ipynb).
+Details on each release are presented [here](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/changes_andi_v2.ipynb).
 
 ## Contributing
 
