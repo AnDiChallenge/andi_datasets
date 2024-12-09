@@ -101,6 +101,8 @@ link to keep updated on all news. If you want to learn more about the
 data we will use, you can check [this
 tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
 
+We have officialy released the [Benchark dataset of the 2nd AnDi Challenge](https://doi.org/10.5281/zenodo.14281478). You can find all details on we created it in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_benchmark.ipynb).
+
 ## Version control
 
 Details on each release are presented [here](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/changes_andi_v2.ipynb).
