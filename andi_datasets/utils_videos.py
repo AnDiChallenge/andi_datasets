@@ -77,7 +77,6 @@ def convert_uint8(vid, with_vips = False):
     new_vid = []
     for idx_im, im in enumerate(vid):
         if idx_im == 0 and with_vips:
-            im[im != -1] = 0
             im[im == -1] = 255
             new_vid.append(im.astype(np.uint8))
         else:            
