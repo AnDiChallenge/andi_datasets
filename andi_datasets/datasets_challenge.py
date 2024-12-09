@@ -10,6 +10,7 @@ import pandas as pd
 import csv
 import shutil
 from pathlib import Path
+import warnings
 
 from .utils_challenge import label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
@@ -534,7 +535,7 @@ def challenge_phenom_dataset(experiments = 5,
             If True, the output trajectories dataframes containing also the labels alpha, D and state at each time step.        
     save_data : bool
         If True, saves all pertinent data.
-    path : str
+    path : pathlib.Path
         Path where to store the data.
     prefix : str
         Extra prefix that can be added in front of the files' names.    
@@ -546,7 +547,7 @@ def challenge_phenom_dataset(experiments = 5,
         If True, get masks of videos 
     files_reorg : bool
         If True, this function also creates a folder with name path_reorg inside path with the same data but organized à la ANDI2 challenge
-    path_reorg : bool
+    path_reorg : pathlib.Path
         Folder where the reorganized dataset will be created
     save_labels_reorg : bool
         If to save also the labels in the reorganized dataset. This is needed if you want to create a reference dataset for the Scoring program. 
@@ -574,8 +575,6 @@ def challenge_phenom_dataset(experiments = 5,
             utils_challenge._extract_ensemble()
         '''
 
-
-
     # Set prefixes for saved files
     if save_data:
         path = Path(path)
@@ -584,6 +583,11 @@ def challenge_phenom_dataset(experiments = 5,
         pf_labs_ens = prefix+'ens_labs'
         pf_trajs = prefix+'trajs'
         pf_videos = prefix+'videos'
+
+    
+    if get_video and num_vip is not None:                
+        # Error if there are > 255 VIP particles, which is max that can be processed by the video
+        assert num_vip < 255, "You requested >=255 VIP particles, but only a maximum of 254 can be processed."
 
     # Sets the models of the experiments that will be output by the function
     if dics is None:
@@ -635,7 +639,6 @@ def challenge_phenom_dataset(experiments = 5,
             max_fov = int((1-dist)*_defaults_andi2().L)-_defaults_andi2().FOV_L
             # sample the position of the FOV
             fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
-
             ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
             trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
             idx_seg = -1
@@ -723,9 +726,28 @@ def challenge_phenom_dataset(experiments = 5,
                               boundary_origin = fov_origin,
                               boundary = _defaults_andi2().FOV_L,                    
                               pad = pad)  
-                np.savetxt(path/(prefix+f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt'), idx_vip)
+
+                # To avoid having idx_vip > 255, which would be transformed when changing to uint8 in the
+                # transform_to_video, we put the VIP particles at the beginning of the trajectory array
+                # and overwrite the idx_vip to an arange(num_vip)                
+                all_indices = np.arange(array_traj_fov.shape[1])
+                new_order = np.concatenate((np.array(idx_vip).copy(), 
+                                            np.setdiff1d(all_indices, idx_vip, assume_unique=False)))                
+                # Change the order
+                array_traj_fov = array_traj_fov[:, new_order, :].copy()
+                # Redefine the VIP indices to 0,1,...,num_vip-1
+                idx_vip = np.arange(num_vip).tolist()
+
+                # We then make sure to also change the order of the dataframe
+                mapping_list = new_order
+                unique_idxs = df_traj['traj_idx'].unique()
+                mapping = {old_idx: np.argwhere(mapping_list == i).flatten()[0] for i, old_idx in enumerate(unique_idxs)}
+                df_traj['traj_idx'] = df_traj['traj_idx'].map(mapping)
+
                 
-                if not save_data:
+                if save_data:
+                    np.savetxt(path/(prefix+f'vip_idx_exp_{idx_experiment}_fov_{fov}.txt'), idx_vip)                
+                else:
                     pf_videos = ''                                
                 
                 video_fov = transform_to_video(array_traj_fov, # see that we insert the trajectories without noise!
@@ -738,6 +760,7 @@ def challenge_phenom_dataset(experiments = 5,
                                                save_video = save_data,
                                                path = path/(pf_videos+f'_exp_{idx_experiment}_fov_{fov}.tiff'),
                                               ) 
+                
                 
                 try:
                     videos_out.append(video_fov)
