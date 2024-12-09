@@ -114,12 +114,9 @@ to the library, you can contact us in this mail:
 issues with any feedback or comments you may have.
 
 ## Cite us
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
 
 If you found this package useful and used it in your projects, you can
-use the following to directly cite the package and <!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/AnDiChallenge/andi_datasets" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" aria-label="Star AnDiChallenge/andi_datasets on GitHub">Star</a> it:
+use the following to directly cite the package:
 
 ``` python
 Muñoz-Gil, G., Requena B., Volpe G., Garcia-March M.A. and Manzo C.
