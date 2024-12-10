@@ -15,11 +15,11 @@ Generate, manage and analyze anomalous diffusion trajectories
 </p>
 <p align="center">
 <a href="https://andichallenge.github.io/andi_datasets/">Get started</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/index_docs.html">Documentation</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/tutorials/index_tutorials.html">Tutorials</a>
-\| <a href="#cite-us">Cite us</a>
+| <a href="#cite-us">Cite us</a>
 </p>
 
 This library has been created in the framework of the [**Anomalous
@@ -100,6 +100,8 @@ The second AnDi challenge is
 link to keep updated on all news. If you want to learn more about the
 data we will use, you can check [this
 tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
+
+> We have officialy released the [Benchark dataset of the 2nd AnDi Challenge](https://doi.org/10.5281/zenodo.14281478). You can find all details about it in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_benchmark.ipynb).
 
 ## Version control
 
