@@ -9,7 +9,7 @@ __all__ = ['majority_filter', 'unique_labelled', 'enforce_min_segment_length', '
            'check_no_changepoints', 'segment_property_errors', 'extract_ensemble', 'multimode_dist',
            'distribution_distance', 'error_Ensemble_dataset', 'check_prediction_length', 'separate_prediction_values',
            'load_file_to_df', 'error_SingleTraj_dataset', 'when_error_single', 'run_single_task', 'run_ensemble_task',
-           'listdir_nohidden', 'codalab_scoring', 'transform_ref_to_res']
+           'listdir_nohidden', 'codalab_scoring', 'codalab_scoring_local', 'transform_ref_to_res']
 
 # %% ../source_nbs/lib_nbs/utils_challenge.ipynb 2
 import numpy as np
@@ -1811,7 +1811,113 @@ def codalab_scoring(INPUT_DIR = None, # directory to where to find the reference
     output_file.close()  
         
 
-# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 154
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 152
+import os
+import re
+
+def codalab_scoring_local(submit_dir, # directory to where to find the predicted labels (i.e. folder containing folders track_1 and/or track_2)
+                          truth_dir, # directory to where to find the reference labels (i.e. folder containing folders track_1 and track_2)
+                          output_dir, # directory where the scores will be saved 
+                          scores_filename = 'scores.txt', # name of the txt scores file
+                          html_filename = 'scores.html', # name of the html scores file
+                          dfs_suffix = None # if str, suffix of the df filename: df_task_{1|2}_track_{1|2}_{dfs_suffix}.csv
+                         ):
+    ''' 
+    Local version of codalab_scoring, allowing for custom savings and without df swapping.
+    Labelling is as: 
+    Track 1: videos, 2: trajectories; 
+    Task 1: Single, 2: Ensemble
+    '''
+    
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        
+    html_filename = os.path.join(output_dir, html_filename)
+    html_file = open(html_filename, 'a', encoding="utf-8")
+    html_file.write('<h1>Submission detailed results </h1>')    
+    
+    output_filename = os.path.join(output_dir, scores_filename)
+    output_file = open(output_filename, 'w')       
+    
+
+    # Track 1: videos
+    # Track 2: trajectories
+    for track, name_track in zip([1,2], ['videos', 'trajectories']):
+        
+        ##### ----- In case the whole track is missing, give Nones to both tasks ----- #####
+        path_preds = os.path.join(submit_dir, f'track_{track}')
+        
+        if not os.path.exists(path_preds):
+            wrn_str = f'No submission for track {track} found.'
+            warnings.warn(wrn_str)
+            
+            for task in enumerate(['single', 'ensemble']): 
+                # Codalab naming:
+                # task 1 : single traj
+                # task 2: ensemble
+                idx_task = 1 if task == 'single' else 2
+                
+                # single trajectories
+                if task == 'single':                    
+                    for name, max_error in zip(['alpha','D','state', 'cp','JI'], list(_get_error_bounds()[:-2])+[0]): # This names must be the same as used in the yaml leaderboard                  
+                        output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(max_error) +'\n')
+                elif task == 'ensemble':
+                    for name, max_error in zip(['alpha','D'], _get_error_bounds()[-2:]): # This names must be the same as used in the yaml leaderboard
+                        output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(max_error) +'\n')
+            continue
+        ##### ------------------------------------------------------------------------ #####
+        
+        
+        html_file.write(f'<h2> Track {track}: '+name_track+' </h2>')
+
+        for task in ['ensemble', 'single']: 
+
+            # Codalab naming:
+            # task 1 : single traj
+            # task 2: ensemble
+            idx_task = 1 if task == 'single' else 2
+            
+            if task == 'single':
+                html_file.write(f' Single Trajectory Task ')
+            elif task == 'ensemble':
+                html_file.write(f' Ensemble Task ')
+
+
+            # Get the number of experiments from the true directory
+            exp_folders = sorted(list(listdir_nohidden(truth_dir+f'/track_{track}')))
+            exp_nums = [int(re.findall(r'\d+', name)[0]) for name in exp_folders]
+
+            if task == 'single':  
+
+                avg_metrics, df = run_single_task(exp_nums, track, submit_dir, truth_dir )
+
+                for name, res in zip(['cp','JI','alpha','D','state'], avg_metrics): # This names must be the same as used in the yaml leaderboard                  
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')
+                    
+                # Changing the name of JI to JSC to match paper nomenclature
+                html_file.write(df.to_html(index = False).replace('\n',''))
+              
+
+            if task == 'ensemble':
+
+                avg_metrics, df = run_ensemble_task(exp_nums, track, submit_dir, truth_dir)
+                
+                for name, res in zip(['alpha','D'], avg_metrics):                
+                    output_file.write(f'tr{track}.ta{idx_task}.'+name+': '+str(res) +'\n')      
+                    
+                html_file.write(df.to_html(index = False).replace('\n',''))
+
+            if dfs_suffix is not None:
+                if df.shape[0] > 1:
+                    df.to_csv(os.path.join(output_dir, f'df_track_{track}_task_{idx_task}_{dfs_suffix}.csv'))
+
+    
+   
+
+    html_file.close()
+    output_file.close()  
+
+# %% ../source_nbs/lib_nbs/utils_challenge.ipynb 156
 import glob
 # Function to rename and delete files as required
 def transform_ref_to_res(base_path : str, # path where to find the folder to reorganize
