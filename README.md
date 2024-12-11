@@ -15,11 +15,11 @@ Generate, manage and analyze anomalous diffusion trajectories
 </p>
 <p align="center">
 <a href="https://andichallenge.github.io/andi_datasets/">Get started</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/lib_nbs/index_docs.html">Documentation</a>
-\|
+|
 <a href="https://andichallenge.github.io/andi_datasets/tutorials/index_tutorials.html">Tutorials</a>
-\| <a href="#cite-us">Cite us</a>
+| <a href="#cite-us">Cite us</a>
 </p>
 
 This library has been created in the framework of the [**Anomalous
@@ -60,8 +60,7 @@ Brownian motion (SBM)](https://doi.org/10.1103%2FPhysRevE.66.021114).
 You can generate trajectories with the desired anomalous exponent in
 either one, two or three dimensions.
 
-Examples of their use and properties can be found in [this
-tutorial](tutorials/challenge_one_datasets.ipynb).
+Examples of their use and properties can be found in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_datasets.ipynb).
 
 ### Phenomenological models
 
@@ -73,7 +72,7 @@ possibility of creating dimers and condensates or the presence of
 immobile traps in the environment.
 
 Examples of their use and properties can be found in [this
-tutorial](tutorials/challenge_two_datasets.ipynb).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
 
 ## The AnDi Challenges
 
@@ -89,10 +88,9 @@ al., Nat Commun **12**, 6253
 (2021)](https://doi.org/10.1038/s41467-021-26320-w).
 
 If you want to reproduce the datasets used during the challenge, please
-check [this
-tutorial](https://github.com/AnDiChallenge/andi_datasets/blob/master/tutorials/challenge2021_submission.ipynb).
-You can then test your predictions and compare them with the those of
-challenge participants in this [online interactive
+check [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_one_submission.ipynb). You can
+then test your predictions and compare them with the those of challenge
+participants in this [online interactive
 tool](http://andi-challenge.org/interactive-tool/).
 
 ### 2nd AnDi Challenge (2023 / 2024)
@@ -101,11 +99,13 @@ The second AnDi challenge is
 [LIVE](https://andi-challenge.org/challenge-2024/). Follow the previous
 link to keep updated on all news. If you want to learn more about the
 data we will use, you can check [this
-tutorial](tutorials/challenge_two_datasets).
+tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_datasets.ipynb).
+
+> We have officialy released the [Benchark dataset of the 2nd AnDi Challenge](https://doi.org/10.5281/zenodo.14281478). You can find all details about it in [this tutorial](https://github.com/AnDiChallenge/andi_datasets/tree/master/source_nbs/tutorials/challenge_two_benchmark.ipynb).
 
 ## Version control
 
-Details on each release are presented [here](changes_andi_v2.ipynb).
+Details on each release are presented [here](https://github.com/AnDiChallenge/andi_datasets/blob/master/source_nbs/changes_andi_v2.ipynb).
 
 ## Contributing
 
