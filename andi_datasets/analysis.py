@@ -376,8 +376,14 @@ def fisher_information_matrix(alpha, K_alpha, N, delta_t=1.0):
     
     return I_matrix, I_inverse
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 59
-def p_variation(traj, m, p):
+# %% ../source_nbs/lib_nbs/analysis.ipynb 34
+def p_variation(traj : np.array, # Trajectory for which to compute the p-variation
+                m : int, # Time lag between positions considered in the p-variation (see Eq. (8) of https://doi.org/10.1103/PhysRevE.82.021130)
+                p : int # Integer defining the p-variation
+               )-> np.array : # p-variation of the current trajectory 
+    ''' 
+    Given a trajectory, computes the p-variation for the given lag m and variation p.
+    '''
     
     N = len(traj)
     sample_indexes = np.arange(0, N-m, m)
@@ -391,9 +397,8 @@ def p_variation(traj, m, p):
         pvar[t] = sum(x_diff ** p)
         
     return pvar
-   
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 60
+# %% ../source_nbs/lib_nbs/analysis.ipynb 35
 from scipy.special import gamma
 
 def p_variation_FBM(H : float, # Hurst exponent
@@ -411,7 +416,7 @@ def p_variation_FBM(H : float, # Hurst exponent
     pvar = t * expected_value
     return pvar
 
-# %% ../source_nbs/lib_nbs/analysis.ipynb 67
+# %% ../source_nbs/lib_nbs/analysis.ipynb 42
 from scipy.signal import periodogram
 
 def psd(traj : np.ndarray, # Trajectory of size (T,) (i.e. 1D) or (T, dim)
