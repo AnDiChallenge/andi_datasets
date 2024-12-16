@@ -405,9 +405,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#codalab_scoring" id="toc-codalab_scoring" class="nav-link" data-scroll-target="#codalab_scoring">codalab_scoring</a></li>
   <li><a href="#listdir_nohidden" id="toc-listdir_nohidden" class="nav-link" data-scroll-target="#listdir_nohidden">listdir_nohidden</a></li>
+  <li><a href="#codalab_scoring_local" id="toc-codalab_scoring_local" class="nav-link" data-scroll-target="#codalab_scoring_local">codalab_scoring_local</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#helpers-transform-results-dataset-in-reference-dataset" id="toc-helpers-transform-results-dataset-in-reference-dataset" class="nav-link" data-scroll-target="#helpers-transform-results-dataset-in-reference-dataset">Helpers transform results dataset in reference dataset</a>
+  <li><a href="#helper-to-transform-results-dataset-in-reference-dataset" id="toc-helper-to-transform-results-dataset-in-reference-dataset" class="nav-link" data-scroll-target="#helper-to-transform-results-dataset-in-reference-dataset">Helper to transform results dataset in reference dataset</a>
   <ul class="collapse">
   <li><a href="#transform_ref_to_res" id="toc-transform_ref_to_res" class="nav-link" data-scroll-target="#transform_ref_to_res">transform_ref_to_res</a></li>
   </ul></li>
@@ -3004,13 +3005,82 @@ Metric diffusive state: 1.0</code></pre>
 <blockquote class="blockquote">
 <pre><code> listdir_nohidden (path)</code></pre>
 </blockquote>
-</section>
-</section>
-</section>
-<section id="helpers-transform-results-dataset-in-reference-dataset" class="level1">
-<h1>Helpers transform results dataset in reference dataset</h1>
+<section id="local-version" class="level4">
+<h4 class="anchored" data-anchor-id="local-version">Local version</h4>
+<p>Due to the restrictions of Codalab, which enforces the inputs / outputs of the scoring programs, it is harder to exactly choose the files we want to process, as well as where we want to put the outputs. Also, we want a function that is able to return the scores in different formats. This function does that.</p>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1817" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1818" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+</section>
+<section id="codalab_scoring_local" class="level3">
+<h3 class="anchored" data-anchor-id="codalab_scoring_local">codalab_scoring_local</h3>
+<blockquote class="blockquote">
+<pre><code> codalab_scoring_local (submit_dir, truth_dir, output_dir,
+                        scores_filename='scores.txt',
+                        html_filename='scores.html', dfs_suffix=None)</code></pre>
+</blockquote>
+<p>Local version of codalab_scoring, allowing for custom savings and without df swapping. Labelling is as: Track 1: videos, 2: trajectories; Task 1: Single, 2: Ensemble</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>submit_dir</td>
+<td></td>
+<td></td>
+<td>directory to where to find the predicted labels (i.e.&nbsp;folder containing folders track_1 and/or track_2)</td>
+</tr>
+<tr class="even">
+<td>truth_dir</td>
+<td></td>
+<td></td>
+<td>directory to where to find the reference labels (i.e.&nbsp;folder containing folders track_1 and track_2)</td>
+</tr>
+<tr class="odd">
+<td>output_dir</td>
+<td></td>
+<td></td>
+<td>directory where the scores will be saved</td>
+</tr>
+<tr class="even">
+<td>scores_filename</td>
+<td>str</td>
+<td>scores.txt</td>
+<td>name of the txt scores file</td>
+</tr>
+<tr class="odd">
+<td>html_filename</td>
+<td>str</td>
+<td>scores.html</td>
+<td>name of the html scores file</td>
+</tr>
+<tr class="even">
+<td>dfs_suffix</td>
+<td>NoneType</td>
+<td>None</td>
+<td>if str, suffix of the df filename: df_task_{1|2}<em>track</em>{1|2}_{dfs_suffix}.csv</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="helper-to-transform-results-dataset-in-reference-dataset" class="level1">
+<h1>Helper to transform results dataset in reference dataset</h1>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/utils_challenge.py#L1923" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="transform_ref_to_res" class="level3">
 <h3 class="anchored" data-anchor-id="transform_ref_to_res">transform_ref_to_res</h3>
 <blockquote class="blockquote">

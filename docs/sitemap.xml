@@ -2,82 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/challenge_two_submission.html</loc>
-    <lastmod>2024-06-17T12:39:50.792Z</lastmod>
+    <lastmod>2024-12-16T12:38:29.373Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/andi_and_ergodicity.html</loc>
-    <lastmod>2024-06-17T12:39:51.260Z</lastmod>
+    <lastmod>2024-12-16T12:38:29.877Z</lastmod>
+  </url>
+  <url>
+    <loc>https://andichallenge.github.io/andi_datasets/tutorials/challenge_two_benchmark.html</loc>
+    <lastmod>2024-12-16T12:38:30.306Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/challenge_one_submission.html</loc>
-    <lastmod>2024-06-17T12:39:51.588Z</lastmod>
+    <lastmod>2024-12-16T12:38:30.618Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/index_tutorials.html</loc>
-    <lastmod>2024-06-17T12:39:51.800Z</lastmod>
+    <lastmod>2024-12-16T12:38:30.812Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/challenge_two_datasets.html</loc>
-    <lastmod>2024-06-17T12:39:52.172Z</lastmod>
+    <lastmod>2024-12-16T12:38:31.167Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/challenge_one_datasets.html</loc>
-    <lastmod>2024-06-17T12:39:52.528Z</lastmod>
+    <lastmod>2024-12-16T12:38:31.509Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/tutorials/creating_videos_phenom.html</loc>
-    <lastmod>2024-06-17T12:39:53.788Z</lastmod>
+    <lastmod>2024-12-16T12:38:32.723Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/figures/figure_helper.html</loc>
-    <lastmod>2024-06-17T12:39:54.260Z</lastmod>
+    <lastmod>2024-12-16T12:38:33.195Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/index.html</loc>
-    <lastmod>2024-06-17T12:39:54.496Z</lastmod>
+    <lastmod>2024-12-16T12:38:33.430Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_theory.html</loc>
-    <lastmod>2024-06-17T12:39:54.768Z</lastmod>
+    <lastmod>2024-12-16T12:38:33.707Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_challenge.html</loc>
-    <lastmod>2024-06-17T12:39:55.096Z</lastmod>
+    <lastmod>2024-12-16T12:38:34.009Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/utils_trajectories.html</loc>
-    <lastmod>2024-06-17T12:39:55.460Z</lastmod>
+    <lastmod>2024-12-16T12:38:34.359Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/models_theory.html</loc>
-    <lastmod>2024-06-17T12:39:55.672Z</lastmod>
+    <lastmod>2024-12-16T12:38:34.565Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/index_docs.html</loc>
-    <lastmod>2024-06-17T12:39:55.900Z</lastmod>
+    <lastmod>2024-12-16T12:38:34.769Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/models_phenom.html</loc>
-    <lastmod>2024-06-17T12:39:56.572Z</lastmod>
+    <lastmod>2024-12-16T12:38:35.445Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/datasets_phenom.html</loc>
-    <lastmod>2024-06-17T12:39:56.832Z</lastmod>
+    <lastmod>2024-12-16T12:38:35.700Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/utils_challenge.html</loc>
-    <lastmod>2024-06-17T12:39:57.636Z</lastmod>
+    <lastmod>2024-12-16T12:38:36.500Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/analysis.html</loc>
-    <lastmod>2024-06-17T12:39:57.965Z</lastmod>
+    <lastmod>2024-12-16T12:38:36.904Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/lib_nbs/utils_videos.html</loc>
-    <lastmod>2024-06-17T12:39:58.869Z</lastmod>
+    <lastmod>2024-12-16T12:38:37.776Z</lastmod>
   </url>
   <url>
     <loc>https://andichallenge.github.io/andi_datasets/changes_andi_v2.html</loc>
-    <lastmod>2024-06-17T12:39:59.085Z</lastmod>
+    <lastmod>2024-12-16T12:38:38.003Z</lastmod>
   </url>
 </urlset>

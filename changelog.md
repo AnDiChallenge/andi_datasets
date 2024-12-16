@@ -1,8 +1,21 @@
 # Changelog
 
-## 2.1.5 (unreleased)
+## 2.1.5 
+
+### New Features
+- New tutorial for the AnDi 2 Benchmark dataset ([#49](https://github.com/AnDiChallenge/andi_datasets/pull/39))
+
+- New analysis tools: p-variation and Power spectral density as well as the Cramer-Rao lower bounds ([#50](https://github.com/AnDiChallenge/andi_datasets/pull/50))
+
+- Local version of the scoring program used during the AnDi 2 competition that allows for local scoring (([#51](https://github.com/AnDiChallenge/andi_datasets/pull/51))
 
 ### Bugs Squashed
+- Solved bug for indexing VIP particles in videos ( [#44](https://github.com/AnDiChallenge/andi_datasets/pull/44) and  [#46](https://github.com/AnDiChallenge/andi_datasets/pull/46))
+
+- Recoded `label_filter` to solve many existing bugs ([#40](https://github.com/AnDiChallenge/andi_datasets/pull/40))
+
+- Solved bug in slicing in missing trajectories (see [#39](https://github.com/AnDiChallenge/andi_datasets/pull/39))
+
 - Improved `utils_challenge.label_filter` and added few extra tests to ensure that there are never trajectories with segments shorter than `min_seg`.
 
 ## 2.1.4

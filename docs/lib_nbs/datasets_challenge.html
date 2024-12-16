@@ -353,22 +353,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-1-challenge-theory" class="level1">
 <h1>ANDI 1 challenge (theory)</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L21" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="challenge_theory_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_theory_dataset">challenge_theory_dataset</h3>
 <blockquote class="blockquote">
 <pre><code> challenge_theory_dataset (N:numpy.ndarray|int=1000, max_T:int=1000,
                            min_T:int=10, tasks:list|int=[1, 2, 3],
                            dimensions:list|int=[1, 2, 3],
-                           load_dataset:{'True','False'}=False,
-                           save_dataset:{'True','False'}=False,
+                           load_dataset:{'False','True'}=False,
+                           save_dataset:{'False','True'}=False,
                            path_datasets:str='',
-                           load_labels:{'True','False'}=True,
-                           load_trajectories:{'True','False'}=False,
-                           save_trajectories:{'True','False'}=False,
+                           load_labels:{'False','True'}=True,
+                           load_trajectories:{'False','True'}=False,
+                           save_trajectories:{'False','True'}=False,
                            path_trajectories:str='datasets/',
                            N_save:int=1000, t_save:int=1000,
-                           return_noise:{'True','False'}=False)</code></pre>
+                           return_noise:{'False','True'}=False)</code></pre>
 </blockquote>
 <p>Creates a dataset similar to the one given by in the ANDI 1 challenge. Check the webpage of the challenge for more details. The default values are similar to the ones used to generate the available dataset.</p>
 <p>The function returns 6 variables, three variables for the trajectories and three for the corresponding labels. Each variable is a list of three lists. Each of the three lists corresponds to a given dimension, in ascending order. If one of the tasks/dimensions was not calculated, the given list will be empty.</p>
@@ -421,13 +421,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>load_dataset</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module loads existing datasets from the files task{}.txt and ref{}.txt.</td>
 </tr>
 <tr class="odd">
 <td>save_dataset</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module saves the datasets in a .txt following the competition format.</td>
 </tr>
@@ -439,19 +439,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>load_labels</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>True</td>
 <td>If False, only loads trajectories and avoids the files refX.txt.</td>
 </tr>
 <tr class="even">
 <td>load_trajectories</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module loads the trajectories of an .h5 file.</td>
 </tr>
 <tr class="odd">
 <td>save_trajectories</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, the module saves a .h5 file for each model considered, with N_save trajectories and T = T_save.</td>
 </tr>
@@ -475,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>return_noise</td>
-<td>{‘True’, ‘False’}</td>
+<td>{‘False’, ‘True’}</td>
 <td>False</td>
 <td>If True, returns the amplitudes of the noises added to the trajectories.</td>
 </tr>
@@ -492,7 +492,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="andi-2-challenge-phenom" class="level1">
 <h1>ANDI 2 challenge (phenom)</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L392" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L393" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="defaults_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="defaults_andi2">_defaults_andi2</h3>
 <blockquote class="blockquote">
@@ -500,7 +500,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>This class defines the default values set for the ANDI 2 challenge.</p>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L411" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L412" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="get_dic_andi2" class="level3">
 <h3 class="anchored" data-anchor-id="get_dic_andi2">_get_dic_andi2</h3>
@@ -535,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L493" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/datasets_challenge.py#L494" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="challenge_phenom_dataset" class="level3">
 <h3 class="anchored" data-anchor-id="challenge_phenom_dataset">challenge_phenom_dataset</h3>
@@ -684,42 +684,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <p>We generate a dataset of trajectories from 5 different experiments. As we are not stating the opposite, each experiment will correspond to one of the 5 diffusion models considered in ANDI 2 (phenom).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num_experiments, num_fovs <span class="op">=</span> <span class="dv">2</span>, <span class="dv">1</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num_experiments, num_fovs <span class="op">=</span> <span class="dv">5</span>, <span class="dv">1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dics <span class="op">=</span> []</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_experiments):    </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    dic <span class="op">=</span> _get_dic_andi2(i<span class="op">+</span><span class="dv">1</span>)    </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>: dic.update({<span class="st">'dim'</span>:<span class="dv">2</span>})</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    dics.append(dic)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>: </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        dic.update({<span class="st">'dim'</span>:<span class="dv">2</span>})</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    dics.append(dic)    </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_list, _, _, _ <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> num_experiments, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_list, _, _ <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> num_experiments, </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                            num_fovs <span class="op">=</span> num_fovs, </span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                            dics <span class="op">=</span> dics,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                            return_timestep_labs <span class="op">=</span> <span class="va">False</span>, </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                            get_video <span class="op">=</span> <span class="va">True</span>, num_vip <span class="op">=</span> <span class="dv">3</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                            save_data <span class="op">=</span> <span class="va">True</span>, path <span class="op">=</span> <span class="st">'dataset/'</span>,                                 </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                            files_reorg <span class="op">=</span> <span class="va">True</span>, path_reorg <span class="op">=</span> <span class="st">'reorg/'</span>, save_labels_reorg <span class="op">=</span> <span class="va">False</span>, delete_raw <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                            return_timestep_labs <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                            <span class="co"># get_video = True, num_vip = 10,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                            <span class="co"># save_data = False, path = Path('dataset/'),                                 </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                            <span class="co"># files_reorg = False, path_reorg = Path('reorg/'), save_labels_reorg = False, delete_raw = True</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"781679dfe09c49c5880245408f116465","version_major":2,"version_minor":0}
+</script>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Creating dataset for Exp_0 (single_state).
+Creating dataset for Exp_1 (multi_state).
+Creating dataset for Exp_2 (immobile_traps).
+Creating dataset for Exp_3 (dimerization).
+Creating dataset for Exp_4 (confinement).</code></pre>
+</div>
 </div>
 <section id="distributions-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="distributions-parameters">Distributions parameters</h3>
 <p>We first check how distributed are the diffusion parameters of the generated trajectories.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="bu">len</span>(df_list), figsize <span class="op">=</span> (<span class="bu">len</span>(df_list)<span class="op">*</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span><span class="dv">2</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> df, ax, dic <span class="kw">in</span> <span class="bu">zip</span>(df_list, axs.transpose(), dics):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    alphas <span class="op">=</span> df[<span class="st">'alpha'</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    Ds <span class="op">=</span> df[<span class="st">'D'</span>]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    states <span class="op">=</span> df[<span class="st">'state'</span>]</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> u <span class="kw">in</span> np.unique(states):</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">0</span>].hist(alphas[states <span class="op">==</span> u], density <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">1</span>].hist(Ds[states <span class="op">==</span> u], density <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].set_title(dic[<span class="st">'model'</span>])</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[:,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>,:], xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>,:], xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="bu">len</span>(df_list), figsize <span class="op">=</span> (<span class="bu">len</span>(df_list)<span class="op">*</span><span class="dv">2</span>, <span class="dv">2</span><span class="op">*</span><span class="dv">2</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> df, ax, dic <span class="kw">in</span> <span class="bu">zip</span>(df_list, axs.transpose(), dics):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    alphas <span class="op">=</span> df[<span class="st">'alpha'</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    Ds <span class="op">=</span> df[<span class="st">'D'</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    states <span class="op">=</span> df[<span class="st">'state'</span>]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> u <span class="kw">in</span> np.unique(states):</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">0</span>].hist(alphas[states <span class="op">==</span> u], density <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">1</span>].hist(Ds[states <span class="op">==</span> u], density <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].set_title(dic[<span class="st">'model'</span>])</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[:,<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'Frequency'</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>,:], xlabel <span class="op">=</span> <span class="vs">r'$\alpha$'</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">1</span>,:], xlabel <span class="op">=</span> <span class="vs">r'$D$'</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>''</code></pre>
 </div>
@@ -732,11 +745,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="fovs">FOVs</h3>
 <p>We can also check that generating multiple FOVS from every experiments actually choses random FOVs in the desired space.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>num_fovs <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> num_experiments <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_fov, _ , lab_e <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                               num_fovs <span class="op">=</span>num_fovs, </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                               return_timestep_labs <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>num_fovs <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> num_experiments <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df_fov, _ , lab_e <span class="op">=</span> challenge_phenom_dataset(experiments <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                               num_fovs <span class="op">=</span>num_fovs, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                               return_timestep_labs <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                                               )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"1bf6c81fa7604d5993007f7fc31ae7e9","version_major":2,"version_minor":0}

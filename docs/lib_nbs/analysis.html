@@ -335,6 +335,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#cramér-rao-lower-bound" id="toc-cramér-rao-lower-bound" class="nav-link" data-scroll-target="#cramér-rao-lower-bound">Cramér-Rao lower bound</a>
   <ul class="collapse">
   <li><a href="#crlb_d" id="toc-crlb_d" class="nav-link" data-scroll-target="#crlb_d">CRLB_D</a></li>
+  <li><a href="#bounds-for-alpha-and-k_alpha-in-fbm" id="toc-bounds-for-alpha-and-k_alpha-in-fbm" class="nav-link" data-scroll-target="#bounds-for-alpha-and-k_alpha-in-fbm">Bounds for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(K_{alpha}\)</span> in FBM</a>
+  <ul class="collapse">
+  <li><a href="#derivative_covariance_matrix_k_alpha" id="toc-derivative_covariance_matrix_k_alpha" class="nav-link" data-scroll-target="#derivative_covariance_matrix_k_alpha">derivative_covariance_matrix_K_alpha</a></li>
+  <li><a href="#derivative_covariance_matrix_alpha" id="toc-derivative_covariance_matrix_alpha" class="nav-link" data-scroll-target="#derivative_covariance_matrix_alpha">derivative_covariance_matrix_alpha</a></li>
+  <li><a href="#generate_covariance_matrix" id="toc-generate_covariance_matrix" class="nav-link" data-scroll-target="#generate_covariance_matrix">generate_covariance_matrix</a></li>
+  <li><a href="#fisher_information_matrix" id="toc-fisher_information_matrix" class="nav-link" data-scroll-target="#fisher_information_matrix">fisher_information_matrix</a></li>
+  <li><a href="#fisher_information_cross" id="toc-fisher_information_cross" class="nav-link" data-scroll-target="#fisher_information_cross">fisher_information_cross</a></li>
+  <li><a href="#fisher_information_k_alpha" id="toc-fisher_information_k_alpha" class="nav-link" data-scroll-target="#fisher_information_k_alpha">fisher_information_K_alpha</a></li>
+  <li><a href="#fisher_information_alpha" id="toc-fisher_information_alpha" class="nav-link" data-scroll-target="#fisher_information_alpha">fisher_information_alpha</a></li>
+  <li><a href="#example-crlb-of-alpha-for-unknown-and-known-k_alpha" id="toc-example-crlb-of-alpha-for-unknown-and-known-k_alpha" class="nav-link" data-scroll-target="#example-crlb-of-alpha-for-unknown-and-known-k_alpha">Example: CRLB of <span class="math inline">\(\alpha\)</span> for unknown and known <span class="math inline">\(K_\alpha\)</span></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#p-variation" id="toc-p-variation" class="nav-link" data-scroll-target="#p-variation">p-variation</a>
+  <ul class="collapse">
+  <li><a href="#p_variation" id="toc-p_variation" class="nav-link" data-scroll-target="#p_variation">p_variation</a></li>
+  <li><a href="#p_variation_fbm" id="toc-p_variation_fbm" class="nav-link" data-scroll-target="#p_variation_fbm">p_variation_FBM</a></li>
+  <li><a href="#example-1-p-variation-scaling-for-p-2" id="toc-example-1-p-variation-scaling-for-p-2" class="nav-link" data-scroll-target="#example-1-p-variation-scaling-for-p-2">Example 1: p-variation scaling for p = 2</a></li>
+  <li><a href="#example-2-theoretical-estiation-of-p-variation-for-fbm-and-p-1h" id="toc-example-2-theoretical-estiation-of-p-variation-for-fbm-and-p-1h" class="nav-link" data-scroll-target="#example-2-theoretical-estiation-of-p-variation-for-fbm-and-p-1h">Example 2: Theoretical estiation of p-variation for FBM and p = 1/H</a></li>
+  </ul></li>
+  <li><a href="#power-spectral-density" id="toc-power-spectral-density" class="nav-link" data-scroll-target="#power-spectral-density">Power spectral density</a>
+  <ul class="collapse">
+  <li><a href="#psd" id="toc-psd" class="nav-link" data-scroll-target="#psd">psd</a></li>
+  <li><a href="#example-from-clean-to-noisy-trajectories" id="toc-example-from-clean-to-noisy-trajectories" class="nav-link" data-scroll-target="#example-from-clean-to-noisy-trajectories">Example: from clean to noisy trajectories</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andichallenge/andi_datasets/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -363,7 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="angle-calculation" class="level1">
 <h1>Angle calculation</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L20" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L23" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="dataset_angles" class="level3">
 <h3 class="anchored" data-anchor-id="dataset_angles">dataset_angles</h3>
 <blockquote class="blockquote">
@@ -392,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L11" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L14" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="get_angle" class="level3">
 <h3 class="anchored" data-anchor-id="get_angle">get_angle</h3>
@@ -441,7 +464,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="msd-based-analysis" class="level1">
 <h1>MSD based analysis</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L30" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L33" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="msd_analysis" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis">msd_analysis</h3>
 <blockquote class="blockquote">
@@ -449,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>Contains mean squared displacement (MSD) based methods to analyze trajectories.</p>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L35" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L38" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="msd_analysis.tamsd" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis.tamsd">msd_analysis.tamsd</h3>
@@ -500,7 +523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L68" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L71" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="msd_analysis.get_diff_coeff" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis.get_diff_coeff">msd_analysis.get_diff_coeff</h3>
@@ -561,7 +584,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L102" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L105" target="_blank" style="float:right; font-size:smaller">source</a></p>
 </section>
 <section id="msd_analysis.get_exponent" class="level3">
 <h3 class="anchored" data-anchor-id="msd_analysis.get_exponent">msd_analysis.get_exponent</h3>
@@ -629,7 +652,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="velocity-autocorrelation-function-vacf" class="level1">
 <h1>Velocity Autocorrelation Function (VACF)</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L139" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L186" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="vacf" class="level3">
 <h3 class="anchored" data-anchor-id="vacf">vacf</h3>
 <blockquote class="blockquote">
@@ -703,11 +726,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="convex-hull-analysis" class="level1">
 <h1>Convex hull analysis</h1>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L185" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L232" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="ch_changepoints" class="level3">
 <h3 class="anchored" data-anchor-id="ch_changepoints">CH_changepoints</h3>
 <blockquote class="blockquote">
-<pre><code> CH_changepoints (trajs, tau:int=10, metric:{'area','volume'}='volume')</code></pre>
+<pre><code> CH_changepoints (trajs, tau:int=10, metric:{'volume','area'}='volume')</code></pre>
 </blockquote>
 <p>Computes the changes points a multistate trajectory based on the Convex Hull approach proposed in PRE 96 (022144), 2017.</p>
 <table class="table">
@@ -740,7 +763,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>metric</td>
-<td>{‘area’, ‘volume’}</td>
+<td>{‘volume’, ‘area’}</td>
 <td>volume</td>
 <td>Calculate change points w.r.t. area or volume of CH.</td>
 </tr>
@@ -801,13 +824,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Expressions of the CRLB for the estimation of the diffusion coefficient for trajectories without noise, for dimension 1 and 2, at different trajectory lengths</p>
 </blockquote>
 <hr>
-<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L226" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L273" target="_blank" style="float:right; font-size:smaller">source</a></p>
 <section id="crlb_d" class="level3">
 <h3 class="anchored" data-anchor-id="crlb_d">CRLB_D</h3>
 <blockquote class="blockquote">
 <pre><code> CRLB_D (T:int, dim:int=1)</code></pre>
 </blockquote>
-<p>Calculates the bound for S(D)/D, i.e.&nbsp;ratio between the standard deviation and the expected value of D This holds for x-&gt;0 only (i.e.&nbsp;no noise)! See PRE 85, 061916 (2012) for full equation.</p>
+<p>Returns the Cramer-Rao lower bound S(D)/D for Brownian motion without noise, namely</p>
+<p>S(D) / D = sqrt(2 / (d·T) )</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -838,46 +862,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<p>Here we show how for Brownian motion trajectories, the MSD with is optimal and converges to the CRLB.</p>
+<p>Here we show how for Brownian motion trajectories, the MSD with is <em>nearly</em> optimal and follows the same scaling as the CRLB (i.e.&nbsp;<span class="math inline">\(S(D)/D = \sqrt(6/T)\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#eval: false</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> np.arange(<span class="dv">10</span>, <span class="dv">100</span>) <span class="co"># Trajectory lengths</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> np.arange(<span class="fl">0.5</span>, <span class="fl">2.1</span>, <span class="fl">0.5</span>) <span class="co"># We will test on different diffusion coefficients</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving the standard deviations</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>std_ds <span class="op">=</span> np.zeros((<span class="bu">len</span>(Ds), <span class="bu">len</span>(Ts)))</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idxD, D <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm(Ds)):</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the BM trajectories with given parameters</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    trajs <span class="op">=</span> (np.sqrt(<span class="dv">2</span><span class="op">*</span>D)<span class="op">*</span>np.random.randn(<span class="bu">int</span>(<span class="fl">1e4</span>), Ts[<span class="op">-</span><span class="dv">1</span>], <span class="dv">1</span>)).cumsum(<span class="dv">1</span>) </span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idxL, T <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm(Ts)):</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        std_ds[idxD, idxL] <span class="op">=</span> np.array(msd_analysis().get_diff_coeff(trajs <span class="op">=</span> trajs[:, :T], t_lags <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>])).std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Ts <span class="op">=</span> np.logspace(<span class="dv">1</span>, <span class="dv">3</span>,<span class="dv">20</span>).astype(<span class="bu">int</span>) <span class="co"># Trajectory lengths</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Ds <span class="op">=</span> np.arange(<span class="fl">0.5</span>, <span class="fl">2.1</span>, <span class="fl">0.5</span>) <span class="co"># We will test on different diffusion coefficients</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving the standard deviations</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>std_ds <span class="op">=</span> np.zeros((<span class="bu">len</span>(Ds), <span class="bu">len</span>(Ts)))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idxD, D <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm(Ds)):</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate the BM trajectories with given parameters</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    trajs <span class="op">=</span> (np.sqrt(<span class="dv">2</span><span class="op">*</span>D)<span class="op">*</span>np.random.randn(<span class="bu">int</span>(<span class="fl">1e4</span>), Ts[<span class="op">-</span><span class="dv">1</span>], <span class="dv">1</span>)).cumsum(<span class="dv">1</span>) </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idxL, T <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm(Ts)):</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        std_ds[idxD, idxL] <span class="op">=</span> np.array(msd_analysis().get_diff_coeff(trajs <span class="op">=</span> trajs[:, :T], t_lags <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>])).std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"a8fb11672d3547b9bef16041f8db888d","version_major":2,"version_minor":0}
+{"model_id":"ce06d21fdfda4bca901283b4632be192","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"10e4920973fb44ebb4fa7dabdd5810eb","version_major":2,"version_minor":0}
+{"model_id":"4ad59e51d0a248a3a2e08069a681c923","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"b524d56d2cd54adba3783ddf826c6530","version_major":2,"version_minor":0}
+{"model_id":"ccdcaac7bb0f4216a62cb56824809c59","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"69815c58e0c543b9bd96c9156a1011ea","version_major":2,"version_minor":0}
+{"model_id":"322dfa6efd3348dda8a7bbc0dc4a1d93","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"cc22adad665947bfacbef2d342d395a2","version_major":2,"version_minor":0}
+{"model_id":"93347d52236a474a985a4ac9ff00b0b6","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -885,29 +908,401 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">4</span>, figsize <span class="op">=</span> (<span class="dv">4</span><span class="op">*</span><span class="dv">3</span>,<span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (ax, std_d, D) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(axs.flatten(), std_ds, Ds)):</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(Ts, std_d<span class="op">/</span>D, label <span class="op">=</span> <span class="vs">r'MSD$_{1-2}$'</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Ts[::<span class="dv">3</span>], CRLB_D(Ts)[::<span class="dv">3</span>], label <span class="op">=</span> <span class="st">'Cramer-Rao bound'</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, facecolor <span class="op">=</span> <span class="st">'w'</span>, edgecolor <span class="op">=</span> <span class="st">'C1'</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">fr'$D = </span><span class="sc">{</span>D<span class="sc">}</span><span class="vs">$'</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].legend()</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'std(D) / D'</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.setp(axs, xlabel <span class="op">=</span> <span class="st">'Traj. length'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Ts, std_d<span class="op">/</span>D, label <span class="op">=</span> <span class="vs">r'MSD$_{1-2}$'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    ax.loglog(Ts, np.sqrt(<span class="dv">6</span><span class="op">/</span>Ts), label <span class="op">=</span> <span class="st">'Predicted std for MSD'</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, c <span class="op">=</span> <span class="st">'C1'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    ax.loglog(Ts, CRLB_D(Ts), label <span class="op">=</span> <span class="st">'Cramer-Rao bound'</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, c <span class="op">=</span> <span class="st">'k'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">fr'$D = </span><span class="sc">{</span>D<span class="sc">}</span><span class="vs">$'</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].legend()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'std(D) / D'</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.setp(axs, xlabel <span class="op">=</span> <span class="st">'Traj. length'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="analysis_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Here is now the same calculation for 2D trajectories, showing that we get the same convergence!</p>
+</section>
+<section id="bounds-for-alpha-and-k_alpha-in-fbm" class="level2">
+<h2 class="anchored" data-anchor-id="bounds-for-alpha-and-k_alpha-in-fbm">Bounds for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(K_{alpha}\)</span> in FBM</h2>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L318" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="derivative_covariance_matrix_k_alpha" class="level3">
+<h3 class="anchored" data-anchor-id="derivative_covariance_matrix_k_alpha">derivative_covariance_matrix_K_alpha</h3>
+<blockquote class="blockquote">
+<pre><code> derivative_covariance_matrix_K_alpha (alpha, K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the derivative of the covariance matrix with respect to K_alpha.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L300" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="derivative_covariance_matrix_alpha" class="level3">
+<h3 class="anchored" data-anchor-id="derivative_covariance_matrix_alpha">derivative_covariance_matrix_alpha</h3>
+<blockquote class="blockquote">
+<pre><code> derivative_covariance_matrix_alpha (alpha, K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the derivative of the covariance matrix with respect to alpha using vectorized operations.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L284" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="generate_covariance_matrix" class="level3">
+<h3 class="anchored" data-anchor-id="generate_covariance_matrix">generate_covariance_matrix</h3>
+<blockquote class="blockquote">
+<pre><code> generate_covariance_matrix (alpha, K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Generate the covariance matrix for FBM using vectorized operations.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L364" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="fisher_information_matrix" class="level3">
+<h3 class="anchored" data-anchor-id="fisher_information_matrix">fisher_information_matrix</h3>
+<blockquote class="blockquote">
+<pre><code> fisher_information_matrix (alpha, K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the full Fisher Information Matrix and its inverse.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L351" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="fisher_information_cross" class="level3">
+<h3 class="anchored" data-anchor-id="fisher_information_cross">fisher_information_cross</h3>
+<blockquote class="blockquote">
+<pre><code> fisher_information_cross (alpha, K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the Fisher Information cross term I_alpha,K_alpha.</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L344" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="fisher_information_k_alpha" class="level3">
+<h3 class="anchored" data-anchor-id="fisher_information_k_alpha">fisher_information_K_alpha</h3>
+<blockquote class="blockquote">
+<pre><code> fisher_information_K_alpha (K_alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the Fisher Information component I_K_alpha,K_alpha.</p>
+<p>In this case, it can be analytically calculate as N/(2*K_alpha**2)</p>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L327" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="fisher_information_alpha" class="level3">
+<h3 class="anchored" data-anchor-id="fisher_information_alpha">fisher_information_alpha</h3>
+<blockquote class="blockquote">
+<pre><code> fisher_information_alpha (alpha, N, delta_t=1.0)</code></pre>
+</blockquote>
+<p>Calculate the Fisher Information component I_alpha,alpha.</p>
+</section>
+<section id="example-crlb-of-alpha-for-unknown-and-known-k_alpha" class="level3">
+<h3 class="anchored" data-anchor-id="example-crlb-of-alpha-for-unknown-and-known-k_alpha">Example: CRLB of <span class="math inline">\(\alpha\)</span> for unknown and known <span class="math inline">\(K_\alpha\)</span></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">4</span>, figsize <span class="op">=</span> (<span class="dv">4</span><span class="op">*</span><span class="dv">3</span>,<span class="dv">3</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, (ax, std_d, D) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(axs.flatten(), std_ds, Ds)):</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(Ts, std_d<span class="op">/</span>D, label <span class="op">=</span> <span class="vs">r'MSD$_{1-2}$'</span>, c <span class="op">=</span> <span class="st">'C2'</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    ax.scatter(Ts[::<span class="dv">3</span>], CRLB_D(Ts, dim <span class="op">=</span> <span class="dv">2</span>)[::<span class="dv">3</span>], label <span class="op">=</span> <span class="st">'Cramer-Rao bound'</span>, alpha <span class="op">=</span> <span class="fl">0.9</span>, facecolor <span class="op">=</span> <span class="st">'w'</span>, edgecolor <span class="op">=</span> <span class="st">'C3'</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">fr'$D = </span><span class="sc">{</span>D<span class="sc">}</span><span class="vs">$'</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].legend()</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.setp(axs[<span class="dv">0</span>], ylabel <span class="op">=</span> <span class="st">'std(D) / D'</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.setp(axs, xlabel <span class="op">=</span> <span class="st">'Traj. length'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example parameters</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> np.linspace(<span class="fl">0.1</span>, <span class="fl">1.9</span>, <span class="dv">50</span>) <span class="co"># anomalous exponent to check</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span>  <span class="co"># Length of the trajectory</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>K_alpha <span class="op">=</span> <span class="dv">1</span> <span class="co"># diffusion coefficient (note that these results are independnet of K_alpha)</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance with known K_alpha (i.e. inverse of diagonal term of the Fisher information matrix)</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>var_a_k <span class="op">=</span> np.array([<span class="dv">1</span><span class="op">/</span>fisher_information_alpha(alpha, T) <span class="cf">for</span> alpha <span class="kw">in</span> alphas])</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance with unknown K_alpha (i.e. diagonal term of the inverse of the full Fisher information matrix)</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>var_a_uk <span class="op">=</span> np.array([fisher_information_matrix(alpha, K_alpha, T)[<span class="dv">1</span>][<span class="dv">0</span>,<span class="dv">0</span>] <span class="cf">for</span> alpha <span class="kw">in</span> alphas])</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>plt.plot(alphas, var_a_k, c <span class="op">=</span> <span class="st">'#003f5c'</span>, lw <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="vs">r'Known $K_\alpha$'</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>plt.plot(alphas, var_a_uk, c <span class="op">=</span> <span class="st">'#ffbf00'</span>, lw <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="vs">r'Unknown $K_\alpha$'</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>plt.plot(alphas, var_a_uk<span class="op">-</span>var_a_k, c <span class="op">=</span> <span class="st">'#a3a3a3'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, label <span class="op">=</span> <span class="st">'Difference'</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r'$\alpha$'</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="analysis_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="analysis_files/figure-html/cell-24-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="p-variation" class="level1">
+<h1>p-variation</h1>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L380" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="p_variation" class="level3">
+<h3 class="anchored" data-anchor-id="p_variation">p_variation</h3>
+<blockquote class="blockquote">
+<pre><code> p_variation (traj:&lt;built-infunctionarray&gt;, m:int, p:int)</code></pre>
+</blockquote>
+<p>Given a trajectory, computes the p-variation for the given lag m and variation p.</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>traj</td>
+<td>array</td>
+<td>Trajectory for which to compute the p-variation</td>
+</tr>
+<tr class="even">
+<td>m</td>
+<td>int</td>
+<td>Time lag between positions considered in the p-variation (see Eq. (8) of https://doi.org/10.1103/PhysRevE.82.021130)</td>
+</tr>
+<tr class="odd">
+<td>p</td>
+<td>int</td>
+<td>Integer defining the p-variation</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td><strong>p-variation of the current trajectory</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L404" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="p_variation_fbm" class="level3">
+<h3 class="anchored" data-anchor-id="p_variation_fbm">p_variation_FBM</h3>
+<blockquote class="blockquote">
+<pre><code> p_variation_FBM (H:float, sigma:float, t:&lt;built-infunctionarray&gt;)</code></pre>
+</blockquote>
+<p>Given a Hurst exponent and the std of a FBM process with MSD = sigma^2 t^(2H), computes the predicted p-variation:</p>
+<p>p^(1/H) (t) = E(|B(1)|^(1/H))</p>
+<p>See more at Eq. (8) in https://doi.org/10.1103/PhysRevE.82.011129</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>H</td>
+<td>float</td>
+<td>Hurst exponent</td>
+</tr>
+<tr class="even">
+<td>sigma</td>
+<td>float</td>
+<td>Standard deviation of the FBM process</td>
+</tr>
+<tr class="odd">
+<td>t</td>
+<td>array</td>
+<td>times for which to compute p^(1/H) (t)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>array</strong></td>
+<td><strong>Theoretical prediction for the p^(1/H) (t)</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-1-p-variation-scaling-for-p-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-1-p-variation-scaling-for-p-2">Example 1: p-variation scaling for p = 2</h2>
+<p>In the case of <code>p = 2</code>, based on <a href="http://dx.doi.org/10.1103/PhysRevLett.103.180602">[1]</a>:</p>
+<ul>
+<li>For FBM: we should have an increasing p-variation with bigger resolution (in the paper it means increasing n in Eq.(5) but in the discrete version used here it means decreasing <code>m</code> (see Eq. (8) of <a href="https://doi.org/10.1103/PhysRevE.82.021130">[2]</a>).</li>
+<li>For CTRW: the p-variation should estabilize to a value given [1] (i.e smaller <code>m</code> should start converging to this stable value).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>fbm_traj <span class="op">=</span> models_theory().fbm(alpha <span class="op">=</span> H<span class="op">*</span><span class="dv">2</span>, T <span class="op">=</span> T)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>ctrw_traj <span class="op">=</span> models_theory().ctrw(alpha <span class="op">=</span> H<span class="op">*</span><span class="dv">2</span>, T <span class="op">=</span> T)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">7</span>,<span class="dv">3</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]:</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    pvar_fbm <span class="op">=</span> p_variation(fbm_traj, p <span class="op">=</span> <span class="dv">2</span>, m <span class="op">=</span> m)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    pvar_ctrw <span class="op">=</span> p_variation(ctrw_traj, p <span class="op">=</span> <span class="dv">2</span>, m <span class="op">=</span> m)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].plot(np.arange(T), pvar_fbm, label <span class="op">=</span> m)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].plot(np.arange(T), pvar_ctrw, label <span class="op">=</span> m)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(title <span class="op">=</span> <span class="st">'m'</span>)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'p-variation (p = 2)'</span>)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>plt.setp(ax, xlabel <span class="op">=</span> <span class="st">'Time'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="analysis_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="example-2-theoretical-estiation-of-p-variation-for-fbm-and-p-1h" class="level2">
+<h2 class="anchored" data-anchor-id="example-2-theoretical-estiation-of-p-variation-for-fbm-and-p-1h">Example 2: Theoretical estiation of p-variation for FBM and p = 1/H</h2>
+<p>In the case of <code>p = 1/H</code>, with <code>H</code> being the Hurst exponent, we can theoretically calculated the value of the p-variation for an FBM process (see Eq. (6) of <a href="http://dx.doi.org/10.1103/PhysRevLett.103.180602">1</a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>pvar_alpha <span class="op">=</span> []</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>Hs <span class="op">=</span> np.linspace(<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="dv">5</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>pvars <span class="op">=</span> []</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>pvars_t <span class="op">=</span> []</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>Ds_est <span class="op">=</span> []</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>min_idx <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idxH, H <span class="kw">in</span> <span class="bu">enumerate</span>(Hs): </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We create a trajectory with fixed D = 1</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> np.cumsum(models_phenom().disp_fbm(D <span class="op">=</span> <span class="dv">1</span>, alpha <span class="op">=</span> H<span class="op">*</span><span class="dv">2</span>, T <span class="op">=</span> T))</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    pvar <span class="op">=</span> p_variation(traj, p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>H, m <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    pvar_theory <span class="op">=</span> p_variation_FBM(H <span class="op">=</span> H, </span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>                                  sigma <span class="op">=</span> np.sqrt(<span class="dv">2</span>), <span class="co"># Note that definition of diffusion coefficient is different </span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>                                                      <span class="co"># for models_phenom and this function, hence introducint a sqrt(2) factor</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>                                  t <span class="op">=</span> np.arange(T))</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    plt.loglog(np.arange(T)[min_idx:], pvar[min_idx:], label <span class="op">=</span> <span class="st">'Numerical calculation'</span> <span class="cf">if</span> idxH <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">''</span>)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(T)[min_idx:], pvar_theory[min_idx:], label <span class="op">=</span> <span class="st">'Theoretical prediction'</span> <span class="cf">if</span> idxH <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">''</span>,</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>             c <span class="op">=</span> <span class="ss">f'C</span><span class="sc">{</span>idxH<span class="sc">}</span><span class="ss">'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'p-variation (p = 1/H)'</span>)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Text(0.5, 0, 'Time')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="analysis_files/figure-html/cell-28-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="power-spectral-density" class="level1">
+<h1>Power spectral density</h1>
+<hr>
+<p><a href="https://github.com/andichallenge/andi_datasets/blob/master/andi_datasets/analysis.py#L422" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="psd" class="level3">
+<h3 class="anchored" data-anchor-id="psd">psd</h3>
+<blockquote class="blockquote">
+<pre><code> psd (traj:numpy.ndarray)</code></pre>
+</blockquote>
+<p>Calculates the approximate power spectral density based on scipy.periodogram</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>traj</td>
+<td>ndarray</td>
+<td>Trajectory of size (T,) (i.e.&nbsp;1D) or (T, dim)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>tuple</strong></td>
+<td><strong>(f, psd): frequencies f and power spectral density. Sizes f: (floor(T/2)), psd: (floor(T/2))</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-from-clean-to-noisy-trajectories" class="level3">
+<h3 class="anchored" data-anchor-id="example-from-clean-to-noisy-trajectories">Example: from clean to noisy trajectories</h3>
+<p>In this example we show how to use the PSD and also how the noise present in the trajectories can affect this assesment. This is based on the result of <a href="https://www.nature.com/articles/s42005-022-01079-8">“Towards a robust criterion of anomalous diffusion”, V. Sposini et al.</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Hurst exponents we will consider</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>Hs <span class="op">=</span> np.array([<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Storing variables</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mean and std of the PSD for the clean trajectories</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>muH <span class="op">=</span> np.zeros((<span class="bu">len</span>(Hs), <span class="bu">int</span>(T<span class="op">/</span><span class="dv">2</span>)))</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>stdH <span class="op">=</span> np.zeros_like(muH)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co"># mean and std of the PSD for the noise trajectories</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>muH_noise <span class="op">=</span> np.zeros_like(muH)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>stdH_noise <span class="op">=</span> np.zeros_like(muH)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>sigma_noise <span class="op">=</span> <span class="fl">1e2</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idxH, H <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm(Hs)):</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    psdH <span class="op">=</span> np.zeros((N, <span class="bu">int</span>(T<span class="op">/</span><span class="dv">2</span>)))</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    psdH_noise <span class="op">=</span> np.zeros((N, <span class="bu">int</span>(T<span class="op">/</span><span class="dv">2</span>)))</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idxN <span class="kw">in</span> (<span class="bu">range</span>(N)):</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Here we generate the clean trajectories and compute their PSD</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> models_phenom().disp_fbm(D <span class="op">=</span> <span class="dv">1</span>, alpha <span class="op">=</span> H<span class="op">*</span><span class="dv">2</span>, T <span class="op">=</span> T).cumsum()</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>        f, psd <span class="op">=</span> periodogram(X)</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>        psdH[idxN] <span class="op">=</span> psd[<span class="dv">1</span>:]</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Now we noise the trajectories and compute their new PSD</span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>        X_noise <span class="op">=</span> X <span class="op">+</span> np.random.randn(X.shape[<span class="dv">0</span>])<span class="op">*</span>np.sqrt(sigma_noise)</span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>        _, psd_noise <span class="op">=</span> periodogram(X_noise)</span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>        psdH_noise[idxN] <span class="op">=</span> psd_noise[<span class="dv">1</span>:]</span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>    muH[idxH] <span class="op">=</span> psdH.mean(<span class="dv">0</span>)</span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>    stdH[idxH] <span class="op">=</span> psdH.std(<span class="dv">0</span>)</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>    muH_noise[idxH] <span class="op">=</span> psdH_noise.mean(<span class="dv">0</span>)</span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>    stdH_noise[idxH] <span class="op">=</span> psdH_noise.std(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d97f77e15011462289a088009c13bcca","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
+<p>We can can now show what we previously calculated. The solid lines represent the clean trajectories while the shaded ones are the noisy. The dashed line in the left plot shows the expected scaling for subdiffusive trajectories while the point-dashed one is the expected scaling for normal and superdiffusive trajectories. The dashed line in the rightmost plot show the expected theoretical convergence for each type of diffusion. See more about this in <a href="https://www.nature.com/articles/s42005-022-01079-8">“Towards a robust criterion of anomalous diffusion”, V. Sposini et al.</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">14</span>,<span class="dv">6</span>), tight_layout <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idxH, H <span class="kw">in</span> <span class="bu">enumerate</span>((Hs)):</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].loglog(f[<span class="dv">1</span>:], muH[idxH]<span class="op">/</span>muH[idxH,<span class="dv">0</span>], label <span class="op">=</span> <span class="vs">fr'$\alpha$ = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(H,<span class="dv">2</span>)<span class="op">*</span><span class="dv">2</span><span class="sc">}</span><span class="vs">'</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].loglog(f[<span class="dv">1</span>:], muH_noise[idxH]<span class="op">/</span>muH_noise[idxH,<span class="dv">0</span>], c<span class="op">=</span><span class="ss">f'C</span><span class="sc">{</span>idxH<span class="sc">}</span><span class="ss">'</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> idxH <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">0</span>].plot(np.linspace(<span class="fl">1e-4</span>, <span class="fl">1e-2</span>, <span class="dv">10</span>), <span class="fl">1e-6</span><span class="op">*</span>np.linspace(<span class="fl">1e-4</span>, <span class="fl">1e-2</span>, <span class="dv">10</span>)<span class="op">**</span>(<span class="op">-</span>H<span class="op">*</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span>), c <span class="op">=</span> <span class="st">'k'</span>, ls <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> idxH <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        ax[<span class="dv">0</span>].plot(np.linspace(<span class="fl">1e-4</span>, <span class="fl">1e-2</span>, <span class="dv">10</span>), <span class="fl">1e-11</span><span class="op">*</span>np.linspace(<span class="fl">1e-4</span>, <span class="fl">1e-2</span>, <span class="dv">10</span>)<span class="op">**</span>(<span class="op">-</span>H<span class="op">*</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span>), c <span class="op">=</span> <span class="st">'k'</span>, ls <span class="op">=</span> <span class="st">'-.'</span>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].semilogx(f[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>], stdH[idxH, :<span class="op">-</span><span class="dv">1</span>]<span class="op">/</span> muH[idxH, :<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].semilogx(f[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>], stdH_noise[idxH, :<span class="op">-</span><span class="dv">1</span>]<span class="op">/</span> muH_noise[idxH, :<span class="op">-</span><span class="dv">1</span>], c<span class="op">=</span><span class="ss">f'C</span><span class="sc">{</span>idxH<span class="sc">}</span><span class="ss">'</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> [<span class="dv">1</span>, np.sqrt(<span class="dv">2</span>), np.sqrt(<span class="dv">5</span>)<span class="op">/</span><span class="dv">2</span>]: ax[<span class="dv">1</span>].axhline(line, c<span class="op">=</span><span class="st">'k'</span>, ls <span class="op">=</span> <span class="st">'--'</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">0</span>], </span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>         xlabel <span class="op">=</span> <span class="st">'f [Hz]'</span>,</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>         ylabel <span class="op">=</span> <span class="st">'PSD / PSD(f = 0)'</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>plt.setp(ax[<span class="dv">1</span>], </span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>         xlabel <span class="op">=</span> <span class="st">'f [Hz]'</span>,</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>         ylabel <span class="op">=</span> <span class="vs">r'$\gamma$'</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;matplotlib.legend.Legend&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="analysis_files/figure-html/cell-31-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 
