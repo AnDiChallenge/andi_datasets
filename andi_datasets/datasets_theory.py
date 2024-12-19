@@ -73,9 +73,9 @@ class datasets_theory():
             Path to the folder where to save/load the trajectories dataset.
         N_save : int
             Number of trajectories to save for each exponents/model. 
-            Advise: save at the beggining a big dataset (t_save ~ 1e3 and N_save ~ 1e4) 
+            Advise: save at the beggining a big dataset (T_save ~ 1e3 and N_save ~ 1e4) 
             which then allows you to load any other combiantion of T and N_models.
-        t_save : int
+        T_save : int
             Length of the trajectories to be saved. See comments on N_save.                
         
         Returns
@@ -150,7 +150,7 @@ class datasets_theory():
                                                  n_per_class = n_per_class,
                                                  path = path,
                                                  N_save = N_save,
-                                                 t_save = t_save)
+                                                 T_save = T_save)
         elif save_trajectories:
             self._save_trajectories(exponents = exponents,
                                    dimension = self._dimension,
@@ -159,7 +159,7 @@ class datasets_theory():
                                    path = path, 
                                    n_per_class = n_per_class,
                                    N_save = N_save,
-                                   t_save = t_save)
+                                   T_save = T_save)
             
             data_models = self._load_trajectories(T = T,
                                                  exponents = exponents,
@@ -168,7 +168,7 @@ class datasets_theory():
                                                  n_per_class = n_per_class,
                                                  path = path,
                                                  N_save = N_save,
-                                                 t_save = t_save)
+                                                 T_save = T_save)
             
         else:           
             data_models = self._create_trajectories(T = T,                                                   
@@ -182,7 +182,7 @@ class datasets_theory():
     
     def _load_trajectories(self, T, exponents, dimension, 
                                 models_name, n_per_class, 
-                                path, N_save = 1000, t_save = 1000):
+                                path, N_save = 1000, T_save = 1000):
         ''' Load trajectories from a h5py file of the given path. The name of the datasets in the
         file have the following structure: 
             '(exponent with 2 digit_precision)_T_(lenght of trajectories in the dataset)_N_(number of trajectories in the dataset)'
@@ -200,7 +200,7 @@ class datasets_theory():
                 - number of trajectories to consider per exponent/model.
             :path (str):
                 - path to the folder from where to load the trajectories dataset.
-            :t_save (int):
+            :T_save (int):
                 - length of the trajectories in the datasets to load.
             :N_save (array):
                 - number of trajectories contained in the datasets to load.                  
@@ -224,7 +224,7 @@ class datasets_theory():
             
             for idx_e, exp  in enumerate(exponents):
                 
-                name_dataset = f'{exp:.2f}_T_{t_save}_N_'+ \
+                name_dataset = f'{exp:.2f}_T_{T_save}_N_'+ \
                                 str(int(N_save[idx_m, idx_e]))+f'_dim_{self._dimension}'  
                 
                 n = int(n_per_class[idx_m, idx_e])
@@ -246,7 +246,7 @@ class datasets_theory():
         return dataset
      
     def _save_trajectories(self, exponents, models_name, models_func, path, n_per_class,
-                          N_save = 1000, t_save = 1000, dimension = 1):
+                          N_save = 1000, T_save = 1000, dimension = 1):
         ''' Saves a dataset for the exponents and models considered. 
         Arguments:   
             :exponents (array):
@@ -257,7 +257,7 @@ class datasets_theory():
                 - function generating the models to include in the output dataset. 
             :path (str):
                 - path to the folder where to save the trajectories dataset.
-            :t_save (int):
+            :T_save (int):
                 - length of the trajectories to save in the datasets.
             :N_save (array):
                 - number of trajectories to include in the datasets saved.
@@ -282,16 +282,16 @@ class datasets_theory():
                         continue
                     
                     n = int(N_save[idx_m, idx_e])                    
-                    name_dataset = f'{exp:.2f}_T_{t_save}_N_{n}_dim_{self._dimension}' 
+                    name_dataset = f'{exp:.2f}_T_{T_save}_N_{n}_dim_{self._dimension}' 
                     
                     if name_dataset not in hf:  
                         
-                        data = np.zeros((n, self._dimension*t_save))                           
+                        data = np.zeros((n, self._dimension*T_save))                           
                         # TQDM variables
                         tq = trange(n)
                         tq.set_postfix(saving = True, model = name, exponent = exp)
                         for i in tq:
-                            data[i, :] = func(t_save, exp)                           
+                            data[i, :] = func(T_save, exp)                           
                             
                         hf.create_dataset(name_dataset, data=data)
                         
@@ -380,7 +380,7 @@ class datasets_theory():
                                           noise_func = False, sigma = 1, mu = 0,
                                           save_trajectories = False, load_trajectories = False, 
                                           path = 'datasets/',
-                                          N_save = 1000, t_save = 1000): 
+                                          N_save = 1000, T_save = 1000): 
         ''' 
         Create a dataset of noisy trajectories. 
         This function creates trajectories with _create_trajectories and then adds given noise to them.        
@@ -409,7 +409,7 @@ class datasets_theory():
             dataset = self.create_dataset(T, N, exponents, models, dimension,
                                                      save_trajectories, load_trajectories, 
                                                      path,
-                                                     N_save, t_save)
+                                                     N_save, T_save)
             
         # Add the noise to the trajectories  
         trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
@@ -425,7 +425,7 @@ class datasets_theory():
                                        diffusion_coefficients = False,
                                        save_trajectories = False, load_trajectories = False, 
                                        path = 'datasets/',
-                                       N_save = 1000, t_save = 1000): 
+                                       N_save = 1000, T_save = 1000): 
         ''' 
         Create a dataset of noisy trajectories. 
         This function creates trajectories with `_create_trajectories` and then adds given noise to them.        
@@ -453,7 +453,7 @@ class datasets_theory():
             dataset = self.create_dataset(T, N, exponents, models, dimension,
                                                      save_trajectories, load_trajectories, 
                                                      path,
-                                                     N_save, t_save)
+                                                     N_save, T_save)
         # Add the noise to the trajectories 
         trajs = dataset[:, 2:].reshape(dataset.shape[0]*dimension, T)
         trajs = self._add_noisy_diffusion(trajs, diffusion_coefficients)
