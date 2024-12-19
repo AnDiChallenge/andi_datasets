@@ -411,8 +411,13 @@ class _defaults_andi2:
 # %% ../source_nbs/lib_nbs/datasets_challenge.ipynb 9
 def _get_dic_andi2(model):
     ''' 
-    Given the number label of diffusion model, returns a default
+    Given the number label of diffusion model, returns a default 
     dictionary of the model's parameters to be fed to create_dataset
+
+    The parameters have been chosen to mimick typical biophysical experiments. 
+    To know more about this, please take a look at our paper: https://arxiv.org/abs/2311.18100
+
+    
     The numeration is as follow:
             1: single state
             2: N-state
