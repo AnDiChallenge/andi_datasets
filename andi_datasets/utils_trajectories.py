@@ -275,8 +275,8 @@ def segs_inside_fov(traj, fov_origin, fov_length, cutoff_length):
     ----------
     traj : array
         Set of trajectories of size N x T (N: number trajectories, T: length).
-    fov_origin : tuple
-        Bottom right point of the square defining the FOV.
+    fov_origin : array
+        2D array with the coordinates of the bottom left corner of the FOV.
     fov_length : float
         Size of the box defining the FOV.
     cutoff_length : float
@@ -327,8 +327,8 @@ def inside_fov_dataset(trajs, labels,
         Set of trajectories with shape T x N x 2.
     labels : array
         Set of labels with shape T x N x 2.
-    fov_origin : tuple
-        Bottom left point of the square defining the FOV.
+    fov_origin : array
+        2D array with the coordinates of the bottom left corner of the FOV.
     fov_length : float
         Size of the box defining the FOV.
     cutoff_length : float
