@@ -500,6 +500,7 @@ def challenge_phenom_dataset(experiments = 5,
                              dics = None,
                              repeat_exp = True,
                              num_fovs = 1,
+                             fov_coordinates = False,
                              return_timestep_labs = False,
                              save_data = False,
                              path = 'data/',
@@ -536,6 +537,8 @@ def challenge_phenom_dataset(experiments = 5,
             If False: picks the diffusion in an ordered way from the pool.
     num_fovs : int
             Number of field of views to get trajectories from in each experiment.
+    fov_coordinates : bool
+            If True, the trajectory coordinates are taken with respect to the FOV origin.
     return_timestep_labs : bool
             If True, the output trajectories dataframes containing also the labels alpha, D and state at each time step.        
     save_data : bool
@@ -663,8 +666,13 @@ def challenge_phenom_dataset(experiments = 5,
                     for idx_nan in nan_segms:  
                         idx_seg += 1  
                         
-                        trajs_fov.append(traj[idx_nan[0]:idx_nan[1]])
+                        traj_slice = traj[idx_nan[0]:idx_nan[1]]
                         frames_fov.append(frames[idx_nan[0]:idx_nan[1]])
+
+                        if fov_coordinates and traj.shape[1] == 2:
+                            traj_slice = traj_slice - fov_origin
+
+                        trajs_fov.append(traj_slice)
 
                         lab_seg = []
                         for idx_lab in range(labels.shape[-1]):
@@ -695,8 +703,8 @@ def challenge_phenom_dataset(experiments = 5,
                                 writer.writerow(list_gt)
 
                         # Save index of segment with its length to latter append in the dataframe              
-                        idx_segs_fov.append(np.ones(trajs_fov[-1].shape[0])*idx_seg)             
-            
+                        idx_segs_fov.append(np.ones(trajs_fov[-1].shape[0])*idx_seg)
+
             '''Extract ensemble trajectories''' 
             if len(array_labels_fov):
                 ensemble_fov = extract_ensemble(np.concatenate(array_labels_fov)[:, -1], dic)
