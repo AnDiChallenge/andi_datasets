@@ -661,7 +661,7 @@ def challenge_phenom_dataset(experiments = 5,
 
                 if nan_segms is not None:
                     for idx_nan in nan_segms:  
-                        idx_seg+= 1  
+                        idx_seg += 1  
                         
                         trajs_fov.append(traj[idx_nan[0]:idx_nan[1]])
                         frames_fov.append(frames[idx_nan[0]:idx_nan[1]])
