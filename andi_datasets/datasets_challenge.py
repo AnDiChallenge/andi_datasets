@@ -643,7 +643,7 @@ def challenge_phenom_dataset(experiments = 5,
             min_fov = int(dist*_defaults_andi2().L)
             max_fov = int((1-dist)*_defaults_andi2().L)-_defaults_andi2().FOV_L
             # sample the position of the FOV
-            fov_origin = (np.random.randint(min_fov, max_fov), np.random.randint(min_fov, max_fov))
+            fov_origin = np.random.randint(min_fov, max_fov, 2)  # 2D coordinates
             ''' Go over trajectories in FOV (copied from utils_trajectories for efficiency) '''
             trajs_fov, array_labels_fov, list_labels_fov, idx_segs_fov, frames_fov = [], [], [], [], []
             idx_seg = -1
