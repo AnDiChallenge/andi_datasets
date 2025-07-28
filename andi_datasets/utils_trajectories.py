@@ -158,8 +158,6 @@ def normalize_fGN(disp, alpha, D, T: int, deltaT : int = 1):
     return disp*np.sqrt(T)**(alpha)*np.sqrt(2*D*deltaT)
 
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 23
-import math
-
 class trigo():
     
     '''
@@ -241,7 +239,7 @@ class trigo():
         # Get cosine value
         cos_ = dot_prod/magA/magB
         # Get angle in radians and then convert to degrees
-        return math.acos(dot_prod/magB/magA)    
+        return np.arccos(np.clip(dot_prod/magB/magA,-1,1))
     
     def rotate_vec(vec, angle):
         return (vec[0]*np.cos(angle) + vec[1]*np.sin(angle), -vec[0]*np.sin(angle) + vec[1]*np.cos(angle))
