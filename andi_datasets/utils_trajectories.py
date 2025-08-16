@@ -416,6 +416,7 @@ class motion_blur():
 # %% ../source_nbs/lib_nbs/utils_trajectories.ipynb 40
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+from matplotlib.collections import PatchCollection
 from numpy.random import default_rng
 
 rng = default_rng()
