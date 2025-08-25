@@ -9,7 +9,6 @@ from .models_phenom import models_phenom
 import inspect
 import numpy as np
 import pandas as pd
-from tqdm.auto import tqdm
 import copy
 
 from pathlib import Path
