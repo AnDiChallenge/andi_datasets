@@ -10,7 +10,6 @@ import pandas as pd
 import csv
 import shutil
 from pathlib import Path
-import warnings
 
 from .utils_challenge import label_continuous_to_list, extract_ensemble, label_filter, df_to_array, get_VIP, file_nonOverlap_reOrg
 from .datasets_phenom import datasets_phenom
@@ -501,6 +500,7 @@ def challenge_phenom_dataset(experiments = 5,
                              repeat_exp = True,
                              num_fovs = 1,
                              fov_coordinates = False,
+                             sigma_noise = _defaults_andi2().sigma_noise,
                              return_timestep_labs = False,
                              save_data = False,
                              path = 'data/',
@@ -524,23 +524,25 @@ def challenge_phenom_dataset(experiments = 5,
     Parameters   
     ----------
     experiments : int, list
-            - if int: Number of experiments to generate. Each experiment is 
+        - if int: Number of experiments to generate. Each experiment is 
             generated from one of the available diffusion models.  
-            - if list: diffusion models to generate (starting with 1!!!!!)
+        - if list: diffusion models to generate (starting with 1!!!!!)
     dics : dictionary, list of dics
-            If given, uses this to set the parameters of the experiments.
-            Must be of length equal to experiments. 
-            This overrides any info about chosen models, as the model is set by the dictionary.
+        If given, uses this to set the parameters of the experiments.
+        Must be of length equal to experiments. 
+        This overrides any info about chosen models, as the model is set by the dictionary.
     repeat_exp : bool, list
-            -> Does not enter into play if experiments is list        
+        -> Does not enter into play if experiments is list        
             If True: picks at random the diffusion model from the pool.
             If False: picks the diffusion in an ordered way from the pool.
     num_fovs : int
-            Number of field of views to get trajectories from in each experiment.
+        Number of field of views to get trajectories from in each experiment.
     fov_coordinates : bool
-            If True, the trajectory coordinates are taken with respect to the FOV origin.
+        If True, the trajectory coordinates are taken with respect to the FOV origin.
+    sigma_noise : float
+        Standard deviation of the noise added to the trajectories. Defaults to _defaults_andi2().sigma_noise
     return_timestep_labs : bool
-            If True, the output trajectories dataframes containing also the labels alpha, D and state at each time step.        
+        If True, the output trajectories dataframes containing also the labels alpha, D and state at each time step.        
     save_data : bool
         If True, saves all pertinent data.
     path : pathlib.Path
@@ -782,10 +784,10 @@ def challenge_phenom_dataset(experiments = 5,
                                         
             # Add noise to the trajectories (see that this has to be done
             # after the videos, so these are not affected by the noise).
-            df_traj.x += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
-            df_traj.y += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise                         
+            df_traj.x += np.random.randn(df_traj.shape[0])*sigma_noise 
+            df_traj.y += np.random.randn(df_traj.shape[0])*sigma_noise                         
             if 'dim' in dic.keys() and dic['dim'] == 3:
-                df_traj.z += np.random.randn(df_traj.shape[0])*_defaults_andi2().sigma_noise 
+                df_traj.z += np.random.randn(df_traj.shape[0])*sigma_noise 
                 
             
                     
