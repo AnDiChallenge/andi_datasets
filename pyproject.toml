@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=64.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="andi_datasets"
+requires-python=">=3.10"
+license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
+dynamic = [ "keywords", "description", "version", "dependencies", "optional-dependencies", "readme",  "authors", "classifiers", "entry-points", "scripts", "urls"]
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { file = "settings.ini" }, { file = "setup.py" }]
